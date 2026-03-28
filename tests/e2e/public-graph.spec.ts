@@ -34,6 +34,18 @@ test("search returns mixed published entity types", async ({ page }) => {
   await expect(page.getByRole("link", { name: "News Harvesting" })).toBeVisible();
 });
 
+test("search empty states route back into useful public browse surfaces", async ({
+  page,
+}) => {
+  await page.goto("/search?q=this-will-not-match-any-published-record");
+
+  await expect(
+    page.getByRole("heading", { name: "No published matches" }),
+  ).toBeVisible();
+  await expect(page.getByRole("link", { name: "Browse agents" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Browse prompts" })).toBeVisible();
+});
+
 test("sign-in page reflects disabled admin bootstrap state", async ({ page }) => {
   const signInPage = new SignInPage(page);
 

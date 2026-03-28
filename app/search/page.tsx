@@ -40,11 +40,43 @@ export default async function SearchPage({
         <PublicEmptyState
           title="No query yet"
           detail="Start with a model, workflow, prompt, or agent name and the published graph will search across all current surfaces."
+          actions={
+            <>
+              <Link
+                href="/agents"
+                className="chip rounded-full px-4 py-2 text-sm font-medium text-foreground"
+              >
+                Browse agents
+              </Link>
+              <Link
+                href="/prompts"
+                className="chip rounded-full px-4 py-2 text-sm font-medium text-foreground"
+              >
+                Browse prompts
+              </Link>
+            </>
+          }
         />
       ) : results.length === 0 ? (
         <PublicEmptyState
           title="No published matches"
           detail={`Nothing published matches “${query}” yet. Try a broader term or publish matching records from the admin console.`}
+          actions={
+            <>
+              <Link
+                href="/agents"
+                className="chip rounded-full px-4 py-2 text-sm font-medium text-foreground"
+              >
+                Browse agents
+              </Link>
+              <Link
+                href="/prompts"
+                className="chip rounded-full px-4 py-2 text-sm font-medium text-foreground"
+              >
+                Browse prompts
+              </Link>
+            </>
+          }
         />
       ) : (
         <section className="grid gap-3">

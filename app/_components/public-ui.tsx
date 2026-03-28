@@ -97,9 +97,11 @@ export function PublicPageHeader({
 export function PublicEmptyState({
   title,
   detail,
+  actions,
 }: {
   title: string;
   detail: string;
+  actions?: React.ReactNode;
 }) {
   return (
     <section className="panel rounded-[1.75rem] px-6 py-8">
@@ -108,6 +110,7 @@ export function PublicEmptyState({
           {title}
         </h2>
         <p className="max-w-2xl text-sm leading-7 text-muted">{detail}</p>
+        {actions ? <div className="flex flex-wrap gap-3 pt-2">{actions}</div> : null}
       </div>
     </section>
   );
