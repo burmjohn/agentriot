@@ -10,6 +10,13 @@ export class AdminSkillPage {
     ).toBeVisible();
   }
 
+  async gotoNew() {
+    await this.page.goto("/admin/skills/new");
+    await expect(
+      this.page.getByRole("heading", { name: "Create skill" }),
+    ).toBeVisible();
+  }
+
   async openRecord(title: string) {
     const link = this.page
       .locator('a[href^="/admin/skills/"]')
@@ -26,6 +33,38 @@ export class AdminSkillPage {
     await expect(
       this.page.getByRole("heading", { name: `Edit skill: ${title}` }),
     ).toBeVisible();
+  }
+
+  async fillCreateForm(input: {
+    title: string;
+    status: string;
+    shortDescription: string;
+    longDescription: string;
+    websiteUrl: string;
+    githubUrl: string;
+  }) {
+    await this.page.getByLabel("Status").selectOption({ label: input.status });
+    await this.page.getByRole("textbox", { name: "Title", exact: true }).fill(input.title);
+    await this.page.getByLabel("Short description").fill(input.shortDescription);
+    await this.page.getByLabel("Long description").fill(input.longDescription);
+    await this.page.getByLabel("Website URL").fill(input.websiteUrl);
+    await this.page.getByLabel("GitHub URL").fill(input.githubUrl);
+  }
+
+  async expectSlugValue(value: string) {
+    await expect(this.page.getByLabel("Slug override")).toHaveValue(value);
+  }
+
+  async createSkill() {
+    await this.page.getByRole("button", { name: "Create skill" }).click();
+  }
+
+  async expectListSuccessBanner(message: string) {
+    await expect(this.page.getByText(message)).toBeVisible();
+  }
+
+  async expectSkillListed(title: string) {
+    await expect(this.page.getByRole("link", { name: title })).toBeVisible();
   }
 
   async saveTaxonomy(termLabel: string) {
