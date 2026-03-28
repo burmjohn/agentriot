@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { permanentRedirect } from "next/navigation";
 import { notFound } from "next/navigation";
 import { PromptBodyCard } from "@/app/prompts/[slug]/prompt-body-card";
 import {
@@ -10,6 +11,7 @@ import {
   PublicTaxonomyGroups,
 } from "@/app/_components/public-ui";
 import { getPublishedPromptDetail } from "@/lib/public/hub";
+import { getRedirectTarget } from "@/lib/content/redirects";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export default async function PromptDetailPage({
@@ -21,6 +23,12 @@ export default async function PromptDetailPage({
   const record = await getPublishedPromptDetail(slug);
 
   if (!record) {
+    const redirectRecord = await getRedirectTarget(`/prompts/${slug}`);
+
+    if (redirectRecord?.isPermanent) {
+      permanentRedirect(redirectRecord.targetPath);
+    }
+
     notFound();
   }
 

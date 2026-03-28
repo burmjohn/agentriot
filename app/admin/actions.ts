@@ -44,6 +44,7 @@ import {
   buildContentRestoreValues,
   createContentRevisionSnapshot,
 } from "@/lib/admin/content-revisions";
+import { syncRedirectForSlugChange } from "@/lib/content/redirects";
 import { parseSelectedIds } from "@/lib/admin/relation-selection";
 import { normalizeTaxonomyInput } from "@/lib/admin/taxonomy-input";
 import { getSession } from "@/lib/auth/server";
@@ -248,6 +249,13 @@ export async function updateContentAction(
         contentItem: updated,
         editedById: userId,
       });
+
+      await syncRedirectForSlugChange({
+        database: tx,
+        routeType: current.kind,
+        previousSlug: current.slug,
+        currentSlug: updated.slug,
+      });
     });
 
     revalidatePath("/admin");
@@ -267,11 +275,14 @@ export async function restoreContentRevisionAction(
   revisionId: string,
 ): Promise<void> {
   const userId = await requireAdminUserId();
+  const current = await db.query.contentItems.findFirst({
+    where: eq(contentItems.id, contentItemId),
+  });
   const revision = await db.query.contentRevisions.findFirst({
     where: eq(contentRevisions.id, revisionId),
   });
 
-  if (!revision || revision.contentItemId !== contentItemId) {
+  if (!current || !revision || revision.contentItemId !== contentItemId) {
     redirect(`/admin/content/${contentItemId}?error=revision-not-found`);
   }
 
@@ -289,6 +300,13 @@ export async function restoreContentRevisionAction(
       database: tx,
       contentItem: updated,
       editedById: userId,
+    });
+
+    await syncRedirectForSlugChange({
+      database: tx,
+      routeType: current.kind,
+      previousSlug: current.slug,
+      currentSlug: updated.slug,
     });
   });
 
@@ -317,14 +335,24 @@ export async function updateAgentAction(
 
     const slug = await ensureUniqueAgentSlugForUpdate(input.slug, current.slug);
 
-    await db
-      .update(agents)
-      .set({
-        ...input,
-        slug,
-        updatedById: userId,
-      })
-      .where(eq(agents.id, id));
+    await db.transaction(async (tx) => {
+      const [updated] = await tx
+        .update(agents)
+        .set({
+          ...input,
+          slug,
+          updatedById: userId,
+        })
+        .where(eq(agents.id, id))
+        .returning();
+
+      await syncRedirectForSlugChange({
+        database: tx,
+        routeType: "agent",
+        previousSlug: current.slug,
+        currentSlug: updated.slug,
+      });
+    });
 
     revalidatePath("/admin");
     revalidatePath("/admin/agents");
@@ -356,14 +384,24 @@ export async function updatePromptAction(
 
     const slug = await ensureUniquePromptSlugForUpdate(input.slug, current.slug);
 
-    await db
-      .update(prompts)
-      .set({
-        ...input,
-        slug,
-        updatedById: userId,
-      })
-      .where(eq(prompts.id, id));
+    await db.transaction(async (tx) => {
+      const [updated] = await tx
+        .update(prompts)
+        .set({
+          ...input,
+          slug,
+          updatedById: userId,
+        })
+        .where(eq(prompts.id, id))
+        .returning();
+
+      await syncRedirectForSlugChange({
+        database: tx,
+        routeType: "prompt",
+        previousSlug: current.slug,
+        currentSlug: updated.slug,
+      });
+    });
 
     revalidatePath("/admin");
     revalidatePath("/admin/prompts");
@@ -395,14 +433,24 @@ export async function updateSkillAction(
 
     const slug = await ensureUniqueSkillSlugForUpdate(input.slug, current.slug);
 
-    await db
-      .update(skills)
-      .set({
-        ...input,
-        slug,
-        updatedById: userId,
-      })
-      .where(eq(skills.id, id));
+    await db.transaction(async (tx) => {
+      const [updated] = await tx
+        .update(skills)
+        .set({
+          ...input,
+          slug,
+          updatedById: userId,
+        })
+        .where(eq(skills.id, id))
+        .returning();
+
+      await syncRedirectForSlugChange({
+        database: tx,
+        routeType: "skill",
+        previousSlug: current.slug,
+        currentSlug: updated.slug,
+      });
+    });
 
     revalidatePath("/admin");
     revalidatePath("/admin/skills");

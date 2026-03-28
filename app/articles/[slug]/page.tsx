@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { permanentRedirect } from "next/navigation";
 import { notFound } from "next/navigation";
 import {
   PublicBody,
@@ -10,6 +11,7 @@ import {
   PublicTaxonomyGroups,
 } from "@/app/_components/public-ui";
 import { getPublishedContentDetail } from "@/lib/public/hub";
+import { getRedirectTarget } from "@/lib/content/redirects";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export default async function ArticleDetailPage({
@@ -21,6 +23,12 @@ export default async function ArticleDetailPage({
   const record = await getPublishedContentDetail("article", slug);
 
   if (!record) {
+    const redirectRecord = await getRedirectTarget(`/articles/${slug}`);
+
+    if (redirectRecord?.isPermanent) {
+      permanentRedirect(redirectRecord.targetPath);
+    }
+
     notFound();
   }
 

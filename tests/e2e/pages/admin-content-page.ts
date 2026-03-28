@@ -45,6 +45,10 @@ export class AdminContentPage {
     await this.page.getByLabel("SEO description override").fill(input.seoDescription);
   }
 
+  async updateTitle(text: string) {
+    await this.page.getByRole("textbox", { name: "Title", exact: true }).fill(text);
+  }
+
   async expectSlugValue(value: string) {
     await expect(this.page.getByLabel("Slug override")).toHaveValue(value);
   }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { permanentRedirect } from "next/navigation";
 import { notFound } from "next/navigation";
 import {
   PublicBody,
@@ -10,6 +11,7 @@ import {
   PublicTaxonomyGroups,
 } from "@/app/_components/public-ui";
 import { getPublishedSkillDetail } from "@/lib/public/hub";
+import { getRedirectTarget } from "@/lib/content/redirects";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export default async function SkillDetailPage({
@@ -21,6 +23,12 @@ export default async function SkillDetailPage({
   const record = await getPublishedSkillDetail(slug);
 
   if (!record) {
+    const redirectRecord = await getRedirectTarget(`/skills/${slug}`);
+
+    if (redirectRecord?.isPermanent) {
+      permanentRedirect(redirectRecord.targetPath);
+    }
+
     notFound();
   }
 
