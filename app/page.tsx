@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PublicShell } from "@/app/_components/public-ui";
+import { PublicHeroMedia, PublicShell } from "@/app/_components/public-ui";
 import { getHomepageSnapshot } from "@/lib/public/hub";
 import { getPublicTaxonomyHref } from "@/lib/public/presentation";
 
@@ -100,16 +100,23 @@ export default async function Home() {
         </div>
 
         <div className="grid gap-3">
-          <div className="grid-noise rounded-[1.5rem] border border-border/80 bg-surface-2/70 p-4">
-            <p className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-muted">
-              current posture
-            </p>
-            <p className="mt-3 max-w-sm text-sm leading-7 text-foreground">
-              Broad public launch is live in structure now: admin-controlled
-              publishing, shared graph relations, search, and public routes for
-              agents, prompts, skills, tutorials, and articles.
-            </p>
-          </div>
+          {snapshot.leadStory?.heroImageUrl ? (
+            <PublicHeroMedia
+              imageUrl={snapshot.leadStory.heroImageUrl}
+              title={snapshot.leadStory.title}
+            />
+          ) : (
+            <div className="grid-noise rounded-[1.5rem] border border-border/80 bg-surface-2/70 p-4">
+              <p className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-muted">
+                current posture
+              </p>
+              <p className="mt-3 max-w-sm text-sm leading-7 text-foreground">
+                Broad public launch is live in structure now: admin-controlled
+                publishing, shared graph relations, search, and public routes for
+                agents, prompts, skills, tutorials, and articles.
+              </p>
+            </div>
+          )}
           <div className="grid gap-3 sm:grid-cols-2">
             {[
               "calm surface",
@@ -179,6 +186,17 @@ export default async function Home() {
         </div>
 
         <div className="grid gap-3">
+          {snapshot.leadStory?.heroImageUrl ? (
+            <div className="rounded-[1.5rem] border border-border/80 bg-background/80 p-4">
+              <p className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-muted">
+                media signal
+              </p>
+              <p className="mt-3 text-sm leading-7 text-foreground">
+                Lead stories can carry their own hero media now, so the homepage
+                stops treating published editorial records like plain text blobs.
+              </p>
+            </div>
+          ) : null}
           <div className="rounded-[1.5rem] border border-border/80 bg-background/80 p-4">
             <p className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-muted">
               why this matters

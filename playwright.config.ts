@@ -5,7 +5,7 @@ const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://localhost:${port}`;
 
 export default defineConfig({
   testDir: "./tests/e2e",
-  testIgnore: /admin-auth\.spec\.ts/,
+  testIgnore: /admin-.*\.spec\.ts/,
   fullyParallel: true,
   reporter: process.env.CI ? [["html"], ["list"]] : "list",
   retries: process.env.CI ? 1 : 0,

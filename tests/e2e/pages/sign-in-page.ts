@@ -1,6 +1,12 @@
 import { expect, type Page } from "@playwright/test";
 
 export class SignInPage {
+  static readonly adminCredentials = {
+    name: "AgentRiot Admin",
+    email: "admin@agentriot.com",
+    password: "super-secure-password",
+  };
+
   constructor(private readonly page: Page) {}
 
   async goto() {
@@ -41,5 +47,48 @@ export class SignInPage {
     await this.page
       .getByRole("button", { name: "Create admin account" })
       .click({ noWaitAfter: true });
+  }
+
+  async signIn({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) {
+    await this.page.getByLabel("Email").fill(email);
+    await this.page.getByLabel("Password").fill(password);
+    await this.page
+      .locator("form")
+      .getByRole("button", { name: "Sign in" })
+      .click({ noWaitAfter: true });
+  }
+
+  async bootstrapOrSignInAdmin() {
+    await this.signIn({
+      email: SignInPage.adminCredentials.email,
+      password: SignInPage.adminCredentials.password,
+    });
+
+    try {
+      await this.page.waitForURL("**/admin", { timeout: 5_000 });
+      return;
+    } catch {
+      const createAdminButton = this.page.getByRole("button", {
+        name: "Create admin",
+      });
+
+      if ((await createAdminButton.count()) === 0) {
+        throw new Error("Admin sign-in failed and bootstrap flow is unavailable.");
+      }
+
+      await createAdminButton.click();
+      await expect(
+        this.page.getByRole("heading", { name: "Create the first admin account" }),
+      ).toBeVisible();
+      await this.createAdmin(SignInPage.adminCredentials);
+    }
+
+    await this.page.waitForURL("**/admin", { timeout: 15_000 });
   }
 }

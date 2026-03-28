@@ -6,11 +6,21 @@ test("homepage links into the published graph", async ({ page }) => {
   const hubPage = new PublicHubPage(page);
 
   await hubPage.gotoHome();
+  await expect(
+    page.getByRole("img", {
+      name: "What Changed This Week in Coding Agents hero image",
+    }),
+  ).toBeVisible();
   await hubPage.openLeadStory();
 
   await expect(page).toHaveURL(/\/articles\/what-changed-this-week-in-coding-agents$/);
   await expect(
     page.getByRole("heading", { name: "What Changed This Week in Coding Agents" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("img", {
+      name: "What Changed This Week in Coding Agents hero image",
+    }),
   ).toBeVisible();
   await expect(page.getByRole("link", { name: "Claude Code" })).toBeVisible();
 });

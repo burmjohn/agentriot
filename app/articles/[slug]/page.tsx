@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import {
   PublicBody,
   PublicDetailHero,
+  PublicHeroMedia,
   PublicPanel,
   PublicRelatedList,
   PublicShell,
@@ -33,6 +34,9 @@ export default async function ArticleDetailPage({
       />
       <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
         <div className="grid gap-6">
+          {record.heroImageUrl ? (
+            <PublicHeroMedia imageUrl={record.heroImageUrl} title={record.title} />
+          ) : null}
           <PublicPanel title="Body">
             <PublicBody body={record.body} />
           </PublicPanel>

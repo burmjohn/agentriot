@@ -6,8 +6,9 @@ const databaseUrl = "postgres://postgres:postgres@localhost:5432/agentriot_admin
 
 export default defineConfig({
   testDir: "./tests/e2e",
-  testMatch: /admin-auth\.spec\.ts/,
+  testMatch: /admin-.*\.spec\.ts/,
   fullyParallel: false,
+  workers: 1,
   reporter: process.env.CI ? [["html"], ["list"]] : "list",
   retries: process.env.CI ? 1 : 0,
   use: {

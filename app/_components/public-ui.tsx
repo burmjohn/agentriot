@@ -267,6 +267,25 @@ export function PublicPanel({
   );
 }
 
+export function PublicHeroMedia({
+  imageUrl,
+  title,
+}: {
+  imageUrl: string;
+  title: string;
+}) {
+  return (
+    <div className="overflow-hidden rounded-[1.75rem] border border-border/80 bg-surface-2/70">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={imageUrl}
+        alt={`${title} hero image`}
+        className="h-full max-h-[28rem] w-full object-cover"
+      />
+    </div>
+  );
+}
+
 export function PublicBody({ body }: { body: string | null }) {
   if (!body) {
     return (

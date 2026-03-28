@@ -7,22 +7,7 @@ test("allowlisted admin can bootstrap the first account and reach the console", 
   const signInPage = new SignInPage(page);
 
   await signInPage.goto();
-  await signInPage.switchToCreateAdmin();
-  await signInPage.createAdmin({
-    name: "AgentRiot Admin",
-    email: "admin@agentriot.com",
-    password: "super-secure-password",
-  });
-
-  await expect
-    .poll(async () => {
-      const cookies = await page.context().cookies();
-
-      return cookies.some((cookie) => cookie.name === "better-auth.session_token");
-    })
-    .toBe(true);
-
-  await page.goto("/admin");
+  await signInPage.bootstrapOrSignInAdmin();
   await expect(
     page.getByRole("heading", { name: "Thin content ops surface" }),
   ).toBeVisible();

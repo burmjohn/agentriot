@@ -83,6 +83,16 @@ export default async function AdminContentDetailPage({
             publishedAt: formatDateTimeLocalValue(record.publishedAt),
             scheduledFor: formatDateTimeLocalValue(record.scheduledFor),
           }}
+          mediaPreview={
+            record.heroImageUrl
+              ? {
+                  imageUrl: record.heroImageUrl,
+                  alt: "Current hero image preview",
+                  detail:
+                    "This is the currently published hero image for the content record.",
+                }
+              : undefined
+          }
           fields={[
             {
               name: "kind",
