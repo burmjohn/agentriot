@@ -19,6 +19,7 @@ The current build includes the following surfaces:
 - SEO and machine-readable outputs at `/robots.txt`, `/sitemap.xml`, and
   `/llms.txt`.
 - A canonical local seed dataset for dogfooding the public graph.
+- Browser-tested public graph flows plus an isolated admin bootstrap flow.
 
 ## Requirements
 
@@ -107,6 +108,7 @@ Use these scripts during development:
 pnpm dev
 pnpm test
 pnpm test:e2e
+pnpm test:e2e:admin
 pnpm lint
 pnpm typecheck
 pnpm build
@@ -119,14 +121,26 @@ pnpm db:seed
 The repo currently uses:
 
 - Vitest for unit-level checks
-- Playwright for seeded browser flows
+- Playwright for seeded public browser flows
+- A separate isolated Playwright config for bootstrap admin auth on port `3012`
 - Next.js build for route and metadata validation
 - Seeded local data for smoke-testing the public graph
+
+The full local verification set is:
+
+```bash
+pnpm test
+pnpm lint
+pnpm typecheck
+pnpm build
+pnpm test:e2e
+pnpm test:e2e:admin
+```
 
 ## Next steps
 
 If you are continuing implementation, the next practical steps are:
 
-1. Add richer admin editorial flows such as revisions and media handling.
-2. Add a QA pass in a real browser against the seeded local graph.
-3. Add deployment and production environment configuration.
+1. Add deeper admin E2E coverage for relation editing and taxonomy workflows.
+2. Add media handling for content records.
+3. Add deployment and production environment configuration when you move past local-only development.
