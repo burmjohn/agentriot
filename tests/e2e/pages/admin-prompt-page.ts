@@ -10,6 +10,13 @@ export class AdminPromptPage {
     ).toBeVisible();
   }
 
+  async gotoNew() {
+    await this.page.goto("/admin/prompts/new");
+    await expect(
+      this.page.getByRole("heading", { name: "Create prompt" }),
+    ).toBeVisible();
+  }
+
   async openRecord(title: string) {
     const link = this.page
       .locator('a[href^="/admin/prompts/"]')
@@ -26,6 +33,44 @@ export class AdminPromptPage {
     await expect(
       this.page.getByRole("heading", { name: `Edit prompt: ${title}` }),
     ).toBeVisible();
+  }
+
+  async fillCreateForm(input: {
+    title: string;
+    status: string;
+    shortDescription: string;
+    fullDescription: string;
+    promptBody: string;
+    providerCompatibility: string;
+    variablesSchema: string;
+    exampleOutput: string;
+  }) {
+    await this.page.getByLabel("Status").selectOption({ label: input.status });
+    await this.page.getByLabel("Title").fill(input.title);
+    await this.page.getByLabel("Short description").fill(input.shortDescription);
+    await this.page.getByLabel("Full description").fill(input.fullDescription);
+    await this.page.getByLabel("Prompt body").fill(input.promptBody);
+    await this.page
+      .getByLabel("Provider compatibility")
+      .fill(input.providerCompatibility);
+    await this.page.getByLabel("Variables").fill(input.variablesSchema);
+    await this.page.getByLabel("Example output").fill(input.exampleOutput);
+  }
+
+  async expectSlugValue(value: string) {
+    await expect(this.page.getByLabel("Slug override")).toHaveValue(value);
+  }
+
+  async createPrompt() {
+    await this.page.getByRole("button", { name: "Create prompt" }).click();
+  }
+
+  async expectListSuccessBanner(message: string) {
+    await expect(this.page.getByText(message)).toBeVisible();
+  }
+
+  async expectPromptListed(title: string) {
+    await expect(this.page.getByRole("link", { name: title })).toBeVisible();
   }
 
   async saveTaxonomy(termLabel: string) {
