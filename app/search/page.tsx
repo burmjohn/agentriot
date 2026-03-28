@@ -64,6 +64,12 @@ export default async function SearchPage({
           actions={
             <>
               <Link
+                href="/search"
+                className="chip rounded-full px-4 py-2 text-sm font-medium text-foreground"
+              >
+                Clear search
+              </Link>
+              <Link
                 href="/agents"
                 className="chip rounded-full px-4 py-2 text-sm font-medium text-foreground"
               >

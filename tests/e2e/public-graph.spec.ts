@@ -42,6 +42,7 @@ test("search empty states route back into useful public browse surfaces", async 
   await expect(
     page.getByRole("heading", { name: "No published matches" }),
   ).toBeVisible();
+  await expect(page.getByRole("link", { name: "Clear search" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Browse agents" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Browse prompts" })).toBeVisible();
 });
