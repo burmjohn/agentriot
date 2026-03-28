@@ -61,8 +61,16 @@ export class AdminPromptPage {
     await expect(this.page.getByLabel("Slug override")).toHaveValue(value);
   }
 
+  async updateTitle(text: string) {
+    await this.page.getByLabel("Title").fill(text);
+  }
+
   async createPrompt() {
     await this.page.getByRole("button", { name: "Create prompt" }).click();
+  }
+
+  async savePrompt() {
+    await this.page.getByRole("button", { name: "Save prompt" }).click();
   }
 
   async expectListSuccessBanner(message: string) {

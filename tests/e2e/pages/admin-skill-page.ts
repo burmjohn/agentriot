@@ -55,8 +55,16 @@ export class AdminSkillPage {
     await expect(this.page.getByLabel("Slug override")).toHaveValue(value);
   }
 
+  async updateTitle(text: string) {
+    await this.page.getByRole("textbox", { name: "Title", exact: true }).fill(text);
+  }
+
   async createSkill() {
     await this.page.getByRole("button", { name: "Create skill" }).click();
+  }
+
+  async saveSkill() {
+    await this.page.getByRole("button", { name: "Save skill" }).click();
   }
 
   async expectListSuccessBanner(message: string) {

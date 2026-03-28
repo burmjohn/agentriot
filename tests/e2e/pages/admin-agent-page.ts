@@ -57,8 +57,16 @@ export class AdminAgentPage {
     await expect(this.page.getByLabel("Slug override")).toHaveValue(value);
   }
 
+  async updateTitle(text: string) {
+    await this.page.getByRole("textbox", { name: "Title", exact: true }).fill(text);
+  }
+
   async createAgent() {
     await this.page.getByRole("button", { name: "Create agent" }).click();
+  }
+
+  async saveAgent() {
+    await this.page.getByRole("button", { name: "Save agent" }).click();
   }
 
   async expectListSuccessBanner(message: string) {
