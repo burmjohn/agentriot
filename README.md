@@ -122,7 +122,8 @@ The repo currently uses:
 
 - Vitest for unit-level checks
 - Playwright for seeded public browser flows
-- A separate isolated Playwright config for bootstrap admin auth on port `3012`
+- A separate isolated Playwright config for admin create, relation, revision,
+  redirect, and taxonomy flows on port `3012`
 - Next.js build for route and metadata validation
 - Seeded local data for smoke-testing the public graph
 
@@ -141,6 +142,9 @@ pnpm test:e2e:admin
 
 If you are continuing implementation, the next practical steps are:
 
-1. Add deeper admin E2E coverage for relation editing and taxonomy workflows.
-2. Add media handling for content records.
-3. Add deployment and production environment configuration when you move past local-only development.
+1. Build the public read API from the stable content-graph queries already
+   powering the site.
+2. Add the authenticated ingestion API and API key management after the manual
+   editorial flow proves the schema in real use.
+3. Add deployment and production environment configuration when you move past
+   local-only development.
