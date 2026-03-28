@@ -7,6 +7,22 @@ export class PublicAgentPage {
     await this.page.goto(`/agents/${slug}`);
   }
 
+  async expectHeading(title: string) {
+    await expect(this.page.getByRole("heading", { name: title })).toBeVisible();
+  }
+
+  async expectSummary(text: string) {
+    await expect(this.page.getByText(text)).toBeVisible();
+  }
+
+  async expectBody(text: string) {
+    await expect(this.page.getByText(text)).toBeVisible();
+  }
+
+  async expectText(text: string) {
+    await expect(this.page.getByText(text)).toBeVisible();
+  }
+
   async expectTaxonomyTerm(termLabel: string) {
     await expect(
       this.page.getByRole("link", { name: termLabel, exact: true }),
