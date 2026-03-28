@@ -7,6 +7,10 @@ export class PublicContentPage {
     await this.page.goto(`/articles/${slug}`);
   }
 
+  async expectHeading(title: string) {
+    await expect(this.page.getByRole("heading", { name: title })).toBeVisible();
+  }
+
   async expectMissingRelatedSkill(skillTitle: string) {
     await expect(this.page.getByRole("link", { name: skillTitle })).toHaveCount(0);
   }
@@ -20,6 +24,10 @@ export class PublicContentPage {
   }
 
   async expectSummary(text: string) {
+    await expect(this.page.getByText(text)).toBeVisible();
+  }
+
+  async expectBody(text: string) {
     await expect(this.page.getByText(text)).toBeVisible();
   }
 

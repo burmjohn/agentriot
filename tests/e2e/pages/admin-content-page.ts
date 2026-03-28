@@ -10,11 +10,55 @@ export class AdminContentPage {
     ).toBeVisible();
   }
 
+  async gotoNew() {
+    await this.page.goto("/admin/content/new");
+    await expect(
+      this.page.getByRole("heading", { name: "Create content" }),
+    ).toBeVisible();
+  }
+
   async openRecord(title: string) {
     await this.page.getByRole("link", { name: title }).click();
     await expect(
       this.page.getByRole("heading", { name: `Edit content: ${title}` }),
     ).toBeVisible();
+  }
+
+  async fillCreateArticleForm(input: {
+    title: string;
+    excerpt: string;
+    body: string;
+    heroImageUrl: string;
+    canonicalUrl: string;
+    seoTitle: string;
+    seoDescription: string;
+  }) {
+    await this.page.getByLabel("Kind").selectOption({ label: "Article" });
+    await this.page.getByLabel("Subtype").selectOption({ label: "News" });
+    await this.page.getByLabel("Status").selectOption({ label: "Published" });
+    await this.page.getByRole("textbox", { name: "Title", exact: true }).fill(input.title);
+    await this.page.getByLabel("Excerpt").fill(input.excerpt);
+    await this.page.getByLabel("Body").fill(input.body);
+    await this.page.getByLabel("Hero image URL").fill(input.heroImageUrl);
+    await this.page.getByLabel("Canonical URL override").fill(input.canonicalUrl);
+    await this.page.getByLabel("SEO title override").fill(input.seoTitle);
+    await this.page.getByLabel("SEO description override").fill(input.seoDescription);
+  }
+
+  async expectSlugValue(value: string) {
+    await expect(this.page.getByLabel("Slug override")).toHaveValue(value);
+  }
+
+  async createContent() {
+    await this.page.getByRole("button", { name: "Create content" }).click();
+  }
+
+  async expectListSuccessBanner(message: string) {
+    await expect(this.page.getByText(message)).toBeVisible();
+  }
+
+  async expectContentListed(title: string) {
+    await expect(this.page.getByRole("link", { name: title })).toBeVisible();
   }
 
   async saveTaxonomy(termLabel: string) {
