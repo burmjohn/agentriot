@@ -1,3 +1,4 @@
+import { permanentRedirect } from "next/navigation";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import {
   PublicCollectionGrid,
@@ -7,6 +8,7 @@ import {
   PublicShell,
 } from "@/app/_components/public-ui";
 import { listPublishedContent, listTaxonomyTermsByScope } from "@/lib/public/hub";
+import { getFilterRedirectTarget } from "@/lib/content/redirects";
 
 export default async function ArticlesPage({
   searchParams,
@@ -19,6 +21,16 @@ export default async function ArticlesPage({
     listPublishedContent("article", activeTerm),
     listTaxonomyTermsByScope("content"),
   ]);
+
+  const redirectRecord = await getFilterRedirectTarget({
+    basePath: "/articles",
+    activeTerm,
+    knownSlugs: taxonomyTerms.map((term) => term.slug),
+  });
+
+  if (redirectRecord?.isPermanent) {
+    permanentRedirect(redirectRecord.targetPath);
+  }
 
   return (
     <PublicShell>

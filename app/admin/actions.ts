@@ -44,7 +44,10 @@ import {
   buildContentRestoreValues,
   createContentRevisionSnapshot,
 } from "@/lib/admin/content-revisions";
-import { syncRedirectForSlugChange } from "@/lib/content/redirects";
+import {
+  syncRedirectForSlugChange,
+  syncRedirectsForTaxonomySlugChange,
+} from "@/lib/content/redirects";
 import { parseSelectedIds } from "@/lib/admin/relation-selection";
 import { normalizeTaxonomyInput } from "@/lib/admin/taxonomy-input";
 import { getSession } from "@/lib/auth/server";
@@ -487,13 +490,23 @@ export async function updateTaxonomyTermAction(
       current.slug,
     );
 
-    await db
-      .update(taxonomyTerms)
-      .set({
-        ...input,
-        slug,
-      })
-      .where(eq(taxonomyTerms.id, id));
+    await db.transaction(async (tx) => {
+      const [updated] = await tx
+        .update(taxonomyTerms)
+        .set({
+          ...input,
+          slug,
+        })
+        .where(eq(taxonomyTerms.id, id))
+        .returning();
+
+      await syncRedirectsForTaxonomySlugChange({
+        database: tx,
+        scope: current.scope,
+        previousSlug: current.slug,
+        currentSlug: updated.slug,
+      });
+    });
 
     revalidatePath("/admin/taxonomy");
     revalidatePath(`/admin/taxonomy/${id}`);

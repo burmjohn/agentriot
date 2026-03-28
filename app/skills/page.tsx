@@ -1,3 +1,4 @@
+import { permanentRedirect } from "next/navigation";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import {
   PublicCollectionGrid,
@@ -7,6 +8,7 @@ import {
   PublicShell,
 } from "@/app/_components/public-ui";
 import { listPublishedSkills, listTaxonomyTermsByScope } from "@/lib/public/hub";
+import { getFilterRedirectTarget } from "@/lib/content/redirects";
 
 export default async function SkillsPage({
   searchParams,
@@ -19,6 +21,16 @@ export default async function SkillsPage({
     listPublishedSkills(activeTerm),
     listTaxonomyTermsByScope("skill"),
   ]);
+
+  const redirectRecord = await getFilterRedirectTarget({
+    basePath: "/skills",
+    activeTerm,
+    knownSlugs: taxonomyTerms.map((term) => term.slug),
+  });
+
+  if (redirectRecord?.isPermanent) {
+    permanentRedirect(redirectRecord.targetPath);
+  }
 
   return (
     <PublicShell>

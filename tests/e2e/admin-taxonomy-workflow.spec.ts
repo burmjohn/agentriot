@@ -43,4 +43,10 @@ test("admin can create and refine a taxonomy term, attach it to content, and exp
   await expect(
     page.getByRole("link", { name: "What Changed This Week in Coding Agents" }),
   ).toBeVisible();
+
+  await page.goto("/articles?term=daily-ops");
+  await expect(page).toHaveURL(/\/articles\?term=daily-ops-loop$/);
+  await expect(
+    page.getByRole("link", { name: "What Changed This Week in Coding Agents" }),
+  ).toBeVisible();
 });
