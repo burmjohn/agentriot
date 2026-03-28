@@ -51,6 +51,7 @@ import {
 import { parseSelectedIds } from "@/lib/admin/relation-selection";
 import { normalizeTaxonomyInput } from "@/lib/admin/taxonomy-input";
 import { getSession } from "@/lib/auth/server";
+import { replaceJoinRows } from "@/lib/admin/relation-writes";
 
 export type AdminActionState = {
   error: string | null;
@@ -502,7 +503,8 @@ export async function updateTaxonomyTermAction(
 
       await syncRedirectsForTaxonomySlugChange({
         database: tx,
-        scope: current.scope,
+        previousScope: current.scope,
+        currentScope: updated.scope,
         previousSlug: current.slug,
         currentSlug: updated.slug,
       });
@@ -520,28 +522,6 @@ export async function updateTaxonomyTermAction(
   redirect(`/admin/taxonomy/${id}?saved=1`);
 }
 
-async function replaceJoinRows<TTable>(
-  deleteBuilder: Promise<unknown>,
-  insertValues: TTable[],
-  insertTable:
-    | typeof contentAgents
-    | typeof contentPrompts
-    | typeof contentSkills
-    | typeof contentTaxonomyTerms
-    | typeof agentPrompts
-    | typeof agentSkills
-    | typeof agentTaxonomyTerms
-    | typeof skillPrompts
-    | typeof skillTaxonomyTerms
-    | typeof promptTaxonomyTerms,
-) {
-  await deleteBuilder;
-
-  if (insertValues.length > 0) {
-    await db.insert(insertTable).values(insertValues as never);
-  }
-}
-
 export async function updateContentAgentsRelationAction(
   id: string,
   formData: FormData,
@@ -549,11 +529,15 @@ export async function updateContentAgentsRelationAction(
   await requireAdminUserId();
   const selectedIds = parseSelectedIds(formData, "relatedIds");
 
-  await replaceJoinRows(
-    db.delete(contentAgents).where(eq(contentAgents.contentItemId, id)),
-    selectedIds.map((agentId) => ({ contentItemId: id, agentId })),
-    contentAgents,
-  );
+  await db.transaction(async (tx) => {
+    await replaceJoinRows({
+      database: tx,
+      deleteTable: contentAgents,
+      deleteWhere: eq(contentAgents.contentItemId, id),
+      insertValues: selectedIds.map((agentId) => ({ contentItemId: id, agentId })),
+      insertTable: contentAgents,
+    });
+  });
 
   revalidatePath(`/admin/content/${id}`);
   redirect(`/admin/content/${id}?relations=agents`);
@@ -566,11 +550,15 @@ export async function updateContentPromptsRelationAction(
   await requireAdminUserId();
   const selectedIds = parseSelectedIds(formData, "relatedIds");
 
-  await replaceJoinRows(
-    db.delete(contentPrompts).where(eq(contentPrompts.contentItemId, id)),
-    selectedIds.map((promptId) => ({ contentItemId: id, promptId })),
-    contentPrompts,
-  );
+  await db.transaction(async (tx) => {
+    await replaceJoinRows({
+      database: tx,
+      deleteTable: contentPrompts,
+      deleteWhere: eq(contentPrompts.contentItemId, id),
+      insertValues: selectedIds.map((promptId) => ({ contentItemId: id, promptId })),
+      insertTable: contentPrompts,
+    });
+  });
 
   revalidatePath(`/admin/content/${id}`);
   redirect(`/admin/content/${id}?relations=prompts`);
@@ -583,11 +571,15 @@ export async function updateContentSkillsRelationAction(
   await requireAdminUserId();
   const selectedIds = parseSelectedIds(formData, "relatedIds");
 
-  await replaceJoinRows(
-    db.delete(contentSkills).where(eq(contentSkills.contentItemId, id)),
-    selectedIds.map((skillId) => ({ contentItemId: id, skillId })),
-    contentSkills,
-  );
+  await db.transaction(async (tx) => {
+    await replaceJoinRows({
+      database: tx,
+      deleteTable: contentSkills,
+      deleteWhere: eq(contentSkills.contentItemId, id),
+      insertValues: selectedIds.map((skillId) => ({ contentItemId: id, skillId })),
+      insertTable: contentSkills,
+    });
+  });
 
   revalidatePath(`/admin/content/${id}`);
   redirect(`/admin/content/${id}?relations=skills`);
@@ -597,13 +589,18 @@ export async function updateContentTaxonomyAction(id: string, formData: FormData
   await requireAdminUserId();
   const selectedIds = parseSelectedIds(formData, "relatedIds");
 
-  await replaceJoinRows(
-    db
-      .delete(contentTaxonomyTerms)
-      .where(eq(contentTaxonomyTerms.contentItemId, id)),
-    selectedIds.map((taxonomyTermId) => ({ contentItemId: id, taxonomyTermId })),
-    contentTaxonomyTerms,
-  );
+  await db.transaction(async (tx) => {
+    await replaceJoinRows({
+      database: tx,
+      deleteTable: contentTaxonomyTerms,
+      deleteWhere: eq(contentTaxonomyTerms.contentItemId, id),
+      insertValues: selectedIds.map((taxonomyTermId) => ({
+        contentItemId: id,
+        taxonomyTermId,
+      })),
+      insertTable: contentTaxonomyTerms,
+    });
+  });
 
   revalidatePath(`/admin/content/${id}`);
   redirect(`/admin/content/${id}?relations=taxonomy`);
@@ -616,11 +613,15 @@ export async function updateAgentPromptsRelationAction(
   await requireAdminUserId();
   const selectedIds = parseSelectedIds(formData, "relatedIds");
 
-  await replaceJoinRows(
-    db.delete(agentPrompts).where(eq(agentPrompts.agentId, id)),
-    selectedIds.map((promptId) => ({ agentId: id, promptId })),
-    agentPrompts,
-  );
+  await db.transaction(async (tx) => {
+    await replaceJoinRows({
+      database: tx,
+      deleteTable: agentPrompts,
+      deleteWhere: eq(agentPrompts.agentId, id),
+      insertValues: selectedIds.map((promptId) => ({ agentId: id, promptId })),
+      insertTable: agentPrompts,
+    });
+  });
 
   revalidatePath(`/admin/agents/${id}`);
   redirect(`/admin/agents/${id}?relations=prompts`);
@@ -633,11 +634,15 @@ export async function updateAgentSkillsRelationAction(
   await requireAdminUserId();
   const selectedIds = parseSelectedIds(formData, "relatedIds");
 
-  await replaceJoinRows(
-    db.delete(agentSkills).where(eq(agentSkills.agentId, id)),
-    selectedIds.map((skillId) => ({ agentId: id, skillId })),
-    agentSkills,
-  );
+  await db.transaction(async (tx) => {
+    await replaceJoinRows({
+      database: tx,
+      deleteTable: agentSkills,
+      deleteWhere: eq(agentSkills.agentId, id),
+      insertValues: selectedIds.map((skillId) => ({ agentId: id, skillId })),
+      insertTable: agentSkills,
+    });
+  });
 
   revalidatePath(`/admin/agents/${id}`);
   redirect(`/admin/agents/${id}?relations=skills`);
@@ -647,11 +652,15 @@ export async function updateAgentTaxonomyAction(id: string, formData: FormData) 
   await requireAdminUserId();
   const selectedIds = parseSelectedIds(formData, "relatedIds");
 
-  await replaceJoinRows(
-    db.delete(agentTaxonomyTerms).where(eq(agentTaxonomyTerms.agentId, id)),
-    selectedIds.map((taxonomyTermId) => ({ agentId: id, taxonomyTermId })),
-    agentTaxonomyTerms,
-  );
+  await db.transaction(async (tx) => {
+    await replaceJoinRows({
+      database: tx,
+      deleteTable: agentTaxonomyTerms,
+      deleteWhere: eq(agentTaxonomyTerms.agentId, id),
+      insertValues: selectedIds.map((taxonomyTermId) => ({ agentId: id, taxonomyTermId })),
+      insertTable: agentTaxonomyTerms,
+    });
+  });
 
   revalidatePath(`/admin/agents/${id}`);
   redirect(`/admin/agents/${id}?relations=taxonomy`);
@@ -664,11 +673,15 @@ export async function updatePromptAgentsRelationAction(
   await requireAdminUserId();
   const selectedIds = parseSelectedIds(formData, "relatedIds");
 
-  await replaceJoinRows(
-    db.delete(agentPrompts).where(eq(agentPrompts.promptId, id)),
-    selectedIds.map((agentId) => ({ agentId, promptId: id })),
-    agentPrompts,
-  );
+  await db.transaction(async (tx) => {
+    await replaceJoinRows({
+      database: tx,
+      deleteTable: agentPrompts,
+      deleteWhere: eq(agentPrompts.promptId, id),
+      insertValues: selectedIds.map((agentId) => ({ agentId, promptId: id })),
+      insertTable: agentPrompts,
+    });
+  });
 
   revalidatePath(`/admin/prompts/${id}`);
   redirect(`/admin/prompts/${id}?relations=agents`);
@@ -681,11 +694,15 @@ export async function updatePromptSkillsRelationAction(
   await requireAdminUserId();
   const selectedIds = parseSelectedIds(formData, "relatedIds");
 
-  await replaceJoinRows(
-    db.delete(skillPrompts).where(eq(skillPrompts.promptId, id)),
-    selectedIds.map((skillId) => ({ skillId, promptId: id })),
-    skillPrompts,
-  );
+  await db.transaction(async (tx) => {
+    await replaceJoinRows({
+      database: tx,
+      deleteTable: skillPrompts,
+      deleteWhere: eq(skillPrompts.promptId, id),
+      insertValues: selectedIds.map((skillId) => ({ skillId, promptId: id })),
+      insertTable: skillPrompts,
+    });
+  });
 
   revalidatePath(`/admin/prompts/${id}`);
   redirect(`/admin/prompts/${id}?relations=skills`);
@@ -695,11 +712,15 @@ export async function updatePromptTaxonomyAction(id: string, formData: FormData)
   await requireAdminUserId();
   const selectedIds = parseSelectedIds(formData, "relatedIds");
 
-  await replaceJoinRows(
-    db.delete(promptTaxonomyTerms).where(eq(promptTaxonomyTerms.promptId, id)),
-    selectedIds.map((taxonomyTermId) => ({ promptId: id, taxonomyTermId })),
-    promptTaxonomyTerms,
-  );
+  await db.transaction(async (tx) => {
+    await replaceJoinRows({
+      database: tx,
+      deleteTable: promptTaxonomyTerms,
+      deleteWhere: eq(promptTaxonomyTerms.promptId, id),
+      insertValues: selectedIds.map((taxonomyTermId) => ({ promptId: id, taxonomyTermId })),
+      insertTable: promptTaxonomyTerms,
+    });
+  });
 
   revalidatePath(`/admin/prompts/${id}`);
   redirect(`/admin/prompts/${id}?relations=taxonomy`);
@@ -712,11 +733,15 @@ export async function updateSkillAgentsRelationAction(
   await requireAdminUserId();
   const selectedIds = parseSelectedIds(formData, "relatedIds");
 
-  await replaceJoinRows(
-    db.delete(agentSkills).where(eq(agentSkills.skillId, id)),
-    selectedIds.map((agentId) => ({ agentId, skillId: id })),
-    agentSkills,
-  );
+  await db.transaction(async (tx) => {
+    await replaceJoinRows({
+      database: tx,
+      deleteTable: agentSkills,
+      deleteWhere: eq(agentSkills.skillId, id),
+      insertValues: selectedIds.map((agentId) => ({ agentId, skillId: id })),
+      insertTable: agentSkills,
+    });
+  });
 
   revalidatePath(`/admin/skills/${id}`);
   redirect(`/admin/skills/${id}?relations=agents`);
@@ -729,11 +754,15 @@ export async function updateSkillPromptsRelationAction(
   await requireAdminUserId();
   const selectedIds = parseSelectedIds(formData, "relatedIds");
 
-  await replaceJoinRows(
-    db.delete(skillPrompts).where(eq(skillPrompts.skillId, id)),
-    selectedIds.map((promptId) => ({ promptId, skillId: id })),
-    skillPrompts,
-  );
+  await db.transaction(async (tx) => {
+    await replaceJoinRows({
+      database: tx,
+      deleteTable: skillPrompts,
+      deleteWhere: eq(skillPrompts.skillId, id),
+      insertValues: selectedIds.map((promptId) => ({ promptId, skillId: id })),
+      insertTable: skillPrompts,
+    });
+  });
 
   revalidatePath(`/admin/skills/${id}`);
   redirect(`/admin/skills/${id}?relations=prompts`);
@@ -743,11 +772,15 @@ export async function updateSkillTaxonomyAction(id: string, formData: FormData) 
   await requireAdminUserId();
   const selectedIds = parseSelectedIds(formData, "relatedIds");
 
-  await replaceJoinRows(
-    db.delete(skillTaxonomyTerms).where(eq(skillTaxonomyTerms.skillId, id)),
-    selectedIds.map((taxonomyTermId) => ({ skillId: id, taxonomyTermId })),
-    skillTaxonomyTerms,
-  );
+  await db.transaction(async (tx) => {
+    await replaceJoinRows({
+      database: tx,
+      deleteTable: skillTaxonomyTerms,
+      deleteWhere: eq(skillTaxonomyTerms.skillId, id),
+      insertValues: selectedIds.map((taxonomyTermId) => ({ skillId: id, taxonomyTermId })),
+      insertTable: skillTaxonomyTerms,
+    });
+  });
 
   revalidatePath(`/admin/skills/${id}`);
   redirect(`/admin/skills/${id}?relations=taxonomy`);

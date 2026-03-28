@@ -102,26 +102,53 @@ function buildTaxonomyFilterPaths(
   return [`/skills${query}`];
 }
 
+export function buildTaxonomyRedirectPairs({
+  previousScope,
+  currentScope,
+  previousSlug,
+  currentSlug,
+}: {
+  previousScope: "content" | "agent" | "prompt" | "skill";
+  currentScope: "content" | "agent" | "prompt" | "skill";
+  previousSlug: string;
+  currentSlug: string;
+}) {
+  const previousPaths = buildTaxonomyFilterPaths(previousScope, previousSlug);
+  const currentPaths = buildTaxonomyFilterPaths(currentScope, currentSlug);
+  const fallbackCurrentPath = currentPaths[currentPaths.length - 1] ?? previousPaths[0];
+
+  return previousPaths.map((previousPath, index) => ({
+    previousPath,
+    currentPath: currentPaths[index] ?? fallbackCurrentPath,
+  }));
+}
+
 export async function syncRedirectsForTaxonomySlugChange({
   database = db,
-  scope,
+  previousScope,
+  currentScope,
   previousSlug,
   currentSlug,
 }: {
   database?: Pick<typeof db, "delete" | "insert" | "update">;
-  scope: "content" | "agent" | "prompt" | "skill";
+  previousScope: "content" | "agent" | "prompt" | "skill";
+  currentScope: "content" | "agent" | "prompt" | "skill";
   previousSlug: string;
   currentSlug: string;
 }) {
-  const previousPaths = buildTaxonomyFilterPaths(scope, previousSlug);
-  const currentPaths = buildTaxonomyFilterPaths(scope, currentSlug);
+  const redirectPairs = buildTaxonomyRedirectPairs({
+    previousScope,
+    currentScope,
+    previousSlug,
+    currentSlug,
+  });
 
   await Promise.all(
-    previousPaths.map((previousPath, index) =>
+    redirectPairs.map(({ previousPath, currentPath }) =>
       syncRedirectForPathChange({
         database,
         previousPath,
-        currentPath: currentPaths[index] ?? previousPath,
+        currentPath,
       }),
     ),
   );
