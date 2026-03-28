@@ -45,6 +45,11 @@ export default function ApiPage() {
                 title: "sitemap.xml",
                 detail: "Canonical crawl map for public records and collection routes.",
               },
+              {
+                href: "/robots.txt",
+                title: "robots.txt",
+                detail: "Crawler policy for public routes and private admin surfaces.",
+              },
             ].map((item) => (
               <Link
                 key={item.href}

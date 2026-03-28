@@ -55,6 +55,41 @@ test("about and api surfaces expose machine-readable entry points", async ({
   ).toBeVisible();
   await expect(page.getByRole("link", { name: "RSS feed" })).toBeVisible();
   await expect(page.getByRole("link", { name: "JSON feed" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "robots.txt" })).toBeVisible();
+});
+
+test("machine-readable routes return stable public crawl and feed surfaces", async ({
+  page,
+}) => {
+  await page.goto("/api");
+
+  const robots = await page.request.get("/robots.txt");
+  expect(robots.ok()).toBeTruthy();
+  expect(robots.headers()["content-type"]).toContain("text/plain");
+  await expect(page.getByRole("link", { name: "robots.txt" })).toBeVisible();
+
+  const robotsBody = await robots.text();
+  expect(robotsBody).toContain("User-Agent: *");
+  expect(robotsBody).toContain("Disallow: /admin");
+  expect(robotsBody).toContain("/sitemap.xml");
+
+  const llms = await page.request.get("/llms.txt");
+  expect(llms.ok()).toBeTruthy();
+  expect(llms.headers()["content-type"]).toContain("text/plain");
+  expect(await llms.text()).toContain("AgentRiot is an AI intelligence hub for agentic coders.");
+
+  const rss = await page.request.get("/feed.xml");
+  expect(rss.ok()).toBeTruthy();
+  expect(rss.headers()["content-type"]).toContain("application/rss+xml");
+  expect(await rss.text()).toContain("<title>AgentRiot feed</title>");
+
+  const jsonFeed = await page.request.get("/feed.json");
+  expect(jsonFeed.ok()).toBeTruthy();
+  expect(jsonFeed.headers()["content-type"]).toContain("application/json");
+  expect(await jsonFeed.json()).toMatchObject({
+    title: "AgentRiot feed",
+    version: "https://jsonfeed.org/version/1.1",
+  });
 });
 
 test("articles can be filtered by scoped taxonomy term", async ({ page }) => {
