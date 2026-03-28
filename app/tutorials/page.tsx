@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { permanentRedirect } from "next/navigation";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import {
@@ -53,6 +54,16 @@ export default async function TutorialsPage({
             activeTerm
               ? "Try a different scoped term or clear the filter to return to the full tutorial collection."
               : "Publish the first tutorial from admin and it will appear here with graph links into the rest of the hub."
+          }
+          actions={
+            activeTerm ? (
+              <Link
+                href="/tutorials"
+                className="chip rounded-full px-4 py-2 text-sm font-medium text-foreground"
+              >
+                Clear filter
+              </Link>
+            ) : undefined
           }
         />
       ) : (

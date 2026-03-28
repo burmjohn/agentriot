@@ -128,6 +128,15 @@ test("agents can be filtered by scoped taxonomy term", async ({ page }) => {
   await expect(page.getByRole("link", { name: "Claude Code" })).toHaveCount(0);
 });
 
+test("empty filtered collections offer a direct recovery path", async ({ page }) => {
+  await page.goto("/agents?term=this-filter-does-not-exist");
+
+  await expect(
+    page.getByRole("heading", { name: "No published agents match this term yet" }),
+  ).toBeVisible();
+  await expect(page.getByRole("link", { name: "Clear filter" })).toBeVisible();
+});
+
 test("homepage trending topic chips route into scoped filtered collections", async ({
   page,
 }) => {

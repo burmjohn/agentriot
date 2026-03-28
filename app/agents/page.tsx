@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { permanentRedirect } from "next/navigation";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import {
@@ -51,6 +52,16 @@ export default async function AgentsPage({
             activeTerm
               ? "Try a different scoped term or clear the filter to return to the full agent directory."
               : "Use the admin console to publish the first agent record, then this collection will become a proper browse surface."
+          }
+          actions={
+            activeTerm ? (
+              <Link
+                href="/agents"
+                className="chip rounded-full px-4 py-2 text-sm font-medium text-foreground"
+              >
+                Clear filter
+              </Link>
+            ) : undefined
           }
         />
       ) : (
