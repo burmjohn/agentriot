@@ -12,7 +12,9 @@ export type PublicReadEntity =
   | "skills"
   | "skill"
   | "taxonomy"
-  | "search";
+  | "search"
+  | "ingest:article"
+  | "ingest:tutorial";
 
 export type TaxonomyScope = "content" | "agent" | "prompt" | "skill";
 

@@ -56,7 +56,7 @@ export function buildContentRevisionValues({
   createdAt = new Date(),
 }: {
   contentItem: ContentSnapshotSource;
-  editedById: string;
+  editedById: string | null;
   revisionNumber: number;
   createdAt?: Date;
 }) {
@@ -119,7 +119,7 @@ export async function createContentRevisionSnapshot({
 }: {
   database?: Pick<typeof db, "select" | "insert">;
   contentItem: ContentSnapshotSource;
-  editedById: string;
+  editedById: string | null;
 }) {
   const [latestRevision] = await database
     .select({ revisionNumber: contentRevisions.revisionNumber })
