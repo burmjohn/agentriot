@@ -867,10 +867,12 @@ export async function updateApiKeyAction(
 
 export async function revealApiKeyAction(
   id: string,
-  _prevState: ApiKeyActionState,
-  _formData: FormData,
+  prevState: ApiKeyActionState,
+  formData: FormData,
 ): Promise<ApiKeyActionState> {
   try {
+    void prevState;
+    void formData;
     await requireAdminUserId();
     const secret = await revealAdminApiKey(id);
 
@@ -892,10 +894,12 @@ export async function revealApiKeyAction(
 
 export async function revokeApiKeyAction(
   id: string,
-  _prevState: ApiKeyActionState,
-  _formData: FormData,
+  prevState: ApiKeyActionState,
+  formData: FormData,
 ): Promise<ApiKeyActionState> {
   try {
+    void prevState;
+    void formData;
     await requireAdminUserId();
     await revokeAdminApiKey(id);
 
@@ -920,10 +924,12 @@ export async function revokeApiKeyAction(
 
 export async function reactivateApiKeyAction(
   id: string,
-  _prevState: ApiKeyActionState,
-  _formData: FormData,
+  prevState: ApiKeyActionState,
+  formData: FormData,
 ): Promise<ApiKeyActionState> {
   try {
+    void prevState;
+    void formData;
     await requireAdminUserId();
     await reactivateAdminApiKey(id);
 

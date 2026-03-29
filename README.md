@@ -15,8 +15,10 @@ The current build includes the following surfaces:
   articles.
 - A versioned public read API under `/api/v1` for collections, detail routes,
   taxonomy, and search.
+- Authenticated ingestion routes for articles and tutorials under
+  `/api/v1/ingest`.
 - A thin admin console under `/admin` for content, directory records,
-  taxonomy, and graph relations.
+  taxonomy, graph relations, and API key management.
 - Better Auth for admin-only sign-in.
 - Drizzle ORM with PostgreSQL.
 - SEO and machine-readable outputs at `/robots.txt`, `/sitemap.xml`, and
@@ -51,6 +53,10 @@ with another project using `3000`.
 
 Set `ADMIN_EMAIL_ALLOWLIST` to at least one email address if you want the
 bootstrap admin signup flow to be available on `/sign-in`.
+
+`API_KEY_ENCRYPTION_KEY` is required for admin-side secret reveal in the API
+key console. The local example uses a fixed development key; replace it in any
+non-local environment.
 
 If `ADMIN_EMAIL_ALLOWLIST` is empty, sign-in still works for existing admins,
 but new admin creation is disabled by design.
@@ -127,7 +133,7 @@ The repo currently uses:
 - Vitest for unit-level checks
 - Playwright for seeded public browser flows
 - A separate isolated Playwright config for admin create, relation, revision,
-  redirect, and taxonomy flows on port `3012`
+  redirect, taxonomy, and API key management flows on port `3012`
 - Next.js build for route and metadata validation
 - Seeded local data for smoke-testing the public graph
 
@@ -148,7 +154,7 @@ If you are continuing implementation, the next practical steps are:
 
 1. Build the public read API from the stable content-graph queries already
    powering the site.
-2. Add the authenticated ingestion API and API key management after the manual
-   editorial flow proves the schema in real use.
+2. Expand authenticated ingestion beyond articles and tutorials into the rest
+   of the graph once the current operator flow is stable.
 3. Add deployment and production environment configuration when you move past
    local-only development.

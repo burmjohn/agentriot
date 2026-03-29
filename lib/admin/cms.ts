@@ -17,7 +17,6 @@ import {
   skillPrompts,
   skillTaxonomyTerms,
   skills,
-  type publicationStatusEnum,
   taxonomyKindEnum,
   taxonomyScopeEnum,
   taxonomyTerms,
@@ -27,7 +26,6 @@ import {
   nextAvailableSlugExcept,
 } from "@/lib/content/slug-policy";
 
-type Status = (typeof publicationStatusEnum.enumValues)[number];
 type TaxonomyScope = (typeof taxonomyScopeEnum.enumValues)[number];
 type TaxonomyKind = (typeof taxonomyKindEnum.enumValues)[number];
 
