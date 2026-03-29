@@ -2,7 +2,8 @@
 
 AgentRiot is a developer-leaning AI intelligence hub for agentic coders.
 Phase 1 includes a public graph for agents, prompts, skills, tutorials, and
-articles, plus a thin admin console for managing records and relationships.
+articles, a versioned public read API, and a thin admin console for managing
+records and relationships.
 
 ## What is in the repo
 
@@ -12,6 +13,8 @@ The current build includes the following surfaces:
   `/articles`, and `/search`.
 - Dynamic detail pages for published agents, prompts, skills, tutorials, and
   articles.
+- A versioned public read API under `/api/v1` for collections, detail routes,
+  taxonomy, and search.
 - A thin admin console under `/admin` for content, directory records,
   taxonomy, and graph relations.
 - Better Auth for admin-only sign-in.
@@ -98,6 +101,7 @@ Then open the following routes:
 - `http://localhost:3011/search?q=repo`
 - `http://localhost:3011/agents`
 - `http://localhost:3011/articles`
+- `http://localhost:3011/api/v1`
 - `http://localhost:3011/sign-in`
 
 ## Main scripts
