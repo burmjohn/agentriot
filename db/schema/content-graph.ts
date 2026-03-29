@@ -283,9 +283,11 @@ export const ingestionEvents = pgTable(
   "ingestion_events",
   {
     id: uuidId(),
-    apiKeyId: uuid("api_key_id").references(() => apiKeys.id, {
-      onDelete: "set null",
-    }),
+    apiKeyId: uuid("api_key_id")
+      .notNull()
+      .references(() => apiKeys.id, {
+        onDelete: "restrict",
+      }),
     target: ingestionTargetEnum("target").notNull(),
     action: text("action").notNull(),
     idempotencyKey: text("idempotency_key").notNull(),

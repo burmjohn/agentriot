@@ -19,7 +19,7 @@ CREATE TABLE "api_keys" (
 --> statement-breakpoint
 CREATE TABLE "ingestion_events" (
 	"id" uuid PRIMARY KEY DEFAULT pg_catalog.gen_random_uuid() NOT NULL,
-	"api_key_id" uuid,
+	"api_key_id" uuid NOT NULL,
 	"target" "ingestion_target" NOT NULL,
 	"action" text NOT NULL,
 	"idempotency_key" text NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE "ingestion_events" (
 );
 --> statement-breakpoint
 ALTER TABLE "api_keys" ADD CONSTRAINT "api_keys_created_by_id_user_id_fk" FOREIGN KEY ("created_by_id") REFERENCES "public"."user"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "ingestion_events" ADD CONSTRAINT "ingestion_events_api_key_id_api_keys_id_fk" FOREIGN KEY ("api_key_id") REFERENCES "public"."api_keys"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "ingestion_events" ADD CONSTRAINT "ingestion_events_api_key_id_api_keys_id_fk" FOREIGN KEY ("api_key_id") REFERENCES "public"."api_keys"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
 CREATE UNIQUE INDEX "api_keys_key_prefix_idx" ON "api_keys" USING btree ("key_prefix");--> statement-breakpoint
 CREATE INDEX "api_keys_revoked_at_idx" ON "api_keys" USING btree ("revoked_at");--> statement-breakpoint
 CREATE INDEX "api_keys_expires_at_idx" ON "api_keys" USING btree ("expires_at");--> statement-breakpoint
