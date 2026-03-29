@@ -16,7 +16,7 @@ export const env = createEnv({
     DATABASE_URL: z.string().min(1).default(defaultDatabaseUrl),
     BETTER_AUTH_SECRET: z.string().min(32).default(defaultAuthSecret),
     BETTER_AUTH_URL: z.string().url().default(defaultAppUrl),
-    API_KEY_ENCRYPTION_KEY: z.string().min(32).default(defaultApiKeyEncryptionKey),
+    API_KEY_ENCRYPTION_KEY: z.string().length(32).default(defaultApiKeyEncryptionKey),
     ADMIN_EMAIL_ALLOWLIST: z.string().default(""),
   },
   client: {

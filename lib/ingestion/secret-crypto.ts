@@ -7,7 +7,13 @@ export type EncryptedApiKeySecret = {
 };
 
 function getEncryptionKey(key: string) {
-  return Buffer.from(key, "utf8");
+  const buffer = Buffer.from(key, "utf8");
+
+  if (buffer.length !== 32) {
+    throw new Error("API_KEY_ENCRYPTION_KEY must be exactly 32 bytes.");
+  }
+
+  return buffer;
 }
 
 export function encryptApiKeySecret(
