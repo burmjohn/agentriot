@@ -15,6 +15,13 @@
       "when": 1774711100967,
       "tag": "0001_melted_diamondback",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1774744147751,
+      "tag": "0002_faithful_hellion",
+      "breakpoints": true
     }
   ]
 }

@@ -3,6 +3,7 @@ import {
   boolean,
   index,
   integer,
+  jsonb,
   pgEnum,
   pgTable,
   primaryKey,
@@ -46,10 +47,30 @@ export const taxonomyScopeEnum = pgEnum("taxonomy_scope", [
   "prompt",
   "skill",
 ]);
+export const apiKeyScopeEnum = pgEnum("api_key_scope", [
+  "content:write",
+  "agents:write",
+  "skills:write",
+  "prompts:write",
+  "taxonomy:write",
+  "admin:*",
+]);
 export const taxonomyKindEnum = pgEnum("taxonomy_kind", [
   "category",
   "tag",
   "type",
+]);
+export const ingestionTargetEnum = pgEnum("ingestion_target", [
+  "content",
+  "agent",
+  "prompt",
+  "skill",
+  "taxonomy",
+]);
+export const ingestionStatusEnum = pgEnum("ingestion_status", [
+  "accepted",
+  "applied",
+  "rejected",
 ]);
 
 export const contentItems = pgTable(
@@ -231,6 +252,59 @@ export const redirects = pgTable(
     ...timestamps,
   },
   (table) => [uniqueIndex("redirects_source_path_idx").on(table.sourcePath)],
+);
+
+export const apiKeys = pgTable(
+  "api_keys",
+  {
+    id: uuidId(),
+    label: text("label").notNull(),
+    keyPrefix: text("key_prefix").notNull(),
+    keyHash: text("key_hash").notNull(),
+    scopes: apiKeyScopeEnum("scopes").array().notNull(),
+    description: text("description"),
+    expiresAt: timestamp("expires_at", { withTimezone: true }),
+    revokedAt: timestamp("revoked_at", { withTimezone: true }),
+    lastUsedAt: timestamp("last_used_at", { withTimezone: true }),
+    lastUsedIp: text("last_used_ip"),
+    createdById: text("created_by_id").references(() => user.id, {
+      onDelete: "set null",
+    }),
+    ...timestamps,
+  },
+  (table) => [
+    uniqueIndex("api_keys_key_prefix_idx").on(table.keyPrefix),
+    index("api_keys_revoked_at_idx").on(table.revokedAt),
+    index("api_keys_expires_at_idx").on(table.expiresAt),
+  ],
+);
+
+export const ingestionEvents = pgTable(
+  "ingestion_events",
+  {
+    id: uuidId(),
+    apiKeyId: uuid("api_key_id").references(() => apiKeys.id, {
+      onDelete: "set null",
+    }),
+    target: ingestionTargetEnum("target").notNull(),
+    action: text("action").notNull(),
+    idempotencyKey: text("idempotency_key").notNull(),
+    externalId: text("external_id"),
+    payload: jsonb("payload").notNull(),
+    payloadHash: text("payload_hash").notNull(),
+    status: ingestionStatusEnum("status").notNull().default("accepted"),
+    errorMessage: text("error_message"),
+    processedAt: timestamp("processed_at", { withTimezone: true }),
+    createdRecordId: uuid("created_record_id"),
+    ...timestamps,
+  },
+  (table) => [
+    uniqueIndex("ingestion_events_api_key_idempotency_idx").on(
+      table.apiKeyId,
+      table.idempotencyKey,
+    ),
+    index("ingestion_events_target_status_idx").on(table.target, table.status),
+  ],
 );
 
 export const contentTaxonomyTerms = pgTable(
@@ -442,4 +516,19 @@ export const taxonomyTermsRelations = relations(taxonomyTerms, ({ many }) => ({
   agents: many(agentTaxonomyTerms),
   prompts: many(promptTaxonomyTerms),
   skills: many(skillTaxonomyTerms),
+}));
+
+export const apiKeysRelations = relations(apiKeys, ({ one, many }) => ({
+  createdBy: one(user, {
+    fields: [apiKeys.createdById],
+    references: [user.id],
+  }),
+  ingestionEvents: many(ingestionEvents),
+}));
+
+export const ingestionEventsRelations = relations(ingestionEvents, ({ one }) => ({
+  apiKey: one(apiKeys, {
+    fields: [ingestionEvents.apiKeyId],
+    references: [apiKeys.id],
+  }),
 }));
