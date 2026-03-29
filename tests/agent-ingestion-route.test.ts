@@ -222,4 +222,113 @@ describe("agent ingestion routes", () => {
     });
     expect(ingestAgentRecord).not.toHaveBeenCalled();
   });
+
+  it("returns a stable unauthorized error when the API key has been revoked", async () => {
+    authenticateIngestionRequest.mockResolvedValue({
+      ok: false,
+      status: 401,
+      code: "api_key_revoked",
+      message: "API key has been revoked.",
+    });
+
+    const { POST } = await import("@/app/api/v1/ingest/agents/route");
+    const response = await POST(
+      new Request("http://localhost:3011/api/v1/ingest/agents", {
+        method: "POST",
+        body: JSON.stringify({
+          title: "Claude Code",
+          status: "published",
+        }),
+        headers: {
+          authorization: "Bearer ar_live_secret_token",
+          "content-type": "application/json",
+          "idempotency-key": "evt-1",
+        },
+      }),
+    );
+
+    expect(response.status).toBe(401);
+    await expect(response.json()).resolves.toEqual({
+      error: {
+        code: "api_key_revoked",
+        details: undefined,
+        message: "API key has been revoked.",
+      },
+      meta: {
+        version: "v1",
+      },
+    });
+    expect(ingestAgentRecord).not.toHaveBeenCalled();
+  });
+
+  it("returns a stable forbidden error when the API key lacks agents:write", async () => {
+    authenticateIngestionRequest.mockResolvedValue({
+      ok: false,
+      status: 403,
+      code: "insufficient_scope",
+      message: "API key does not grant the required scope.",
+    });
+
+    const { POST } = await import("@/app/api/v1/ingest/agents/route");
+    const response = await POST(
+      new Request("http://localhost:3011/api/v1/ingest/agents", {
+        method: "POST",
+        body: JSON.stringify({
+          title: "Claude Code",
+          status: "published",
+        }),
+        headers: {
+          authorization: "Bearer ar_live_secret_token",
+          "content-type": "application/json",
+          "idempotency-key": "evt-1",
+        },
+      }),
+    );
+
+    expect(response.status).toBe(403);
+    await expect(response.json()).resolves.toEqual({
+      error: {
+        code: "insufficient_scope",
+        details: undefined,
+        message: "API key does not grant the required scope.",
+      },
+      meta: {
+        version: "v1",
+      },
+    });
+    expect(ingestAgentRecord).not.toHaveBeenCalled();
+  });
+
+  it("returns a stable invalid-json error when the request body cannot be parsed", async () => {
+    authenticateIngestionRequest.mockResolvedValue({
+      ok: true,
+      key: { id: "key-1" },
+    });
+
+    const { POST } = await import("@/app/api/v1/ingest/agents/route");
+    const response = await POST(
+      new Request("http://localhost:3011/api/v1/ingest/agents", {
+        method: "POST",
+        body: "{",
+        headers: {
+          authorization: "Bearer ar_live_secret_token",
+          "content-type": "application/json",
+          "idempotency-key": "evt-1",
+        },
+      }),
+    );
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({
+      error: {
+        code: "invalid_json",
+        details: undefined,
+        message: "Request body must be valid JSON.",
+      },
+      meta: {
+        version: "v1",
+      },
+    });
+    expect(ingestAgentRecord).not.toHaveBeenCalled();
+  });
 });

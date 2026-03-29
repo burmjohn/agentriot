@@ -21,7 +21,7 @@ export default function ApiPage() {
       <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
         <PublicPanel
           title="Available now"
-          detail="These routes are the supported phase-1 machine surfaces."
+          detail="These routes are the supported machine surfaces for published graph access and trusted publishing."
         >
           <div className="grid gap-3">
             {[
@@ -34,6 +34,11 @@ export default function ApiPage() {
                 href: "/api/v1/articles",
                 title: "Article collection",
                 detail: "Published article records, with optional taxonomy filtering.",
+              },
+              {
+                href: "/api/v1/ingest/agents",
+                title: "Agent ingestion",
+                detail: "Authenticated create-only publishing for trusted agent directory updates.",
               },
               {
                 href: "/api/v1/search?q=repo",
@@ -85,7 +90,7 @@ export default function ApiPage() {
 
         <PublicPanel
           title="Planned next"
-          detail="The read API is live. The next deferred machine surface is authenticated publishing."
+          detail="The read API is live. Prompt and skill ingestion remain deferred until the agent ingestion pattern proves out."
         >
           <div className="grid gap-4 text-sm leading-7 text-muted">
             <p>
@@ -93,8 +98,8 @@ export default function ApiPage() {
               keeps the machine surface and the human surface on one data model.
             </p>
             <p>
-              The next platform step is authenticated ingestion and key management, not a
-              second read surface.
+              Agent ingestion now joins the machine surface. The next platform step is prompt
+              and skill ingestion, not a second read surface.
             </p>
           </div>
         </PublicPanel>

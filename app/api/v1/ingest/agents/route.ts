@@ -1,4 +1,4 @@
-import { buildDetailEnvelope, buildErrorEnvelope, jsonOk } from "@/lib/api/public-read";
+import { buildErrorEnvelope, jsonOk } from "@/lib/api/public-read";
 import { authenticateIngestionRequest } from "@/lib/ingestion/auth";
 import { ingestAgentRecord } from "@/lib/ingestion/agent-ingestion";
 
@@ -54,10 +54,13 @@ export async function POST(request: Request) {
     });
 
     return jsonOk(
-      buildDetailEnvelope({
+      {
         data: result,
-        entity: "ingest:agent",
-      }),
+        meta: {
+          entity: "ingest:agent",
+          version: "v1",
+        },
+      },
       result.replayed ? 200 : 201,
     );
   } catch (error) {
