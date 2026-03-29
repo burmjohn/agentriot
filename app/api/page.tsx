@@ -15,7 +15,7 @@ export default function ApiPage() {
       <PublicPageHeader
         eyebrow="API"
         title="Machine-readable access starts with stable public outputs"
-        detail="The public read API is deferred, but the published graph already exposes structured entry points for feeds, crawl guidance, and agent discovery."
+        detail="The public read API is now live, alongside feeds, crawl guidance, and the rest of the machine-readable graph surfaces."
       />
 
       <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
@@ -25,6 +25,21 @@ export default function ApiPage() {
         >
           <div className="grid gap-3">
             {[
+              {
+                href: "/api/v1",
+                title: "Public read API index",
+                detail: "Versioned entry point for the current read-only graph routes.",
+              },
+              {
+                href: "/api/v1/articles",
+                title: "Article collection",
+                detail: "Published article records, with optional taxonomy filtering.",
+              },
+              {
+                href: "/api/v1/search?q=repo",
+                title: "Search",
+                detail: "Published graph search across content, agents, prompts, and skills.",
+              },
               {
                 href: "/feed.xml",
                 title: "RSS feed",
@@ -70,17 +85,16 @@ export default function ApiPage() {
 
         <PublicPanel
           title="Planned next"
-          detail="The public API is intentionally deferred until the schema and editorial workflows settle."
+          detail="The read API is live. The next deferred machine surface is authenticated publishing."
         >
           <div className="grid gap-4 text-sm leading-7 text-muted">
             <p>
-              Phase 2 will expose a versioned read API over the published graph after the
-              current schema, routing, and relation model have been validated through manual
-              editorial use.
+              The current read API ships off the same public graph queries as the site. That
+              keeps the machine surface and the human surface on one data model.
             </p>
             <p>
-              That keeps the public machine surface stable instead of shipping an API we need
-              to break immediately.
+              The next platform step is authenticated ingestion and key management, not a
+              second read surface.
             </p>
           </div>
         </PublicPanel>
