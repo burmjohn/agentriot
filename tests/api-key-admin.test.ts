@@ -1,7 +1,14 @@
+import { encryptApiKeySecret } from "@/lib/ingestion/secret-crypto";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const db = {
   insert: vi.fn(),
+  query: {
+    apiKeys: {
+      findFirst: vi.fn(),
+    },
+  },
+  update: vi.fn(),
 };
 
 vi.mock("@/db", () => ({
@@ -66,5 +73,69 @@ describe("API key admin helpers", () => {
         createdById: "user-1",
       }),
     );
+  });
+
+  it("reveals the decrypted secret for an existing key", async () => {
+    const encrypted = encryptApiKeySecret(
+      "ar_live_secret_value",
+      "12345678901234567890123456789012",
+    );
+
+    db.query.apiKeys.findFirst.mockResolvedValue({
+      id: "key-1",
+      encryptedSecret: encrypted.ciphertext,
+      secretNonce: encrypted.nonce,
+      secretAlgorithm: encrypted.algorithm,
+    });
+
+    const { revealAdminApiKey } = await import("@/lib/admin/api-key-admin");
+
+    await expect(revealAdminApiKey("key-1")).resolves.toBe("ar_live_secret_value");
+  });
+
+  it("updates scopes and expiry for an existing key", async () => {
+    const returning = vi.fn().mockResolvedValue([{ id: "key-1" }]);
+    const where = vi.fn().mockReturnValue({ returning });
+    const set = vi.fn().mockReturnValue({ where });
+    db.update.mockReturnValue({ set });
+
+    const { updateAdminApiKey } = await import("@/lib/admin/api-key-admin");
+
+    await updateAdminApiKey({
+      id: "key-1",
+      input: {
+        label: "Updated publisher",
+        description: null,
+        scopes: ["content:write"],
+        expiresAt: new Date("2026-04-11T00:00:00.000Z"),
+      },
+    });
+
+    expect(set).toHaveBeenCalledWith(
+      expect.objectContaining({
+        label: "Updated publisher",
+        scopes: ["content:write"],
+        expiresAt: new Date("2026-04-11T00:00:00.000Z"),
+      }),
+    );
+  });
+
+  it("can revoke and reactivate a key", async () => {
+    const returning = vi.fn().mockResolvedValue([{ id: "key-1" }]);
+    const where = vi.fn().mockReturnValue({ returning });
+    const set = vi.fn().mockReturnValue({ where });
+    db.update.mockReturnValue({ set });
+
+    const { reactivateAdminApiKey, revokeAdminApiKey } = await import(
+      "@/lib/admin/api-key-admin"
+    );
+
+    await revokeAdminApiKey("key-1");
+    expect(set).toHaveBeenCalledWith(expect.objectContaining({ revokedAt: expect.any(Date) }));
+
+    set.mockClear();
+
+    await reactivateAdminApiKey("key-1");
+    expect(set).toHaveBeenCalledWith(expect.objectContaining({ revokedAt: null }));
   });
 });
