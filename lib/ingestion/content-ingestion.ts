@@ -24,12 +24,102 @@ export type ContentIngestionPayload = {
   externalId?: string | null;
 };
 
+type IngestionLookup = {
+  id: string;
+  payloadHash: string;
+  createdRecordId: string | null;
+  status: string;
+};
+
 function buildPayloadHash(payload: Record<string, unknown>) {
   return createHash("sha256").update(JSON.stringify(payload)).digest("hex");
 }
 
 function createKnownError(message: string, status: number, code: string) {
   return Object.assign(new Error(message), { status, code });
+}
+
+function isIdempotencyConstraintError(error: unknown) {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "code" in error &&
+    error.code === "23505" &&
+    "constraint" in error &&
+    error.constraint === "ingestion_events_api_key_idempotency_idx"
+  );
+}
+
+async function findExistingIngestionEvent(apiKeyId: string, idempotencyKey: string) {
+  const [existingEvent] = await db
+    .select({
+      id: ingestionEvents.id,
+      payloadHash: ingestionEvents.payloadHash,
+      createdRecordId: ingestionEvents.createdRecordId,
+      status: ingestionEvents.status,
+    })
+    .from(ingestionEvents)
+    .where(
+      and(
+        eq(ingestionEvents.apiKeyId, apiKeyId),
+        eq(ingestionEvents.idempotencyKey, idempotencyKey),
+      ),
+    )
+    .limit(1);
+
+  return existingEvent ?? null;
+}
+
+async function buildReplayResult({
+  existingEvent,
+  payloadHash,
+  kind,
+}: {
+  existingEvent: IngestionLookup;
+  payloadHash: string;
+  kind: ContentKind;
+}) {
+  if (existingEvent.payloadHash !== payloadHash) {
+    throw createKnownError(
+      "Payload differs from the original idempotent request.",
+      409,
+      "idempotency_conflict",
+    );
+  }
+
+  if (!existingEvent.createdRecordId) {
+    throw createKnownError(
+      "Idempotent content record could not be found.",
+      409,
+      "idempotency_missing_record",
+    );
+  }
+
+  const [existingContent] = await db
+    .select({
+      id: contentItems.id,
+      slug: contentItems.slug,
+      status: contentItems.status,
+    })
+    .from(contentItems)
+    .where(eq(contentItems.id, existingEvent.createdRecordId))
+    .limit(1);
+
+  if (!existingContent) {
+    throw createKnownError(
+      "Idempotent content record could not be found.",
+      409,
+      "idempotency_missing_record",
+    );
+  }
+
+  return {
+    kind,
+    id: existingContent.id,
+    slug: existingContent.slug,
+    status: existingContent.status,
+    replayed: true,
+  };
 }
 
 export async function ingestContentRecord({
@@ -49,96 +139,86 @@ export async function ingestContentRecord({
   });
   const payloadHash = buildPayloadHash({
     kind,
-    ...payload,
+    title: normalized.title,
+    slug: normalized.slug,
+    subtype: normalized.subtype,
+    status: normalized.status,
+    excerpt: normalized.excerpt,
+    body: normalized.body,
+    heroImageUrl: normalized.heroImageUrl,
+    canonicalUrl: normalized.canonicalUrl,
+    seoTitle: normalized.seoTitle,
+    seoDescription: normalized.seoDescription,
+    publishedAt: normalized.publishedAt?.toISOString() ?? null,
+    scheduledFor: normalized.scheduledFor?.toISOString() ?? null,
+    externalId: payload.externalId ?? null,
   });
 
-  const [existingEvent] = await db
-    .select({
-      id: ingestionEvents.id,
-      payloadHash: ingestionEvents.payloadHash,
-      createdRecordId: ingestionEvents.createdRecordId,
-      status: ingestionEvents.status,
-    })
-    .from(ingestionEvents)
-    .where(
-      and(
-        eq(ingestionEvents.apiKeyId, apiKeyId),
-        eq(ingestionEvents.idempotencyKey, idempotencyKey),
-      ),
-    )
-    .limit(1);
+  const existingEvent = await findExistingIngestionEvent(apiKeyId, idempotencyKey);
 
   if (existingEvent) {
-    if (existingEvent.payloadHash !== payloadHash) {
-      throw createKnownError(
-        "Payload differs from the original idempotent request.",
-        409,
-        "idempotency_conflict",
-      );
-    }
-
-    const [existingContent] = await db
-      .select({
-        id: contentItems.id,
-        slug: contentItems.slug,
-        status: contentItems.status,
-      })
-      .from(contentItems)
-      .where(eq(contentItems.id, existingEvent.createdRecordId!))
-      .limit(1);
-
-    if (!existingContent) {
-      throw createKnownError(
-        "Idempotent content record could not be found.",
-        409,
-        "idempotency_missing_record",
-      );
-    }
-
-    return {
+    return buildReplayResult({
+      existingEvent,
+      payloadHash,
       kind,
-      id: existingContent.id,
-      slug: existingContent.slug,
-      status: existingContent.status,
-      replayed: true,
-    };
+    });
   }
 
   const slug = await ensureUniqueContentSlug(normalized.slug, kind);
 
-  const created = await db.transaction(async (tx) => {
-    const [content] = await tx
-      .insert(contentItems)
-      .values({
-        ...normalized,
-        slug,
-      })
-      .returning();
+  let created;
 
-    await createContentRevisionSnapshot({
-      database: tx,
-      contentItem: content,
-      editedById: null,
+  try {
+    created = await db.transaction(async (tx) => {
+      const [content] = await tx
+        .insert(contentItems)
+        .values({
+          ...normalized,
+          slug,
+        })
+        .returning();
+
+      await createContentRevisionSnapshot({
+        database: tx,
+        contentItem: content,
+        editedById: null,
+      });
+
+      await tx.insert(ingestionEvents).values({
+        apiKeyId,
+        target: "content",
+        action: "create",
+        idempotencyKey,
+        externalId: payload.externalId ?? null,
+        payload: {
+          kind,
+          ...payload,
+        },
+        payloadHash,
+        status: "applied",
+        processedAt: new Date(),
+        createdRecordId: content.id,
+      });
+
+      return content;
     });
+  } catch (error) {
+    if (!isIdempotencyConstraintError(error)) {
+      throw error;
+    }
 
-    await tx.insert(ingestionEvents).values({
-      apiKeyId,
-      target: "content",
-      action: "create",
-      idempotencyKey,
-      externalId: payload.externalId ?? null,
-      payload: {
-        kind,
-        ...payload,
-      },
+    const replayEvent = await findExistingIngestionEvent(apiKeyId, idempotencyKey);
+
+    if (!replayEvent) {
+      throw error;
+    }
+
+    return buildReplayResult({
+      existingEvent: replayEvent,
       payloadHash,
-      status: "applied",
-      processedAt: new Date(),
-      createdRecordId: content.id,
+      kind,
     });
-
-    return content;
-  });
+  }
 
   return {
     kind,
