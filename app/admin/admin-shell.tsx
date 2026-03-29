@@ -8,6 +8,7 @@ const sections = [
   { href: "/admin/prompts", label: "Prompts" },
   { href: "/admin/skills", label: "Skills" },
   { href: "/admin/taxonomy", label: "Taxonomy" },
+  { href: "/admin/api-keys", label: "API keys" },
 ];
 
 export function AdminShell({

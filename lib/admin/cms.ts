@@ -3,6 +3,7 @@ import { db } from "@/db";
 import {
   agentTaxonomyTerms,
   agents,
+  apiKeys,
   agentPrompts,
   agentSkills,
   contentAgents,
@@ -16,7 +17,6 @@ import {
   skillPrompts,
   skillTaxonomyTerms,
   skills,
-  type publicationStatusEnum,
   taxonomyKindEnum,
   taxonomyScopeEnum,
   taxonomyTerms,
@@ -26,7 +26,6 @@ import {
   nextAvailableSlugExcept,
 } from "@/lib/content/slug-policy";
 
-type Status = (typeof publicationStatusEnum.enumValues)[number];
 type TaxonomyScope = (typeof taxonomyScopeEnum.enumValues)[number];
 type TaxonomyKind = (typeof taxonomyKindEnum.enumValues)[number];
 
@@ -34,7 +33,7 @@ export type AdminEntitySummary = {
   id: string;
   title: string;
   slug: string;
-  status: Status | TaxonomyKind;
+  status: string;
   updatedAt: Date;
   meta: string | null;
   href: string;
@@ -52,6 +51,7 @@ export type AdminPromptRecord = typeof prompts.$inferSelect;
 export type AdminSkillRecord = typeof skills.$inferSelect;
 export type AdminTaxonomyRecord = typeof taxonomyTerms.$inferSelect;
 export type AdminContentRevisionRecord = typeof contentRevisions.$inferSelect;
+export type AdminApiKeyRecord = typeof apiKeys.$inferSelect;
 
 export async function getDashboardCounts() {
   const [contentCount, agentCount, promptCount, skillCount] = await Promise.all([
@@ -170,6 +170,36 @@ export async function listTaxonomyTerms(): Promise<AdminEntitySummary[]> {
       ? `${row.scope} · ${row.status} · ${row.meta}`
       : `${row.scope} · ${row.status}`,
     href: `/admin/taxonomy/${row.id}`,
+  }));
+}
+
+export async function listApiKeys(): Promise<AdminEntitySummary[]> {
+  const rows = await db
+    .select({
+      id: apiKeys.id,
+      title: apiKeys.label,
+      slug: apiKeys.keyPrefix,
+      updatedAt: apiKeys.updatedAt,
+      revokedAt: apiKeys.revokedAt,
+      expiresAt: apiKeys.expiresAt,
+      meta: apiKeys.description,
+    })
+    .from(apiKeys)
+    .orderBy(desc(apiKeys.createdAt))
+    .limit(100);
+
+  return rows.map((row) => ({
+    id: row.id,
+    title: row.title,
+    slug: row.slug,
+    status: row.revokedAt
+      ? "revoked"
+      : row.expiresAt && row.expiresAt.getTime() <= Date.now()
+        ? "expired"
+        : "active",
+    updatedAt: row.updatedAt,
+    meta: row.meta,
+    href: `/admin/api-keys/${row.id}`,
   }));
 }
 
@@ -342,6 +372,16 @@ export async function getTaxonomyTermById(id: string) {
     .select()
     .from(taxonomyTerms)
     .where(eq(taxonomyTerms.id, id))
+    .limit(1);
+
+  return record ?? null;
+}
+
+export async function getApiKeyById(id: string) {
+  const [record] = await db
+    .select()
+    .from(apiKeys)
+    .where(eq(apiKeys.id, id))
     .limit(1);
 
   return record ?? null;

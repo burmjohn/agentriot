@@ -40,10 +40,18 @@ import {
   normalizePromptInput,
   normalizeSkillInput,
 } from "@/lib/admin/record-input";
+import { normalizeApiKeyInput } from "@/lib/admin/api-key-input";
 import {
   buildContentRestoreValues,
   createContentRevisionSnapshot,
 } from "@/lib/admin/content-revisions";
+import {
+  createAdminApiKey,
+  reactivateAdminApiKey,
+  revealAdminApiKey,
+  revokeAdminApiKey,
+  updateAdminApiKey,
+} from "@/lib/admin/api-key-admin";
 import {
   syncRedirectForSlugChange,
   syncRedirectsForTaxonomySlugChange,
@@ -55,6 +63,13 @@ import { replaceJoinRows } from "@/lib/admin/relation-writes";
 
 export type AdminActionState = {
   error: string | null;
+};
+
+export type ApiKeyActionState = {
+  error: string | null;
+  success: string | null;
+  secret: string | null;
+  recordId: string | null;
 };
 
 async function requireAdminUserId() {
@@ -69,6 +84,13 @@ async function requireAdminUserId() {
 
 function objectFromFormData(formData: FormData) {
   return Object.fromEntries(formData.entries()) as Record<string, string>;
+}
+
+function getApiKeyInputFromFormData(formData: FormData) {
+  return normalizeApiKeyInput({
+    ...objectFromFormData(formData),
+    scopes: formData.getAll("scopes"),
+  });
 }
 
 export async function createContentAction(
@@ -784,4 +806,148 @@ export async function updateSkillTaxonomyAction(id: string, formData: FormData) 
 
   revalidatePath(`/admin/skills/${id}`);
   redirect(`/admin/skills/${id}?relations=taxonomy`);
+}
+
+export async function createApiKeyAction(
+  _prevState: ApiKeyActionState,
+  formData: FormData,
+): Promise<ApiKeyActionState> {
+  try {
+    const userId = await requireAdminUserId();
+    const input = getApiKeyInputFromFormData(formData);
+    const { created, secret } = await createAdminApiKey({ userId, input });
+
+    revalidatePath("/admin");
+    revalidatePath("/admin/api-keys");
+
+    return {
+      error: null,
+      success: "API key created.",
+      secret,
+      recordId: created.id ?? null,
+    };
+  } catch (error) {
+    return {
+      error: error instanceof Error ? error.message : "Unable to create API key.",
+      success: null,
+      secret: null,
+      recordId: null,
+    };
+  }
+}
+
+export async function updateApiKeyAction(
+  id: string,
+  _prevState: ApiKeyActionState,
+  formData: FormData,
+): Promise<ApiKeyActionState> {
+  try {
+    const input = getApiKeyInputFromFormData(formData);
+    await requireAdminUserId();
+    await updateAdminApiKey({ id, input });
+
+    revalidatePath("/admin/api-keys");
+    revalidatePath(`/admin/api-keys/${id}`);
+
+    return {
+      error: null,
+      success: "API key saved.",
+      secret: null,
+      recordId: id,
+    };
+  } catch (error) {
+    return {
+      error: error instanceof Error ? error.message : "Unable to save API key.",
+      success: null,
+      secret: null,
+      recordId: id,
+    };
+  }
+}
+
+export async function revealApiKeyAction(
+  id: string,
+  prevState: ApiKeyActionState,
+  formData: FormData,
+): Promise<ApiKeyActionState> {
+  try {
+    void prevState;
+    void formData;
+    await requireAdminUserId();
+    const secret = await revealAdminApiKey(id);
+
+    return {
+      error: null,
+      success: "API key revealed.",
+      secret,
+      recordId: id,
+    };
+  } catch (error) {
+    return {
+      error: error instanceof Error ? error.message : "Unable to reveal API key.",
+      success: null,
+      secret: null,
+      recordId: id,
+    };
+  }
+}
+
+export async function revokeApiKeyAction(
+  id: string,
+  prevState: ApiKeyActionState,
+  formData: FormData,
+): Promise<ApiKeyActionState> {
+  try {
+    void prevState;
+    void formData;
+    await requireAdminUserId();
+    await revokeAdminApiKey(id);
+
+    revalidatePath("/admin/api-keys");
+    revalidatePath(`/admin/api-keys/${id}`);
+
+    return {
+      error: null,
+      success: "API key revoked.",
+      secret: null,
+      recordId: id,
+    };
+  } catch (error) {
+    return {
+      error: error instanceof Error ? error.message : "Unable to revoke API key.",
+      success: null,
+      secret: null,
+      recordId: id,
+    };
+  }
+}
+
+export async function reactivateApiKeyAction(
+  id: string,
+  prevState: ApiKeyActionState,
+  formData: FormData,
+): Promise<ApiKeyActionState> {
+  try {
+    void prevState;
+    void formData;
+    await requireAdminUserId();
+    await reactivateAdminApiKey(id);
+
+    revalidatePath("/admin/api-keys");
+    revalidatePath(`/admin/api-keys/${id}`);
+
+    return {
+      error: null,
+      success: "API key reactivated.",
+      secret: null,
+      recordId: id,
+    };
+  } catch (error) {
+    return {
+      error: error instanceof Error ? error.message : "Unable to reactivate API key.",
+      success: null,
+      secret: null,
+      recordId: id,
+    };
+  }
 }
