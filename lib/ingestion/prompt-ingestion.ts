@@ -25,12 +25,41 @@ type IngestionLookup = {
   status: string;
 };
 
+const allowedPromptPayloadKeys = new Set([
+  "title",
+  "slug",
+  "status",
+  "shortDescription",
+  "fullDescription",
+  "promptBody",
+  "providerCompatibility",
+  "variablesSchema",
+  "exampleOutput",
+  "externalId",
+]);
+
 function buildPayloadHash(payload: Record<string, unknown>) {
   return createHash("sha256").update(JSON.stringify(payload)).digest("hex");
 }
 
 function createKnownError(message: string, status: number, code: string) {
   return Object.assign(new Error(message), { status, code });
+}
+
+function assertNoUnknownPromptFields(payload: Record<string, unknown>) {
+  const unknownFields = Object.keys(payload).filter(
+    (field) => !allowedPromptPayloadKeys.has(field),
+  );
+
+  if (unknownFields.length === 0) {
+    return;
+  }
+
+  throw createKnownError(
+    `Unexpected prompt ingestion fields: ${unknownFields.join(", ")}.`,
+    400,
+    "invalid_payload",
+  );
 }
 
 function isIdempotencyConstraintError(error: unknown) {
@@ -123,6 +152,7 @@ export async function ingestPromptRecord({
   idempotencyKey: string;
   payload: PromptIngestionPayload;
 }) {
+  assertNoUnknownPromptFields(payload as Record<string, unknown>);
   const normalized = normalizePromptInput(payload);
   const payloadHash = buildPayloadHash({
     title: normalized.title,

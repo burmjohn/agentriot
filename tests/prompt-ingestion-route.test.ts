@@ -338,4 +338,47 @@ describe("prompt ingestion routes", () => {
     });
     expect(ingestPromptRecord).not.toHaveBeenCalled();
   });
+
+  it("returns a stable invalid-payload error when the request includes unexpected fields", async () => {
+    authenticateIngestionRequest.mockResolvedValue({
+      ok: true,
+      key: { id: "key-1" },
+    });
+    ingestPromptRecord.mockRejectedValue(
+      Object.assign(new Error("Unexpected prompt ingestion fields: unexpectedField."), {
+        code: "invalid_payload",
+        status: 400,
+      }),
+    );
+
+    const { POST } = await import("@/app/api/v1/ingest/prompts/route");
+    const response = await POST(
+      new Request("http://localhost:3011/api/v1/ingest/prompts", {
+        method: "POST",
+        body: JSON.stringify({
+          title: "Repo triage prompt",
+          status: "published",
+          promptBody: "Summarize the repository and highlight risk.",
+          unexpectedField: "ignored-no-more",
+        }),
+        headers: {
+          authorization: "Bearer ar_live_secret_token",
+          "content-type": "application/json",
+          "idempotency-key": "evt-1",
+        },
+      }),
+    );
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({
+      error: {
+        code: "invalid_payload",
+        details: undefined,
+        message: "Unexpected prompt ingestion fields: unexpectedField.",
+      },
+      meta: {
+        version: "v1",
+      },
+    });
+  });
 });
