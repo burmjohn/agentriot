@@ -56,6 +56,12 @@ export default function ApiPage() {
                 method: "POST",
               },
               {
+                href: "/api/v1/ingest/taxonomy",
+                title: "Taxonomy ingestion",
+                detail: "Authenticated create-only publishing for shared graph taxonomy terms.",
+                method: "POST",
+              },
+              {
                 href: "/api/v1/search?q=repo",
                 title: "Search",
                 detail: "Published graph search across content, agents, prompts, and skills.",
@@ -129,7 +135,7 @@ export default function ApiPage() {
 
         <PublicPanel
           title="Planned next"
-          detail="The read API is live. The next deferred platform work is richer graph mutation, not another create-only directory endpoint."
+          detail="The read API is live. The next deferred platform work is taxonomy assignment and relation mutation, not another create-only catalog endpoint."
         >
           <div className="grid gap-4 text-sm leading-7 text-muted">
             <p>
@@ -137,8 +143,9 @@ export default function ApiPage() {
               keeps the machine surface and the human surface on one data model.
             </p>
             <p>
-              Agent, prompt, and skill ingestion now join the machine surface. The next platform
-              step is richer taxonomy and relation mutation, not a second read surface.
+              Agent, prompt, skill, and taxonomy ingestion now join the machine surface. The next
+              platform step is taxonomy assignment and richer relation mutation, not a second read
+              surface.
             </p>
           </div>
         </PublicPanel>
