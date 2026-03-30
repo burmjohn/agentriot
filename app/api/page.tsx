@@ -44,6 +44,12 @@ export default function ApiPage() {
                 method: "POST",
               },
               {
+                href: "/api/v1/ingest/prompts",
+                title: "Prompt ingestion",
+                detail: "Authenticated create-only publishing for trusted prompt library updates.",
+                method: "POST",
+              },
+              {
                 href: "/api/v1/search?q=repo",
                 title: "Search",
                 detail: "Published graph search across content, agents, prompts, and skills.",
@@ -117,7 +123,7 @@ export default function ApiPage() {
 
         <PublicPanel
           title="Planned next"
-          detail="The read API is live. Prompt and skill ingestion remain deferred until the agent ingestion pattern proves out."
+          detail="The read API is live. Skill ingestion remains deferred until prompt ingestion proves out."
         >
           <div className="grid gap-4 text-sm leading-7 text-muted">
             <p>
@@ -125,8 +131,8 @@ export default function ApiPage() {
               keeps the machine surface and the human surface on one data model.
             </p>
             <p>
-              Agent ingestion now joins the machine surface. The next platform step is prompt
-              and skill ingestion, not a second read surface.
+              Agent and prompt ingestion now join the machine surface. The next platform step is
+              skill ingestion, not a second read surface.
             </p>
           </div>
         </PublicPanel>
