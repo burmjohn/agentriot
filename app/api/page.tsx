@@ -50,6 +50,12 @@ export default function ApiPage() {
                 method: "POST",
               },
               {
+                href: "/api/v1/ingest/skills",
+                title: "Skill ingestion",
+                detail: "Authenticated create-only publishing for trusted skill directory updates.",
+                method: "POST",
+              },
+              {
                 href: "/api/v1/search?q=repo",
                 title: "Search",
                 detail: "Published graph search across content, agents, prompts, and skills.",
@@ -123,7 +129,7 @@ export default function ApiPage() {
 
         <PublicPanel
           title="Planned next"
-          detail="The read API is live. Skill ingestion remains deferred until prompt ingestion proves out."
+          detail="The read API is live. The next deferred platform work is richer graph mutation, not another create-only directory endpoint."
         >
           <div className="grid gap-4 text-sm leading-7 text-muted">
             <p>
@@ -131,8 +137,8 @@ export default function ApiPage() {
               keeps the machine surface and the human surface on one data model.
             </p>
             <p>
-              Agent and prompt ingestion now join the machine surface. The next platform step is
-              skill ingestion, not a second read surface.
+              Agent, prompt, and skill ingestion now join the machine surface. The next platform
+              step is richer taxonomy and relation mutation, not a second read surface.
             </p>
           </div>
         </PublicPanel>
