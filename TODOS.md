@@ -1,57 +1,32 @@
 # TODOS
 
+This file tracks work that is still not implemented on `main`. It no longer
+lists backlog items that already shipped, such as the public read API,
+authenticated ingestion endpoints, API key management, or taxonomy-assignment
+ingestion.
+
 ## Platform
 
-### Public read API for content graph
+### Graph relation mutation ingestion
 
-**What:** Add a public read API over the shared content graph after phase 1.
+**What:** Add authenticated relation-mutation endpoints that replace related
+graph links in one request, starting with content relations
+(`content_agents`, `content_prompts`, and `content_skills`) and then extending
+the same pattern to agents, prompts, and skills.
 
-**Why:** This unlocks machine consumption, external integrations, and a cleaner
-AI-agent-friendly surface once the data model is stable.
+**Why:** Machine publishing is still asymmetric. Records and taxonomy can be
+published through the API, but related graph links still require manual admin
+editing. That leaves the machine surface incomplete.
 
-**Context:** Phase 1 intentionally defers API work until the shared graph,
-public routes, and manual editorial workflow prove the schema in real use.
-Start from the stable entity and relation queries already powering the public
-site instead of designing the API in parallel.
-
-**Effort:** L
-**Priority:** P2
-**Depends on:** Stable graph schema, stable browse routes, proven manual
-publishing workflow
-
-### Authenticated ingestion API for machine publishing
-
-**What:** Add an authenticated ingestion API for trusted machine-authored
-publishing after phase 1.
-
-**Why:** This unlocks structured automation, faster freshness workflows, and
-the long-term agent-friendly publishing model without forcing phase 1 to lock
-the wrong schema too early.
-
-**Context:** Phase 1 intentionally uses admin-first manual publishing so the
-content model, relation rules, and editorial workflow can prove themselves in
-real use. Build ingestion on top of those proven flows rather than in parallel.
+**Context:** The create-only ingesters and the taxonomy-assignment ingesters
+are already live. The next clean step is replace-all relation mutation with the
+same idempotency, scoped auth, and transaction rules used elsewhere in the
+ingestion surface.
 
 **Effort:** L
-**Priority:** P2
-**Depends on:** Stable graph schema, proven admin publishing flow, trust policy
-design
-
-### API key management for trusted publishers
-
-**What:** Add API key issuance, scoping, revocation, and usage tracking for
-trusted automation publishers.
-
-**Why:** Machine publishing becomes unsafe and messy without a first-class key
-management layer once ingestion is real.
-
-**Context:** Phase 1 keeps auth admin-only and skips machine publishing
-entirely. This should land with or right after the ingestion API so automation
-is introduced with explicit trust boundaries instead of ad hoc secrets.
-
-**Effort:** M
-**Priority:** P2
-**Depends on:** Ingestion API, trust policy, admin surface expansion
+**Priority:** P1
+**Depends on:** Stable ingestion API, replace-all join-table helpers, proven
+graph query shape on public detail pages
 
 ### Redirect management UI for editors
 
