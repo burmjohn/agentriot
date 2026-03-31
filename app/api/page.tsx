@@ -62,6 +62,13 @@ export default function ApiPage() {
                 method: "POST",
               },
               {
+                href: "/api/v1/ingest/content-taxonomy",
+                title: "Content taxonomy assignment",
+                detail:
+                  "Authenticated replace-all taxonomy assignment for published content graph records.",
+                method: "POST",
+              },
+              {
                 href: "/api/v1/search?q=repo",
                 title: "Search",
                 detail: "Published graph search across content, agents, prompts, and skills.",
@@ -143,8 +150,8 @@ export default function ApiPage() {
               keeps the machine surface and the human surface on one data model.
             </p>
             <p>
-              Agent, prompt, skill, and taxonomy ingestion now join the machine surface. The next
-              platform step is taxonomy assignment and richer relation mutation, not a second read
+              Agent, prompt, skill, taxonomy, and content-taxonomy ingestion now join the machine
+              surface. The next platform step is broader relation mutation, not a second read
               surface.
             </p>
           </div>
