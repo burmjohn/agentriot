@@ -43,6 +43,10 @@ function isIdempotencyConstraintError(error: unknown) {
 }
 
 function assertNoUnknownFields(payload: Record<string, unknown>) {
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+    throw createKnownError("Request body must be a JSON object.", 400, "invalid_payload");
+  }
+
   const unknownFields = Object.keys(payload).filter((field) => !allowedPayloadKeys.has(field));
 
   if (unknownFields.length === 0) {

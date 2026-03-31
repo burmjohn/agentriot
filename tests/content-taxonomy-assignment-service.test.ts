@@ -196,6 +196,23 @@ describe("content taxonomy assignment ingestion service", () => {
     });
   });
 
+  it("rejects non-object payloads with a stable invalid-payload error", async () => {
+    const { assignContentTaxonomy } = await import(
+      "@/lib/ingestion/content-taxonomy-assignment"
+    );
+
+    await expect(
+      assignContentTaxonomy({
+        apiKeyId: "key-1",
+        idempotencyKey: "evt-1",
+        payload: null as never,
+      }),
+    ).rejects.toMatchObject({
+      code: "invalid_payload",
+      status: 400,
+    });
+  });
+
   it("rejects requests when the content item does not exist", async () => {
     queueSelectResults([[], []]);
 

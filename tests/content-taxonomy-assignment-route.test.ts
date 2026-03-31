@@ -248,4 +248,42 @@ describe("content taxonomy assignment ingestion route", () => {
       },
     });
   });
+
+  it("returns a stable invalid-payload error for non-object JSON bodies", async () => {
+    authenticateIngestionRequest.mockResolvedValue({
+      ok: true,
+      key: { id: "key-1" },
+    });
+    assignContentTaxonomy.mockRejectedValue(
+      Object.assign(new Error("Request body must be a JSON object."), {
+        code: "invalid_payload",
+        status: 400,
+      }),
+    );
+
+    const { POST } = await import("@/app/api/v1/ingest/content-taxonomy/route");
+    const response = await POST(
+      new Request("http://localhost:3011/api/v1/ingest/content-taxonomy", {
+        method: "POST",
+        body: "null",
+        headers: {
+          authorization: "Bearer ar_live_secret_token",
+          "content-type": "application/json",
+          "idempotency-key": "evt-1",
+        },
+      }),
+    );
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({
+      error: {
+        code: "invalid_payload",
+        details: undefined,
+        message: "Request body must be a JSON object.",
+      },
+      meta: {
+        version: "v1",
+      },
+    });
+  });
 });
