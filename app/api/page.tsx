@@ -76,6 +76,13 @@ export default function ApiPage() {
                 method: "POST",
               },
               {
+                href: "/api/v1/ingest/prompt-taxonomy",
+                title: "Prompt taxonomy assignment",
+                detail:
+                  "Authenticated replace-all taxonomy assignment for trusted prompt library records.",
+                method: "POST",
+              },
+              {
                 href: "/api/v1/search?q=repo",
                 title: "Search",
                 detail: "Published graph search across content, agents, prompts, and skills.",
@@ -157,10 +164,10 @@ export default function ApiPage() {
               keeps the machine surface and the human surface on one data model.
             </p>
             <p>
-              Agent, prompt, skill, taxonomy, content-taxonomy, and
-              agent-taxonomy ingestion now join the machine surface. The next
-              platform step is prompt and skill taxonomy mutation, then broader
-              relation mutation.
+              Agent, prompt, skill, taxonomy, content-taxonomy,
+              agent-taxonomy, and prompt-taxonomy ingestion now join the
+              machine surface. The next platform step is skill taxonomy
+              mutation, then broader relation mutation.
             </p>
           </div>
         </PublicPanel>
