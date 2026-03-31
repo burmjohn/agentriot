@@ -83,6 +83,13 @@ export default function ApiPage() {
                 method: "POST",
               },
               {
+                href: "/api/v1/ingest/skill-taxonomy",
+                title: "Skill taxonomy assignment",
+                detail:
+                  "Authenticated replace-all taxonomy assignment for trusted skill directory records.",
+                method: "POST",
+              },
+              {
                 href: "/api/v1/search?q=repo",
                 title: "Search",
                 detail: "Published graph search across content, agents, prompts, and skills.",
@@ -165,9 +172,9 @@ export default function ApiPage() {
             </p>
             <p>
               Agent, prompt, skill, taxonomy, content-taxonomy,
-              agent-taxonomy, and prompt-taxonomy ingestion now join the
-              machine surface. The next platform step is skill taxonomy
-              mutation, then broader relation mutation.
+              agent-taxonomy, prompt-taxonomy, and skill-taxonomy ingestion
+              now join the machine surface. The next platform step is broader
+              relation mutation across the graph.
             </p>
           </div>
         </PublicPanel>
