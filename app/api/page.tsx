@@ -111,6 +111,13 @@ export default function ApiPage() {
                 method: "POST",
               },
               {
+                href: "/api/v1/ingest/skill-relations",
+                title: "Skill relation mutation",
+                detail:
+                  "Authenticated replace-all relation mutation for skill to agent and prompt graph links.",
+                method: "POST",
+              },
+              {
                 href: "/api/v1/search?q=repo",
                 title: "Search",
                 detail: "Published graph search across content, agents, prompts, and skills.",
@@ -194,9 +201,10 @@ export default function ApiPage() {
             <p>
               Agent, prompt, skill, taxonomy, content-taxonomy,
               agent-taxonomy, prompt-taxonomy, skill-taxonomy,
-              content-relations, agent-relations, and prompt-relations
-              ingestion now join the machine surface. The next platform step is
-              skill relation mutation.
+              content-relations, agent-relations, prompt-relations, and
+              skill-relations ingestion now join the machine surface. The next
+              platform step is broader graph mutation beyond the symmetric
+              relation slices.
             </p>
           </div>
         </PublicPanel>
