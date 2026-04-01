@@ -170,29 +170,34 @@ This is the real current gap list, not the original historical roadmap.
 
 The biggest unfinished platform feature is:
 
-- graph relation mutation ingestion
+- atomic content publish ingestion
 
-Today the API can create records and assign taxonomy, but it cannot yet mutate
-cross-entity relation joins through the machine publishing surface. That means
-the machine layer is still weaker than the admin UI for building the full
-graph.
+Today the API can create content, assign content taxonomy, and replace content
+relations, but it still requires multiple machine calls to fully publish a
+single article or tutorial. That means the machine layer is still more
+primitive than the editorial workflow it is trying to support.
 
 The expected next implementation slice is:
 
-- `POST /api/v1/ingest/content-relations`
+- `POST /api/v1/ingest/content-publish`
 
-That would replace all three content relation families together:
+That should upsert one content record and replace all of its current graph
+state in one transaction:
 
+- content fields
+- content taxonomy
 - related agents
 - related prompts
 - related skills
 
-Later, that same pattern would likely expand to agents, prompts, and skills.
+Later, that atomic publish pattern can expand to agents, prompts, and skills.
 
 ### Other deferred items
 
 Still not implemented:
 
+- atomic publish workflows for agents, prompts, and skills
+- broader graph mutation beyond the symmetric relation endpoints
 - redirect management UI
 - public accounts
 - saved items

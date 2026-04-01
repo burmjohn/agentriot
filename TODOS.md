@@ -1,32 +1,71 @@
 # TODOS
 
-This file tracks work that is still not implemented on `main`. It no longer
-lists backlog items that already shipped, such as the public read API,
-authenticated ingestion endpoints, API key management, or taxonomy-assignment
-ingestion.
+This file tracks the major product and platform work that is still not
+implemented on `main`. It does not repeat backlog items that already shipped,
+such as the public read API, authenticated ingestion endpoints, taxonomy
+assignment ingestion, or the symmetric relation-mutation endpoints.
 
 ## Platform
 
-### Graph relation mutation ingestion
+### Atomic content publish ingestion
 
-**What:** Add authenticated relation-mutation endpoints that replace related
-graph links in one request, starting with content relations
-(`content_agents`, `content_prompts`, and `content_skills`) and then extending
-the same pattern to agents, prompts, and skills.
+**What:** Add an authenticated atomic content publish endpoint that can create
+or update a content record and replace its taxonomy and related graph links in
+one request.
 
-**Why:** Machine publishing is still asymmetric. Records and taxonomy can be
-published through the API, but related graph links still require manual admin
-editing. That leaves the machine surface incomplete.
+**Why:** Machine publishing is still fragmented. The API can already create
+content, assign taxonomy, and replace content relations, but automated
+publishers still have to orchestrate multiple calls to fully publish one
+article or tutorial.
 
-**Context:** The create-only ingesters and the taxonomy-assignment ingesters
-are already live. The next clean step is replace-all relation mutation with the
-same idempotency, scoped auth, and transaction rules used elsewhere in the
-ingestion surface.
+**Context:** The next approved design is
+`POST /api/v1/ingest/content-publish`, an atomic upsert-style workflow that
+reuses the existing content normalization, redirect policy, taxonomy joins,
+relation joins, revision snapshots, and ingestion idempotency model.
 
 **Effort:** L
 **Priority:** P1
-**Depends on:** Stable ingestion API, replace-all join-table helpers, proven
-graph query shape on public detail pages
+**Depends on:** Stable content ingestion primitives, replace-all join-table
+helpers, redirect sync helpers, content revision snapshots, and the existing
+content graph query shape
+
+### Atomic publish workflows for agents, prompts, and skills
+
+**What:** Extend the atomic publish pattern beyond content so trusted machine
+publishers can upsert agents, prompts, and skills with taxonomy and relation
+state in one request.
+
+**Why:** The machine surface is still lower-level than the admin UI for the
+directory entities. Content is the right place to prove the pattern, but the
+platform is not truly complete until the other graph entities can be published
+atomically too.
+
+**Context:** Do not start with a generic multi-entity publish endpoint. Build
+the content atomic publish flow first, then decide whether entity-specific
+atomic publish routes or a higher-level abstraction are the right follow-on.
+
+**Effort:** L
+**Priority:** P2
+**Depends on:** Content publish ingestion landed and stable, relation mutation
+and taxonomy assignment patterns already proven for non-content entities
+
+### Broader graph mutation beyond symmetric relation slices
+
+**What:** Add the next layer of graph-aware publishing after the symmetric
+relation endpoints are complete, for example richer publish workflows or more
+composed mutation surfaces.
+
+**Why:** The graph primitives are now strong, but there is still a gap between
+"all low-level mutation pieces exist" and "machine publishers can express a
+full editorial workflow in one request."
+
+**Context:** This should come after content atomic publish clarifies what a
+good higher-level machine publishing contract looks like. Do not jump straight
+to a generic everything-endpoint without learning from the first atomic flow.
+
+**Effort:** L
+**Priority:** P2
+**Depends on:** Atomic content publish ingestion and validation from real usage
 
 ### Redirect management UI for editors
 
