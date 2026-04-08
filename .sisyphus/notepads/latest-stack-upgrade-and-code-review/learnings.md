@@ -96,3 +96,43 @@ No changes were required for the styling band. Both Tailwind CSS packages were a
 - The repo still warns because the workspace is on Node `22.22.2` while the
   project engine requires Node `24.x`, but the data-band verification commands
   completed successfully in this environment.
+
+## Task 7 test harness verification — April 8, 2026
+
+### Test packages upgraded
+- `@playwright/test` upgraded from `1.58.2` to `1.59.1`.
+- `vitest` upgraded from `4.1.2` to `4.1.3`.
+- `tsx` stayed at `4.21.0`; no version change was needed.
+
+### Harness compatibility changes
+- `pnpm typecheck` now runs through `scripts/typecheck.ts` instead of calling
+  `next typegen && tsc --noEmit` directly.
+- Root cause: `next typegen` in `Next.js 16.2.2` writes
+  `.next/types/validator.ts` with `import type ... from "./routes.js"`, but it
+  only generates `routes.d.ts`. Under `TypeScript 6.0.2`, direct `tsc --noEmit`
+  then fails module resolution.
+- The new script keeps the harness isolated from app logic by generating the
+  Next route types, writing the missing `routes.js.d.ts` shim into generated
+  type folders, and then running `tsc --noEmit`.
+- Public Playwright now uses an isolated default port (`3013`) and an explicit
+  `webServer.env` block so seeded E2E runs do not accidentally attach to a
+  pre-existing app on `3011`.
+- Public Playwright server reuse is now opt-in via
+  `PLAYWRIGHT_REUSE_EXISTING_SERVER=true`; reproducible seeded runs are the
+  default.
+
+### Verification results
+- `pnpm install`: passed.
+- `pnpm test`: passed (`48` files, `258` tests) on `Vitest 4.1.3`.
+- `pnpm typecheck`: passed with the scripted typegen shim workaround.
+- `pnpm build`: passed.
+- `pnpm test:e2e`: passed (`16` public graph tests) after isolating the public
+  Playwright port and app URL env.
+- `pnpm test:e2e:admin`: passed (`16` admin tests) with the existing isolated
+  admin harness.
+
+### Issues encountered
+- The workspace still emits the known engine warning because the environment is
+  running Node `22.22.2` while the repo requires Node `24.x`.
+- Running `pnpm build` and `pnpm typecheck` in parallel is not reliable because
+  both commands mutate `.next/`; verification should run them separately.

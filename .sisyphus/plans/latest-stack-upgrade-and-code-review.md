@@ -365,7 +365,7 @@ Wave 3: stabilization and documentation
 
   **Commit**: YES | Message: `chore(upgrade): move data band to latest majors` | Files: [`package.json`, `pnpm-lock.yaml`, `db/index.ts`, `drizzle.config.ts`, `db/schema/**`, `drizzle/**` if intentionally changed]
 
-- [ ] 7. Upgrade the test harness and make verification reproducible
+- [x] 7. Upgrade the test harness and make verification reproducible
 
   **What to do**: Upgrade `@playwright/test`, `vitest`, `tsx`, and any test-only companions to the frozen matrix. Reconcile config differences, browser test startup behavior, seeded DB assumptions, reporters, and any harness API changes. Keep the harness isolated from app logic fixes unless a harness break exposes an actual upgrade blocker.
   **Must NOT do**: Do not rewrite broad test coverage. Do not add unrelated new test suites.

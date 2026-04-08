@@ -12,7 +12,7 @@
     "build": "next build",
     "start": "next start --port ${PORT:-3011}",
     "lint": "eslint .",
-    "typecheck": "next typegen && tsc --noEmit",
+    "typecheck": "tsx scripts/typecheck.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:seed": "tsx db/seed.ts",
@@ -34,7 +34,7 @@
     "zod": "4.3.6"
   },
   "devDependencies": {
-    "@playwright/test": "1.58.2",
+    "@playwright/test": "1.59.1",
     "@tailwindcss/postcss": "4.2.2",
     "@types/node": "25.5.2",
     "@types/react": "19.2.14",
@@ -46,6 +46,6 @@
     "tailwindcss": "4.2.2",
     "tsx": "4.21.0",
     "typescript": "6.0.2",
-    "vitest": "4.1.2"
+    "vitest": "4.1.3"
   }
 }

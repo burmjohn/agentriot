@@ -8,7 +8,8 @@
     "ses_291e48331ffeAROggKqGJEVgxZ",
     "ses_291da78faffeXxEyYkVGhIJiRT",
     "ses_291d12252ffeb86moX2Eb36bnH",
-    "ses_291c29b58ffeSVcEAsCzn1xOZq"
+    "ses_291c29b58ffeSVcEAsCzn1xOZq",
+    "ses_291bc7560ffe50lWy762Z2yPJy"
   ],
   "plan_name": "latest-stack-upgrade-and-code-review",
   "agent": "atlas",
@@ -66,6 +67,15 @@
       "agent": "Sisyphus-Junior",
       "category": "deep",
       "updated_at": "2026-04-08T18:01:01.404Z"
+    },
+    "todo:7": {
+      "task_key": "todo:7",
+      "task_label": "7",
+      "task_title": "Upgrade the test harness and make verification reproducible",
+      "session_id": "ses_291bc7560ffe50lWy762Z2yPJy",
+      "agent": "Sisyphus-Junior",
+      "category": "unspecified-high",
+      "updated_at": "2026-04-08T18:18:29.085Z"
     }
   }
 }
