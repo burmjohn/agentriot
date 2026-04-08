@@ -1,0 +1,40 @@
+Blockers captured on April 8, 2026.
+
+1. Missing direct CLI ownership
+   - `package.json` scripts call `vitest run` and `vitest`.
+   - `vitest.config.ts` imports `defineConfig` from `vitest/config`.
+   - `package.json` does not declare `vitest` in `dependencies` or
+     `devDependencies`.
+   - `pnpm list --depth 0 --json` reports `vitest@4.1.2` only under
+     `unsavedDependencies`, so the test CLI currently works through a
+     transitive install instead of direct ownership.
+
+2. Additional missing direct CLI ownership
+   - `package.json` uses `drizzle-kit` in `db:generate` and `db:migrate`.
+   - `package.json` does not declare `drizzle-kit` directly.
+   - `pnpm list --depth 0 --json` reports `drizzle-kit@0.31.10` only under
+     `unsavedDependencies`.
+
+3. Auth adapter ambiguity
+   - `package.json` declares `@better-auth/drizzle-adapter@^1.5.6`.
+   - `lib/auth.ts` imports `drizzleAdapter` from
+     `better-auth/adapters/drizzle`, not from
+     `@better-auth/drizzle-adapter`.
+   - The direct adapter package appears unused, so the intended Better Auth
+     adapter source is ambiguous before upgrade work.
+
+4. Runtime mismatch with repo requirement
+   - `node -v` returns `v22.22.2`.
+   - `README.md` requires `Node.js 24.x`.
+   - The current machine is below the documented runtime target.
+
+5. PostgreSQL version assumption is not pinned
+   - `README.md` requires PostgreSQL on `localhost:5432` and documents the
+     local URL as `postgres://postgres:postgres@localhost:5432/agentriot`.
+   - The repo does not state a PostgreSQL major or exact version target.
+
+6. Baseline E2E blockers in the current environment
+   - `pnpm test:e2e` fails because port `3011` is already in use
+     (`EADDRINUSE`).
+   - `pnpm test:e2e:admin` fails because another `next dev` server is already
+     running at `http://localhost:3011`.

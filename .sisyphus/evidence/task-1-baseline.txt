@@ -1,0 +1,178 @@
+Baseline captured on April 8, 2026.
+
+===== COMMAND: pnpm lint =====
+START: 2026-04-08T12:59:58-04:00
+
+> agentriot@0.1.0 lint /mnt/botsserver/projects/agentriot
+> eslint .
+
+END: 2026-04-08T13:00:24-04:00
+EXIT CODE: 0
+
+===== COMMAND: pnpm typecheck =====
+START: 2026-04-08T13:00:24-04:00
+
+> agentriot@0.1.0 typecheck /mnt/botsserver/projects/agentriot
+> next typegen && tsc --noEmit
+
+Generating route types...
+✓ Types generated successfully
+END: 2026-04-08T13:00:47-04:00
+EXIT CODE: 0
+
+===== COMMAND: pnpm build =====
+START: 2026-04-08T13:00:47-04:00
+
+> agentriot@0.1.0 build /mnt/botsserver/projects/agentriot
+> next build
+
+▲ Next.js 16.2.1 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 15.8s
+  Running TypeScript ...
+  Finished TypeScript in 9.7s ...
+  Collecting page data using 5 workers ...
+  Generating static pages using 5 workers (0/42) ...
+  Generating static pages using 5 workers (10/42) ...
+  Generating static pages using 5 workers (20/42) ...
+  Generating static pages using 5 workers (31/42) ...
+✓ Generating static pages using 5 workers (42/42) in 478ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ○ /about
+├ ƒ /admin
+├ ƒ /admin/agents
+├ ƒ /admin/agents/[id]
+├ ƒ /admin/agents/new
+├ ƒ /admin/api-keys
+├ ƒ /admin/api-keys/[id]
+├ ƒ /admin/api-keys/new
+├ ƒ /admin/content
+├ ƒ /admin/content/[id]
+├ ƒ /admin/content/new
+├ ƒ /admin/prompts
+├ ƒ /admin/prompts/[id]
+├ ƒ /admin/prompts/new
+├ ƒ /admin/skills
+├ ƒ /admin/skills/[id]
+├ ƒ /admin/skills/new
+├ ƒ /admin/taxonomy
+├ ƒ /admin/taxonomy/[id]
+├ ƒ /admin/taxonomy/new
+├ ƒ /agents
+├ ƒ /agents/[slug]
+├ ○ /api
+├ ƒ /api/auth/[...all]
+├ ƒ /api/v1
+├ ƒ /api/v1/agents
+├ ƒ /api/v1/agents/[slug]
+├ ƒ /api/v1/articles
+├ ƒ /api/v1/articles/[slug]
+├ ƒ /api/v1/ingest/agent-relations
+├ ƒ /api/v1/ingest/agent-taxonomy
+├ ƒ /api/v1/ingest/agents
+├ ƒ /api/v1/ingest/articles
+├ ƒ /api/v1/ingest/content-relations
+├ ƒ /api/v1/ingest/content-taxonomy
+├ ƒ /api/v1/ingest/prompt-relations
+├ ƒ /api/v1/ingest/prompt-taxonomy
+├ ƒ /api/v1/ingest/prompts
+├ ƒ /api/v1/ingest/skill-relations
+├ ƒ /api/v1/ingest/skill-taxonomy
+├ ƒ /api/v1/ingest/skills
+├ ƒ /api/v1/ingest/taxonomy
+├ ƒ /api/v1/ingest/tutorials
+├ ƒ /api/v1/prompts
+├ ƒ /api/v1/prompts/[slug]
+├ ƒ /api/v1/search
+├ ƒ /api/v1/skills
+├ ƒ /api/v1/skills/[slug]
+├ ƒ /api/v1/taxonomy
+├ ƒ /api/v1/tutorials
+├ ƒ /api/v1/tutorials/[slug]
+├ ƒ /articles
+├ ƒ /articles/[slug]
+├ ƒ /feed.json
+├ ƒ /feed.xml
+├ ƒ /llms.txt
+├ ƒ /prompts
+├ ƒ /prompts/[slug]
+├ ○ /robots.txt
+├ ƒ /search
+├ ƒ /sign-in
+├ ƒ /sitemap.xml
+├ ƒ /skills
+├ ƒ /skills/[slug]
+├ ƒ /tutorials
+└ ƒ /tutorials/[slug]
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+END: 2026-04-08T13:01:21-04:00
+EXIT CODE: 0
+
+===== COMMAND: pnpm test =====
+START: 2026-04-08T13:01:21-04:00
+
+> agentriot@0.1.0 test /mnt/botsserver/projects/agentriot
+> vitest run
+
+
+ RUN  v4.1.2 /mnt/botsserver/projects/agentriot
+
+
+ Test Files  48 passed (48)
+      Tests  258 passed (258)
+   Start at  13:01:24
+   Duration  5.96s (transform 2.71s, setup 0ms, import 7.43s, tests 6.89s, environment 7ms)
+
+END: 2026-04-08T13:01:30-04:00
+EXIT CODE: 0
+
+===== COMMAND: pnpm test:e2e =====
+START: 2026-04-08T13:01:30-04:00
+
+> agentriot@0.1.0 test:e2e /mnt/botsserver/projects/agentriot
+> playwright test
+
+[WebServer] ⨯ Failed to start server
+[WebServer] Error: listen EADDRINUSE: address already in use :::3011
+[WebServer]     at <unknown> (Error: listen EADDRINUSE: address already in use :::3011)
+[WebServer]     at new Promise (<anonymous>) {
+[WebServer]   code: 'EADDRINUSE',
+[WebServer]   errno: -98,
+[WebServer]   syscall: 'listen',
+[WebServer]   address: '::',
+[WebServer]   port: 3011
+[WebServer] }
+Error: Process from config.webServer was not able to start. Exit code: 1
+
+ELIFECYCLE Command failed with exit code 1.
+END: 2026-04-08T13:01:45-04:00
+EXIT CODE: 1
+
+===== COMMAND: pnpm test:e2e:admin =====
+START: 2026-04-08T13:01:45-04:00
+
+> agentriot@0.1.0 test:e2e:admin /mnt/botsserver/projects/agentriot
+> playwright test --config=playwright.admin.config.ts
+
+[WebServer] ⨯ Another next dev server is already running.
+[WebServer]
+[WebServer] - Local:        http://localhost:3011
+[WebServer] - PID:          2681112
+[WebServer] - Dir:          /mnt/botsserver/projects/agentriot
+[WebServer] - Log:          .next/dev/logs/next-development.log
+[WebServer]
+[WebServer] Run kill 2681112 to stop it.
+Error: Process from config.webServer was not able to start. Exit code: 1
+
+ELIFECYCLE Command failed with exit code 1.
+END: 2026-04-08T13:01:54-04:00
+EXIT CODE: 1

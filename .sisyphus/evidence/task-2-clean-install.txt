@@ -1,0 +1,28 @@
+Task 2 clean-install evidence — April 8, 2026
+
+Command:
+rm -rf node_modules pnpm-lock.yaml && pnpm install
+
+Result:
+- Exit status: 0
+- Runtime warning: pnpm warned that `engines.node` wants `24.x` while the
+  current machine is `v22.22.2`.
+- Reinstall completed successfully in 30.4s with pnpm 10.33.0.
+
+Pinned tool ownership added to package.json:
+- vitest 4.1.2
+- drizzle-kit 0.31.10
+- dotenv 17.3.1
+
+Runtime/package manager metadata:
+- engines.node = 24.x
+- engines.pnpm = 10.33.0
+- packageManager = pnpm@10.33.0
+
+Reproducibility note:
+- Direct dependencies and devDependencies were pinned to exact versions so a
+  lockfile rebuild does not float framework, auth, data, or tooling packages.
+
+Verification after lockfile refresh:
+- pnpm lint: exit 0
+- pnpm typecheck: exit 0
