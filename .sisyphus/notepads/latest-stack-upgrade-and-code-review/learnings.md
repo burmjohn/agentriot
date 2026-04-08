@@ -63,3 +63,36 @@ No changes were required for the styling band. Both Tailwind CSS packages were a
 - `pnpm test:e2e:admin`: passed after fixing a stale API-key E2E fixture to
   use a future expiry value instead of a hard-coded date that now fell inside
   the app's `expiring-soon` window.
+
+## Task 6 data band verification — April 8, 2026
+
+### Data packages status
+- `drizzle-orm` remained at `0.45.2`; no change was needed.
+- `drizzle-kit` remained at `0.31.10`; it was already present as a direct
+  dev dependency owner.
+- `postgres` upgraded from `3.4.8` to `3.4.9`.
+
+### Compatibility notes
+- `db/index.ts` stayed compatible with `postgres` `3.4.9`; the existing
+  `postgres(env.DATABASE_URL, { prepare: false })` client setup still works
+  unchanged with `drizzle-orm/postgres-js`.
+- `drizzle.config.ts` did not need changes; URL-based Postgres credentials and
+  the current `drizzle-kit` config shape still work.
+- `db/seed.ts` still works with `dbClient.end({ timeout: 0 })`; no seed cleanup
+  change was required.
+
+### Verification results
+- `pnpm db:migrate`: passed on the local database.
+- `pnpm db:seed`: passed after migration.
+- `pnpm typecheck`: passed.
+- `pnpm build`: passed.
+
+### SQL churn review
+- No files changed under `drizzle/`.
+- Lockfile churn was limited to the `postgres` `3.4.9` bump and matching
+  transitive snapshot references.
+
+### Environment note
+- The repo still warns because the workspace is on Node `22.22.2` while the
+  project engine requires Node `24.x`, but the data-band verification commands
+  completed successfully in this environment.

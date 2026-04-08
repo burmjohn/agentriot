@@ -1,0 +1,54 @@
+## Task 6 data band verification — April 8, 2026
+
+### Target matrix
+- drizzle-orm: 0.45.2 → already at target, no change required.
+- drizzle-kit: 0.31.10 → already at target, no change required.
+- postgres: 3.4.8 → upgraded to 3.4.9.
+
+### Files reviewed
+- `package.json`
+- `db/index.ts`
+- `drizzle.config.ts`
+- `db/schema/index.ts`
+- `db/seed.ts`
+
+### Compatibility review
+- `db/index.ts` still initializes `postgres(...)` through `drizzle-orm/postgres-js`
+  with `prepare: false`; no 3.4.9 compatibility change was needed.
+- `drizzle.config.ts` still uses `dialect: "postgresql"` with URL-based
+  credentials and remains compatible with current `drizzle-kit` behavior.
+- `db/schema/index.ts` stays a simple schema barrel; no schema export changes were
+  needed.
+- `db:seed` still closes the postgres-js client with `dbClient.end({ timeout: 0 })`;
+  no seed-script behavior change was required.
+
+### Dependency and lockfile changes
+- Updated `package.json` dependency `postgres` to `3.4.9`.
+- Ran `pnpm install --no-frozen-lockfile` to refresh `pnpm-lock.yaml`.
+- Lockfile churn was limited to the direct `postgres` version bump and transitive
+  references from `drizzle-orm` / Better Auth dependency snapshots.
+
+### SQL churn review
+- Checked `git diff -- drizzle` after install.
+- Result: no changes under `drizzle/` and no generated migration SQL churn.
+
+### Verification
+- `pnpm db:migrate` ✅
+  - Completed successfully against local Postgres.
+  - Drizzle emitted expected notices that schema `drizzle` and relation
+    `__drizzle_migrations` already existed, then reported migrations applied
+    successfully.
+- `pnpm db:seed` ✅
+  - Completed successfully and printed `Seeded AgentRiot canonical fixture graph.`
+- `pnpm typecheck` ✅
+  - Completed successfully.
+- `pnpm build` ✅
+  - Completed successfully on Next.js 16.2.2 and generated 42 routes.
+
+### Environment notes
+- The workspace is currently running Node.js `22.22.2`, while `package.json`
+  requires `24.x`. All commands above completed successfully, but pnpm emitted the
+  expected unsupported-engine warning on each run.
+- `pnpm install` initially failed because CI-style frozen-lockfile behavior blocked
+  lockfile updates after the manifest change. Re-running with
+  `pnpm install --no-frozen-lockfile` updated the lockfile successfully.

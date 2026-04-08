@@ -7,7 +7,8 @@
     "ses_291ef6045ffeW8FBX4Qh3DUOm7",
     "ses_291e48331ffeAROggKqGJEVgxZ",
     "ses_291da78faffeXxEyYkVGhIJiRT",
-    "ses_291d12252ffeb86moX2Eb36bnH"
+    "ses_291d12252ffeb86moX2Eb36bnH",
+    "ses_291c29b58ffeSVcEAsCzn1xOZq"
   ],
   "plan_name": "latest-stack-upgrade-and-code-review",
   "agent": "atlas",
@@ -56,6 +57,15 @@
       "agent": "Sisyphus-Junior",
       "category": "deep",
       "updated_at": "2026-04-08T17:54:25.738Z"
+    },
+    "todo:6": {
+      "task_key": "todo:6",
+      "task_label": "6",
+      "task_title": "Upgrade the data band and preserve DB script behavior",
+      "session_id": "ses_291c29b58ffeSVcEAsCzn1xOZq",
+      "agent": "Sisyphus-Junior",
+      "category": "deep",
+      "updated_at": "2026-04-08T18:01:01.404Z"
     }
   }
 }

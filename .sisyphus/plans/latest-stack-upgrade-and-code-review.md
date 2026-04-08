@@ -324,7 +324,7 @@ Wave 3: stabilization and documentation
 
   **Commit**: YES | Message: `chore(upgrade): move auth band to latest majors` | Files: [`package.json`, `pnpm-lock.yaml`, `lib/auth.ts`, `lib/auth/server.ts`, `app/api/auth/[...all]/route.ts`, `lib/env.ts`, `next.config.ts`]
 
-- [ ] 6. Upgrade the data band and preserve DB script behavior
+- [x] 6. Upgrade the data band and preserve DB script behavior
 
   **What to do**: Upgrade `drizzle-orm`, add or upgrade `drizzle-kit` as a direct owner, upgrade `postgres`, and reconcile connection/config behavior, migration execution, seed execution, and schema compatibility. If upstream changes generate SQL churn, review it explicitly and stop unless it is required and understood.
   **Must NOT do**: Do not accept unexplained migration diffs. Do not redesign schema names or data model relationships.
