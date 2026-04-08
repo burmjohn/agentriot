@@ -450,7 +450,7 @@ Wave 3: stabilization and documentation
 
   **Commit**: YES | Message: `fix(upgrade): remove upgrade blockers and deprecated usage` | Files: [hotspot config/auth/data/test files changed by review]
 
-- [ ] 9. Reconcile docs, environment requirements, and final dependency state
+- [x] 9. Reconcile docs, environment requirements, and final dependency state
 
   **What to do**: Update docs and setup instructions to match the upgraded stack, including Node/pnpm requirements, any changed local setup commands, and any intentionally held-back packages. Reconcile `package.json`, `pnpm-lock.yaml`, and setup docs so a new contributor can install and run the repo from scratch. Then run the full verification set one final time.
   **Must NOT do**: Do not add CI/CD or deployment work. Do not claim unsupported environments.

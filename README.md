@@ -31,7 +31,7 @@ The current build includes the following surfaces:
 You need the following tools installed locally:
 
 - Node.js 24.x
-- pnpm 10.x
+- pnpm 10.33.0 (enforced via `packageManager` field)
 - PostgreSQL running on `localhost:5432`
 
 The default local database URL is:

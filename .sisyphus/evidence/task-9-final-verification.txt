@@ -1,0 +1,302 @@
+# Final Verification Run
+# Task 9: Final Verification Set
+# Started: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+ WARN  Unsupported engine: wanted: {"node":"24.x"} (current: {"node":"v22.22.2","pnpm":"10.33.0"})
+
+> agentriot@0.1.0 lint /mnt/botsserver/projects/agentriot
+> eslint .
+
+EXIT CODE: 0
+
+
+=== pnpm typecheck ===
+ WARN  Unsupported engine: wanted: {"node":"24.x"} (current: {"node":"v22.22.2","pnpm":"10.33.0"})
+
+> agentriot@0.1.0 typecheck /mnt/botsserver/projects/agentriot
+> tsx scripts/typecheck.ts
+
+Generating route types...
+✓ Types generated successfully
+EXIT CODE: 0
+
+
+=== pnpm build ===
+ WARN  Unsupported engine: wanted: {"node":"24.x"} (current: {"node":"v22.22.2","pnpm":"10.33.0"})
+
+> agentriot@0.1.0 build /mnt/botsserver/projects/agentriot
+> next build
+
+▲ Next.js 16.2.2 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 9.2s
+  Running TypeScript ...
+  Finished TypeScript in 10.2s ...
+  Collecting page data using 5 workers ...
+  Generating static pages using 5 workers (0/42) ...
+  Generating static pages using 5 workers (10/42) 
+  Generating static pages using 5 workers (20/42) 
+  Generating static pages using 5 workers (31/42) 
+✓ Generating static pages using 5 workers (42/42) in 488ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ○ /about
+├ ƒ /admin
+├ ƒ /admin/agents
+├ ƒ /admin/agents/[id]
+├ ƒ /admin/agents/new
+├ ƒ /admin/api-keys
+├ ƒ /admin/api-keys/[id]
+├ ƒ /admin/api-keys/new
+├ ƒ /admin/content
+├ ƒ /admin/content/[id]
+├ ƒ /admin/content/new
+├ ƒ /admin/prompts
+├ ƒ /admin/prompts/[id]
+├ ƒ /admin/prompts/new
+├ ƒ /admin/skills
+├ ƒ /admin/skills/[id]
+├ ƒ /admin/skills/new
+├ ƒ /admin/taxonomy
+├ ƒ /admin/taxonomy/[id]
+├ ƒ /admin/taxonomy/new
+├ ƒ /agents
+├ ƒ /agents/[slug]
+├ ○ /api
+├ ƒ /api/auth/[...all]
+├ ƒ /api/v1
+├ ƒ /api/v1/agents
+├ ƒ /api/v1/agents/[slug]
+├ ƒ /api/v1/articles
+├ ƒ /api/v1/articles/[slug]
+├ ƒ /api/v1/ingest/agent-relations
+├ ƒ /api/v1/ingest/agent-taxonomy
+├ ƒ /api/v1/ingest/agents
+├ ƒ /api/v1/ingest/articles
+├ ƒ /api/v1/ingest/content-relations
+├ ƒ /api/v1/ingest/content-taxonomy
+├ ƒ /api/v1/ingest/prompt-relations
+├ ƒ /api/v1/ingest/prompt-taxonomy
+├ ƒ /api/v1/ingest/prompts
+├ ƒ /api/v1/ingest/skill-relations
+├ ƒ /api/v1/ingest/skill-taxonomy
+├ ƒ /api/v1/ingest/skills
+├ ƒ /api/v1/ingest/taxonomy
+├ ƒ /api/v1/ingest/tutorials
+├ ƒ /api/v1/prompts
+├ ƒ /api/v1/prompts/[slug]
+├ ƒ /api/v1/search
+├ ƒ /api/v1/skills
+├ ƒ /api/v1/skills/[slug]
+├ ƒ /api/v1/taxonomy
+├ ƒ /api/v1/tutorials
+├ ƒ /api/v1/tutorials/[slug]
+├ ƒ /articles
+├ ƒ /articles/[slug]
+├ ƒ /feed.json
+├ ƒ /feed.xml
+├ ƒ /llms.txt
+├ ƒ /prompts
+├ ƒ /prompts/[slug]
+├ ○ /robots.txt
+├ ƒ /search
+├ ƒ /sign-in
+├ ƒ /sitemap.xml
+├ ƒ /skills
+├ ƒ /skills/[slug]
+├ ƒ /tutorials
+└ ƒ /tutorials/[slug]
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+EXIT CODE: 0
+
+
+=== pnpm test ===
+
+=== pnpm test ===
+ WARN  Unsupported engine: wanted: {"node":"24.x"} (current: {"node":"v22.22.2","pnpm":"10.33.0"})
+
+> agentriot@0.1.0 test /mnt/botsserver/projects/agentriot
+> vitest run
+
+
+ RUN  v4.1.3 /mnt/botsserver/projects/agentriot
+
+
+ Test Files  48 passed (48)
+      Tests  258 passed (258)
+   Start at  14:34:01
+   Duration  7.84s (transform 3.58s, setup 0ms, import 8.91s, tests 9.98s, environment 7ms)
+
+EXIT CODE: 0
+
+
+=== pnpm test:e2e ===
+
+=== pnpm test:e2e ===
+ WARN  Unsupported engine: wanted: {"node":"24.x"} (current: {"node":"v22.22.2","pnpm":"10.33.0"})
+
+> agentriot@0.1.0 test:e2e /mnt/botsserver/projects/agentriot
+> playwright test
+
+
+Running 16 tests using 3 workers
+
+  ✓   3 [chromium] › tests/e2e/public-graph.spec.ts:37:5 › search empty states route back into useful public browse surfaces (2.2s)
+  ✓   2 [chromium] › tests/e2e/public-graph.spec.ts:28:5 › search returns mixed published entity types (2.3s)
+  ✓   1 [chromium] › tests/e2e/public-graph.spec.ts:5:5 › homepage links into the published graph (2.6s)
+  ✓   4 [chromium] › tests/e2e/public-graph.spec.ts:50:5 › sign-in page reflects disabled admin bootstrap state (1.8s)
+  ✓   5 [chromium] › tests/e2e/public-graph.spec.ts:57:5 › about and api surfaces expose machine-readable entry points (3.9s)
+  ✓   7 [chromium] › tests/e2e/public-graph.spec.ts:108:5 › articles can be filtered by scoped taxonomy term (2.7s)
+  ✓   8 [chromium] › tests/e2e/public-graph.spec.ts:122:5 › agents can be filtered by scoped taxonomy term (1.1s)
+  ✓   9 [chromium] › tests/e2e/public-graph.spec.ts:132:5 › empty filtered collections offer a direct recovery path (1.0s)
+  ✓   6 [chromium] › tests/e2e/public-graph.spec.ts:74:5 › machine-readable routes return stable public crawl and feed surfaces (6.2s)
+  ✓  10 [chromium] › tests/e2e/public-graph.spec.ts:141:5 › homepage trending topic chips route into scoped filtered collections (1.6s)
+  ✓  11 [chromium] › tests/e2e/public-graph.spec.ts:153:5 › detail page taxonomy chips route back into scoped collections (1.6s)
+  ✓  14 [chromium] › tests/e2e/public-graph.spec.ts:196:5 › tutorials can be filtered by scoped taxonomy term (1.4s)
+  ✓  13 [chromium] › tests/e2e/public-graph.spec.ts:186:5 › prompt detail pages support copying the prompt body (3.2s)
+  ✓  15 [chromium] › tests/e2e/public-graph.spec.ts:210:5 › prompts can be filtered by scoped taxonomy term (1.7s)
+  ✓  16 [chromium] › tests/e2e/public-graph.spec.ts:224:5 › skills can be filtered by scoped taxonomy term (1.9s)
+  ✓  12 [chromium] › tests/e2e/public-graph.spec.ts:165:5 › prompt detail pages expose related graph navigation (6.2s)
+
+  16 passed (24.3s)
+EXIT CODE: 0
+
+
+=== pnpm test:e2e:admin ===
+
+=== pnpm test:e2e:admin ===
+ WARN  Unsupported engine: wanted: {"node":"24.x"} (current: {"node":"v22.22.2","pnpm":"10.33.0"})
+
+> agentriot@0.1.0 test:e2e:admin /mnt/botsserver/projects/agentriot
+> playwright test --config=playwright.admin.config.ts
+
+
+Running 16 tests using 1 worker
+
+[2m[WebServer] [22m[2m2026-04-08T18:37:33.995Z[0m [31mERROR[0m [1m[Better Auth]:[0m User not found { email: [32m'admin@agentriot.com'[39m }
+  ✓   1 [chromium] › tests/e2e/admin-agent-create.spec.ts:6:5 › admin can create a published agent with an auto-follow slug and expose it publicly (16.5s)
+  ✓   2 [chromium] › tests/e2e/admin-agent-graph.spec.ts:6:5 › admin can update agent taxonomy and prompt relations and expose them publicly (4.5s)
+  ✓   3 [chromium] › tests/e2e/admin-agent-slug-redirect.spec.ts:6:5 › editing a published agent title preserves the old public path via redirect (3.5s)
+  ✓   4 [chromium] › tests/e2e/admin-api-keys.spec.ts:11:5 › admin can create, reveal, edit, revoke, reactivate, and inspect an API key (5.6s)
+  ✓   5 [chromium] › tests/e2e/admin-auth.spec.ts:4:5 › allowlisted admin can bootstrap the first account and reach the console (1.8s)
+  ✓   6 [chromium] › tests/e2e/admin-content-create.spec.ts:6:5 › admin can create a published article with an auto-follow slug and expose it publicly (4.8s)
+  ✓   7 [chromium] › tests/e2e/admin-content-relations.spec.ts:6:5 › admin can update content taxonomy and skill relations and see the public graph change (5.0s)
+  ✓   8 [chromium] › tests/e2e/admin-content-revisions.spec.ts:6:5 › admin can restore a previous content revision and the public article reflects it (6.1s)
+  ✓   9 [chromium] › tests/e2e/admin-content-slug-redirect.spec.ts:6:5 › editing a published article title preserves the old public path via redirect (10.3s)
+  ✘  10 [chromium] › tests/e2e/admin-prompt-create.spec.ts:6:5 › admin can create a published prompt with an auto-follow slug and expose it publicly (30.1s)
+  ✓  11 [chromium] › tests/e2e/admin-prompt-graph.spec.ts:6:5 › admin can update prompt taxonomy and skill relations and expose them publicly (9.4s)
+  ✓  12 [chromium] › tests/e2e/admin-prompt-slug-redirect.spec.ts:6:5 › editing a published prompt title preserves the old public path via redirect (4.1s)
+  ✓  13 [chromium] › tests/e2e/admin-skill-create.spec.ts:6:5 › admin can create a published skill with an auto-follow slug and expose it publicly (5.1s)
+  ✓  14 [chromium] › tests/e2e/admin-skill-graph.spec.ts:6:5 › admin can update skill taxonomy and agent relations and expose them publicly (6.0s)
+  ✓  15 [chromium] › tests/e2e/admin-skill-slug-redirect.spec.ts:6:5 › editing a published skill title preserves the old public path via redirect (4.1s)
+  ✓  16 [chromium] › tests/e2e/admin-taxonomy-workflow.spec.ts:7:5 › admin can create and refine a taxonomy term, commands and see the public graph change (5.0s)
+  ✓   8 [chromium] › tests/e2e/admin-content-revisions.spec.ts:6:5 › admin can restore a previous content revision and the public article reflects it (6.1s)
+  ✓   9 [chromium] › tests/e2e/admin-content-slug-redirect.spec.ts:6:5 › editing a published article title preserves the old public path via redirect (10.3s)
+  ✘  10 [chromium] › tests/e2e/admin-prompt-create.spec.ts:6:5 › admin can create a published prompt with an auto-follow slug and expose it publicly (30.1s)
+  ✓  11 [chromium] › tests/e2e/admin-prompt-graph.spec.ts:6:5 › admin can update prompt taxonomy and skill relations and expose them publicly (9.4s)
+  ✓  12 [chromium] › tests/e2e/admin-prompt-slug-redirect.spec.ts:6:5 › editing a published prompt title preserves the old public path via redirect (4.1s)
+  ✓  13 [chromium] › tests/e2e/admin-skill-create.spec.ts:6:5 › admin can create a published skill with an auto-follow slug and expose it publicly (5.1s)
+  ✓  14 [chromium] › tests/e2e/admin-skill-graph.spec.ts:6:5 › admin can update skill taxonomy and agent relations and expose them publicly (6.0s)
+  ✓  15 [chromium] › tests/e2e/admin-skill-slug-redirect.spec.ts:6:5 › editing a published skill title preserves the old public path via redirect (4.1s)
+  ✓  16 [chromium] › tests/e2e/admin-taxonomy-workflow.spec.ts:7:5 › admin can create and refine a taxonomy term, attach it to content, and expose it publicly (10.5s)
+
+
+  1) [chromium] › tests/e2e/admin-prompt-create.spec.ts:6:5 › admin can can create a published prompt with an auto-follow slug and expose it publicly 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: 'Create admin account' })[22m
+    [2m    - waiting for" http://localhost:3012/admin" navigation to finish...[22m
+    [2m    - navigated to "http://localhost:3012/admin"[22m
+
+
+       at pages/sign-in-page.ts:49
+
+      47 |     await this.page
+      48 |       .getByRole("button", { name: "Create admin account" })
+    > 49 |       .click({ noWaitAfter: true });
+         |        ^
+      50 |   }
+      51 |
+      52 |   async signIn({
+        at SignInPage.createAdmin (/mnt/botsserver/projects/agentriot/tests/e2e/pages/sign-in-page.ts:49:8)
+        at SignInPage.bootstrapOrSignInAdmin (/mnt/botsserver/projects/agentriot/tests/e2e/pages/sign-in-page.ts:89:7)
+        at /mnt/botsserver/projects/agentriot/tests/e2e/admin-prompt-create.spec.ts:14:3
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/admin-prompt-create-admin--ab8d2-slug-and-expose-it-publicly-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/admin-prompt-create-admin--ab8d2-slug-and-expose-it-publicly-chromium/error-context.md
+
+  1 failed
+    [chromium] › tests/e2e/admin-prompt-create.spec.ts:6:5 › admin can create a published prompt with an auto-follow slug and expose it publicly 
+  15 passed (2.3m)
+ ELIFECYCLE  Command failed with exit code 1.
+EXIT CODE: 1
+
+
+=== RETRY: pnpm test:e2e:admin (failed test only) ===
+ WARN  Unsupported engine: wanted: {"node":"24.x"} (current: {"node":"v22.22.2","pnpm":"10.33.0"})
+
+Running 1 test using 1 worker
+
+[2m[WebServer] [22m[2m2026-04-08T18:42:25.562Z[0m [31mERROR[0m [1m[Better Auth]:[0m User not found { email: [32m'admin@agentriot.com'[39m }
+  ✓  1 [chromium] › tests/e2e/admin-prompt-create.spec.ts:6:5 › admin can create a published prompt with an auto-follow slug and expose it publicly (15.7s)
+
+  1 passed (26.6s)
+EXIT CODE (RETRY): 0
+
+
+=== pnpm db:migrate ===
+
+=== pnpm db:migrate ===
+ WARN  Unsupported engine: wanted: {"node":"24.x"} (current: {"node":"v22.22.2","pnpm":"10.33.0"})
+
+> agentriot@0.1.0 db:migrate /mnt/botsserver/projects/agentriot
+> drizzle-kit migrate
+
+No config path provided, using default 'drizzle.config.ts'
+Reading config file '/mnt/botsserver/projects/agentriot/drizzle.config.ts'
+Using 'postgres' driver for database querying
+[⣷] applying migrations...{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '42P06',
+  message: 'schema "drizzle" already exists, skipping',
+  file: 'schemacmds.c',
+  line: '132',
+  routine: 'CreateSchemaCommand'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '42P07',
+  message: 'relation "__drizzle_migrations" already exists, skipping',
+  file: 'parse_utilcmd.c',
+  line: '207',
+  routine: 'transformCreateStmt'
+}
+[✓] migrations applied successfully!EXIT CODE: 0
+
+
+=== pnpm db:seed ===
+
+=== pnpm db:seed ===
+ WARN  Unsupported engine: wanted: {"node":"24.x"} (current: {"node":"v22.22.2","pnpm":"10.33.0"})
+
+> agentriot@0.1.0 db:seed /mnt/botsserver/projects/agentriot
+> tsx db/seed.ts
+
+Seeded AgentRiot canonical fixture graph.
+EXIT CODE: 0
