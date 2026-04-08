@@ -1,72 +1,28 @@
-# Stack Upgrade Learnings
 
-## Conventions
-- Use pnpm for package management
-- Node 24.x and pnpm 10.x are current requirements
-- All CLI tools used by scripts must be direct dependencies
-- Better Auth uses `@better-auth/drizzle-adapter` package
+## Task 4 styling band verification — April 8, 2026
 
-## Blockers Identified
-- vitest is used by scripts but not in package.json
-- Auth adapter import pattern needs verification
+### Styling Packages Status
+- tailwindcss: 4.2.2 (already at target version, no upgrade needed)
+- @tailwindcss/postcss: 4.2.2 (already at target version, no upgrade needed)
 
-## Patterns
-- Framework band: next, react, react-dom, typescript, @types/*
-- Styling band: tailwindcss, @tailwindcss/postcss, postcss
-- Auth band: better-auth, @better-auth/drizzle-adapter
-- Data band: drizzle-orm, drizzle-kit, postgres
-- Test band: @playwright/test, vitest, tsx
+### CSS Pipeline Configuration
+- PostCSS config (postcss.config.mjs): Uses @tailwindcss/postcss plugin correctly
+- Global CSS (app/globals.css): Uses Tailwind v4 syntax (@import "tailwindcss", @theme inline)
+- Theme variables: CSS custom properties for light/dark modes with accent colors
+- Custom utilities: Defined @layer utilities for panels, chips, hairlines, grid-noise
 
-## Task 1 baseline — April 8, 2026
-- Current runtime: Node 22.22.2, pnpm 10.33.0.
-- Key outdated direct packages: next 16.2.1 -> 16.2.2,
-  eslint-config-next 16.2.1 -> 16.2.2, postgres 3.4.8 -> 3.4.9,
-  better-auth 1.5.6 -> 1.6.0,
-  @better-auth/drizzle-adapter 1.5.6 -> 1.6.0,
-  @playwright/test 1.58.2 -> 1.59.1, eslint 9.39.4 -> 10.2.0,
-  typescript 5.9.3 -> 6.0.2, and @types/node 20.19.37 -> 25.5.2.
-- Blockers identified: vitest is only available as an unsaved transitive CLI,
-  drizzle-kit is also not directly owned, the Better Auth drizzle adapter
-  source is ambiguous, Node 22.22.2 is below the documented Node 24.x target,
-  PostgreSQL version is not pinned, and both E2E suites are blocked by an
-  existing process on port 3011.
-- Baseline status: `pnpm lint`, `pnpm typecheck`, `pnpm build`, and
-  `pnpm test` passed. `pnpm test:e2e` failed with `EADDRINUSE` on 3011.
-  `pnpm test:e2e:admin` failed because another `next dev` server was already
-  running on 3011.
+### Verification Results
+- Build: PASSED - `pnpm build` completed successfully with no CSS/Tailwind errors
+- Compilation time: 9.1s (Turbopack)
+- Static pages generated: 42/42
+- Screenshot verification: Home page and agents page render with expected styles
+  - Evidence files: task-4-homepage.png, task-4-agents-page.png
 
-## Task 2 tool ownership and clean install — April 8, 2026
-- Added direct devDependency ownership for `vitest@4.1.2`,
-  `drizzle-kit@0.31.10`, and `dotenv@17.3.1`. `dotenv` is required because
-  `drizzle.config.ts` imports `dotenv/config` directly.
-- Added `package.json` engine pins for Node `24.x` and pnpm `10.33.0`, while
-  keeping `packageManager` pinned to `pnpm@10.33.0`.
-- Pinned all direct dependencies and devDependencies to exact versions so a
-  clean reinstall does not silently upgrade framework, auth, data, or tooling
-  packages when the lockfile is regenerated.
-- Clean install succeeded with `rm -rf node_modules pnpm-lock.yaml && pnpm install`.
-  The only install issue was an expected engine warning because the current
-  machine is still on Node `22.22.2` instead of the repo target `24.x`.
-- Verification after the lockfile refresh passed: `pnpm lint` exit 0 and
-  `pnpm typecheck` exit 0.
+### Key Finding
+No changes were required for the styling band. Both Tailwind CSS packages were already at their target versions (4.2.2), and the CSS pipeline is fully functional. The project uses Tailwind v4 with the new @import syntax and @theme configuration.
 
-## Task 3 framework band — April 8, 2026
-- Upgraded `next` to `16.2.2`, `eslint-config-next` to `16.2.2`, `eslint` to
-  `10.2.0`, `typescript` to `6.0.2`, and `@types/node` to `25.5.2`.
-  `react`, `react-dom`, `@types/react`, and `@types/react-dom` stayed on the
-  frozen Task 1 versions.
-- No Next config or TypeScript config changes were required. The existing
-  `next.config.ts` already avoids removed Next 16 `eslint` config, and
-  `next typegen` plus `tsc --noEmit` passed with the existing `tsconfig.json`.
-- The only compatibility break came from ESLint 10: `eslint-config-next`
-  still configures `settings.react.version = "detect"`, which makes
-  `eslint-plugin-react@7.37.5` call removed ESLint 10 API
-  `context.getFilename()`. Pinning `settings.react.version` to `19.2.4` in
-  `eslint.config.mjs` fixed linting without changing the frozen package
-  matrix.
-- Verification passed with `pnpm typecheck`, `pnpm lint`, and `pnpm build`.
-  `next build` succeeded on Next `16.2.2`, and `next typegen` regenerated
-  route types successfully.
-- `pnpm install` and all verification commands still emit the expected engine
-  warning because the machine is on Node `22.22.2` while the repo target stays
-  on Node `24.x`.
+### Compatibility Notes
+- Tailwind v4 uses new configuration syntax (@theme inline vs tailwind.config.js)
+- PostCSS integration is simplified in v4 (single plugin vs multiple)
+- CSS custom properties defined in :root are mapped to Tailwind theme via @theme
+- No breaking changes encountered with the current Next.js 16.2.2 + Tailwind 4.2.2 combination

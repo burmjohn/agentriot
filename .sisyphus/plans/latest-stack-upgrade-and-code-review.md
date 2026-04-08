@@ -202,7 +202,7 @@ Wave 3: stabilization and documentation
 
   **Commit**: YES | Message: `chore(upgrade): normalize tooling ownership and runtime pins` | Files: [`package.json`, `pnpm-lock.yaml`, `README.md` or version metadata files]
 
-- [ ] 3. Upgrade the framework band together
+- [x] 3. Upgrade the framework band together
 
   **What to do**: Upgrade `next`, `react`, `react-dom`, `eslint-config-next`, `typescript`, `@types/react`, `@types/react-dom`, and `@types/node` to the frozen target majors. Reconcile breaking changes in app router behavior, `next typegen`, ESLint integration, and any Next config changes required by the new major.
   **Must NOT do**: Do not touch Better Auth, Drizzle, or Playwright in this task except for compatibility fixes strictly required by the framework bump.
@@ -243,7 +243,7 @@ Wave 3: stabilization and documentation
 
   **Commit**: YES | Message: `chore(upgrade): move framework band to latest majors` | Files: [`package.json`, `pnpm-lock.yaml`, `next.config.ts`, `tsconfig.json`, related framework-compat files]
 
-- [ ] 4. Upgrade the styling band and verify CSS pipeline compatibility
+- [x] 4. Upgrade the styling band and verify CSS pipeline compatibility
 
   **What to do**: Upgrade Tailwind/PostCSS-related packages in line with the frozen matrix, then verify global styles, Tailwind plugin wiring, and any CSS pipeline assumptions. Fix only upgrade-induced styling/config breakage.
   **Must NOT do**: Do not redesign visual UI or restyle pages beyond compatibility fixes.

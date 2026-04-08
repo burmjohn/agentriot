@@ -4,7 +4,9 @@
   "session_ids": [
     "ses_291fb77d9ffeQ1R6q4Pw9yHNlw",
     "ses_291f9a775ffeiNU0jUVqpgluS3",
-    "ses_291ef6045ffeW8FBX4Qh3DUOm7"
+    "ses_291ef6045ffeW8FBX4Qh3DUOm7",
+    "ses_291e48331ffeAROggKqGJEVgxZ",
+    "ses_291da78faffeXxEyYkVGhIJiRT"
   ],
   "plan_name": "latest-stack-upgrade-and-code-review",
   "agent": "atlas",
@@ -26,6 +28,24 @@
       "agent": "Sisyphus-Junior",
       "category": "unspecified-high",
       "updated_at": "2026-04-08T17:16:06.684Z"
+    },
+    "todo:3": {
+      "task_key": "todo:3",
+      "task_label": "3",
+      "task_title": "Upgrade the framework band together",
+      "session_id": "ses_291e48331ffeAROggKqGJEVgxZ",
+      "agent": "Sisyphus-Junior",
+      "category": "deep",
+      "updated_at": "2026-04-08T17:28:07.423Z"
+    },
+    "todo:4": {
+      "task_key": "todo:4",
+      "task_label": "4",
+      "task_title": "Upgrade the styling band and verify CSS pipeline compatibility",
+      "session_id": "ses_291da78faffeXxEyYkVGhIJiRT",
+      "agent": "Sisyphus-Junior",
+      "category": "visual-engineering",
+      "updated_at": "2026-04-08T17:37:48.034Z"
     }
   }
 }
