@@ -49,3 +49,24 @@
   machine is still on Node `22.22.2` instead of the repo target `24.x`.
 - Verification after the lockfile refresh passed: `pnpm lint` exit 0 and
   `pnpm typecheck` exit 0.
+
+## Task 3 framework band — April 8, 2026
+- Upgraded `next` to `16.2.2`, `eslint-config-next` to `16.2.2`, `eslint` to
+  `10.2.0`, `typescript` to `6.0.2`, and `@types/node` to `25.5.2`.
+  `react`, `react-dom`, `@types/react`, and `@types/react-dom` stayed on the
+  frozen Task 1 versions.
+- No Next config or TypeScript config changes were required. The existing
+  `next.config.ts` already avoids removed Next 16 `eslint` config, and
+  `next typegen` plus `tsc --noEmit` passed with the existing `tsconfig.json`.
+- The only compatibility break came from ESLint 10: `eslint-config-next`
+  still configures `settings.react.version = "detect"`, which makes
+  `eslint-plugin-react@7.37.5` call removed ESLint 10 API
+  `context.getFilename()`. Pinning `settings.react.version` to `19.2.4` in
+  `eslint.config.mjs` fixed linting without changing the frozen package
+  matrix.
+- Verification passed with `pnpm typecheck`, `pnpm lint`, and `pnpm build`.
+  `next build` succeeded on Next `16.2.2`, and `next typegen` regenerated
+  route types successfully.
+- `pnpm install` and all verification commands still emit the expected engine
+  warning because the machine is on Node `22.22.2` while the repo target stays
+  on Node `24.x`.

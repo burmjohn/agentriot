@@ -1,0 +1,42 @@
+Task 3 framework-band upgrade evidence
+Date: 2026-04-08
+
+Target framework-band versions applied from task-1-version-matrix.json:
+- next: 16.2.1 -> 16.2.2
+- react: 19.2.4 (unchanged)
+- react-dom: 19.2.4 (unchanged)
+- eslint-config-next: 16.2.1 -> 16.2.2
+- eslint: 9.39.4 -> 10.2.0
+- typescript: 5.9.3 -> 6.0.2
+- @types/node: 20.19.37 -> 25.5.2
+- @types/react: 19.2.14 (unchanged)
+- @types/react-dom: 19.2.3 (unchanged)
+
+Compatibility changes:
+- Kept `next.config.ts` unchanged because it already avoids removed Next 16
+  config keys such as `eslint`.
+- Kept `tsconfig.json` unchanged because `next typegen` and TypeScript 6.0.2
+  succeeded with the existing App Router setup.
+- Updated `eslint.config.mjs` to pin `settings.react.version` to `19.2.4`.
+  This avoids `eslint-plugin-react` calling removed ESLint 10
+  `context.getFilename()` during React version auto-detection.
+
+Verification commands:
+1. `pnpm install`
+   - Exit 0
+   - Notes: engine warning remains because the workspace currently runs on
+     Node 22.22.2 while `package.json` requires Node 24.x.
+2. `pnpm typecheck && pnpm lint && pnpm build`
+   - Exit 0
+   - `next typegen` generated route types successfully.
+   - `eslint .` completed successfully under ESLint 10.2.0.
+   - `next build` completed successfully on Next 16.2.2.
+
+Diagnostics:
+- `lsp_diagnostics` on `eslint.config.mjs`: clean
+- `lsp_diagnostics` on `package.json`: clean
+
+Result:
+- Framework-band packages now match the frozen Task 1 targets.
+- No unresolved Next 16 config deprecations or route typing errors remain in
+  this task scope.
