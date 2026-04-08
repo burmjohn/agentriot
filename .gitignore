@@ -26,6 +26,7 @@
 .DS_Store
 *.pem
 .gstack/
+.playwright-mcp/
 
 # debug
 npm-debug.log*

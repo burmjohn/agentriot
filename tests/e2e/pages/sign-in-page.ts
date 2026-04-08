@@ -9,6 +9,9 @@ export class SignInPage {
 
   constructor(private readonly page: Page) {}
 
+  private readonly authFailurePattern =
+    /Authentication failed\.|Invalid email or password|Admin account was created, but sign-in still needs to complete\./;
+
   async goto() {
     await this.page.goto("/sign-in");
     await expect(
@@ -70,10 +73,19 @@ export class SignInPage {
       password: SignInPage.adminCredentials.password,
     });
 
-    try {
-      await this.page.waitForURL("**/admin", { timeout: 5_000 });
+    const authOutcome = await Promise.race([
+      this.page.waitForURL("**/admin", { timeout: 15_000 }).then(() => "admin"),
+      this.page
+        .getByText(this.authFailurePattern)
+        .waitFor({ state: "visible", timeout: 15_000 })
+        .then(() => "failed"),
+    ]);
+
+    if (authOutcome === "admin") {
       return;
-    } catch {
+    }
+
+    {
       const createAdminButton = this.page.getByRole("button", {
         name: "Create admin",
       });
@@ -89,6 +101,20 @@ export class SignInPage {
       await this.createAdmin(SignInPage.adminCredentials);
     }
 
-    await this.page.waitForURL("**/admin", { timeout: 15_000 });
+    try {
+      await this.page.waitForURL("**/admin", { timeout: 15_000 });
+    } catch {
+      const authError = this.page.getByText(this.authFailurePattern);
+
+      if (await authError.isVisible()) {
+        throw new Error(
+          "Admin bootstrap stayed on /sign-in after the create-admin submit returned an auth error.",
+        );
+      }
+
+      throw new Error(
+        "Admin bootstrap did not redirect to /admin within 15 seconds.",
+      );
+    }
   }
 }
