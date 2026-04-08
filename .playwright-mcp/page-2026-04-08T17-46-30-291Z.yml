@@ -1,0 +1,31 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]: AgentRiot // admin access
+        - generic [ref=e6]:
+          - heading "Calm surface. Dense signal. Tight editorial control." [level=1] [ref=e7]
+          - paragraph [ref=e8]: This console is only for AgentRiot admins and editors. Phase 1 keeps auth intentionally narrow so the shared content graph stays simple while the public hub comes online.
+        - generic [ref=e9]:
+          - generic [ref=e10]: Admin-only Better Auth foundation
+          - generic [ref=e11]: Allowlist-gated account creation
+          - generic [ref=e12]: Drizzle + Postgres auth schema
+          - generic [ref=e13]: Protected /admin route shell
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - button "Sign in" [ref=e16]
+          - button "Create admin" [ref=e17]
+        - generic [ref=e18]:
+          - heading "Sign in to the admin console" [level=2] [ref=e19]
+          - paragraph [ref=e20]: Use your allowlisted AgentRiot admin account to manage content, prompts, skills, and related graph links.
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - generic [ref=e23]: Email
+            - textbox "Email" [ref=e24]:
+              - /placeholder: admin@agentriot.com
+          - generic [ref=e25]:
+            - generic [ref=e26]: Password
+            - textbox "Password" [ref=e27]:
+              - /placeholder: At least 12 characters
+          - button "Sign in" [ref=e28]
+  - alert [ref=e29]

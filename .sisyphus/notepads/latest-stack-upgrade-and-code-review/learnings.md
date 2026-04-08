@@ -26,3 +26,40 @@ No changes were required for the styling band. Both Tailwind CSS packages were a
 - PostCSS integration is simplified in v4 (single plugin vs multiple)
 - CSS custom properties defined in :root are mapped to Tailwind theme via @theme
 - No breaking changes encountered with the current Next.js 16.2.2 + Tailwind 4.2.2 combination
+
+## Task 5 auth band verification — April 8, 2026
+
+### Auth package status
+- better-auth upgraded from 1.5.6 to 1.6.0.
+- @better-auth/drizzle-adapter upgraded from 1.5.6 to 1.6.0.
+
+### Adapter ambiguity resolution
+- The app uses `betterAuth` from `better-auth/minimal`.
+- Better Auth 1.6 docs for the minimal build point Drizzle usage at the
+  extracted `@better-auth/drizzle-adapter` package, so `lib/auth.ts` now
+  imports `drizzleAdapter` from that package instead of
+  `better-auth/adapters/drizzle`.
+- `next.config.ts` still only needs `serverExternalPackages: ["better-auth"]`
+  per Better Auth's Next.js FAQ guidance.
+
+### Compatibility notes
+- No Better Auth 1.6 route-handler or server-session API changes were needed.
+- `app/api/auth/[...all]/route.ts` still works with
+  `toNextJsHandler(auth)`.
+- Server-side session reads in `lib/auth/server.ts` remain compatible with
+  `auth.api.getSession({ headers: await headers() })`.
+- Client auth usage in `lib/auth-client.ts` and `/sign-in` remained
+  compatible.
+
+### Verification results
+- `pnpm install`: passed after upgrading the auth packages.
+- `pnpm typecheck`: passed.
+- `pnpm build`: passed.
+- Manual Playwright verification on `/sign-in`: passed, screenshot saved to
+  `.sisyphus/evidence/task-5-auth-band.png`.
+- Unauthenticated `/admin` requests still redirect to `/sign-in`.
+- Allowlisted admin bootstrap/sign-in flow still reaches `/admin` with
+  `admin@agentriot.com` / `super-secure-password`.
+- `pnpm test:e2e:admin`: passed after fixing a stale API-key E2E fixture to
+  use a future expiry value instead of a hard-coded date that now fell inside
+  the app's `expiring-soon` window.

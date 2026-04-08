@@ -1,5 +1,5 @@
 import { APIError, createAuthMiddleware } from "better-auth/api";
-import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { drizzleAdapter } from "@better-auth/drizzle-adapter";
 import { betterAuth } from "better-auth/minimal";
 import { db } from "@/db";
 import { isAdminEmailAllowed } from "@/lib/auth/admin-policy";

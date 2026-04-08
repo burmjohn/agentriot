@@ -1,0 +1,64 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e5]:
+        - link "AgentRiot //" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]: AgentRiot //
+        - navigation [ref=e9]:
+          - link "Home" [ref=e10] [cursor=pointer]:
+            - /url: /
+          - link "Agents" [ref=e11] [cursor=pointer]:
+            - /url: /agents
+          - link "Prompts" [ref=e12] [cursor=pointer]:
+            - /url: /prompts
+          - link "Skills" [ref=e13] [cursor=pointer]:
+            - /url: /skills
+          - link "Tutorials" [ref=e14] [cursor=pointer]:
+            - /url: /tutorials
+          - link "Articles" [ref=e15] [cursor=pointer]:
+            - /url: /articles
+          - link "About" [ref=e16] [cursor=pointer]:
+            - /url: /about
+          - link "API" [ref=e17] [cursor=pointer]:
+            - /url: /api
+        - link "Search the graph" [ref=e18] [cursor=pointer]:
+          - /url: /search
+      - generic [ref=e19]:
+        - paragraph [ref=e20]: Agents
+        - generic [ref=e21]:
+          - heading "Agent records worth tracking" [level=1] [ref=e22]
+          - paragraph [ref=e23]: "Published agent profiles stay focused on what matters: clear summaries, working context, and graph links into prompts, skills, and tutorials."
+      - generic [ref=e24]:
+        - link "All" [ref=e25] [cursor=pointer]:
+          - /url: /agents
+        - link "Research" [ref=e26] [cursor=pointer]:
+          - /url: /agents?term=research
+        - link "Coding Agent" [ref=e27] [cursor=pointer]:
+          - /url: /agents?term=coding-agent
+      - generic [ref=e28]:
+        - link "agent published Claude Code Repo-aware coding agent with strong day-to-day workflow relevance." [ref=e29] [cursor=pointer]:
+          - /url: /agents/claude-code
+          - generic [ref=e30]:
+            - generic [ref=e31]: agent
+            - generic [ref=e32]: published
+          - generic [ref=e33]:
+            - heading "Claude Code" [level=2] [ref=e34]
+            - paragraph [ref=e35]: Repo-aware coding agent with strong day-to-day workflow relevance.
+        - link "agent published OpenClaw Open source research and coding agent with strong exploration loops." [ref=e36] [cursor=pointer]:
+          - /url: /agents/openclaw
+          - generic [ref=e37]:
+            - generic [ref=e38]: agent
+            - generic [ref=e39]: published
+          - generic [ref=e40]:
+            - heading "OpenClaw" [level=2] [ref=e41]
+            - paragraph [ref=e42]: Open source research and coding agent with strong exploration loops.
+        - link "agent published Paperclip Automation-oriented agent for browser and task orchestration." [ref=e43] [cursor=pointer]:
+          - /url: /agents/paperclip
+          - generic [ref=e44]:
+            - generic [ref=e45]: agent
+            - generic [ref=e46]: published
+          - generic [ref=e47]:
+            - heading "Paperclip" [level=2] [ref=e48]
+            - paragraph [ref=e49]: Automation-oriented agent for browser and task orchestration.
+  - alert [ref=e50]

@@ -2,6 +2,12 @@ import { test } from "@playwright/test";
 import { AdminApiKeysPage } from "./pages/admin-api-keys-page";
 import { SignInPage } from "./pages/sign-in-page";
 
+function getActiveExpiryValue() {
+  return new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)
+    .toISOString()
+    .slice(0, 16);
+}
+
 test("admin can create, reveal, edit, revoke, reactivate, and inspect an API key", async ({
   page,
   request,
@@ -16,7 +22,7 @@ test("admin can create, reveal, edit, revoke, reactivate, and inspect an API key
   await apiKeysPage.fillCreateForm({
     label: "Automation publisher",
     description: "Trusted machine writer",
-    expiresAt: "2026-04-10T12:00",
+    expiresAt: getActiveExpiryValue(),
     scopes: ["content:write", "admin:*"],
   });
   await apiKeysPage.createKey();

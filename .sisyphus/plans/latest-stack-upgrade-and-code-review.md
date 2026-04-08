@@ -282,7 +282,7 @@ Wave 3: stabilization and documentation
 
   **Commit**: YES | Message: `chore(upgrade): move styling band to latest majors` | Files: [`package.json`, `pnpm-lock.yaml`, `postcss.config.mjs`, `app/globals.css` if needed]
 
-- [ ] 5. Upgrade Better Auth and harden auth compatibility hotspots
+- [x] 5. Upgrade Better Auth and harden auth compatibility hotspots
 
   **What to do**: Resolve the adapter ambiguity, upgrade `better-auth` and `@better-auth/drizzle-adapter` according to the frozen matrix, then reconcile auth route, client/server session access, env expectations, and any required Next integration changes. Confirm sign-in and admin session guard flows still behave correctly.
   **Must NOT do**: Do not change auth product behavior, allowlist policy, or password policy except when required by upstream compatibility.
