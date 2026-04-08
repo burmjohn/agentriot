@@ -407,7 +407,7 @@ Wave 3: stabilization and documentation
 
   **Commit**: YES | Message: `chore(upgrade): move test harness to latest majors` | Files: [`package.json`, `pnpm-lock.yaml`, `vitest.config.ts`, `playwright.config.ts`, `playwright.admin.config.ts`, test helpers if required]
 
-- [ ] 8. Perform the upgrade-blocker code review and remediate compatibility hazards
+- [x] 8. Perform the upgrade-blocker code review and remediate compatibility hazards
 
   **What to do**: Review only the hotspot files and warnings exposed by Tasks 1-7. Fix deprecated APIs, implicit dependency reliance, type suppressions or config mismatches that now block the upgraded stack. Produce a short evidence report listing what was fixed, what remains, and why any remaining issue is non-blocking.
   **Must NOT do**: Do not broaden into general refactoring, UI polish, or unrelated architecture cleanup.

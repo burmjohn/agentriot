@@ -1,21 +1,31 @@
-import { db } from "@/db";
+type DeleteHandle<TTable, TWhere> = {
+  delete(table: TTable): {
+    where(where: TWhere): PromiseLike<unknown>;
+  };
+};
 
-export async function replaceJoinRows({
+type InsertHandle<TTable, TValue> = {
+  insert(table: TTable): {
+    values(values: TValue[]): PromiseLike<unknown>;
+  };
+};
+
+export async function replaceJoinRows<TTable, TWhere, TValue>({
   database,
   deleteTable,
   deleteWhere,
   insertValues,
   insertTable,
 }: {
-  database: Pick<typeof db, "delete" | "insert">;
-  deleteTable: unknown;
-  deleteWhere: unknown;
-  insertValues: unknown[];
-  insertTable: unknown;
+  database: DeleteHandle<TTable, TWhere> & InsertHandle<TTable, TValue>;
+  deleteTable: TTable;
+  deleteWhere: TWhere;
+  insertValues: TValue[];
+  insertTable: TTable;
 }) {
-  await database.delete(deleteTable as never).where(deleteWhere as never);
+  await database.delete(deleteTable).where(deleteWhere);
 
   if (insertValues.length > 0) {
-    await database.insert(insertTable as never).values(insertValues as never);
+    await database.insert(insertTable).values(insertValues);
   }
 }

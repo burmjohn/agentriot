@@ -9,7 +9,8 @@
     "ses_291da78faffeXxEyYkVGhIJiRT",
     "ses_291d12252ffeb86moX2Eb36bnH",
     "ses_291c29b58ffeSVcEAsCzn1xOZq",
-    "ses_291bc7560ffe50lWy762Z2yPJy"
+    "ses_291bc7560ffe50lWy762Z2yPJy",
+    "ses_291ac9b48ffevPynX85gZ3Hu3X"
   ],
   "plan_name": "latest-stack-upgrade-and-code-review",
   "agent": "atlas",
@@ -76,6 +77,15 @@
       "agent": "Sisyphus-Junior",
       "category": "unspecified-high",
       "updated_at": "2026-04-08T18:18:29.085Z"
+    },
+    "todo:8": {
+      "task_key": "todo:8",
+      "task_label": "8",
+      "task_title": "Perform the upgrade-blocker code review and remediate compatibility hazards",
+      "session_id": "ses_291ac9b48ffevPynX85gZ3Hu3X",
+      "agent": "Sisyphus-Junior",
+      "category": "deep",
+      "updated_at": "2026-04-08T18:26:13.356Z"
     }
   }
 }

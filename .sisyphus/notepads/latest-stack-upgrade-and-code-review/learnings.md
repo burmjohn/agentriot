@@ -136,3 +136,24 @@ No changes were required for the styling band. Both Tailwind CSS packages were a
   running Node `22.22.2` while the repo requires Node `24.x`.
 - Running `pnpm build` and `pnpm typecheck` in parallel is not reliable because
   both commands mutate `.next/`; verification should run them separately.
+
+## Task 8 blocker review — April 8, 2026
+
+### Blockers reviewed
+- Reviewed the Task 8 hotspot files: `next.config.ts`, `lib/auth.ts`,
+  `lib/auth/server.ts`, `db/index.ts`, `playwright.admin.config.ts`,
+  `vitest.config.ts`, and `lib/admin/relation-writes.ts`.
+- Cross-checked the Next.js 16 local docs for `headers()`, `redirect()`, and
+  `serverExternalPackages` before touching compatibility-sensitive code.
+
+### Fixes applied
+- Replaced the `as never` suppressions in `lib/admin/relation-writes.ts` with
+  generic structural types for the delete and insert handles.
+- This kept the helper compatible with Drizzle transaction handles used by both
+  admin actions and ingestion flows while removing an unsafe type escape hatch.
+
+### Deferred non-blockers
+- No other hotspot file needed code changes.
+- The existing Node engine warning remains non-blocking because `pnpm lint`,
+  `pnpm typecheck`, and `pnpm build` still pass under the current workspace
+  environment, even though the repo target is Node `24.x`.
