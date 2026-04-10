@@ -197,3 +197,102 @@ No packages are intentionally held back. All dependencies are at their target ve
 ## Note on Flaky Test
 The admin-prompt-create test timed out on the first run (likely a race condition in navigation) but passed on retry. This is expected flaky behavior for E2E tests involving auth flows.
 
+## F2 code quality review — April 8, 2026
+
+## F3 real manual QA — April 8, 2026
+
+### Command verification
+- `pnpm build`: passed in this workspace.
+- `pnpm db:migrate && pnpm db:seed`: passed against the local Postgres setup.
+- The workspace still emits the known engine warning because the repo targets
+  Node `24.x` and this environment is running Node `22.22.2`.
+
+### Dev server note
+- A fresh `pnpm dev` launch on port `3011` failed with `EADDRINUSE` because an
+  existing `next-server` process was already listening on `3011`.
+- Manual QA continued against the already-running local app on
+  `http://127.0.0.1:3011`.
+
+### Manual QA findings
+- `/`: returns `200` and renders the shell, but multiple `/_next/static/chunks/*`
+  requests fail with `500`, so the browser console shows critical errors.
+- `/`: also tries to load
+  `https://agentriot.com/og/weekly-coding-agents.png`, which fails locally with
+  `net::ERR_NAME_NOT_RESOLVED`.
+- `/agents`: returns `200` and renders, but it has the same critical chunk-load
+  `500` errors in the console.
+- `/sign-in`: returns `500` and renders a plain `Internal Server Error` page.
+- `/admin`: returns `500` instead of redirecting unauthenticated users to
+  `/sign-in`.
+- `/api/v1`, `/api/v1/agents`, and `/api/v1/search?q=repo`: return `200`.
+- No CSS warnings were observed during the Playwright checks, but the JS/runtime
+  failures make the stack not QA-clean.
+
+### Verdict inputs
+- `lsp_diagnostics` is clean for `lib/admin/relation-writes.ts`, `lib/auth.ts`, `scripts/typecheck.ts`, `playwright.config.ts`, `tests/e2e/admin-api-keys.spec.ts`, and `eslint.config.mjs`.
+- Fresh local verification in this workspace passed for `pnpm lint`, `pnpm typecheck`, `pnpm build`, and `pnpm test`.
+
+### Remaining review concerns
+- Final verification evidence still shows `pnpm test:e2e:admin` failed once before a manual retry passed. The flaky path is `tests/e2e/admin-prompt-create.spec.ts` during the admin bootstrap click on `Create admin account`.
+- Verification is still being run under Node `22.22.2` while `package.json` and `README.md` require Node `24.x`, so stack confidence is weaker than a same-engine verification run.
+
+### Code quality notes
+- The `lib/admin/relation-writes.ts` fix is materially better than the old `as never` suppressions and preserves the helper's shared transaction contract.
+- `lib/auth.ts` now matches Better Auth's extracted Drizzle adapter package for the upgraded auth band.
+- `scripts/typecheck.ts` is a targeted compatibility shim for Next 16 typegen plus TypeScript 6, but it is now a repo-specific workaround that deserves continued scrutiny if Next changes its generated route type layout again.
+
+## Final verification wave fixes — April 8, 2026
+
+### Root cause of the `/sign-in` and `/admin` HTTP 500s
+- The checked-in auth code was not reproducibly broken.
+- Fresh `pnpm dev` on `3013` served `/sign-in` with `200` and unauthenticated
+  `/admin` with a `307` redirect to `/sign-in`.
+- Fresh `pnpm build && pnpm start` runs on `3014` and `3015` also served the
+  same `200` and `307` behavior.
+- The failure was isolated to the already-running long-lived `next start`
+  process on `3011`; restarting that process against a fresh build cleared the
+  runtime errors and restored the expected auth flow.
+
+### E2E flakiness fix
+- Root cause: `tests/e2e/pages/sign-in-page.ts` switched from sign-in to the
+  bootstrap create-admin flow after a fixed redirect timeout, which raced the
+  async Better Auth error response on fresh databases.
+- Fix: `bootstrapOrSignInAdmin()` now waits for either a real `/admin`
+  redirect or a visible auth error message before it pivots into bootstrap.
+- The failure detection also now accepts Better Auth's real error copy,
+  including `Invalid email or password`, instead of assuming a single generic
+  message.
+- Verification: `tests/e2e/admin-prompt-create.spec.ts` passed three
+  consecutive cold runs, and the full `pnpm test:e2e:admin` suite passed with
+  no retry needed.
+
+### Cleanup completed
+- Added `.playwright-mcp/` to `.gitignore` so MCP browser artifacts stop
+  polluting the repo state.
+- Removed the existing `.playwright-mcp/` artifact directory from the working
+  tree.
+
+## Coolify deployment configuration — April 10, 2026
+
+### Coolify configuration created
+- Added a root `coolify.json` that explicitly uses the `dockerfile` build pack.
+- Exposed internal port `3000` in the Coolify config to match the production
+  container runtime.
+
+### Environment variables documented
+- Added `.env.example` with the deployment variables required by `lib/env.ts`:
+  `DATABASE_URL`, `BETTER_AUTH_URL`, `BETTER_AUTH_SECRET`,
+  `API_KEY_ENCRYPTION_KEY`, `ADMIN_EMAIL_ALLOWLIST`, `NEXT_PUBLIC_SITE_URL`,
+  and the legacy `NEXT_PUBLIC_APP_URL` alias.
+- Kept `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_APP_URL` compatible in code so
+  Coolify can inject the newer site URL name without breaking existing client
+  reads.
+
+### Dockerfile approach used
+- Added a multi-stage `Dockerfile` on `node:24-bookworm-slim` with Corepack and
+  pnpm `10.33.0` to match the repo engines.
+- Built the Next.js app in a dedicated build stage, then copied runtime assets
+  plus Drizzle migration files into the final runner image.
+- Started the container with `pnpm migrate` before `next start` and added a
+  force-dynamic `/api/health` route that checks database connectivity for
+  Coolify health checks.
