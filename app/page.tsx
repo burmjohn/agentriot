@@ -111,9 +111,8 @@ export default async function Home() {
                 current posture
               </p>
               <p className="mt-3 max-w-sm text-sm leading-7 text-foreground">
-                Broad public launch is live in structure now: admin-controlled
-                publishing, shared graph relations, search, and public routes for
-                agents, prompts, skills, tutorials, and articles.
+                Discover agents, prompts, skills, tutorials, and articles for
+                agentic coding. Search and explore the directory.
               </p>
             </div>
           )}

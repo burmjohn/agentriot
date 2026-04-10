@@ -4,8 +4,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildPageMetadata({
   title: "API",
-  description:
-    "Machine-readable outputs and current access surfaces for the published AgentRiot graph.",
+  description: "Public API endpoints for accessing AgentRiot content.",
   path: "/api",
 });
 
@@ -14,198 +13,133 @@ export default function ApiPage() {
     <PublicShell>
       <PublicPageHeader
         eyebrow="API"
-        title="Machine-readable access starts with stable public outputs"
-        detail="The public read API is now live, alongside feeds, crawl guidance, and the rest of the machine-readable graph surfaces."
+        title="Public API"
+        detail="Access agents, prompts, skills, and content programmatically."
       />
 
       <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
         <PublicPanel
-          title="Available now"
-          detail="These routes are the supported machine surfaces for published graph access and trusted publishing."
+          title="Public Endpoints"
+          detail="Read-only endpoints available to everyone."
         >
           <div className="grid gap-3">
             {[
               {
                 href: "/api/v1",
-                title: "Public read API index",
-                detail: "Versioned entry point for the current read-only graph routes.",
+                title: "API Index",
+                detail: "Overview of available endpoints.",
                 method: "GET",
               },
               {
                 href: "/api/v1/articles",
-                title: "Article collection",
-                detail: "Published article records, with optional taxonomy filtering.",
+                title: "Articles",
+                detail: "Browse published articles.",
                 method: "GET",
               },
               {
-                href: "/api/v1/ingest/agents",
-                title: "Agent ingestion",
-                detail: "Authenticated create-only publishing for trusted agent directory updates.",
-                method: "POST",
+                href: "/api/v1/agents",
+                title: "Agents",
+                detail: "Browse the agent directory.",
+                method: "GET",
               },
               {
-                href: "/api/v1/ingest/prompts",
-                title: "Prompt ingestion",
-                detail: "Authenticated create-only publishing for trusted prompt library updates.",
-                method: "POST",
+                href: "/api/v1/prompts",
+                title: "Prompts",
+                detail: "Browse the prompt library.",
+                method: "GET",
               },
               {
-                href: "/api/v1/ingest/skills",
-                title: "Skill ingestion",
-                detail: "Authenticated create-only publishing for trusted skill directory updates.",
-                method: "POST",
-              },
-              {
-                href: "/api/v1/ingest/taxonomy",
-                title: "Taxonomy ingestion",
-                detail: "Authenticated create-only publishing for shared graph taxonomy terms.",
-                method: "POST",
-              },
-              {
-                href: "/api/v1/ingest/content-taxonomy",
-                title: "Content taxonomy assignment",
-                detail:
-                  "Authenticated replace-all taxonomy assignment for published content graph records.",
-                method: "POST",
-              },
-              {
-                href: "/api/v1/ingest/agent-taxonomy",
-                title: "Agent taxonomy assignment",
-                detail:
-                  "Authenticated replace-all taxonomy assignment for trusted agent directory records.",
-                method: "POST",
-              },
-              {
-                href: "/api/v1/ingest/prompt-taxonomy",
-                title: "Prompt taxonomy assignment",
-                detail:
-                  "Authenticated replace-all taxonomy assignment for trusted prompt library records.",
-                method: "POST",
-              },
-              {
-                href: "/api/v1/ingest/skill-taxonomy",
-                title: "Skill taxonomy assignment",
-                detail:
-                  "Authenticated replace-all taxonomy assignment for trusted skill directory records.",
-                method: "POST",
-              },
-              {
-                href: "/api/v1/ingest/content-relations",
-                title: "Content relation mutation",
-                detail:
-                  "Authenticated replace-all relation mutation for content to agent, prompt, and skill graph links.",
-                method: "POST",
-              },
-              {
-                href: "/api/v1/ingest/agent-relations",
-                title: "Agent relation mutation",
-                detail:
-                  "Authenticated replace-all relation mutation for agent to prompt and skill graph links.",
-                method: "POST",
-              },
-              {
-                href: "/api/v1/ingest/prompt-relations",
-                title: "Prompt relation mutation",
-                detail:
-                  "Authenticated replace-all relation mutation for prompt to agent and skill graph links.",
-                method: "POST",
-              },
-              {
-                href: "/api/v1/ingest/skill-relations",
-                title: "Skill relation mutation",
-                detail:
-                  "Authenticated replace-all relation mutation for skill to agent and prompt graph links.",
-                method: "POST",
+                href: "/api/v1/skills",
+                title: "Skills",
+                detail: "Browse available skills.",
+                method: "GET",
               },
               {
                 href: "/api/v1/search?q=repo",
                 title: "Search",
-                detail: "Published graph search across content, agents, prompts, and skills.",
+                detail: "Search across all content.",
                 method: "GET",
               },
               {
                 href: "/feed.xml",
-                title: "RSS feed",
-                detail: "Latest published graph updates in RSS format.",
+                title: "RSS Feed",
+                detail: "Latest updates in RSS format.",
                 method: "GET",
               },
               {
                 href: "/feed.json",
-                title: "JSON feed",
-                detail: "Latest published graph updates in JSON Feed 1.1 format.",
+                title: "JSON Feed",
+                detail: "Latest updates in JSON format.",
                 method: "GET",
               },
               {
                 href: "/llms.txt",
-                title: "llms.txt",
-                detail: "A compact machine-facing index of the public graph.",
+                title: "LLMs.txt",
+                detail: "Index for AI assistants.",
                 method: "GET",
               },
               {
                 href: "/sitemap.xml",
-                title: "sitemap.xml",
-                detail: "Canonical crawl map for public records and collection routes.",
-                method: "GET",
-              },
-              {
-                href: "/robots.txt",
-                title: "robots.txt",
-                detail: "Crawler policy for public routes and private admin surfaces.",
+                title: "Sitemap",
+                detail: "XML sitemap for crawlers.",
                 method: "GET",
               },
             ].map((item) => (
-              item.method === "GET" ? (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="rounded-[1.5rem] border border-border/80 bg-background/80 p-4 transition-transform hover:-translate-y-0.5"
-                >
-                  <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-muted">
-                    {item.method} {item.href}
-                  </p>
-                  <h2 className="mt-3 text-xl font-semibold tracking-[-0.04em] text-foreground">
-                    {item.title}
-                  </h2>
-                  <p className="mt-2 text-sm leading-7 text-muted">{item.detail}</p>
-                </Link>
-              ) : (
-                <div
-                  key={item.href}
-                  className="rounded-[1.5rem] border border-border/80 bg-background/80 p-4"
-                >
-                  <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-muted">
-                    {item.method} {item.href}
-                  </p>
-                  <h2 className="mt-3 text-xl font-semibold tracking-[-0.04em] text-foreground">
-                    {item.title}
-                  </h2>
-                  <p className="mt-2 text-sm leading-7 text-muted">{item.detail}</p>
-                  <p className="mt-3 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-muted">
-                    Bearer auth required
-                  </p>
-                </div>
-              )
+              <Link
+                key={item.href}
+                href={item.href}
+                className="rounded-[1.5rem] border border-border/80 bg-background/80 p-4 transition-transform hover:-translate-y-0.5"
+              >
+                <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-muted">
+                  {item.method} {item.href}
+                </p>
+                <h2 className="mt-3 text-xl font-semibold tracking-[-0.04em] text-foreground">
+                  {item.title}
+                </h2>
+                <p className="mt-2 text-sm leading-7 text-muted">{item.detail}</p>
+              </Link>
             ))}
           </div>
         </PublicPanel>
 
         <PublicPanel
-          title="Planned next"
-          detail="The read API is live. The next deferred platform work is taxonomy assignment and relation mutation, not another create-only catalog endpoint."
+          title="Authenticated Endpoints"
+          detail="Write access requires API key authentication."
         >
-          <div className="grid gap-4 text-sm leading-7 text-muted">
-            <p>
-              The current read API ships off the same public graph queries as the site. That
-              keeps the machine surface and the human surface on one data model.
-            </p>
-            <p>
-              Agent, prompt, skill, taxonomy, content-taxonomy,
-              agent-taxonomy, prompt-taxonomy, skill-taxonomy,
-              content-relations, agent-relations, prompt-relations, and
-              skill-relations ingestion now join the machine surface. The next
-              platform step is broader graph mutation beyond the symmetric
-              relation slices.
-            </p>
+          <div className="grid gap-3">
+            {[
+              {
+                href: "/api/v1/ingest/agents",
+                title: "Create Agent",
+                detail: "Add a new agent to the directory.",
+              },
+              {
+                href: "/api/v1/ingest/prompts",
+                title: "Create Prompt",
+                detail: "Add a new prompt to the library.",
+              },
+              {
+                href: "/api/v1/ingest/skills",
+                title: "Create Skill",
+                detail: "Add a new skill to the directory.",
+              },
+            ].map((item) => (
+              <div
+                key={item.href}
+                className="rounded-[1.5rem] border border-border/80 bg-background/80 p-4"
+              >
+                <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-muted">
+                  POST {item.href}
+                </p>
+                <h2 className="mt-3 text-xl font-semibold tracking-[-0.04em] text-foreground">
+                  {item.title}
+                </h2>
+                <p className="mt-2 text-sm leading-7 text-muted">{item.detail}</p>
+                <p className="mt-3 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-muted">
+                  API key required
+                </p>
+              </div>
+            ))}
           </div>
         </PublicPanel>
       </div>
