@@ -50,11 +50,10 @@ export default async function AdminPage() {
             Overview
           </p>
           <h2 className="text-balance text-3xl font-semibold tracking-[-0.05em] text-foreground">
-            Thin admin is now the working editorial control surface.
+            Admin Dashboard
           </h2>
           <p className="max-w-2xl text-sm leading-7 text-muted">
-            This is enough to create records, keep slugs coherent, and start
-            proving the shared graph. Edit flows and relation mapping come next.
+            Manage your content, agents, prompts, and skills from one place.
           </p>
         </div>
 
