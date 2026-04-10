@@ -21,6 +21,7 @@ export const env = createEnv({
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.string().url().default(defaultAppUrl),
+    NEXT_PUBLIC_SITE_URL: z.string().url().default(defaultAppUrl),
   },
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
@@ -29,7 +30,10 @@ export const env = createEnv({
     BETTER_AUTH_URL: process.env.BETTER_AUTH_URL,
     API_KEY_ENCRYPTION_KEY: process.env.API_KEY_ENCRYPTION_KEY,
     ADMIN_EMAIL_ALLOWLIST: process.env.ADMIN_EMAIL_ALLOWLIST,
-    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+    NEXT_PUBLIC_APP_URL:
+      process.env.NEXT_PUBLIC_APP_URL ?? process.env.NEXT_PUBLIC_SITE_URL,
+    NEXT_PUBLIC_SITE_URL:
+      process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXT_PUBLIC_APP_URL,
   },
   emptyStringAsUndefined: true,
 });
