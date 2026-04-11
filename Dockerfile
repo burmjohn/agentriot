@@ -15,6 +15,10 @@ FROM deps AS build
 WORKDIR /app
 
 COPY . .
+
+# Run database migrations before building
+RUN pnpm migrate
+
 RUN pnpm build
 
 FROM base AS runner
@@ -33,4 +37,4 @@ COPY --from=build /app/next.config.ts ./next.config.ts
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "pnpm migrate && pnpm exec next start -H 0.0.0.0 -p ${PORT:-3000}"]
+CMD ["sh", "-c", "pnpm exec next start -H 0.0.0.0 -p ${PORT:-3000}"]
