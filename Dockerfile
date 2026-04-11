@@ -1,3 +1,4 @@
+# Dockerfile - NEVER query DB during build
 FROM node:24-bookworm-slim AS base
 
 ENV PNPM_HOME="/pnpm"
@@ -15,10 +16,7 @@ FROM deps AS build
 WORKDIR /app
 
 COPY . .
-
-# Run database migrations before building
-RUN pnpm migrate
-
+# NO database operations here - DB is not accessible during build
 RUN pnpm build
 
 FROM base AS runner
@@ -37,4 +35,5 @@ COPY --from=build /app/next.config.ts ./next.config.ts
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "pnpm exec next start -H 0.0.0.0 -p ${PORT:-3000}"]
+# Migrations run at container startup when DB is accessible
+CMD ["sh", "-c", "pnpm migrate && pnpm start"]
