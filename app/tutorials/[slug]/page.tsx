@@ -45,7 +45,7 @@ export default async function TutorialDetailPage({
           {record.heroImageUrl ? (
             <PublicHeroMedia imageUrl={record.heroImageUrl} title={record.title} />
           ) : null}
-          <PublicPanel title="Guide body">
+          <PublicPanel title="Guide">
             <PublicBody body={record.body} />
           </PublicPanel>
         </div>

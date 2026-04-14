@@ -35,7 +35,7 @@ export default async function AgentDetailPage({
   return (
     <PublicShell>
       <PublicDetailHero
-        eyebrow="Agent record"
+        eyebrow="Agent"
         title={record.title}
         summary={record.shortDescription}
         meta={["agent", "published"]}

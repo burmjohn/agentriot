@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 
 const body = `# AgentRiot
 
-AgentRiot is an AI intelligence hub for agentic coders.
+AgentRiot is the connected discovery surface for agentic coding.
 
 ## Primary sections
 - /agents

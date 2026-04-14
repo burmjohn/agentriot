@@ -10,28 +10,30 @@ export class SignInPage {
   constructor(private readonly page: Page) {}
 
   private readonly authFailurePattern =
-    /Authentication failed\.|Invalid email or password|Admin account was created, but sign-in still needs to complete\./;
+    /Authentication failed\.|Invalid email or password|Account was created, but sign-in still needs to complete\./;
 
   async goto() {
     await this.page.goto("/sign-in");
     await expect(
-      this.page.getByRole("heading", { name: "Sign in to the admin console" }),
+      this.page.getByRole("heading", { name: "Sign in to AgentRiot" }),
     ).toBeVisible();
   }
 
   async expectBootstrapDisabled() {
     await expect(
       this.page.getByText(
-        "Admin account creation is currently disabled because `ADMIN_EMAIL_ALLOWLIST` is empty.",
+        "New account creation is by invitation only.",
       ),
     ).toBeVisible();
-    await expect(this.page.getByRole("tab", { name: "Create admin" })).toHaveCount(0);
+    await expect(
+      this.page.getByRole("button", { name: "Create account", exact: true }),
+    ).toHaveCount(0);
   }
 
   async switchToCreateAdmin() {
-    await this.page.getByRole("button", { name: "Create admin" }).click();
+    await this.page.getByRole("button", { name: "Create account", exact: true }).click();
     await expect(
-      this.page.getByRole("heading", { name: "Create the first admin account" }),
+      this.page.getByRole("heading", { name: "Create account" }),
     ).toBeVisible();
   }
 
@@ -48,7 +50,8 @@ export class SignInPage {
     await this.page.getByLabel("Email").fill(email);
     await this.page.getByLabel("Password").fill(password);
     await this.page
-      .getByRole("button", { name: "Create admin account" })
+      .locator("form")
+      .getByRole("button", { name: "Create account", exact: true })
       .click({ noWaitAfter: true });
   }
 
@@ -87,7 +90,8 @@ export class SignInPage {
 
     {
       const createAdminButton = this.page.getByRole("button", {
-        name: "Create admin",
+        name: "Create account",
+        exact: true,
       });
 
       if ((await createAdminButton.count()) === 0) {
@@ -96,7 +100,7 @@ export class SignInPage {
 
       await createAdminButton.click();
       await expect(
-        this.page.getByRole("heading", { name: "Create the first admin account" }),
+        this.page.getByRole("heading", { name: "Create account" }),
       ).toBeVisible();
       await this.createAdmin(SignInPage.adminCredentials);
     }

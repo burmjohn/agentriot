@@ -5,7 +5,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 export const metadata = buildPageMetadata({
   title: "About",
   description:
-    "Why AgentRiot is built as a connected intelligence hub for agentic coders instead of another flat AI directory.",
+    "Why AgentRiot is built as a connected discovery surface for agentic coders instead of another flat AI directory.",
   path: "/about",
 });
 
@@ -37,14 +37,14 @@ export default function AboutPage() {
         </PublicPanel>
 
         <PublicPanel
-          title="What is live now"
-          detail="Phase 1 favors public utility over heavy operations tooling."
+          title="What you will find"
+          detail="Curated, connected content built for agentic coders."
         >
           <ul className="grid gap-3 text-sm leading-7 text-muted">
-            <li>Published routes for articles, tutorials, agents, prompts, and skills.</li>
-            <li>Shared taxonomy and related-content traversal across the graph.</li>
-            <li>Search, sitemap, llms.txt, and feed outputs for human and machine discovery.</li>
-            <li>Thin admin workflows for publishing and revision-controlled content edits.</li>
+            <li>Articles, tutorials, agents, prompts, and skills linked by shared context.</li>
+            <li>Related-content traversal to help you discover what to use next.</li>
+            <li>Search, feeds, and structured outputs for human and machine discovery.</li>
+            <li>A focus on utility: every record is meant to help you take action.</li>
           </ul>
         </PublicPanel>
       </div>

@@ -14,16 +14,16 @@ const modeCopy: Record<
   }
 > = {
   "sign-in": {
-    heading: "Sign in to the admin console",
+    heading: "Sign in to AgentRiot",
     description:
-      "Use your allowlisted AgentRiot admin account to manage content, prompts, skills, and related graph links.",
+      "Use your authorized AgentRiot account to manage content, prompts, skills, and related records.",
     action: "Sign in",
   },
   "create-admin": {
-    heading: "Create the first admin account",
+    heading: "Create account",
     description:
-      "Account creation is restricted to emails listed in the admin allowlist. Use this once on a fresh database, then sign in normally.",
-    action: "Create admin account",
+      "Account creation is limited to pre-approved emails. If you were invited to get access, create your account here and then sign in normally.",
+    action: "Create account",
   },
 };
 
@@ -37,8 +37,7 @@ export function AuthForm({ createAdminEnabled }: { createAdminEnabled: boolean }
 
   const copy = modeCopy[mode];
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function handleSubmit() {
     setIsPending(true);
     setErrorMessage(null);
 
@@ -76,7 +75,7 @@ export function AuthForm({ createAdminEnabled }: { createAdminEnabled: boolean }
       if (signInResult.error) {
         setErrorMessage(
           signInResult.error.message ??
-            "Admin account was created, but sign-in still needs to complete.",
+            "Account was created, but sign-in still needs to complete.",
         );
         setIsPending(false);
         return;
@@ -105,7 +104,7 @@ export function AuthForm({ createAdminEnabled }: { createAdminEnabled: boolean }
                   : "chip text-muted hover:text-foreground"
               }`}
             >
-              {nextMode === "sign-in" ? "Sign in" : "Create admin"}
+              {nextMode === "sign-in" ? "Sign in" : "Create account"}
             </button>
           ))}
       </div>
@@ -119,14 +118,18 @@ export function AuthForm({ createAdminEnabled }: { createAdminEnabled: boolean }
         </p>
         {!createAdminEnabled ? (
           <p className="rounded-[1.25rem] border border-border/80 bg-background/80 px-4 py-3 text-sm leading-7 text-muted">
-            Admin account creation is currently disabled because
-            `ADMIN_EMAIL_ALLOWLIST` is empty. Set an allowlisted email first,
-            then reload this page to enable bootstrap signup.
+            New account creation is by invitation only.
           </p>
         ) : null}
       </div>
 
-      <form className="grid gap-4" onSubmit={handleSubmit}>
+      <form
+        className="grid gap-4"
+        onSubmit={(event) => {
+          event.preventDefault();
+          void handleSubmit();
+        }}
+      >
         {mode === "create-admin" ? (
           <label className="grid gap-2">
             <span className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-muted">
@@ -138,7 +141,7 @@ export function AuthForm({ createAdminEnabled }: { createAdminEnabled: boolean }
               autoComplete="name"
               value={name}
               onChange={(event) => setName(event.target.value)}
-              placeholder="AgentRiot Editor"
+              placeholder="AgentRiot Admin"
             />
           </label>
         ) : null}

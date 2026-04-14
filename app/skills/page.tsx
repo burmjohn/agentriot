@@ -1,6 +1,6 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { permanentRedirect } from "next/navigation";
-import { buildPageMetadata } from "@/lib/seo/metadata";
 import {
   PublicCollectionGrid,
   PublicEmptyState,
@@ -10,6 +10,14 @@ import {
 } from "@/app/_components/public-ui";
 import { listPublishedSkills, listTaxonomyTermsByScope } from "@/lib/public/hub";
 import { getFilterRedirectTarget } from "@/lib/content/redirects";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+
+export const dynamic = "force-dynamic";
+export const metadata = buildPageMetadata({
+  title: "Skills",
+  description: "Browse published skills and workflows connected to prompts, agents, tutorials, and articles.",
+  path: "/skills",
+}) satisfies Metadata;
 
 export default async function SkillsPage({
   searchParams,
@@ -51,7 +59,7 @@ export default async function SkillsPage({
           detail={
             activeTerm
               ? "Try a different scoped term or clear the filter to return to the full workflow directory."
-              : "Publish the first skill from admin and this collection will become a proper workflow directory."
+              : "No skills have been published yet. Once the first one goes live, this collection becomes a proper workflow directory."
           }
           actions={
             activeTerm ? (
@@ -77,10 +85,3 @@ export default async function SkillsPage({
     </PublicShell>
   );
 }
-
-export const dynamic = "force-dynamic";
-export const metadata = buildPageMetadata({
-  title: "Skills",
-  description: "Browse published skills and workflows connected to prompts, agents, tutorials, and articles.",
-  path: "/skills",
-});

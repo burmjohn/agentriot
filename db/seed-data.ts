@@ -13,7 +13,7 @@ export const seedData = {
       kind: "category",
       label: "Coding Agents",
       slug: "coding-agents",
-      description: "Coverage focused on repo-aware and coding-specific agents.",
+      description: "Coding agents that understand repositories, tests, and developer workflows.",
     },
     {
       key: "content-workflows",
@@ -21,7 +21,7 @@ export const seedData = {
       kind: "tag",
       label: "Workflow Packs",
       slug: "workflow-packs",
-      description: "Connected prompts, guides, and reusable build loops.",
+      description: "Connected prompts, skills, and guides that form repeatable build loops.",
     },
     {
       key: "agent-coding",
@@ -29,7 +29,7 @@ export const seedData = {
       kind: "type",
       label: "Coding Agent",
       slug: "coding-agent",
-      description: "Agents primarily used inside repositories and coding workflows.",
+      description: "Agents built for repositories, pull requests, tests, and shipping code.",
     },
     {
       key: "agent-research",
@@ -37,7 +37,7 @@ export const seedData = {
       kind: "tag",
       label: "Research",
       slug: "research",
-      description: "Agents suited for exploration-heavy work.",
+      description: "Agents designed for deep exploration, comparison, and synthesis.",
     },
     {
       key: "prompt-evals",
@@ -45,7 +45,7 @@ export const seedData = {
       kind: "category",
       label: "Evaluation",
       slug: "evaluation",
-      description: "Prompts used to inspect, review, and score output quality.",
+      description: "Prompts for reviewing, scoring, and improving agent and model output.",
     },
     {
       key: "prompt-repo",
@@ -53,7 +53,7 @@ export const seedData = {
       kind: "tag",
       label: "Repo Context",
       slug: "repo-context",
-      description: "Prompts that depend on repository context or file structure.",
+      description: "Prompts that use file structure, diffs, and repository history as context.",
     },
     {
       key: "skill-automation",
@@ -61,7 +61,7 @@ export const seedData = {
       kind: "category",
       label: "Automation",
       slug: "automation",
-      description: "Reusable automations and workflow chains.",
+      description: "Reusable automations and chained workflows for agent-driven work.",
     },
     {
       key: "skill-news",
@@ -69,7 +69,7 @@ export const seedData = {
       kind: "tag",
       label: "News Harvesting",
       slug: "news-harvesting",
-      description: "Skills for gathering and distilling updates.",
+      description: "Skills for collecting, filtering, and distilling signal from noise.",
     },
   ] satisfies Array<{
     key: string;
@@ -86,7 +86,7 @@ export const seedData = {
       slug: "claude-code",
       shortDescription: "Repo-aware coding agent with strong day-to-day workflow relevance.",
       longDescription:
-        "Claude Code is a coding-focused agent record used here as a canonical example of a repo-aware workflow tool with prompt and tutorial context.",
+        "Claude Code is a repo-aware coding agent from Anthropic. It reads your codebase, runs tests, edits files, and handles day-to-day development tasks with strong context awareness.",
       websiteUrl: "https://claude.ai/code",
       githubUrl: null,
       pricingNotes: "Commercial product with hosted access.",
@@ -97,7 +97,7 @@ export const seedData = {
       slug: "openclaw",
       shortDescription: "Open source research and coding agent with strong exploration loops.",
       longDescription:
-        "OpenClaw represents the kind of agent people discover across GitHub, newsletters, and X before they need structured context around it.",
+        "OpenClaw is an open source research and coding agent built for deep exploration. It excels at reading documentation, comparing approaches, and iterating through complex tasks.",
       websiteUrl: "https://github.com",
       githubUrl: "https://github.com",
       pricingNotes: "Open source project.",
@@ -108,7 +108,7 @@ export const seedData = {
       slug: "paperclip",
       shortDescription: "Automation-oriented agent for browser and task orchestration.",
       longDescription:
-        "Paperclip stands in for browser and workflow automation agents that often need surrounding skills and prompt context to be useful.",
+        "Paperclip is a browser and workflow automation agent designed for task orchestration. It connects actions across sites, tools, and APIs into repeatable sequences.",
       websiteUrl: "https://github.com",
       githubUrl: "https://github.com",
       pricingNotes: "Community-maintained project.",
@@ -120,9 +120,9 @@ export const seedData = {
       title: "Repository Evaluator",
       slug: "repository-evaluator",
       shortDescription: "Inspect a repo quickly and explain the biggest risks and opportunities.",
-      fullDescription: "A prompt for fast repo-level review and triage.",
+      fullDescription: "Evaluate a repository fast: architecture, risks, and the highest-impact improvements.",
       promptBody:
-        "Inspect this repository and explain the architecture, the obvious risks, and the fastest ways to improve the developer workflow.",
+        "Review this repository and summarize the architecture, the biggest risks, and the fastest ways to improve the developer workflow.",
       providerCompatibility: "GPT-5.4, Claude, Gemini",
       variablesSchema: "repo_url, target_outcome, constraints",
       exampleOutput: "Architecture summary, risk list, quick wins, suggested next steps.",
@@ -132,7 +132,7 @@ export const seedData = {
       title: "Agent Failure Postmortem",
       slug: "agent-failure-postmortem",
       shortDescription: "Turn a failed agent run into a clear postmortem with fixes.",
-      fullDescription: "Useful for debugging why a workflow agent failed or drifted.",
+      fullDescription: "Debug a failed agent run and produce a clear postmortem with concrete fixes.",
       promptBody:
         "Review this failed agent run, identify where the reasoning or tool use went wrong, and propose concrete prompt and workflow fixes.",
       providerCompatibility: "GPT-5.4, Claude",
@@ -144,7 +144,7 @@ export const seedData = {
       title: "Release Note Distiller",
       slug: "release-note-distiller",
       shortDescription: "Compress noisy changelogs into what agentic coders actually need to care about.",
-      fullDescription: "Useful for model or framework updates.",
+      fullDescription: "Turn noisy changelogs into focused updates for developers building with agents.",
       promptBody:
         "Read these release notes and distill what changed, what broke, and what developers building with agents should update first.",
       providerCompatibility: "Any long-context model",
@@ -159,7 +159,7 @@ export const seedData = {
       slug: "issue-triage",
       shortDescription: "Sort inbound issues into action buckets quickly.",
       longDescription:
-        "A reusable workflow for clustering issues, pulling likely duplicates, and surfacing the next best action.",
+        "Cluster inbound issues, surface duplicates, and identify the next best action.",
       websiteUrl: null,
       githubUrl: null,
     },
@@ -169,7 +169,7 @@ export const seedData = {
       slug: "prompt-eval-harness",
       shortDescription: "Run a repeatable harness around prompt quality and failure cases.",
       longDescription:
-        "A reusable evaluation loop for prompt variants, expected outputs, and failure-mode comparisons.",
+        "Run structured evaluations across prompt variants, expected outputs, and failure modes.",
       websiteUrl: null,
       githubUrl: null,
     },
@@ -179,7 +179,7 @@ export const seedData = {
       slug: "news-harvesting",
       shortDescription: "Gather repo, model, and community updates into one structured intake queue.",
       longDescription:
-        "A workflow for collecting signals from GitHub, release notes, newsletters, and X without drowning in noise.",
+        "Collect signals from GitHub, release notes, newsletters, and social feeds without drowning in noise.",
       websiteUrl: null,
       githubUrl: null,
     },
@@ -189,7 +189,7 @@ export const seedData = {
       slug: "workflow-composition",
       shortDescription: "Combine multiple prompts and tools into a repeatable agent loop.",
       longDescription:
-        "A workflow skill for chaining prompts, tools, and tutorials into a usable operating pattern.",
+        "Chain prompts, tools, and skills into repeatable operating patterns for agent-driven work.",
       websiteUrl: null,
       githubUrl: null,
     },
@@ -201,8 +201,8 @@ export const seedData = {
       subtype: "news",
       title: "What Changed This Week in Coding Agents",
       slug: "what-changed-this-week-in-coding-agents",
-      excerpt: "A weekly signal post covering the coding-agent changes that matter right now.",
-      body: "This sample article anchors the homepage lead-story slot and links into agents, prompts, and skills.",
+      excerpt: "A weekly signal post covering the coding-agent releases, updates, and repo shifts that matter right now.",
+      body: "Every week, dozens of coding agents, prompts, and skills ship new capabilities. This article cuts through the noise to highlight what actually changed, why it matters, and how to use it.",
       heroImageUrl: "https://agentriot.com/og/weekly-coding-agents.png",
       canonicalUrl: "https://agentriot.com/articles/what-changed-this-week-in-coding-agents",
       seoTitle: "Weekly coding-agent signal for agentic coders",
@@ -216,7 +216,7 @@ export const seedData = {
       title: "Why Most AI Directories Feel Hollow",
       slug: "why-most-ai-directories-feel-hollow",
       excerpt: "A graph-first argument for connected discovery over flat catalogs.",
-      body: "This sample analysis article explains why a connected graph is more valuable than a pile of disconnected cards.",
+      body: "Flat directories list tools without context. A graph connects agents to the prompts, skills, and tutorials that make them useful. This is why connected discovery beats endless scrolling through disconnected cards.",
     },
     {
       key: "build-news-pipeline",
@@ -225,7 +225,7 @@ export const seedData = {
       title: "Build an Agent News Pipeline",
       slug: "build-an-agent-news-pipeline",
       excerpt: "A practical guide for turning scattered signals into a usable update loop.",
-      body: "This sample tutorial walks through collecting, deduping, and publishing agent-focused updates.",
+      body: "Staying current with agent tooling means tracking GitHub releases, model updates, newsletters, and community discussions. This tutorial shows how to build a pipeline that collects, filters, and surfaces the updates you actually need.",
     },
     {
       key: "prompt-pack-mvps",
@@ -234,7 +234,7 @@ export const seedData = {
       title: "Prompt Packs for Agent MVPs",
       slug: "prompt-packs-for-agent-mvps",
       excerpt: "How to package prompts into reusable evaluation and shipping workflows.",
-      body: "This sample tutorial shows how prompts, skills, and agents can form a practical starting workflow.",
+      body: "Building an agent MVP starts with the right prompts. This tutorial walks through packaging prompts into reusable evaluation and shipping workflows that connect agents, skills, and real outcomes.",
     },
   ] satisfies Array<{
     key: string;

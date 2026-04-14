@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { PublicPageHeader, PublicPanel, PublicShell } from "@/app/_components/public-ui";
 import { buildPageMetadata } from "@/lib/seo/metadata";
@@ -6,15 +7,15 @@ export const metadata = buildPageMetadata({
   title: "API",
   description: "Public API endpoints for accessing AgentRiot content.",
   path: "/api",
-});
+}) satisfies Metadata;
 
 export default function ApiPage() {
   return (
     <PublicShell>
       <PublicPageHeader
         eyebrow="API"
-        title="Public API"
-        detail="Access agents, prompts, skills, and content programmatically."
+        title="Machine-readable access starts with stable public outputs"
+        detail="Browse feeds, sitemaps, and public read endpoints for agents, prompts, skills, tutorials, and articles."
       />
 
       <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
@@ -62,26 +63,26 @@ export default function ApiPage() {
               },
               {
                 href: "/feed.xml",
-                title: "RSS Feed",
+                title: "RSS feed",
                 detail: "Latest updates in RSS format.",
                 method: "GET",
               },
               {
                 href: "/feed.json",
-                title: "JSON Feed",
+                title: "JSON feed",
                 detail: "Latest updates in JSON format.",
                 method: "GET",
               },
               {
                 href: "/llms.txt",
                 title: "LLMs.txt",
-                detail: "Index for AI assistants.",
+                detail: "Plain-text index of published content.",
                 method: "GET",
               },
               {
                 href: "/sitemap.xml",
                 title: "Sitemap",
-                detail: "XML sitemap for crawlers.",
+                detail: "XML sitemap for search engines and crawlers.",
                 method: "GET",
               },
             ].map((item) => (

@@ -16,14 +16,14 @@ export default async function SignInPage() {
       <div className="mx-auto grid w-full max-w-6xl gap-6 lg:grid-cols-[0.95fr_1.05fr]">
         <section className="panel grid gap-6 rounded-[2rem] p-6 sm:p-8">
           <div className="inline-flex w-fit rounded-full border border-border/80 bg-surface-2/80 px-3 py-1 font-mono text-[0.68rem] uppercase tracking-[0.24em] text-muted">
-            AgentRiot {/* admin access */}
+            AgentRiot
           </div>
           <div className="space-y-4">
             <h1 className="text-balance text-4xl font-semibold tracking-[-0.06em] text-foreground sm:text-5xl">
-              Admin Access
+              Sign in
             </h1>
             <p className="max-w-xl text-base leading-8 text-muted sm:text-lg">
-              This area is restricted to authorized administrators only.
+              This sign-in is for authorized team members only.
             </p>
           </div>
 
@@ -31,10 +31,10 @@ export default async function SignInPage() {
             {[
               "Secure authentication",
               createAdminEnabled
-                ? "Admin account creation enabled"
-                : "Contact administrator for access",
-              "Database-backed sessions",
-              "Protected admin routes",
+                ? "Account setup available"
+                : "Invitation-only access",
+              "Signed-in sessions",
+              "Protected routes",
             ].map((item) => (
               <div
                 key={item}

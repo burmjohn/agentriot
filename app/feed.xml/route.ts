@@ -9,7 +9,7 @@ export async function GET() {
     siteUrl,
     feedUrl: absoluteUrl("/feed.xml", siteUrl),
     title: "AgentRiot feed",
-    description: "Latest published signal from the AgentRiot graph.",
+    description: "The connected discovery surface for agentic coding.",
   });
 
   return new Response(xml, {

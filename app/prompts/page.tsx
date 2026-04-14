@@ -1,6 +1,6 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { permanentRedirect } from "next/navigation";
-import { buildPageMetadata } from "@/lib/seo/metadata";
 import {
   PublicCollectionGrid,
   PublicEmptyState,
@@ -10,6 +10,14 @@ import {
 } from "@/app/_components/public-ui";
 import { listPublishedPrompts, listTaxonomyTermsByScope } from "@/lib/public/hub";
 import { getFilterRedirectTarget } from "@/lib/content/redirects";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+
+export const dynamic = "force-dynamic";
+export const metadata = buildPageMetadata({
+  title: "Prompts",
+  description: "Browse published prompts connected to agents, skills, tutorials, and articles.",
+  path: "/prompts",
+}) satisfies Metadata;
 
 export default async function PromptsPage({
   searchParams,
@@ -51,7 +59,7 @@ export default async function PromptsPage({
           detail={
             activeTerm
               ? "Try a different scoped term or clear the filter to return to the full prompt library."
-              : "Publish the first prompt through admin and it will appear here with graph links into the rest of the hub."
+              : "No prompts have been published yet. The first one will appear here with links to the rest of the hub."
           }
           actions={
             activeTerm ? (
@@ -77,10 +85,3 @@ export default async function PromptsPage({
     </PublicShell>
   );
 }
-
-export const dynamic = "force-dynamic";
-export const metadata = buildPageMetadata({
-  title: "Prompts",
-  description: "Browse published prompts connected to agents, skills, tutorials, and articles.",
-  path: "/prompts",
-});

@@ -35,7 +35,7 @@ export default async function SkillDetailPage({
   return (
     <PublicShell>
       <PublicDetailHero
-        eyebrow="Skill record"
+        eyebrow="Skill"
         title={record.title}
         summary={record.shortDescription}
         meta={["skill", "published"]}

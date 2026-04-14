@@ -19,16 +19,14 @@ export const metadata: Metadata = {
     default: "AgentRiot",
     template: "%s | AgentRiot",
   },
-  description:
-    "Track what changed in AI. Find what to use next. AgentRiot connects agent news, repos, prompts, skills, and tutorials in one high-trust hub for agentic coders.",
+  description: "The connected discovery surface for agentic coding.",
   metadataBase: new URL(getSiteUrl()),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: "AgentRiot",
-    description:
-      "A developer-leaning AI intelligence hub for agentic coders.",
+    description: "The connected discovery surface for agentic coding.",
     siteName: "AgentRiot",
     type: "website",
   },

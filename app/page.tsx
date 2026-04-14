@@ -41,28 +41,28 @@ export default async function Home() {
 
   const signalItems = [
     {
-      label: "Lead shift",
+      label: "Lead story",
       title: snapshot.leadStory
         ? snapshot.leadStory.title
-        : "Publish the first article or tutorial to turn the homepage into a live signal board.",
+        : "Publish an article or tutorial to feature the latest story here.",
     },
     {
-      label: "Verified repo",
+      label: "Featured agent",
       title:
         snapshot.featuredAgents[0]?.shortDescription ??
-        "Agents will surface here once published records exist.",
+        "Featured agents appear here once published.",
     },
     {
-      label: "Prompt pack",
+      label: "Featured prompt",
       title:
         snapshot.featuredPrompts[0]?.shortDescription ??
-        "Prompt highlights will appear here once the prompt library has published items.",
+        "Featured prompts appear here once published.",
     },
     {
-      label: "Tutorial pulse",
+      label: "Featured story",
       title:
         snapshot.featuredStories[0]?.excerpt ??
-        "Tutorial and article excerpts will start driving this pulse as soon as content is published.",
+        "Featured tutorials and articles appear here once published.",
     },
   ];
 
@@ -71,16 +71,15 @@ export default async function Home() {
       <section className="panel grid gap-6 overflow-hidden rounded-[2rem] px-4 py-8 sm:px-6 lg:grid-cols-[1.45fr_0.85fr] lg:px-8">
         <div className="space-y-6">
           <div className="inline-flex rounded-full border border-border/80 bg-surface-2/80 px-3 py-1 font-mono text-[0.68rem] uppercase tracking-[0.24em] text-muted">
-            AI intelligence hub for agentic coders
+            Connected discovery for agentic coding
           </div>
           <div className="space-y-4">
             <h1 className="max-w-4xl text-balance text-4xl font-semibold tracking-[-0.06em] text-foreground sm:text-5xl lg:text-6xl">
-              Track what changed in AI. Find what to use next.
+              The connected discovery surface for agentic coding.
             </h1>
             <p className="max-w-2xl text-lg leading-8 text-muted sm:text-xl">
-              AgentRiot turns scattered repo updates, prompt discoveries,
-              skills, and tutorials into one connected discovery surface for
-              people building with agents every day.
+              One place to find agents, prompts, skills, tutorials, and articles
+              for agentic coding.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -88,13 +87,13 @@ export default async function Home() {
               className="inline-flex min-h-12 items-center rounded-full bg-foreground px-5 text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
               href="/agents"
             >
-              Explore the hub
+              Browse the directory
             </Link>
             <Link
               className="chip inline-flex min-h-12 items-center rounded-full px-5 text-sm font-medium text-foreground transition-transform hover:-translate-y-0.5"
               href={leadStoryHref}
             >
-              See current signal
+              Read the latest
             </Link>
           </div>
         </div>
@@ -111,17 +110,17 @@ export default async function Home() {
                 current posture
               </p>
               <p className="mt-3 max-w-sm text-sm leading-7 text-foreground">
-                Discover agents, prompts, skills, tutorials, and articles for
+                Browse agents, prompts, skills, tutorials, and articles for
                 agentic coding. Search and explore the directory.
               </p>
             </div>
           )}
           <div className="grid gap-3 sm:grid-cols-2">
             {[
-              "calm surface",
-              "dense signal",
-              "metadata first",
-              "graph navigation",
+              "Curated directory",
+              "Connected records",
+              "Technical focus",
+              "Linked discovery",
             ].map((item) => (
               <div
                 key={item}
@@ -154,20 +153,20 @@ export default async function Home() {
             title={
               snapshot.leadStory
                 ? snapshot.leadStory.title
-                : "The homepage will promote one strong story as soon as the first article or tutorial is published."
+                : "Lead stories appear here once articles or tutorials are published."
             }
-            detail="One editorial lead, then graph links into the agents, prompts, skills, and tutorials that matter."
+            detail="The latest editorial lead, with links to related agents, prompts, skills, and tutorials."
           />
           <p className="max-w-3xl text-base leading-8 text-muted">
             {snapshot.leadStory?.excerpt ??
-              "Right now the landing page is wired for live data but intentionally honest about inventory. As records are published, this section becomes the main judgment layer instead of a generic feed."}
+              "The lead story slot shows the most recent article or tutorial as soon as content is published."}
           </p>
           <div className="flex flex-wrap gap-2">
             {snapshot.leadStory ? (
               [
                 snapshot.leadStory.kind,
                 snapshot.leadStory.subtype ?? "published",
-                "graph-linked",
+                "linked",
               ].map((item) => (
                 <span
                   key={item}
@@ -178,7 +177,7 @@ export default async function Home() {
               ))
             ) : (
               <span className="chip rounded-full px-3 py-1 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-muted">
-                waiting for first published story
+                no published stories yet
               </span>
             )}
           </div>
@@ -191,8 +190,8 @@ export default async function Home() {
                 media signal
               </p>
               <p className="mt-3 text-sm leading-7 text-foreground">
-                Lead stories can carry their own hero media now, so the homepage
-                stops treating published editorial records like plain text blobs.
+                Lead stories include hero images when available, so editorial
+                content stands out.
               </p>
             </div>
           ) : null}
@@ -210,8 +209,8 @@ export default async function Home() {
               jump points
             </p>
             <p className="mt-3 text-sm leading-7 text-foreground">
-              Search, relation-driven detail pages, and scoped taxonomy now all
-              exist as first-class navigation surfaces.
+              Search, detail pages, and taxonomy filters all work as first-class
+              navigation.
             </p>
           </div>
         </div>
@@ -221,7 +220,7 @@ export default async function Home() {
         <SectionHeading
           eyebrow="Featured agents"
           title="Tools agentic coders are actually using"
-          detail="Published agent cards stay compact, technical, and graph-linked."
+          detail="Compact, technical cards for agents worth tracking."
         />
         <div className="mt-6 grid gap-4 lg:grid-cols-3">
           {snapshot.featuredAgents.length > 0 ? (
@@ -238,14 +237,13 @@ export default async function Home() {
                   {agent.title}
                 </h3>
                 <p className="mt-3 text-sm leading-7 text-muted">
-                  {agent.shortDescription ?? "Published agent record"}
+                  {agent.shortDescription ?? "Agent record"}
                 </p>
               </Link>
             ))
           ) : (
             <div className="rounded-[1.5rem] border border-border/80 bg-background/80 p-5 text-sm leading-7 text-muted lg:col-span-3">
-              No published agents yet. Use the admin console to publish the
-              first records and this section will populate automatically.
+              No agents published yet. New records appear here automatically.
             </div>
           )}
         </div>
@@ -272,13 +270,13 @@ export default async function Home() {
                     {story.title}
                   </h3>
                   <p className="mt-2 text-sm leading-7 text-muted">
-                    {story.excerpt ?? "Published article"}
+                    {story.excerpt ?? "Article"}
                   </p>
                 </Link>
               ))
             ) : (
               <div className="rounded-[1.4rem] border border-border/80 bg-background/80 px-4 py-4 text-sm leading-7 text-muted">
-                No published news or release-note articles yet.
+                No news articles published yet.
               </div>
             )}
           </div>
@@ -287,7 +285,7 @@ export default async function Home() {
         <section className="panel rounded-[2rem] px-4 py-6 sm:px-6 xl:sticky xl:top-28 xl:h-fit">
           <SectionHeading
             eyebrow="Search-first"
-            title="The graph is searchable now"
+            title="Search across everything"
           />
           <div className="mt-6 rounded-[1.4rem] border border-border/80 bg-background/80 p-4">
             <div className="flex items-center justify-between gap-3 rounded-full border border-border/80 px-4 py-3">
@@ -299,8 +297,8 @@ export default async function Home() {
               </Link>
             </div>
             <p className="mt-4 text-sm leading-7 text-muted">
-              Search now spans published agents, prompts, skills, tutorials, and
-              articles from one route instead of dead-end section pages.
+              Find agents, prompts, skills, tutorials, and articles from a single
+              search.
             </p>
           </div>
         </section>
@@ -327,13 +325,13 @@ export default async function Home() {
                     {prompt.title}
                   </h3>
                   <p className="mt-2 text-sm leading-7 text-muted">
-                    {prompt.shortDescription ?? "Published prompt record"}
+                    {prompt.shortDescription ?? "Prompt"}
                   </p>
                 </Link>
               ))
             ) : (
               <div className="rounded-[1.4rem] border border-border/80 bg-background/80 p-4 text-sm leading-7 text-muted sm:col-span-2">
-                No published prompts yet.
+                No prompts published yet.
               </div>
             )}
           </div>
@@ -359,13 +357,13 @@ export default async function Home() {
                     {skill.title}
                   </h3>
                   <p className="mt-2 text-sm leading-7 text-muted">
-                    {skill.shortDescription ?? "Published workflow record"}
+                    {skill.shortDescription ?? "Skill"}
                   </p>
                 </Link>
               ))
             ) : (
               <div className="rounded-[1.4rem] border border-border/80 bg-background/80 p-4 text-sm leading-7 text-muted sm:col-span-2">
-                No published skills yet.
+                No skills published yet.
               </div>
             )}
           </div>
@@ -375,8 +373,8 @@ export default async function Home() {
       <section className="panel rounded-[2rem] px-4 py-6 sm:px-6">
         <SectionHeading
           eyebrow="Stories"
-          title="Published tutorials and articles stay connected"
-          detail="One grid, mixed content types, all routeable into the graph."
+          title="Tutorials and articles"
+          detail="Guides and editorial content, linked to related records."
         />
         <div className="mt-6 grid gap-3 lg:grid-cols-2 xl:grid-cols-4">
           {snapshot.featuredStories.length > 0 ? (
@@ -393,13 +391,13 @@ export default async function Home() {
                   {story.title}
                 </h3>
                 <p className="mt-2 text-sm leading-7 text-muted">
-                  {story.excerpt ?? "Published story"}
+                  {story.excerpt ?? "Story"}
                 </p>
               </Link>
             ))
           ) : (
             <div className="rounded-[1.4rem] border border-border/80 bg-background/80 p-4 text-sm leading-7 text-muted lg:col-span-2 xl:col-span-4">
-              No published stories yet.
+              No tutorials or articles published yet.
             </div>
           )}
         </div>
@@ -409,7 +407,7 @@ export default async function Home() {
         <section className="panel rounded-[2rem] px-4 py-6 sm:px-6">
           <SectionHeading
             eyebrow="Trending topics"
-            title="Scoped terms driving the graph"
+            title="Topics across the directory"
           />
           <div className="mt-6 flex flex-wrap gap-2">
             {snapshot.trendingTerms.length > 0 ? (
@@ -433,7 +431,7 @@ export default async function Home() {
         <section className="panel rounded-[2rem] px-4 py-6 sm:px-6">
           <SectionHeading
             eyebrow="Recently updated"
-            title="Fresh movement across the graph"
+            title="Recently updated records"
           />
           <div className="mt-6 grid gap-3">
             {snapshot.recentUpdates.length > 0 ? (
@@ -454,7 +452,7 @@ export default async function Home() {
               ))
             ) : (
               <div className="rounded-[1.35rem] border border-border/80 bg-background/80 px-4 py-4 text-sm leading-7 text-muted">
-                No published updates yet.
+                No updates published yet.
               </div>
             )}
           </div>

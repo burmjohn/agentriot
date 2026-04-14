@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const defaultDescription = "Track what changed in AI. Find what to use next.";
+const defaultDescription = "The connected discovery surface for agentic coding.";
 
 export function buildPageMetadata({
   title,

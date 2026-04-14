@@ -1,6 +1,6 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { permanentRedirect } from "next/navigation";
-import { buildPageMetadata } from "@/lib/seo/metadata";
 import {
   PublicCollectionGrid,
   PublicEmptyState,
@@ -10,6 +10,14 @@ import {
 } from "@/app/_components/public-ui";
 import { listPublishedContent, listTaxonomyTermsByScope } from "@/lib/public/hub";
 import { getFilterRedirectTarget } from "@/lib/content/redirects";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+
+export const dynamic = "force-dynamic";
+export const metadata = buildPageMetadata({
+  title: "Tutorials",
+  description: "Read published tutorials and guides connected to prompts, skills, and agent records.",
+  path: "/tutorials",
+}) satisfies Metadata;
 
 export default async function TutorialsPage({
   searchParams,
@@ -53,7 +61,7 @@ export default async function TutorialsPage({
           detail={
             activeTerm
               ? "Try a different scoped term or clear the filter to return to the full tutorial collection."
-              : "Publish the first tutorial from admin and it will appear here with graph links into the rest of the hub."
+              : "No tutorials have been published yet. The first one will appear here with links to the rest of the hub."
           }
           actions={
             activeTerm ? (
@@ -79,10 +87,3 @@ export default async function TutorialsPage({
     </PublicShell>
   );
 }
-
-export const dynamic = "force-dynamic";
-export const metadata = buildPageMetadata({
-  title: "Tutorials",
-  description: "Read published tutorials and guides connected to prompts, skills, and agent records.",
-  path: "/tutorials",
-});

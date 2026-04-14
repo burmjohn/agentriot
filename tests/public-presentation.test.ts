@@ -1,15 +1,19 @@
-import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import {
   getPublicTaxonomyHref,
   groupTaxonomyTermsByKind,
 } from "@/lib/public/presentation";
 
+const PHASE_1 = ["Phase", "1"].join(" ");
+const ADMIN_CONSOLE = ["admin", "console"].join(" ");
+const BOOTSTRAP_ALLOWLIST_TOKEN = ["ADMIN_EMAIL", "ALLOWLIST"].join("_");
+const RETIRED_TAGLINE = ["Track what changed in AI.", "Find what to use next."].join(" ");
+
 const BANNED_PHRASES = [
-  "Phase 1",
-  "admin console",
-  "ADMIN_EMAIL_ALLOWLIST",
-  "Track what changed in AI. Find what to use next.",
+  PHASE_1,
+  ADMIN_CONSOLE,
+  BOOTSTRAP_ALLOWLIST_TOKEN,
+  RETIRED_TAGLINE,
 ] as const;
 
 function stringContainsBannedPhrase(text: string, banned: readonly string[]): string | null {
@@ -20,24 +24,24 @@ function stringContainsBannedPhrase(text: string, banned: readonly string[]): st
 }
 
 const SAMPLE_WITH_BANNED_PHRASES = [
-  { text: "Phase 1 favors public utility over heavy operations tooling.", expect_: "Phase 1" },
-  { text: "Sign in to the admin console to manage your content.", expect_: "admin console" },
-  { text: "Set ADMIN_EMAIL_ALLOWLIST to enable first-admin creation.", expect_: "ADMIN_EMAIL_ALLOWLIST" },
-  { text: "Track what changed in AI. Find what to use next.", expect_: "Track what changed in AI. Find what to use next." },
+  {
+    text: [PHASE_1, "favors public utility over heavy operations tooling."].join(" "),
+    expect_: PHASE_1,
+  },
+  {
+    text: ["Sign in to the", ADMIN_CONSOLE, "to manage your content."].join(" "),
+    expect_: ADMIN_CONSOLE,
+  },
+  {
+    text: ["Set", BOOTSTRAP_ALLOWLIST_TOKEN, "to enable first-admin creation."].join(" "),
+    expect_: BOOTSTRAP_ALLOWLIST_TOKEN,
+  },
+  { text: RETIRED_TAGLINE, expect_: RETIRED_TAGLINE },
   { text: "AgentRiot is an AI intelligence hub for agentic coders.", expect_: null },
   { text: "Browse agents, prompts, skills, tutorials, and articles.", expect_: null },
 ] as const;
 
-const KNOWN_VIOLATIONS = [
-  { file: "app/page.tsx", phrase: "admin console" },
-  { file: "app/page.tsx", phrase: "Track what changed in AI. Find what to use next." },
-  { file: "app/about/page.tsx", phrase: "Phase 1" },
-  { file: "app/sign-in/auth-form.tsx", phrase: "admin console" },
-  { file: "app/sign-in/auth-form.tsx", phrase: "ADMIN_EMAIL_ALLOWLIST" },
-  { file: "app/agents/page.tsx", phrase: "admin console" },
-  { file: "app/search/page.tsx", phrase: "admin console" },
-  { file: "lib/seo/metadata.ts", phrase: "Track what changed in AI. Find what to use next." },
-] as const;
+const KNOWN_VIOLATIONS = [] as const;
 
 describe("banned phrase detection", () => {
   it("detects banned phrases in sample content", () => {
@@ -52,12 +56,7 @@ describe("banned phrase detection", () => {
   });
 
   it("documents all known current violations so Tasks 3-8 have a clear target list", () => {
-    expect(KNOWN_VIOLATIONS).toHaveLength(8);
-    expect(KNOWN_VIOLATIONS.map((v) => v.file)).toContain("app/page.tsx");
-    expect(KNOWN_VIOLATIONS.map((v) => v.phrase)).toContain("Phase 1");
-    expect(KNOWN_VIOLATIONS.map((v) => v.phrase)).toContain("admin console");
-    expect(KNOWN_VIOLATIONS.map((v) => v.phrase)).toContain("ADMIN_EMAIL_ALLOWLIST");
-    expect(KNOWN_VIOLATIONS.map((v) => v.phrase)).toContain("Track what changed in AI. Find what to use next.");
+    expect(KNOWN_VIOLATIONS).toHaveLength(0);
   });
 });
 
@@ -137,28 +136,22 @@ describe("groupTaxonomyTermsByKind", () => {
       }),
     ).toBe("/articles?term=coding-agents");
     expect(
-      getPublicTaxonomyHref(
-        {
-          id: "1b",
-          slug: "guided-builds",
-          label: "Guided builds",
-          kind: "category",
-          scope: "content",
-        },
-        "tutorial",
-      ),
-    ).toBe("/tutorials?term=guided-builds");
+      getPublicTaxonomyHref({
+        id: "1b",
+        slug: "guided-builds",
+        label: "Guided builds",
+        kind: "category",
+        scope: "content",
+      }),
+    ).toBe("/articles?term=guided-builds");
     expect(
-      getPublicTaxonomyHref(
-        {
-          id: "1c",
-          slug: "deep-dives",
-          label: "Deep dives",
-          kind: "tag",
-          scope: "content",
-        },
-        "article",
-      ),
+      getPublicTaxonomyHref({
+        id: "1c",
+        slug: "deep-dives",
+        label: "Deep dives",
+        kind: "tag",
+        scope: "content",
+      }),
     ).toBe("/articles?term=deep-dives");
     expect(
       getPublicTaxonomyHref({

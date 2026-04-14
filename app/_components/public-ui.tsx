@@ -27,7 +27,7 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
               className="flex items-center gap-3 text-sm font-medium tracking-[0.18em]"
             >
               <span className="inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
-              <span className="font-mono uppercase text-muted">AgentRiot //</span>
+              <span className="font-mono uppercase text-muted">{"AgentRiot //"}</span>
             </Link>
             <nav className="hidden items-center gap-6 text-sm text-muted md:flex">
               {navItems.map((item) => (
@@ -44,7 +44,7 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
               href="/search"
               className="chip inline-flex min-h-11 items-center rounded-full px-4 text-sm font-medium text-foreground transition-transform hover:-translate-y-0.5"
             >
-              Search the graph
+              Search
             </Link>
           </div>
           <div className="-mx-1 mt-4 overflow-x-auto md:hidden">
@@ -282,7 +282,7 @@ export function PublicHeroMedia({
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={imageUrl}
-        alt={`${title} hero image`}
+        alt={`${title} hero`}
         className="h-full max-h-[28rem] w-full object-cover"
       />
     </div>
@@ -293,7 +293,7 @@ export function PublicBody({ body }: { body: string | null }) {
   if (!body) {
     return (
       <p className="text-sm leading-7 text-muted">
-        No long-form body has been published for this record yet.
+        No description available for this record yet.
       </p>
     );
   }
@@ -315,7 +315,7 @@ export function PublicTaxonomyGroups({
   if (groups.length === 0) {
     return (
       <p className="text-sm leading-7 text-muted">
-        No taxonomy terms have been attached yet.
+        No topics tagged yet.
       </p>
     );
   }

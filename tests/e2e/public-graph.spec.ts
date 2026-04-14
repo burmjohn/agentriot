@@ -8,7 +8,7 @@ test("homepage links into the published graph", async ({ page }) => {
   await hubPage.gotoHome();
   await expect(
     page.getByRole("img", {
-      name: "What Changed This Week in Coding Agents hero image",
+      name: "What Changed This Week in Coding Agents hero",
     }),
   ).toBeVisible();
   await hubPage.openLeadStory();
@@ -19,7 +19,7 @@ test("homepage links into the published graph", async ({ page }) => {
   ).toBeVisible();
   await expect(
     page.getByRole("img", {
-      name: "What Changed This Week in Coding Agents hero image",
+      name: "What Changed This Week in Coding Agents hero",
     }),
   ).toBeVisible();
   await expect(page.getByRole("link", { name: "Claude Code" })).toBeVisible();
@@ -89,7 +89,7 @@ test("machine-readable routes return stable public crawl and feed surfaces", asy
   const llms = await page.request.get("/llms.txt");
   expect(llms.ok()).toBeTruthy();
   expect(llms.headers()["content-type"]).toContain("text/plain");
-  expect(await llms.text()).toContain("AgentRiot is an AI intelligence hub for agentic coders.");
+  expect(await llms.text()).toContain("AgentRiot is the connected discovery surface for agentic coding.");
 
   const rss = await page.request.get("/feed.xml");
   expect(rss.ok()).toBeTruthy();
@@ -176,8 +176,12 @@ test("prompt detail pages expose related graph navigation", async ({ page }) => 
     page.getByRole("link", { name: "Prompt Packs for Agent MVPs" }),
   ).toBeVisible();
 
-  await page.getByRole("link", { name: "Workflow Composition" }).click();
-  await expect(page).toHaveURL(/\/skills\/workflow-composition$/);
+  const workflowLink = page.locator('a[href="/skills/workflow-composition"]');
+  await expect(workflowLink).toBeVisible();
+  await Promise.all([
+    page.waitForURL(/\/skills\/workflow-composition$/),
+    workflowLink.click(),
+  ]);
   await expect(
     page.getByRole("heading", { name: "Workflow Composition" }),
   ).toBeVisible();

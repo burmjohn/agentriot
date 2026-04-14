@@ -35,7 +35,7 @@ export default async function PromptDetailPage({
   return (
     <PublicShell>
       <PublicDetailHero
-        eyebrow="Prompt record"
+        eyebrow="Prompt"
         title={record.title}
         summary={record.shortDescription}
         meta={[
@@ -47,7 +47,7 @@ export default async function PromptDetailPage({
         <div className="grid gap-6">
           <PublicPanel
             title="Prompt body"
-            detail="Copyable working text with optional provider and variable context."
+            detail="Working text with optional provider and variable context."
           >
             <PromptBodyCard promptBody={record.promptBody} />
           </PublicPanel>

@@ -9,7 +9,7 @@ export async function GET() {
     siteUrl,
     feedUrl: absoluteUrl("/feed.json", siteUrl),
     title: "AgentRiot feed",
-    description: "Latest published signal from the AgentRiot graph.",
+    description: "The connected discovery surface for agentic coding.",
   });
 
   return Response.json(feed, {

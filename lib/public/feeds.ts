@@ -100,7 +100,7 @@ export function buildRssFeedXml(
   const itemXml = items
     .map((item) => {
       const absoluteUrl = toAbsoluteUrl(siteUrl, item.href);
-      const summary = item.summary?.trim() || `${item.kind} update on AgentRiot.`;
+      const summary = item.summary?.trim() || `Explore ${item.kind} on AgentRiot.`;
 
       return [
         "<item>",
@@ -153,7 +153,7 @@ export function buildJsonFeed(
       id: item.id,
       url: toAbsoluteUrl(siteUrl, item.href),
       title: item.title,
-      content_text: item.summary?.trim() || `${item.kind} update on AgentRiot.`,
+      content_text: item.summary?.trim() || `Explore ${item.kind} on AgentRiot.`,
       date_published: item.publishedAt.toISOString(),
       tags: [item.kind],
     })),

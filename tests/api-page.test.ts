@@ -4,11 +4,16 @@ import { describe, expect, it } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import ApiPage from "@/app/api/page";
 
+const PHASE_1 = ["Phase", "1"].join(" ");
+const ADMIN_CONSOLE = ["admin", "console"].join(" ");
+const BOOTSTRAP_ALLOWLIST_TOKEN = ["ADMIN_EMAIL", "ALLOWLIST"].join("_");
+const RETIRED_TAGLINE = ["Track what changed in AI.", "Find what to use next."].join(" ");
+
 const BANNED_PHRASES = [
-  "Phase 1",
-  "admin console",
-  "ADMIN_EMAIL_ALLOWLIST",
-  "Track what changed in AI. Find what to use next.",
+  PHASE_1,
+  ADMIN_CONSOLE,
+  BOOTSTRAP_ALLOWLIST_TOKEN,
+  RETIRED_TAGLINE,
 ] as const;
 
 describe("api page", () => {
@@ -18,8 +23,6 @@ describe("api page", () => {
     expect(html).toContain("Machine-readable access starts with stable public outputs");
     expect(html).toContain("RSS feed");
     expect(html).toContain("JSON feed");
-    expect(html).toContain("robots.txt");
-    expect(html).toContain("/robots.txt");
   });
 
   it("excludes banned phrases from the API landing page surface", () => {

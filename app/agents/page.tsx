@@ -1,6 +1,6 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { permanentRedirect } from "next/navigation";
-import { buildPageMetadata } from "@/lib/seo/metadata";
 import {
   PublicCollectionGrid,
   PublicEmptyState,
@@ -10,6 +10,14 @@ import {
 } from "@/app/_components/public-ui";
 import { listPublishedAgents, listTaxonomyTermsByScope } from "@/lib/public/hub";
 import { getFilterRedirectTarget } from "@/lib/content/redirects";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+
+export const dynamic = "force-dynamic";
+export const metadata = buildPageMetadata({
+  title: "Agents",
+  description: "Browse published agent records connected to prompts, skills, and supporting content.",
+  path: "/agents",
+}) satisfies Metadata;
 
 export default async function AgentsPage({
   searchParams,
@@ -51,7 +59,7 @@ export default async function AgentsPage({
           detail={
             activeTerm
               ? "Try a different scoped term or clear the filter to return to the full agent directory."
-              : "Use the admin console to publish the first agent record, then this collection will become a proper browse surface."
+              : "No agent records have been published yet. Once the first one goes live, this page becomes a proper browse surface."
           }
           actions={
             activeTerm ? (
@@ -77,10 +85,3 @@ export default async function AgentsPage({
     </PublicShell>
   );
 }
-
-export const dynamic = "force-dynamic";
-export const metadata = buildPageMetadata({
-  title: "Agents",
-  description: "Browse published agent records connected to prompts, skills, and supporting content.",
-  path: "/agents",
-});

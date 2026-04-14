@@ -7,14 +7,14 @@ export class PublicHubPage {
     await this.page.goto("/");
     await expect(
       this.page.getByRole("heading", {
-        name: "Track what changed in AI. Find what to use next.",
+        name: "The connected discovery surface for agentic coding.",
       }),
     ).toBeVisible();
   }
 
   async openLeadStory() {
     const leadStoryLink = this.page.getByRole("link", {
-      name: "See current signal",
+      name: "Read the latest",
       exact: true,
     });
 

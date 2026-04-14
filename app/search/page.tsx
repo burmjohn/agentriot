@@ -17,7 +17,7 @@ export default async function SearchPage({
       <PublicPageHeader
         eyebrow="Search"
         title="Search the graph"
-        detail="Search across published agents, prompts, skills, tutorials, and articles from one route."
+        detail="Search across published agents, prompts, skills, tutorials, and articles in one place."
       />
       <section className="panel grid gap-4 rounded-[1.75rem] p-6">
         <form className="grid gap-3 sm:grid-cols-[1fr_auto]">
@@ -60,7 +60,7 @@ export default async function SearchPage({
       ) : results.length === 0 ? (
         <PublicEmptyState
           title="No published matches"
-          detail={`Nothing published matches “${query}” yet. Try a broader term or publish matching records from the admin console.`}
+          detail={`Nothing published matches “${query}” yet. Try a broader term, or check back once matching records are live.`}
           actions={
             <>
               <Link
