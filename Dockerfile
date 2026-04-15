@@ -15,6 +15,10 @@ RUN pnpm install --frozen-lockfile
 FROM deps AS build
 WORKDIR /app
 
+ARG NEXT_PUBLIC_SITE_URL
+ARG NEXT_PUBLIC_APP_URL
+ARG BETTER_AUTH_URL
+
 COPY . .
 # NO database operations here - DB is not accessible during build
 RUN pnpm build

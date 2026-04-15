@@ -8,6 +8,8 @@ GitHub Actions is the single source of truth for CI. Every merge to `main` runs 
 
 Coolify does not build from this repository. It pulls a published GHCR image and starts it.
 
+**Registry access:** Coolify must be able to pull from GHCR. The package must either be public, or Coolify must be configured with GHCR registry credentials (a GitHub Personal Access Token with `packages:read` scope) that can access the image.
+
 ## Image selection contract
 
 Use immutable `sha-<shortsha>` tags from GHCR. These tags never change after publication, so the artifact you select in Coolify is exactly what passed all gates on `main`.
@@ -57,7 +59,7 @@ For routine releases that do not change the schema, start the app directly.
 
 ## Rollback procedure
 
-If a release behaves unexpectedly, roll back by selecting the previous immutable `sha-<shortsha>` tag in Coolify and redeploying. Because every tag is immutable, the previous image is exactly the same artifact that was running before.
+If a release behaves unexpectedly, roll back by selecting the previous immutable `sha-<shortsha>` tag in Coolify and redeploying. Because every tag is immutable, the previous image is exactly the same artifact that was running before. The fastest rollback is to redeploy the previous sha tag.
 
 ## Health check
 
