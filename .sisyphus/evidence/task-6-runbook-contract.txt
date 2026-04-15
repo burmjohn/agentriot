@@ -1,0 +1,9 @@
+Scenario: Confirm the runbook defines image, migration, health, and rollback contracts
+
+Steps: grep -n 'sha-' docs/deployment/coolify-ghcr.md && grep -n 'pnpm migrate' docs/deployment/coolify-ghcr.md && grep -n '/api/health' docs/deployment/coolify-ghcr.md && grep -n 'rollback' docs/deployment/coolify-ghcr.md
+
+Result: PASS
+- sha- tags documented at lines 13, 16, 60
+- pnpm migrate documented at line 52
+- /api/health documented at line 67
+- rollback documented at line 60

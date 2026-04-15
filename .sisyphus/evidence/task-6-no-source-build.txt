@@ -1,0 +1,7 @@
+Scenario: Confirm the repo no longer claims Coolify builds from source
+
+Steps: test ! -f coolify.json && grep -R -n 'build_pack.*dockerfile\|base_directory' README.md docs .github || true
+
+Result: PASS
+- coolify.json is absent
+- No remaining source-build instructions in README.md, docs, or .github

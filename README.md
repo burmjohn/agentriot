@@ -148,6 +148,17 @@ pnpm test:e2e
 pnpm test:e2e:admin
 ```
 
+## CI and deployment
+
+The repo uses GitHub Actions for continuous integration and GHCR for image publishing.
+
+- Pull requests run lint, typecheck, unit tests, Next.js build, and a Docker build.
+- Merges to `main` also run both Playwright suites before publishing an image.
+- GHCR images are tagged with immutable `sha-<shortsha>` tags.
+- Coolify consumes those GHCR images directly. It does not build from this repo.
+
+For the full operator runbook, see [docs/deployment/coolify-ghcr.md](docs/deployment/coolify-ghcr.md). It covers image selection, build-time versus runtime environment ownership, the migration procedure, rollback, and the `/api/health` health check endpoint.
+
 ## Next steps
 
 If you are continuing implementation, the next practical steps are:
@@ -156,5 +167,3 @@ If you are continuing implementation, the next practical steps are:
    powering the site.
 2. Expand authenticated ingestion beyond articles and tutorials into the rest
    of the graph once the current operator flow is stable.
-3. Add deployment and production environment configuration when you move past
-   local-only development.

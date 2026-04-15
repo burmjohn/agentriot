@@ -469,7 +469,7 @@ PY`.
   **Commit**: YES | Message: `ci(release): publish immutable ghcr images` |
   Files: `.github/workflows/ci.yml`
 
-- [ ] 6. Replace repo-side source-build guidance with a GHCR-to-Coolify runbook
+- [x] 6. Replace repo-side source-build guidance with a GHCR-to-Coolify runbook
 
   **What to do**: Remove `coolify.json` so the repo no longer advertises a
   source-build deployment model that conflicts with GHCR publishing. Update

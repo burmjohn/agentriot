@@ -21,3 +21,9 @@
   `docker/metadata-action` using `type=sha,prefix=sha-`, and writing the chosen
   image reference plus digest to both job outputs and `$GITHUB_STEP_SUMMARY` for
   the Coolify handoff.
+## Task 6: GHCR-to-Coolify runbook
+
+- Removing coolify.json eliminates the stale source-build signal that could conflict with the new GHCR artifact contract.
+- README should stay concise: a short CI/Deployment section that points to the full runbook keeps the entry doc readable while still surfacing the deploy model.
+- The runbook must explicitly own four operator concerns: image selection (immutable sha- tags), environment split (build-time vars vs runtime secrets), migration procedure (operator-run pnpm migrate), and rollback (select previous sha- tag).
+- Documenting /api/health in the runbook gives operators the exact Coolify health check endpoint without guessing.
