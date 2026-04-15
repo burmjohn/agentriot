@@ -1,0 +1,40 @@
+Task 5 GHCR publish verification
+Date: April 15, 2026
+
+Command: grep -n 'docker/login-action@v4' .github/workflows/ci.yml
+Output:
+199:        uses: docker/login-action@v4
+
+Command: grep -n 'docker/setup-buildx-action@v4' .github/workflows/ci.yml
+Output:
+206:        uses: docker/setup-buildx-action@v4
+
+Command: grep -n 'docker/metadata-action@v6' .github/workflows/ci.yml
+Output:
+210:        uses: docker/metadata-action@v6
+
+Command: grep -n 'docker/build-push-action@v7' .github/workflows/ci.yml
+Output:
+218:        uses: docker/build-push-action@v7
+
+Command: grep -n 'packages: write' .github/workflows/ci.yml
+Output:
+190:      packages: write
+
+Command: grep -n 'type=sha' .github/workflows/ci.yml
+Output:
+214:            type=sha,prefix=sha-
+
+Command: grep -n 'image_ref\|image_digest\|GITHUB_STEP_SUMMARY' .github/workflows/ci.yml
+Output:
+192:      image-ref: ${{ steps.record-image.outputs.image_ref }}
+193:      image-digest: ${{ steps.record-image.outputs.image_digest }}
+235:          image_ref="$(printf '%s\n' "$IMAGE_TAGS" | sed -n '1p')"
+236:          echo "image_ref=$image_ref" >> "$GITHUB_OUTPUT"
+237:          echo "image_digest=$IMAGE_DIGEST" >> "$GITHUB_OUTPUT"
+241:            echo "- Image reference: $image_ref"
+243:          } >> "$GITHUB_STEP_SUMMARY"
+
+Result: The publish-image job contains the required GHCR action chain, keeps
+`packages: write` scoped to the publish job, uses `type=sha,prefix=sha-`, and
+records the published image reference plus digest for operators.

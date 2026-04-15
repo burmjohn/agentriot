@@ -401,7 +401,7 @@ PY`.
   **Commit**: YES | Message: `ci(e2e): gate main publishes behind playwright jobs` |
   Files: `.github/workflows/ci.yml`
 
-- [ ] 5. Publish immutable GHCR images from `main` only after all gates pass
+- [x] 5. Publish immutable GHCR images from `main` only after all gates pass
 
   **What to do**: In `.github/workflows/ci.yml`, add a `publish-image` job that
   runs only on `push` to `main`, depends on `validate`, `e2e-public`, and

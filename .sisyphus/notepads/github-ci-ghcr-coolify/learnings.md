@@ -16,3 +16,8 @@
 - April 15, 2026: The admin Playwright suite depends on `dropdb` and `createdb`,
   so each PostgreSQL-backed E2E job must install `postgresql-client` on the
   runner before Playwright starts the web server.
+- April 15, 2026: The GHCR publish lane can stay artifact-only by giving only
+  the `publish-image` job `packages: write`, generating tags with
+  `docker/metadata-action` using `type=sha,prefix=sha-`, and writing the chosen
+  image reference plus digest to both job outputs and `$GITHUB_STEP_SUMMARY` for
+  the Coolify handoff.

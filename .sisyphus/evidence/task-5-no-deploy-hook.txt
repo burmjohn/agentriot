@@ -1,0 +1,17 @@
+Task 5 artifact-only publish verification
+Date: April 15, 2026
+
+Command: ! grep -n 'latest' .github/workflows/ci.yml
+Output:
+(no matches)
+
+Command: ! grep -n 'COOLIFY' .github/workflows/ci.yml
+Output:
+(no matches)
+
+Command: ! grep -n 'COOLIFY\|webhook\|curl' .github/workflows/ci.yml
+Output:
+(no matches)
+
+Result: The workflow does not contain a `latest` handoff, any Coolify keyword,
+or webhook/curl deploy logic. GitHub stops at immutable image publication.
