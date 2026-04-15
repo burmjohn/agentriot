@@ -1,0 +1,25 @@
+Task 4 evidence: Playwright jobs are restricted to push events on main
+
+Command: grep -n 'refs/heads/main' .github/workflows/ci.yml
+61:    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+122:    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+
+Command: python3 - <<'PY'
+from pathlib import Path
+text = Path('.github/workflows/ci.yml').read_text()
+for job in ('e2e-public:', 'e2e-admin:'):
+    start = text.index(job)
+    tail = text[start:]
+    next_jobs = [m for m in ('\n  publish-image:', '\n  e2e-admin:') if m in tail[1:]]
+    end = min([tail[1:].index(m) + 1 for m in next_jobs], default=len(tail))
+    segment = tail[:end]
+    assert "github.event_name == 'push'" in segment
+    assert "github.ref == 'refs/heads/main'" in segment
+    print(f'{job} main-only gate present')
+print('ok')
+PY
+
+Output:
+e2e-public: main-only gate present
+e2e-admin: main-only gate present
+ok

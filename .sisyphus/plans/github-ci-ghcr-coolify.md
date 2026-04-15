@@ -324,7 +324,7 @@ PY`.
   **Commit**: YES | Message: `ci(validate): add pull request validation job` |
   Files: `.github/workflows/ci.yml`
 
-- [ ] 4. Add main-only Playwright gates with PostgreSQL-backed public and admin jobs
+- [x] 4. Add main-only Playwright gates with PostgreSQL-backed public and admin jobs
 
   **What to do**: In `.github/workflows/ci.yml`, add two jobs that run only on
   `push` events for `refs/heads/main`: `e2e-public` and `e2e-admin`. Both jobs

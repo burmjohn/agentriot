@@ -55,3 +55,124 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t agentriot:ci .
+
+  e2e-public:
+    name: E2E public
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    needs:
+      - validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/agentriot
+      PORT: "3013"
+      PLAYWRIGHT_BASE_URL: http://127.0.0.1:3013
+      NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3013
+      NEXT_PUBLIC_APP_URL: http://127.0.0.1:3013
+      BETTER_AUTH_URL: http://127.0.0.1:3013
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: agentriot
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install PostgreSQL client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
+      - name: Wait for PostgreSQL
+        env:
+          PGPASSWORD: postgres
+        run: pg_isready -h localhost -p 5432 -U postgres
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run public Playwright suite
+        run: pnpm test:e2e
+
+  e2e-admin:
+    name: E2E admin
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    needs:
+      - validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/agentriot_admin_e2e
+      PLAYWRIGHT_BASE_URL: http://127.0.0.1:3012
+      NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3012
+      NEXT_PUBLIC_APP_URL: http://127.0.0.1:3012
+      BETTER_AUTH_URL: http://127.0.0.1:3012
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: agentriot
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install PostgreSQL client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
+      - name: Wait for PostgreSQL
+        env:
+          PGPASSWORD: postgres
+        run: pg_isready -h localhost -p 5432 -U postgres
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run admin Playwright suite
+        run: pnpm test:e2e:admin

@@ -9,3 +9,10 @@
   workflow-level `env` block; that scope reaches `pnpm typecheck` and
   `pnpm build`, so the fast PR gate stays explicit without duplicating per-step
   environment wiring.
+- April 15, 2026: The main-only Playwright GitHub Actions jobs need job-level
+  localhost URL overrides (`PLAYWRIGHT_BASE_URL`, `NEXT_PUBLIC_SITE_URL`,
+  `NEXT_PUBLIC_APP_URL`, and `BETTER_AUTH_URL`) so each suite boots against its
+  own CI-local port instead of the shared placeholder domain.
+- April 15, 2026: The admin Playwright suite depends on `dropdb` and `createdb`,
+  so each PostgreSQL-backed E2E job must install `postgresql-client` on the
+  runner before Playwright starts the web server.

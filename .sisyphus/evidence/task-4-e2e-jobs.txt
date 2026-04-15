@@ -1,0 +1,38 @@
+Task 4 evidence: main-only Playwright jobs and PostgreSQL wiring
+
+Command: grep -n 'e2e-public:' .github/workflows/ci.yml
+59:  e2e-public:
+
+Command: grep -n 'e2e-admin:' .github/workflows/ci.yml
+120:  e2e-admin:
+
+Command: grep -n 'pnpm test:e2e' .github/workflows/ci.yml
+118:        run: pnpm test:e2e
+178:        run: pnpm test:e2e:admin
+
+Command: grep -n 'pnpm test:e2e:admin' .github/workflows/ci.yml
+178:        run: pnpm test:e2e:admin
+
+Command: grep -n 'postgres' .github/workflows/ci.yml
+68:      DATABASE_URL: postgres://postgres:postgres@localhost:5432/agentriot
+75:      postgres:
+76:        image: postgres:16
+78:          POSTGRES_USER: postgres
+79:          POSTGRES_PASSWORD: postgres
+84:          --health-cmd="pg_isready -U postgres"
+107:        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+111:          PGPASSWORD: postgres
+112:        run: pg_isready -h localhost -p 5432 -U postgres
+129:      DATABASE_URL: postgres://postgres:postgres@localhost:5432/agentriot_admin_e2e
+135:      postgres:
+136:        image: postgres:16
+138:          POSTGRES_USER: postgres
+139:          POSTGRES_PASSWORD: postgres
+144:          --health-cmd="pg_isready -U postgres"
+167:        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+171:          PGPASSWORD: postgres
+172:        run: pg_isready -h localhost -p 5432 -U postgres
+
+Command: grep -n 'postgresql-client' .github/workflows/ci.yml
+107:        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+167:        run: sudo apt-get update && sudo apt-get install -y postgresql-client
