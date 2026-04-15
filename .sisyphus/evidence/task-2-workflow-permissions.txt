@@ -1,0 +1,21 @@
+workflow=.github/workflows/ci.yml
+header_has_root_permissions=false
+header_has_global_packages_write=false
+1: name: CI
+2: 
+3: on:
+4:   pull_request:
+5:   push:
+6:     branches:
+7:       - main
+8: 
+9: concurrency:
+10:   group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+11:   cancel-in-progress: true
+12: 
+13: env:
+14:   NODE_VERSION: "24"
+15:   PNPM_VERSION: "10.33.0"
+16:   NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'https://agentriot.example.com' }}
+17:   NEXT_PUBLIC_APP_URL: ${{ vars.NEXT_PUBLIC_APP_URL || 'https://agentriot.example.com' }}
+18:   BETTER_AUTH_URL: ${{ vars.BETTER_AUTH_URL || 'https://agentriot.example.com' }}

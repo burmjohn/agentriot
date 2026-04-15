@@ -1,0 +1,9 @@
+4:  pull_request:
+5:  push:
+9:concurrency:
+16:  NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'https://agentriot.example.com' }}
+46:            "NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}" \
+17:  NEXT_PUBLIC_APP_URL: ${{ vars.NEXT_PUBLIC_APP_URL || 'https://agentriot.example.com' }}
+47:            "NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}" \
+18:  BETTER_AUTH_URL: ${{ vars.BETTER_AUTH_URL || 'https://agentriot.example.com' }}
+48:            "BETTER_AUTH_URL=${BETTER_AUTH_URL}"
