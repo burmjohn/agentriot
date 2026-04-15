@@ -253,7 +253,7 @@ PY`.
   **Commit**: YES | Message: `ci(workflow): add shared workflow scaffold` |
   Files: `.github/workflows/ci.yml`
 
-- [ ] 3. Implement the fast validation job for pull requests and main pushes
+- [x] 3. Implement the fast validation job for pull requests and main pushes
 
   **What to do**: In `.github/workflows/ci.yml`, add a `validate` job that
   checks out the repo, sets up Node 24 with pnpm 10.33.0, installs dependencies

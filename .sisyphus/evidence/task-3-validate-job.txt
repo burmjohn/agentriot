@@ -1,0 +1,12 @@
+Validate job evidence
+validate job line: 21
+NEXT_PUBLIC_SITE_URL env line: 16
+NEXT_PUBLIC_APP_URL env line: 17
+BETTER_AUTH_URL env line: 18
+pnpm lint line: 45
+pnpm typecheck line: 48
+pnpm test line: 51
+pnpm build line: 54
+docker build line: 57
+command order ok: True
+env scope: top-level workflow env applies to validate job steps, including typecheck and build

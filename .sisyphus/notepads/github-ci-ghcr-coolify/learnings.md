@@ -5,3 +5,7 @@
   test artifacts, docs, screenshots, and repo metadata for this app because the
   Docker build only needs application source, config, `public/`, and lockfiles;
   the resulting build context dropped to about 1.32 MB in verification.
+- April 15, 2026: The CI validate lane can keep the three URL variables in the
+  workflow-level `env` block; that scope reaches `pnpm typecheck` and
+  `pnpm build`, so the fast PR gate stays explicit without duplicating per-step
+  environment wiring.

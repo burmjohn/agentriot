@@ -18,8 +18,8 @@ env:
   BETTER_AUTH_URL: ${{ vars.BETTER_AUTH_URL || 'https://agentriot.example.com' }}
 
 jobs:
-  scaffold:
-    name: CI scaffold
+  validate:
+    name: Validate
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -38,11 +38,20 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
 
-      - name: Show shared CI environment
-        run: |
-          node --version
-          pnpm --version
-          printf '%s\n' \
-            "NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}" \
-            "NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}" \
-            "BETTER_AUTH_URL=${BETTER_AUTH_URL}"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build app
+        run: pnpm build
+
+      - name: Build Docker image
+        run: docker build -t agentriot:ci .

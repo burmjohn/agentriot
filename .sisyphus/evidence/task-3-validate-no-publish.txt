@@ -1,0 +1,4 @@
+Validate no-publish evidence
+permissions ok (contents: read only, no packages write): True
+registry login/push/playwright violations: none
+publish behavior present: false
