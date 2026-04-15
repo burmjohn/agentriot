@@ -1,0 +1,38 @@
+.git
+.github
+.next
+node_modules
+.sisyphus
+.gstack
+.playwright-mcp
+playwright-report
+test-results
+
+# local environment and logs
+.env
+.env.local
+.env.*.local
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# editor and OS artifacts
+.DS_Store
+.idea
+.vscode
+
+# test, coverage, and cache artifacts
+coverage
+*.tsbuildinfo
+
+# local screenshots and generated docs/artifacts
+f*.png
+docs
+README.md
+TODOS.md
+AGENTS.md
+CLAUDE.md
+DESIGN.md
+coolify.json

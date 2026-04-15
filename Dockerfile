@@ -35,5 +35,5 @@ COPY --from=build /app/next.config.ts ./next.config.ts
 
 EXPOSE 3000
 
-# Migrations run at container startup when DB is accessible
-CMD ["sh", "-c", "pnpm migrate && pnpm start"]
+# Runtime image stays stateless; run migrations separately
+CMD ["pnpm", "start"]

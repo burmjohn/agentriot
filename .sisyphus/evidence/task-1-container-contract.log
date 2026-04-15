@@ -1,0 +1,258 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.07kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/node:24-bookworm-slim
+#2 DONE 0.8s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 606B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 DONE 0.0s
+
+#5 [base 1/2] FROM docker.io/library/node:24-bookworm-slim@sha256:b506e7321f176aae77317f99d67a24b272c1f09f1d10f1761f2773447d8da26c
+#5 resolve docker.io/library/node:24-bookworm-slim@sha256:b506e7321f176aae77317f99d67a24b272c1f09f1d10f1761f2773447d8da26c 0.0s done
+#5 DONE 0.0s
+
+#5 [base 1/2] FROM docker.io/library/node:24-bookworm-slim@sha256:b506e7321f176aae77317f99d67a24b272c1f09f1d10f1761f2773447d8da26c
+#5 DONE 0.2s
+
+#4 [internal] load build context
+#4 transferring context: 1.32MB 0.3s done
+#4 DONE 0.4s
+
+#5 [base 1/2] FROM docker.io/library/node:24-bookworm-slim@sha256:b506e7321f176aae77317f99d67a24b272c1f09f1d10f1761f2773447d8da26c
+#5 sha256:72e110fbfa2ee827f24e127577cc786056219c435aaebfcac444d35dfcef8cc3 446B / 446B 0.1s done
+#5 sha256:4a1398fd43fa5b98a13f0d83fccb4bd3fda4f98eb8aedc9ed3187f96a45cac13 1.71MB / 1.71MB 0.2s done
+#5 sha256:a5a499265c26f2e9343d2df3b7c355447741e7ba98cdeb774dc295e69ffb4ceb 3.32kB / 3.32kB 0.1s done
+#5 sha256:f9b3c93b5d7a5d4ee14479ecf8d1151540bdfe1f26b90ee9ccf4cad8af4dde87 4.19MB / 49.40MB 0.3s
+#5 sha256:da539b6761059a0a114c6671f1267b57445e3a54da023db5c28be019e40f0284 0B / 28.24MB 0.2s
+#5 sha256:f9b3c93b5d7a5d4ee14479ecf8d1151540bdfe1f26b90ee9ccf4cad8af4dde87 14.68MB / 49.40MB 0.5s
+#5 sha256:da539b6761059a0a114c6671f1267b57445e3a54da023db5c28be019e40f0284 7.34MB / 28.24MB 0.3s
+#5 sha256:da539b6761059a0a114c6671f1267b57445e3a54da023db5c28be019e40f0284 13.63MB / 28.24MB 0.5s
+#5 sha256:f9b3c93b5d7a5d4ee14479ecf8d1151540bdfe1f26b90ee9ccf4cad8af4dde87 18.87MB / 49.40MB 0.6s
+#5 sha256:da539b6761059a0a114c6671f1267b57445e3a54da023db5c28be019e40f0284 19.92MB / 28.24MB 0.6s
+#5 sha256:f9b3c93b5d7a5d4ee14479ecf8d1151540bdfe1f26b90ee9ccf4cad8af4dde87 26.21MB / 49.40MB 0.8s
+#5 sha256:da539b6761059a0a114c6671f1267b57445e3a54da023db5c28be019e40f0284 28.24MB / 28.24MB 0.8s
+#5 sha256:f9b3c93b5d7a5d4ee14479ecf8d1151540bdfe1f26b90ee9ccf4cad8af4dde87 35.65MB / 49.40MB 1.1s
+#5 sha256:da539b6761059a0a114c6671f1267b57445e3a54da023db5c28be019e40f0284 28.24MB / 28.24MB 0.8s done
+#5 extracting sha256:da539b6761059a0a114c6671f1267b57445e3a54da023db5c28be019e40f0284
+#5 sha256:f9b3c93b5d7a5d4ee14479ecf8d1151540bdfe1f26b90ee9ccf4cad8af4dde87 39.85MB / 49.40MB 1.2s
+#5 sha256:f9b3c93b5d7a5d4ee14479ecf8d1151540bdfe1f26b90ee9ccf4cad8af4dde87 44.04MB / 49.40MB 1.4s
+#5 sha256:f9b3c93b5d7a5d4ee14479ecf8d1151540bdfe1f26b90ee9ccf4cad8af4dde87 49.40MB / 49.40MB 1.5s
+#5 sha256:f9b3c93b5d7a5d4ee14479ecf8d1151540bdfe1f26b90ee9ccf4cad8af4dde87 49.40MB / 49.40MB 1.6s done
+#5 extracting sha256:da539b6761059a0a114c6671f1267b57445e3a54da023db5c28be019e40f0284 1.2s done
+#5 DONE 2.4s
+
+#5 [base 1/2] FROM docker.io/library/node:24-bookworm-slim@sha256:b506e7321f176aae77317f99d67a24b272c1f09f1d10f1761f2773447d8da26c
+#5 extracting sha256:a5a499265c26f2e9343d2df3b7c355447741e7ba98cdeb774dc295e69ffb4ceb 0.0s done
+#5 extracting sha256:f9b3c93b5d7a5d4ee14479ecf8d1151540bdfe1f26b90ee9ccf4cad8af4dde87
+#5 extracting sha256:f9b3c93b5d7a5d4ee14479ecf8d1151540bdfe1f26b90ee9ccf4cad8af4dde87 1.3s done
+#5 DONE 3.7s
+
+#5 [base 1/2] FROM docker.io/library/node:24-bookworm-slim@sha256:b506e7321f176aae77317f99d67a24b272c1f09f1d10f1761f2773447d8da26c
+#5 extracting sha256:4a1398fd43fa5b98a13f0d83fccb4bd3fda4f98eb8aedc9ed3187f96a45cac13 0.1s done
+#5 extracting sha256:72e110fbfa2ee827f24e127577cc786056219c435aaebfcac444d35dfcef8cc3 0.0s done
+#5 DONE 3.8s
+
+#6 [base 2/2] RUN corepack enable && corepack prepare pnpm@10.33.0 --activate
+#6 0.525 Preparing pnpm@10.33.0 for immediate activation...
+#6 DONE 2.2s
+
+#7 [deps 1/3] WORKDIR /app
+#7 DONE 0.1s
+
+#8 [deps 2/3] COPY package.json pnpm-lock.yaml ./
+#8 DONE 0.1s
+
+#9 [deps 3/3] RUN pnpm install --frozen-lockfile
+#9 0.751 Lockfile is up to date, resolution step is skipped
+#9 0.825 Progress: resolved 1, reused 0, downloaded 0, added 0
+#9 0.891 Packages: +406
+#9 0.891 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#9 1.853 Progress: resolved 406, reused 0, downloaded 41, added 26
+#9 2.869 Progress: resolved 406, reused 0, downloaded 73, added 41
+#9 3.877 Progress: resolved 406, reused 0, downloaded 162, added 147
+#9 4.879 Progress: resolved 406, reused 0, downloaded 337, added 336
+#9 5.827 Progress: resolved 406, reused 0, downloaded 406, added 406, done
+#9 6.173 
+#9 6.173 dependencies:
+#9 6.173 + @better-auth/drizzle-adapter 1.6.0
+#9 6.173 + @t3-oss/env-nextjs 0.13.11
+#9 6.173 + better-auth 1.6.0
+#9 6.173 + drizzle-orm 0.45.2
+#9 6.173 + next 16.2.2
+#9 6.173 + postgres 3.4.9
+#9 6.173 + react 19.2.4
+#9 6.173 + react-dom 19.2.4
+#9 6.173 + zod 4.3.6
+#9 6.173 
+#9 6.173 devDependencies:
+#9 6.173 + @playwright/test 1.59.1
+#9 6.173 + @tailwindcss/postcss 4.2.2
+#9 6.173 + @types/node 25.5.2
+#9 6.173 + @types/react 19.2.14
+#9 6.173 + @types/react-dom 19.2.3
+#9 6.173 + dotenv 17.3.1
+#9 6.173 + drizzle-kit 0.31.10
+#9 6.173 + eslint 10.2.0
+#9 6.173 + eslint-config-next 16.2.2
+#9 6.173 + tailwindcss 4.2.2
+#9 6.173 + tsx 4.21.0
+#9 6.173 + typescript 6.0.2
+#9 6.173 + vitest 4.1.3
+#9 6.173 
+#9 6.211 ╭ Warning ─────────────────────────────────────────────────────────────────────╮
+#9 6.211 │                                                                              │
+#9 6.211 │   Ignored build scripts: esbuild@0.18.20, esbuild@0.25.12, esbuild@0.27.7,   │
+#9 6.211 │   sharp@0.34.5, unrs-resolver@1.11.1.                                        │
+#9 6.211 │   Run "pnpm approve-builds" to pick which dependencies should be allowed     │
+#9 6.211 │   to run scripts.                                                            │
+#9 6.211 │                                                                              │
+#9 6.211 ╰──────────────────────────────────────────────────────────────────────────────╯
+#9 6.231 Done in 5.9s using pnpm v10.33.0
+#9 DONE 6.9s
+
+#10 [build 1/3] WORKDIR /app
+#10 DONE 0.4s
+
+#11 [build 2/3] COPY . .
+#11 DONE 0.1s
+
+#12 [build 3/3] RUN pnpm build
+#12 0.548 
+#12 0.548 > agentriot@0.1.0 build /app
+#12 0.548 > next build
+#12 0.548 
+#12 1.035 Attention: Next.js now collects completely anonymous telemetry regarding usage.
+#12 1.036 This information is used to shape Next.js' roadmap and prioritize features.
+#12 1.036 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+#12 1.036 https://nextjs.org/telemetry
+#12 1.036 
+#12 1.062 ▲ Next.js 16.2.2 (Turbopack)
+#12 1.062 
+#12 1.177   Creating an optimized production build ...
+#12 10.49 ✓ Compiled successfully in 9.1s
+#12 10.49   Running TypeScript ...
+#12 18.06   Finished TypeScript in 7.6s ...
+#12 18.06   Collecting page data using 5 workers ...
+#12 19.22   Generating static pages using 5 workers (0/42) ...
+#12 19.28   Generating static pages using 5 workers (10/42) 
+#12 19.36   Generating static pages using 5 workers (20/42) 
+#12 19.46   Generating static pages using 5 workers (31/42) 
+#12 19.51 ✓ Generating static pages using 5 workers (42/42) in 290ms
+#12 19.52   Finalizing page optimization ...
+#12 19.53 
+#12 19.53 Route (app)
+#12 19.53 ┌ ƒ /
+#12 19.53 ├ ○ /_not-found
+#12 19.53 ├ ○ /about
+#12 19.53 ├ ƒ /admin
+#12 19.53 ├ ƒ /admin/agents
+#12 19.53 ├ ƒ /admin/agents/[id]
+#12 19.53 ├ ƒ /admin/agents/new
+#12 19.53 ├ ƒ /admin/api-keys
+#12 19.53 ├ ƒ /admin/api-keys/[id]
+#12 19.53 ├ ƒ /admin/api-keys/new
+#12 19.53 ├ ƒ /admin/content
+#12 19.53 ├ ƒ /admin/content/[id]
+#12 19.53 ├ ƒ /admin/content/new
+#12 19.53 ├ ƒ /admin/prompts
+#12 19.53 ├ ƒ /admin/prompts/[id]
+#12 19.53 ├ ƒ /admin/prompts/new
+#12 19.53 ├ ƒ /admin/skills
+#12 19.53 ├ ƒ /admin/skills/[id]
+#12 19.53 ├ ƒ /admin/skills/new
+#12 19.53 ├ ƒ /admin/taxonomy
+#12 19.53 ├ ƒ /admin/taxonomy/[id]
+#12 19.53 ├ ƒ /admin/taxonomy/new
+#12 19.53 ├ ƒ /agents
+#12 19.53 ├ ƒ /agents/[slug]
+#12 19.53 ├ ○ /api
+#12 19.53 ├ ƒ /api/auth/[...all]
+#12 19.53 ├ ƒ /api/health
+#12 19.53 ├ ƒ /api/v1
+#12 19.53 ├ ƒ /api/v1/agents
+#12 19.53 ├ ƒ /api/v1/agents/[slug]
+#12 19.53 ├ ƒ /api/v1/articles
+#12 19.53 ├ ƒ /api/v1/articles/[slug]
+#12 19.53 ├ ƒ /api/v1/ingest/agent-relations
+#12 19.53 ├ ƒ /api/v1/ingest/agent-taxonomy
+#12 19.53 ├ ƒ /api/v1/ingest/agents
+#12 19.53 ├ ƒ /api/v1/ingest/articles
+#12 19.53 ├ ƒ /api/v1/ingest/content-relations
+#12 19.53 ├ ƒ /api/v1/ingest/content-taxonomy
+#12 19.53 ├ ƒ /api/v1/ingest/prompt-relations
+#12 19.53 ├ ƒ /api/v1/ingest/prompt-taxonomy
+#12 19.53 ├ ƒ /api/v1/ingest/prompts
+#12 19.53 ├ ƒ /api/v1/ingest/skill-relations
+#12 19.53 ├ ƒ /api/v1/ingest/skill-taxonomy
+#12 19.53 ├ ƒ /api/v1/ingest/skills
+#12 19.53 ├ ƒ /api/v1/ingest/taxonomy
+#12 19.53 ├ ƒ /api/v1/ingest/tutorials
+#12 19.53 ├ ƒ /api/v1/prompts
+#12 19.53 ├ ƒ /api/v1/prompts/[slug]
+#12 19.53 ├ ƒ /api/v1/search
+#12 19.53 ├ ƒ /api/v1/skills
+#12 19.53 ├ ƒ /api/v1/skills/[slug]
+#12 19.53 ├ ƒ /api/v1/taxonomy
+#12 19.53 ├ ƒ /api/v1/tutorials
+#12 19.53 ├ ƒ /api/v1/tutorials/[slug]
+#12 19.53 ├ ƒ /articles
+#12 19.53 ├ ƒ /articles/[slug]
+#12 19.53 ├ ƒ /feed.json
+#12 19.53 ├ ƒ /feed.xml
+#12 19.53 ├ ƒ /llms.txt
+#12 19.53 ├ ƒ /prompts
+#12 19.53 ├ ƒ /prompts/[slug]
+#12 19.53 ├ ○ /robots.txt
+#12 19.53 ├ ƒ /search
+#12 19.53 ├ ƒ /sign-in
+#12 19.53 ├ ƒ /sitemap.xml
+#12 19.53 ├ ƒ /skills
+#12 19.53 ├ ƒ /skills/[slug]
+#12 19.53 ├ ƒ /tutorials
+#12 19.53 └ ƒ /tutorials/[slug]
+#12 19.53 
+#12 19.54 
+#12 19.54 ○  (Static)   prerendered as static content
+#12 19.54 ƒ  (Dynamic)  server-rendered on demand
+#12 19.54 
+#12 DONE 20.2s
+
+#13 [runner 2/8] COPY --from=build /app/package.json ./package.json
+#13 DONE 0.0s
+
+#14 [runner 3/8] COPY --from=build /app/node_modules ./node_modules
+#14 DONE 3.7s
+
+#15 [runner 4/8] COPY --from=build /app/.next ./.next
+#15 DONE 0.3s
+
+#16 [runner 5/8] COPY --from=build /app/public ./public
+#16 DONE 0.0s
+
+#17 [runner 6/8] COPY --from=build /app/drizzle ./drizzle
+#17 DONE 0.0s
+
+#18 [runner 7/8] COPY --from=build /app/drizzle.config.ts ./drizzle.config.ts
+#18 DONE 0.0s
+
+#19 [runner 8/8] COPY --from=build /app/next.config.ts ./next.config.ts
+#19 DONE 0.1s
+
+#20 exporting to image
+#20 exporting layers
+#20 exporting layers 19.5s done
+#20 exporting manifest sha256:174a5057434681a6213fd0b6b7ba9dea8e15576868574a597133dff33947956c 0.0s done
+#20 exporting config sha256:f16bebb948dd548426e94746abfa5b1d10328ffb6bba24a317c44fe8a5d8cf32 0.0s done
+#20 exporting attestation manifest sha256:46a5781898929888fa4ccb1a24202ee52a93402263646f4e0d6e686c9c4c3831 0.0s done
+#20 exporting manifest list sha256:711efec890773e0c8c93ab5030d267b6cc7a389e0838e2a7a8f777f988078f98 0.0s done
+#20 naming to docker.io/library/agentriot:ci done
+#20 unpacking to docker.io/library/agentriot:ci
+#20 unpacking to docker.io/library/agentriot:ci 6.2s done
+#20 DONE 25.8s
