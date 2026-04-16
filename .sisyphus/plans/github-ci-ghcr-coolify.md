@@ -546,19 +546,19 @@ PY`.
 > before marking work complete.**
 > **Never mark F1-F4 as checked before getting user's okay.** Rejection or user
 > feedback -> fix -> re-run -> present again -> wait for okay.
-- [ ] F1. Plan Compliance Audit — oracle
+- [x] F1. Plan Compliance Audit — oracle
   - Tool: `task(subagent_type="oracle")`
   - Steps: Ask Oracle to audit the implemented diff and final repo state against
     `.sisyphus/plans/github-ci-ghcr-coolify.md`, verifying tasks 1-6, file
     paths, acceptance criteria, and defaults applied.
   - Expected: `PASS` with zero critical plan deviations.
-- [ ] F2. Code Quality Review — unspecified-high
+- [x] F2. Code Quality Review — unspecified-high
   - Tool: `task(category="unspecified-high")`
   - Steps: Ask a reviewer agent to inspect changed files for CI safety,
     workflow correctness, shell robustness, and documentation accuracy, with
     emphasis on GitHub Actions gating and migration/runbook clarity.
   - Expected: `PASS` with zero critical correctness or maintainability issues.
-- [ ] F3. Real Manual QA — unspecified-high (+ playwright if UI)
+- [x] F3. Real Manual QA — unspecified-high (+ playwright if UI)
   - Tool: `task(category="unspecified-high")`
   - Steps: Execute all repo-side verification commands from tasks 1-6,
     including Docker build, grep/python workflow assertions, and documentation
@@ -566,7 +566,7 @@ PY`.
     also verify `/api/health` behavior with the documented contract.
   - Expected: `PASS` with every acceptance criterion and QA scenario reproduced
     successfully.
-- [ ] F4. Scope Fidelity Check — deep
+- [x] F4. Scope Fidelity Check — deep
   - Tool: `task(category="deep")`
   - Steps: Review the final diff for out-of-scope additions such as auto-deploy
     hooks, `latest` production tags, multi-arch build work, standalone Next.js
