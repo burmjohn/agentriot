@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
-import { AdminAgentPage } from "/mnt/botsserver/projects/agentriot/tests/e2e/pages/admin-agent-page";
-import { PublicAgentPage } from "/mnt/botsserver/projects/agentriot/tests/e2e/pages/public-agent-page";
-import { SignInPage } from "/mnt/botsserver/projects/agentriot/tests/e2e/pages/sign-in-page";
+import { AdminAgentPage } from "./pages/admin-agent-page";
+import { PublicAgentPage } from "./pages/public-agent-page";
+import { SignInPage } from "./pages/sign-in-page";
 
 test("editing a published agent title preserves the old public path via redirect", async ({
   page,
