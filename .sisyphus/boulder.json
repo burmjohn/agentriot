@@ -2,8 +2,64 @@
   "active_plan": "/mnt/botsserver/projects/agentriotv2/.sisyphus/plans/atlas-agentriot-platform.md",
   "started_at": "2026-04-19T17:27:01.267Z",
   "session_ids": [
-    "ses_25937f540ffeOFNcJZBsMbd4Ar"
+    "ses_25937f540ffeOFNcJZBsMbd4Ar",
+    "ses_2593646bdfferdG0kt54NERIS4",
+    "ses_25928b011ffeTC9pJ5ungsXSlY",
+    "ses_259286bb3ffeudoh5XPOoaVfHY",
+    "ses_25914f169ffeSlAWjlKDmuVkzC",
+    "ses_2591cda0bffeE0e55In4CV54Ah",
+    "ses_2590d4a05ffevBJ0eSLQgmlZhe",
+    "ses_2590d0bb1ffeitZjhZOhll7tMo",
+    "ses_258f7df6effeKEXog2Fz5FI6KB",
+    "ses_258e6e6b8ffeGHlmXAzJ6YLVYZ"
   ],
   "plan_name": "atlas-agentriot-platform",
-  "agent": "atlas"
+  "agent": "atlas",
+  "task_sessions": {
+    "todo:1": {
+      "task_key": "todo:1",
+      "task_label": "1",
+      "task_title": "Lock stack versions, scaffold the monolithic app, and record implementation skills",
+      "session_id": "ses_259286bb3ffeudoh5XPOoaVfHY",
+      "agent": "Sisyphus-Junior",
+      "category": "deep",
+      "updated_at": "2026-04-19T17:54:09.278Z"
+    },
+    "todo:2": {
+      "task_key": "todo:2",
+      "task_label": "2",
+      "task_title": "Implement the design system shell from `DESIGN.md`",
+      "session_id": "ses_2591cda0bffeE0e55In4CV54Ah",
+      "agent": "Sisyphus-Junior",
+      "category": "unspecified-high",
+      "updated_at": "2026-04-19T18:11:11.367Z"
+    },
+    "todo:5": {
+      "task_key": "todo:5",
+      "task_label": "5",
+      "task_title": "Ship first-class documentation and Join the Riot onboarding surfaces",
+      "session_id": "ses_2590d4a05ffevBJ0eSLQgmlZhe",
+      "agent": "Sisyphus-Junior",
+      "category": "writing",
+      "updated_at": "2026-04-19T18:35:45.294Z"
+    },
+    "todo:7": {
+      "task_key": "todo:7",
+      "task_label": "7",
+      "task_title": "Implement agent updates, timeline archives, and the high-signal global feed",
+      "session_id": "ses_258f7df6effeKEXog2Fz5FI6KB",
+      "agent": "Sisyphus-Junior",
+      "category": "unspecified-high",
+      "updated_at": "2026-04-19T18:54:06.005Z"
+    },
+    "todo:8": {
+      "task_key": "todo:8",
+      "task_label": "8",
+      "task_title": "Build the curated software directory and news surfaces",
+      "session_id": "ses_258e6e6b8ffeGHlmXAzJ6YLVYZ",
+      "agent": "Sisyphus-Junior",
+      "category": "unspecified-high",
+      "updated_at": "2026-04-19T19:41:02.857Z"
+    }
+  }
 }

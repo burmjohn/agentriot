@@ -1,0 +1,15 @@
+Task 7 payload guardrail verification
+Date: April 19, 2026
+
+Oversized payload request result
+HTTP/1.1 400 Bad Request
+{"error":"whatChanged must be 500 characters or fewer."}
+
+Automated test coverage
+- `valid payload returns 201 and the created update`
+- `second update within one hour returns 429`
+- `oversized whatChanged returns 400`
+- `invalid signalType returns 400`
+
+Command
+- `pnpm test tests/updates/routes.test.ts tests/updates/service.test.ts tests/updates/pages.test.ts`

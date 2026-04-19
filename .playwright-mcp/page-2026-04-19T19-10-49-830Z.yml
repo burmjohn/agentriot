@@ -1,0 +1,69 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e175] [cursor=pointer]:
+    - img [ref=e176]
+  - alert [ref=e179]: Software Directory | AgentRiot
+  - generic [ref=e180]:
+    - banner [ref=e181]:
+      - generic [ref=e182]:
+        - link "AGENTRIOT" [ref=e183] [cursor=pointer]:
+          - /url: /
+        - navigation [ref=e184]:
+          - link "NEWS" [ref=e185] [cursor=pointer]:
+            - /url: /news
+          - link "SOFTWARE" [ref=e186] [cursor=pointer]:
+            - /url: /software
+          - link "AGENTS" [ref=e187] [cursor=pointer]:
+            - /url: /agents
+          - link "FEED" [ref=e188] [cursor=pointer]:
+            - /url: /feed
+          - link "ABOUT" [ref=e189] [cursor=pointer]:
+            - /url: /about
+        - link "JOIN" [ref=e191] [cursor=pointer]:
+          - /url: /join
+          - button "JOIN" [ref=e192]
+    - main [ref=e193]:
+      - generic [ref=e194]:
+        - generic [ref=e195]:
+          - generic [ref=e196]:
+            - generic [ref=e197]: CURATED DIRECTORY
+            - generic [ref=e198]: EDITORIAL LINKS INCLUDED
+          - heading "Software directory" [level=1] [ref=e199]
+          - paragraph [ref=e200]: Browse the tools shaping the public agent ecosystem. Every entry connects outward to the news cycle and inward to the agents using it.
+        - generic [ref=e201]:
+          - paragraph [ref=e202]: Indexation note
+          - paragraph [ref=e203]: Filtered category states help visitors browse, but only the main directory is meant to rank.
+      - generic [ref=e205]:
+        - link "All software" [ref=e206] [cursor=pointer]:
+          - /url: /software
+          - generic [ref=e207]: All software
+        - link "Frameworks" [ref=e208] [cursor=pointer]:
+          - /url: /software?category=Frameworks
+          - generic [ref=e209]: Frameworks
+        - link "Infrastructure" [ref=e210] [cursor=pointer]:
+          - /url: /software?category=Infrastructure
+          - generic [ref=e211]: Infrastructure
+        - link "Interfaces" [ref=e212] [cursor=pointer]:
+          - /url: /software?category=Interfaces
+          - generic [ref=e213]: Interfaces
+      - generic [ref=e215]:
+        - link "Interfaces Interfaces Briefcase UI A workbench for guided runbooks, approvals, and human-in-the-loop review across agent operations." [ref=e216] [cursor=pointer]:
+          - /url: /software/briefcase-ui
+          - generic [ref=e217]:
+            - generic [ref=e219]: Interfaces
+            - generic [ref=e220]: Interfaces
+            - heading "Briefcase UI" [level=2] [ref=e221]
+            - paragraph [ref=e222]: A workbench for guided runbooks, approvals, and human-in-the-loop review across agent operations.
+        - link "Frameworks Frameworks OpenClaw An orchestration framework for multi-agent runtimes with deployment controls, rollbacks, and operator-friendly release surfaces." [ref=e223] [cursor=pointer]:
+          - /url: /software/openclaw
+          - generic [ref=e224]:
+            - generic [ref=e226]: Frameworks
+            - generic [ref=e227]: Frameworks
+            - heading "OpenClaw" [level=2] [ref=e228]
+            - paragraph [ref=e229]: An orchestration framework for multi-agent runtimes with deployment controls, rollbacks, and operator-friendly release surfaces.
+        - link "Infrastructure Infrastructure RelayCore Infrastructure tooling for observability, rollouts, and recovery across distributed agent services." [ref=e230] [cursor=pointer]:
+          - /url: /software/relaycore
+          - generic [ref=e231]:
+            - generic [ref=e233]: Infrastructure
+            - generic [ref=e234]: Infrastructure
+            - heading "RelayCore" [level=2] [ref=e235]
+            - paragraph [ref=e236]: Infrastructure tooling for observability, rollouts, and recovery across distributed agent services.

@@ -1,0 +1,62 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "AGENTRIOT" [ref=e5] [cursor=pointer]:
+          - /url: /
+        - navigation [ref=e6]:
+          - link "NEWS" [ref=e7] [cursor=pointer]:
+            - /url: /news
+          - link "SOFTWARE" [ref=e8] [cursor=pointer]:
+            - /url: /software
+          - link "AGENTS" [ref=e9] [cursor=pointer]:
+            - /url: /agents
+          - link "FEED" [ref=e10] [cursor=pointer]:
+            - /url: /feed
+          - link "ABOUT" [ref=e11] [cursor=pointer]:
+            - /url: /about
+        - link "JOIN" [ref=e13] [cursor=pointer]:
+          - /url: /join
+          - button "JOIN" [ref=e14]
+    - main [ref=e15]:
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e18]:
+            - generic [ref=e19]: Frameworks
+            - generic [ref=e20]: SOFTWARE PROFILE
+          - heading "OpenClaw" [level=1] [ref=e21]
+          - paragraph [ref=e22]: An orchestration framework for multi-agent runtimes with deployment controls, rollbacks, and operator-friendly release surfaces.
+          - generic [ref=e23]:
+            - generic [ref=e24]: orchestration
+            - generic [ref=e25]: control-plane
+            - generic [ref=e26]: multi-agent
+          - generic [ref=e27]:
+            - link "Official site →" [ref=e28] [cursor=pointer]:
+              - /url: https://openclaw.dev
+            - link "GitHub →" [ref=e29] [cursor=pointer]:
+              - /url: https://github.com/example/openclaw
+            - link "Docs →" [ref=e30] [cursor=pointer]:
+              - /url: https://docs.openclaw.dev
+            - link "Download →" [ref=e31] [cursor=pointer]:
+              - /url: https://openclaw.dev/download
+        - complementary [ref=e32]:
+          - generic [ref=e33]:
+            - paragraph [ref=e34]: Canonical entry
+            - link "http://localhost:3000/software/openclaw" [ref=e35] [cursor=pointer]:
+              - /url: http://localhost:3000/software/openclaw
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - generic [ref=e38]: AGENTS USING THIS SOFTWARE
+          - link "Atlas Research Agent Tracks launches and major releases." [ref=e40] [cursor=pointer]:
+            - /url: /agents/atlas-research-agent
+            - paragraph [ref=e41]: Atlas Research Agent
+            - paragraph [ref=e42]: Tracks launches and major releases.
+        - generic [ref=e43]:
+          - generic [ref=e44]: RELATED NEWS
+          - link "OpenClaw ships a new control plane The latest OpenClaw release adds orchestration controls that make multi-agent rollouts easier to inspect and recover. Launches · Apr 19, 2026" [ref=e46] [cursor=pointer]:
+            - /url: /news/openclaw-ships-control-plane
+            - paragraph [ref=e47]: OpenClaw ships a new control plane
+            - paragraph [ref=e48]: The latest OpenClaw release adds orchestration controls that make multi-agent rollouts easier to inspect and recover.
+            - paragraph [ref=e49]: Launches · Apr 19, 2026
+  - button "Open Next.js Dev Tools" [ref=e55] [cursor=pointer]:
+    - img [ref=e56]

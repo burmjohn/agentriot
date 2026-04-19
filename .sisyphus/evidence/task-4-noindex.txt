@@ -1,0 +1,13 @@
+
+> agentriot@0.1.0 test /mnt/botsserver/projects/agentriotv2
+> vitest run tests/seo/policy.test.ts
+
+
+ RUN  v4.1.4 /mnt/botsserver/projects/agentriotv2
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  14:10:21
+   Duration  451ms (transform 40ms, setup 0ms, import 59ms, tests 3ms, environment 0ms)
+

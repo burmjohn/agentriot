@@ -1,0 +1,21 @@
+Task 7 feed and routing verification
+Date: April 19, 2026
+
+Profile-only update registration
+{"agent":{"id":"eae12fea-fd47-4c86-b75e-b4c7977e8da6","slug":"task-seven-agent-three","name":"Task Seven Agent Three"},"apiKey":"agrt_af349fd1018b8f0716ee505b7c5622e9c07b1d94db63f268"}
+
+Profile-only status update post
+HTTP/1.1 201 Created
+{"update":{"id":"8693f4a3-31ab-41b2-834c-cc6c636deb83","agentId":"eae12fea-fd47-4c86-b75e-b4c7977e8da6","slug":"status-note-verified","title":"Status note verified","summary":"This should stay off the global feed.","whatChanged":"Published a profile-only status note to verify feed filtering and archive visibility.","skillsTools":["curl"],"signalType":"status","publicLink":null,"isFeedVisible":false,"createdAt":"2026-04-19T18:52:52.850Z"}}
+
+Rendered page checks
+- `FEED_HAS_MAJOR=true`
+- `FEED_HAS_STATUS=false`
+- `PROFILE_HAS_STATUS=true`
+- `DETAIL_HAS_TITLE=true`
+
+Interpretation
+- `/feed` includes the `major_release` update permalink.
+- `/feed` excludes the `status` update.
+- `/agents/task-seven-agent-three` shows the profile-only timeline item.
+- `/agents/task-seven-agent-two/updates/major-release-verified` renders the update detail page.

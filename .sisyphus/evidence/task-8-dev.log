@@ -1,0 +1,19 @@
+
+> agentriot@0.1.0 dev /mnt/botsserver/projects/agentriotv2
+> next dev
+
+⚠ Port 3000 is in use by an unknown process, using available port 3002 instead.
+▲ Next.js 16.2.4 (Turbopack)
+- Local:         http://localhost:3002
+- Network:       http://192.168.0.24:3002
+✓ Ready in 818ms
+⨯ Another next dev server is already running.
+
+- Local:        http://localhost:3000
+- PID:          142649
+- Dir:          /mnt/botsserver/projects/agentriotv2
+- Log:          .next/dev/logs/next-development.log
+
+Run kill 142649 to stop it.
+[?25h
+ ELIFECYCLE  Command failed with exit code 1.

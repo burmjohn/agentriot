@@ -156,7 +156,7 @@ Wave 4: admin operations + moderation + hardening + full test/evidence sweep
 > Implementation + Test = ONE task. Never separate.
 > EVERY task MUST have: Agent Profile + Parallelization + QA Scenarios.
 
-- [ ] 1. Lock stack versions, scaffold the monolithic app, and record implementation skills
+- [x] 1. Lock stack versions, scaffold the monolithic app, and record implementation skills
 
   **What to do**: Verify exact stable versions from official current sources using Context7 + release notes/web search, then scaffold a single Next.js App Router TypeScript app using pnpm, Tailwind CSS v4, Drizzle, PostgreSQL, Vitest, Playwright, and shadcn. Create the baseline repo structure for `app`, `components`, `lib`, `db`, `content`, `tests`, and `e2e`. Add an executor-facing `CLAUDE.md`/session guidance note or equivalent implementation note that explicitly tells Atlas/Sisyphus to use `shadcn`, `shadcn-ui`, `vercel-react-best-practices`, `frontend-design`, `test-driven-development`, `playwright-expert`, `requesting-code-review`, Context7, and web search where applicable.
   **Must NOT do**: Do not guess versions. Do not install betas/canaries unless the user explicitly re-approves. Do not add extra frameworks such as Prisma, Zustand, or a CMS unless this plan says to.
@@ -200,7 +200,7 @@ Wave 4: admin operations + moderation + hardening + full test/evidence sweep
 
   **Commit**: YES | Message: `chore(app): scaffold agentriot foundation` | Files: [package.json, pnpm-lock.yaml, app/**, lib/**, tests/**, e2e/**, version note]
 
-- [ ] 2. Implement the design system shell from `DESIGN.md`
+- [x] 2. Implement the design system shell from `DESIGN.md`
 
   **What to do**: Translate `DESIGN.md` into app-level design tokens, typography fallbacks, radius scale, dark-only theme, layout primitives, buttons, tags, cards, and navigation rules. Create a reusable shell with the near-black canvas, hazard accents, flat borders, and StoryStream-friendly component primitives. Use open-source fallback fonts that preserve the intended feel unless licensed fonts are already available.
   **Must NOT do**: Do not introduce light mode. Do not add gradients or soft shadows. Do not use Manuka below hero scale. Do not make generic SaaS dashboards.
@@ -240,7 +240,7 @@ Wave 4: admin operations + moderation + hardening + full test/evidence sweep
 
   **Commit**: YES | Message: `feat(ui): establish agentriot editorial design system` | Files: [app/globals.css, components/ui/**, app/layout.tsx, lib/design/**]
 
-- [ ] 3. Define database schemas, content boundaries, route contracts, and the concrete DB environment
+- [x] 3. Define database schemas, content boundaries, route contracts, and the concrete DB environment
 
   **What to do**: Implement Drizzle schema and migration contracts for `news_articles`, `software_entries`, `agents`, `agent_updates`, `agent_keys`, `agent_claims`, `moderation_actions`, `activity_events`, `redirects`, and `content_taxonomy`. Reserve docs as repo content plus metadata records if needed, not database-authored bodies. Lock route/slug rules and redirect behavior. Use the provided Postgres server contract exactly: host `192.168.0.25`, user `agentriot`, password `agentriot`, dev database `agentriot_dev`, test database `agentriot_test`.
   **Must NOT do**: Do not collapse software and agents into one table. Do not turn updates into full blog posts. Do not store docs in a CMS table for v1.
@@ -283,7 +283,7 @@ Wave 4: admin operations + moderation + hardening + full test/evidence sweep
 
   **Commit**: YES | Message: `feat(db): add core content and ownership schema` | Files: [db/schema/**, db/migrations/**, tests/db/**]
 
-- [ ] 4. Build SEO primitives and indexability matrix before feature pages
+- [x] 4. Build SEO primitives and indexability matrix before feature pages
 
   **What to do**: Implement shared metadata helpers, canonical URL utilities, structured data builders, `robots.ts`, `sitemap.ts`, sitemap index strategy, slug redirect handling, and an explicit index/noindex policy matrix. Use Next App Router metadata APIs directly. Prepare JSON-LD for organization, article, software/dataset-like listing page, profile/person-or-software-agent representation, and update/article-like microcontent. The Wave-1 deliverable is the metadata infrastructure plus testable policy helpers; route-specific noindex assertions for `/join/claim` and `/search` are deferred until those routes exist.
   **Must NOT do**: Do not add a third-party SEO abstraction layer. Do not leave noindex decisions implicit. Do not omit canonical support for slug changes.
@@ -324,7 +324,7 @@ Wave 4: admin operations + moderation + hardening + full test/evidence sweep
 
   **Commit**: YES | Message: `feat(seo): add metadata, canonicals, and sitemap infrastructure` | Files: [app/robots.ts, app/sitemap.ts, lib/seo/**, tests/seo/**]
 
-- [ ] 5. Ship first-class documentation and Join the Riot onboarding surfaces
+- [x] 5. Ship first-class documentation and Join the Riot onboarding surfaces
 
   **What to do**: Create `/join`, `/docs/install`, `/docs/post-updates`, `/docs/claim-agent`, `/agent-instructions`, and `/about` as indexable public documentation pages with strong internal linking. `/join` must include a prominent “copy prompt/instructions for my agent” flow, a skill endpoint reference, and exact onboarding steps. The docs should clearly explain safe posting, API key handling, rate limits, claim flow, optional email association, and what agents must not post.
   **Must NOT do**: Do not bury docs in a footer-only pattern. Do not make docs generic. Do not expose secrets or unsafe examples. Do not create a docs CMS.
@@ -367,7 +367,7 @@ Wave 4: admin operations + moderation + hardening + full test/evidence sweep
 
   **Commit**: YES | Message: `feat(docs): add join flow and public agent documentation` | Files: [app/join/**, app/docs/**, app/agent-instructions/**, app/about/**, content/docs/**]
 
-- [ ] 6. Implement agent registration, public profile creation, and owner claim flow
+- [x] 6. Implement agent registration, public profile creation, and owner claim flow
 
   **What to do**: Create the API and UI flow for agent self-registration via prompt/skill instructions. Registration must return a one-time API key, create the public agent profile immediately, and store ownership state that can later be claimed by a human using API key proof plus optional email association. Add slug uniqueness, reserved word protection, key rotation, and recovery/admin override rules.
   **Must NOT do**: Do not require email at registration. Do not force manual approval before going public. Do not expose raw secret values after initial issuance except through explicit rotation/re-issue policy.
@@ -409,7 +409,7 @@ Wave 4: admin operations + moderation + hardening + full test/evidence sweep
 
   **Commit**: YES | Message: `feat(agent-auth): add self-registration and claim flow` | Files: [app/api/agents/register/**, app/api/agents/claim/**, app/agents/[slug]/**, lib/agents/**, tests/agents/**]
 
-- [ ] 7. Implement agent updates, timeline archives, and the high-signal global feed
+- [x] 7. Implement agent updates, timeline archives, and the high-signal global feed
 
   **What to do**: Build the immediate-public update posting API, per-agent update archive/permalink pages, and `/feed` with explicit signal taxonomy. Enforce one automated update per hour per agent. Make `major_release`, `launch`, `funding`, `partnership`, `milestone`, and `research` eligible for `/feed`; keep `status`, `minor_release`, `bugfix`, and `prompt_update` on profile timelines only unless manually elevated later. Lock the v1 payload contract to `title` (max 80 chars), `summary` (max 240 chars), `whatChanged` (max 500 chars), up to 5 `skillsTools` entries, required timestamp, optional one approved public link, and no arbitrary rich-text body.
   **Must NOT do**: Do not create a long-form blogging platform. Do not let every event into the global feed. Do not omit permalinks/archive pages for updates.
@@ -457,7 +457,7 @@ Wave 4: admin operations + moderation + hardening + full test/evidence sweep
 
   **Commit**: YES | Message: `feat(updates): add agent update publishing and global feed` | Files: [app/feed/**, app/agents/[slug]/updates/**, app/api/agents/[slug]/updates/**, lib/updates/**, tests/updates/**]
 
-- [ ] 8. Build the curated software directory and news surfaces
+- [x] 8. Build the curated software directory and news surfaces
 
   **What to do**: Implement admin-managed software index/detail pages and news index/article pages with strong internal linking into agent profiles and other public surfaces. Use evergreen software detail pages and editorial article pages as indexable surfaces. Include category/tag/archive behavior only where it adds SEO value and keep low-value filter/search states noindex.
   **Must NOT do**: Do not open these surfaces to public self-submission. Do not create weak duplicate taxonomy pages. Do not link agents primarily off-site instead of to internal software pages.
@@ -498,7 +498,7 @@ Wave 4: admin operations + moderation + hardening + full test/evidence sweep
 
   **Commit**: YES | Message: `feat(content): add software directory and editorial news surfaces` | Files: [app/news/**, app/software/**, lib/news/**, lib/software/**, tests/content/**]
 
-- [ ] 9. Compose the homepage and connected public IA around the three pillars
+- [x] 9. Compose the homepage and connected public IA around the three pillars
 
   **What to do**: Build `/` as an SEO-first editorial homepage that clearly communicates AgentRiot’s three pillars and Join the Riot CTA. It must include featured news, featured software, high-signal recent agent activity, strong explanatory copy, and internal links into the major public surfaces. Keep the design loud, editorial, and structured around `DESIGN.md`, especially the StoryStream/timeline rhythm.
   **Must NOT do**: Do not make the homepage a dashboard. Do not give equal weight to every module. Do not bury Join the Riot.

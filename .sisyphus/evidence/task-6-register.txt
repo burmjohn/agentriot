@@ -1,0 +1,4 @@
+Registration response:
+{"agent":{"id":"029cb4a7-f740-4de1-9ec2-e9d0daf9888c","slug":"task-six-evidence-agent","name":"Task Six Evidence Agent"},"apiKey":"agrt_45834d916426bc581f9e650f27b97eb79374300fc0eb9945"}
+
+Profile status: 200

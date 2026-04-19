@@ -1,0 +1,778 @@
+
+> agentriot@0.1.0 dev /mnt/botsserver/projects/agentriotv2
+> next dev -p 3000
+
+▲ Next.js 16.2.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.24:3000
+✓ Ready in 762ms
+
+ GET / 200 in 541ms (next.js: 242ms, application-code: 298ms)
+ POST /api/agents/register 201 in 988ms (next.js: 928ms, application-code: 60ms)
+ GET /agents/task-six-evidence-agent 200 in 2.6s (next.js: 2.4s, application-code: 268ms)
+ POST /api/agents/claim 401 in 303ms (next.js: 288ms, application-code: 15ms)
+ ELIFECYCLE  Command failed.
+✓ Compiled in 63ms
+✓ Compiled in 76ms
+✓ Compiled in 149ms
+✓ Compiled in 52ms
+✓ Compiled in 45ms
+✓ Compiled in 58ms
+ POST /api/agents/register 201 in 83ms (next.js: 52ms, application-code: 30ms)
+ POST /api/agents/task-seven-agent/updates 400 in 1379ms (next.js: 1369ms, application-code: 10ms)
+ POST /api/agents/task-seven-agent/updates 400 in 50ms (next.js: 44ms, application-code: 5ms)
+ POST /api/agents/task-seven-agent/updates 400 in 9ms (next.js: 3ms, application-code: 7ms)
+ POST /api/agents/register 201 in 34ms (next.js: 6ms, application-code: 29ms)
+ POST /api/agents/task-seven-agent-two/updates 201 in 75ms (next.js: 52ms, application-code: 23ms)
+ POST /api/agents/task-seven-agent-two/updates 429 in 13ms (next.js: 3ms, application-code: 10ms)
+ POST /api/agents/task-seven-agent-two/updates 400 in 10ms (next.js: 4ms, application-code: 7ms)
+ POST /api/agents/register 201 in 32ms (next.js: 5ms, application-code: 27ms)
+ POST /api/agents/task-seven-agent-three/updates 201 in 79ms (next.js: 50ms, application-code: 29ms)
+ GET /feed 200 in 1210ms (next.js: 834ms, application-code: 375ms)
+ GET /agents/task-seven-agent-three 200 in 343ms (next.js: 87ms, application-code: 256ms)
+ GET /agents/task-seven-agent-two/updates/major-release-verified 200 in 1468ms (next.js: 1335ms, application-code: 133ms)
+✓ Compiled in 74ms
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./components/home/pillar-card.tsx:4:1
+Module not found: Can't resolve './pill-tag'
+  [90m2 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m3 |[0m [36mimport[0m { cn } [36mfrom[0m [32m"@/lib/utils"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mPillTag[0m } [36mfrom[0m [32m"./pill-tag"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36minterface[0m [33mPillarCardProps[0m [36mextends[0m [33mReact[0m.[33mHTMLAttributes[0m<[33mHTMLDivElement[0m> {
+  [90m7 |[0m   number: string;
+
+
+
+Import trace:
+  Server Component:
+    ./components/home/pillar-card.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+✓ Compiled in 51ms
+ GET / 200 in 760ms (next.js: 126ms, application-code: 634ms)
+ GET / 200 in 116ms (next.js: 8ms, application-code: 108ms)
+ GET / 200 in 136ms (next.js: 13ms, application-code: 123ms)
+ GET /join 200 in 283ms (next.js: 79ms, application-code: 204ms)
+ GET /software 404 in 580ms (next.js: 546ms, application-code: 34ms)
+ GET /software 404 in 41ms (next.js: 6ms, application-code: 35ms)
+ GET / 200 in 118ms (next.js: 8ms, application-code: 110ms)
+ GET /join 200 in 71ms (next.js: 11ms, application-code: 61ms)
+ GET / 200 in 123ms (next.js: 9ms, application-code: 114ms)
+ GET /join 200 in 49ms (next.js: 6ms, application-code: 43ms)
+ GET / 200 in 105ms (next.js: 2ms, application-code: 103ms)
+ GET /about 200 in 129ms (next.js: 79ms, application-code: 50ms)
+ GET / 200 in 106ms (next.js: 8ms, application-code: 99ms)
+ GET /about 200 in 48ms (next.js: 6ms, application-code: 42ms)
+ GET / 200 in 141ms (next.js: 8ms, application-code: 133ms)
+ GET /software 404 in 80ms (next.js: 9ms, application-code: 71ms)
+ GET /software 404 in 38ms (next.js: 4ms, application-code: 34ms)
+ GET / 200 in 126ms (next.js: 9ms, application-code: 116ms)
+ GET /software 404 in 68ms (next.js: 9ms, application-code: 59ms)
+ GET /software 404 in 40ms (next.js: 7ms, application-code: 33ms)
+ GET / 200 in 106ms (next.js: 6ms, application-code: 100ms)
+ GET /news 404 in 147ms (next.js: 7ms, application-code: 140ms)
+ GET /news 404 in 90ms (next.js: 13ms, application-code: 77ms)
+ GET / 200 in 97ms (next.js: 8ms, application-code: 89ms)
+✓ Compiled in 0ms
+ GET / 200 in 707ms (next.js: 264ms, application-code: 442ms)
+ GET / 200 in 383ms (next.js: 6ms, application-code: 377ms)
+ GET / 200 in 310ms (next.js: 7ms, application-code: 303ms)
+ GET / 200 in 355ms (next.js: 9ms, application-code: 346ms)
+ GET / 200 in 322ms (next.js: 32ms, application-code: 290ms)
+ GET / 200 in 307ms (next.js: 7ms, application-code: 299ms)
+ GET / 200 in 287ms (next.js: 3ms, application-code: 284ms)
+ GET / 200 in 283ms (next.js: 5ms, application-code: 278ms)
+ GET / 200 in 253ms (next.js: 6ms, application-code: 247ms)
+ GET / 200 in 262ms (next.js: 21ms, application-code: 241ms)
+ GET / 200 in 239ms (next.js: 22ms, application-code: 218ms)
+ GET / 200 in 232ms (next.js: 6ms, application-code: 226ms)
+ GET / 200 in 282ms (next.js: 2ms, application-code: 280ms)
+ GET / 200 in 320ms (next.js: 22ms, application-code: 298ms)
+ GET / 200 in 274ms (next.js: 17ms, application-code: 257ms)
+ GET / 200 in 264ms (next.js: 6ms, application-code: 259ms)
+ GET / 200 in 272ms (next.js: 5ms, application-code: 267ms)
+ GET / 200 in 283ms (next.js: 7ms, application-code: 276ms)
+ GET / 200 in 269ms (next.js: 4ms, application-code: 265ms)
+ GET / 200 in 280ms (next.js: 9ms, application-code: 271ms)
+ GET / 200 in 276ms (next.js: 5ms, application-code: 270ms)
+ GET / 200 in 249ms (next.js: 7ms, application-code: 242ms)
+ GET / 200 in 241ms (next.js: 6ms, application-code: 235ms)
+ GET / 200 in 245ms (next.js: 5ms, application-code: 241ms)
+ GET / 200 in 281ms (next.js: 3ms, application-code: 278ms)
+ GET / 200 in 275ms (next.js: 4ms, application-code: 271ms)
+ GET / 200 in 274ms (next.js: 20ms, application-code: 254ms)
+ GET / 200 in 261ms (next.js: 5ms, application-code: 256ms)
+ GET / 200 in 284ms (next.js: 10ms, application-code: 274ms)
+ GET / 200 in 299ms (next.js: 5ms, application-code: 294ms)
+ GET / 200 in 301ms (next.js: 4ms, application-code: 297ms)
+ GET / 200 in 333ms (next.js: 23ms, application-code: 310ms)
+ GET / 200 in 311ms (next.js: 6ms, application-code: 305ms)
+ GET / 200 in 278ms (next.js: 9ms, application-code: 269ms)
+ GET / 200 in 357ms (next.js: 22ms, application-code: 335ms)
+ GET / 200 in 353ms (next.js: 20ms, application-code: 333ms)
+ GET / 200 in 351ms (next.js: 8ms, application-code: 342ms)
+ GET / 200 in 384ms (next.js: 26ms, application-code: 359ms)
+ GET / 200 in 354ms (next.js: 9ms, application-code: 345ms)
+ GET / 200 in 301ms (next.js: 6ms, application-code: 295ms)
+ GET / 200 in 211ms (next.js: 10ms, application-code: 201ms)
+ GET / 200 in 176ms (next.js: 5ms, application-code: 172ms)
+ GET / 200 in 52ms (next.js: 5ms, application-code: 47ms)
+ GET /news 200 in 781ms (next.js: 647ms, application-code: 134ms)
+ GET / 200 in 385ms (next.js: 213ms, application-code: 172ms)
+ GET /news 200 in 92ms (next.js: 6ms, application-code: 85ms)
+ GET / 200 in 118ms (next.js: 4ms, application-code: 114ms)
+✓ Compiled in 40ms
+ GET / 200 in 71ms (next.js: 3ms, application-code: 68ms)
+ GET /news 200 in 80ms (next.js: 7ms, application-code: 73ms)
+ GET / 200 in 102ms (next.js: 4ms, application-code: 98ms)
+ GET /news 200 in 64ms (next.js: 3ms, application-code: 62ms)
+ GET / 200 in 137ms (next.js: 7ms, application-code: 130ms)
+ GET /news 200 in 77ms (next.js: 10ms, application-code: 68ms)
+ GET / 200 in 133ms (next.js: 9ms, application-code: 125ms)
+ GET /news 200 in 70ms (next.js: 8ms, application-code: 63ms)
+ GET /news 200 in 125ms (next.js: 13ms, application-code: 112ms)
+ GET / 200 in 103ms (next.js: 4ms, application-code: 100ms)
+ GET /news 200 in 71ms (next.js: 5ms, application-code: 67ms)
+ GET / 200 in 97ms (next.js: 3ms, application-code: 94ms)
+ GET /news 200 in 86ms (next.js: 8ms, application-code: 79ms)
+ GET / 200 in 97ms (next.js: 7ms, application-code: 90ms)
+ GET /software 200 in 884ms (next.js: 742ms, application-code: 142ms)
+ GET / 200 in 119ms (next.js: 7ms, application-code: 112ms)
+ GET /news 200 in 176ms (next.js: 8ms, application-code: 168ms)
+⚠ Blocked cross-origin request to Next.js dev resource /_next/webpack-hmr from "127.0.0.1".
+Cross-origin access to Next.js dev resources is blocked by default for safety.
+
+To allow this host in development, add it to "allowedDevOrigins" in next.config.js and restart the dev server:
+
+// next.config.js
+module.exports = {
+  allowedDevOrigins: ['127.0.0.1'],
+}
+
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ GET /software/openclaw 200 in 1543ms
+ GET / 200 in 607ms (next.js: 10ms, application-code: 597ms)
+ GET /software 200 in 966ms (next.js: 838ms, application-code: 128ms)
+ GET / 200 in 122ms (next.js: 9ms, application-code: 113ms)
+ GET /software/openclaw 200 in 185ms (next.js: 71ms, application-code: 114ms)
+ GET / 200 in 111ms (next.js: 5ms, application-code: 106ms)
+ GET /software 200 in 109ms (next.js: 7ms, application-code: 101ms)
+ GET / 200 in 112ms (next.js: 9ms, application-code: 103ms)
+ GET /software 200 in 99ms (next.js: 10ms, application-code: 89ms)
+ GET / 200 in 116ms (next.js: 7ms, application-code: 109ms)
+ GET /software 200 in 113ms (next.js: 8ms, application-code: 105ms)
+ GET / 200 in 118ms (next.js: 16ms, application-code: 102ms)
+ GET /software 200 in 92ms (next.js: 7ms, application-code: 85ms)
+ GET / 200 in 132ms (next.js: 8ms, application-code: 124ms)
+ GET /software 200 in 88ms (next.js: 5ms, application-code: 83ms)
+ GET / 200 in 119ms (next.js: 8ms, application-code: 111ms)
+ GET /agents 404 in 75ms (next.js: 30ms, application-code: 45ms)
+ GET /agents 404 in 50ms (next.js: 8ms, application-code: 42ms)
+ GET / 200 in 102ms (next.js: 7ms, application-code: 94ms)
+ GET /agents 404 in 35ms (next.js: 10ms, application-code: 24ms)
+ GET /agents 404 in 39ms (next.js: 7ms, application-code: 33ms)
+ GET / 200 in 102ms (next.js: 6ms, application-code: 96ms)
+ GET /agents 404 in 31ms (next.js: 5ms, application-code: 26ms)
+ GET /agents 404 in 42ms (next.js: 5ms, application-code: 37ms)
+ GET / 200 in 86ms (next.js: 3ms, application-code: 83ms)
+ GET /agents 404 in 38ms (next.js: 6ms, application-code: 32ms)
+ GET /agents 404 in 95ms (next.js: 15ms, application-code: 80ms)
+ GET / 200 in 106ms (next.js: 3ms, application-code: 102ms)
+ GET /agents 404 in 33ms (next.js: 10ms, application-code: 24ms)
+ GET /agents 404 in 54ms (next.js: 10ms, application-code: 45ms)
+ GET / 200 in 107ms (next.js: 9ms, application-code: 99ms)
+ GET /agents 404 in 39ms (next.js: 8ms, application-code: 31ms)
+ GET /agents 404 in 35ms (next.js: 3ms, application-code: 32ms)
+✓ Compiled in 174ms
+ GET /agents 404 in 342ms (next.js: 98ms, application-code: 244ms)
+ GET /agents 404 in 197ms (next.js: 36ms, application-code: 161ms)
+ GET /agents 404 in 29ms (next.js: 5ms, application-code: 24ms)
+ GET /agents 404 in 200ms (next.js: 8ms, application-code: 192ms)
+ GET / 200 in 743ms (next.js: 85ms, application-code: 657ms)
+ GET /agents 404 in 25ms (next.js: 4ms, application-code: 21ms)
+ GET /agents 404 in 38ms (next.js: 3ms, application-code: 35ms)
+ GET / 200 in 95ms (next.js: 3ms, application-code: 92ms)
+ GET /agents 404 in 97ms (next.js: 12ms, application-code: 85ms)
+ GET /agents 404 in 57ms (next.js: 5ms, application-code: 52ms)
+ GET / 200 in 137ms (next.js: 5ms, application-code: 132ms)
+ GET /agents 404 in 34ms (next.js: 7ms, application-code: 26ms)
+ GET /agents 404 in 43ms (next.js: 8ms, application-code: 35ms)
+ GET / 200 in 154ms (next.js: 10ms, application-code: 144ms)
+✓ Compiled in 64ms
+ GET / 200 in 82ms (next.js: 4ms, application-code: 77ms)
+✓ Compiled in 51ms
+ GET / 200 in 67ms (next.js: 10ms, application-code: 57ms)
+ GET /news 200 in 166ms (next.js: 55ms, application-code: 111ms)
+ GET / 200 in 93ms (next.js: 3ms, application-code: 91ms)
+ GET /news/openai-o3-reasoning-model 200 in 2.2s (next.js: 2.1s, application-code: 70ms)
+ GET / 200 in 127ms (next.js: 8ms, application-code: 120ms)
+ GET /news/openai-o3-reasoning-model 200 in 133ms (next.js: 71ms, application-code: 63ms)
+ GET / 200 in 114ms (next.js: 9ms, application-code: 105ms)
+ GET /news/openai-o3-reasoning-model 200 in 195ms (next.js: 82ms, application-code: 113ms)
+ GET / 200 in 92ms (next.js: 4ms, application-code: 87ms)
+ GET /news/openai-o3-reasoning-model 200 in 129ms (next.js: 69ms, application-code: 61ms)
+ GET / 200 in 114ms (next.js: 6ms, application-code: 108ms)
+ GET /news/openai-o3-reasoning-model 200 in 140ms (next.js: 84ms, application-code: 56ms)
+ GET / 200 in 126ms (next.js: 6ms, application-code: 120ms)
+ GET /news/openai-o3-reasoning-model 200 in 153ms (next.js: 79ms, application-code: 74ms)
+ GET / 200 in 97ms (next.js: 8ms, application-code: 89ms)
+ GET /news/openai-o3-reasoning-model 200 in 126ms (next.js: 66ms, application-code: 59ms)
+ GET / 200 in 94ms (next.js: 7ms, application-code: 87ms)
+ GET /news/openai-o3-reasoning-model 200 in 138ms (next.js: 76ms, application-code: 63ms)
+ GET / 200 in 134ms (next.js: 3ms, application-code: 130ms)
+ GET /news/openai-o3-reasoning-model 200 in 137ms (next.js: 69ms, application-code: 68ms)
+ GET / 200 in 127ms (next.js: 4ms, application-code: 123ms)
+ GET /news/openai-o3-reasoning-model 200 in 138ms (next.js: 74ms, application-code: 64ms)
+ GET / 200 in 153ms (next.js: 9ms, application-code: 143ms)
+ GET /news/eu-autonomous-agent-sandbox 200 in 141ms (next.js: 71ms, application-code: 70ms)
+ GET / 200 in 125ms (next.js: 8ms, application-code: 117ms)
+ GET /news/eu-autonomous-agent-sandbox 200 in 124ms (next.js: 71ms, application-code: 52ms)
+ GET / 200 in 106ms (next.js: 8ms, application-code: 98ms)
+ GET /news/eu-autonomous-agent-sandbox 200 in 128ms (next.js: 72ms, application-code: 56ms)
+ GET / 200 in 114ms (next.js: 9ms, application-code: 106ms)
+ GET /news/eu-autonomous-agent-sandbox 200 in 131ms (next.js: 70ms, application-code: 61ms)
+ GET / 200 in 102ms (next.js: 7ms, application-code: 96ms)
+ GET /news/eu-autonomous-agent-sandbox 200 in 140ms (next.js: 73ms, application-code: 67ms)
+ GET / 200 in 111ms (next.js: 6ms, application-code: 105ms)
+ GET /news/eu-autonomous-agent-sandbox 200 in 126ms (next.js: 67ms, application-code: 59ms)
+ GET / 200 in 109ms (next.js: 8ms, application-code: 101ms)
+ GET /news/eu-autonomous-agent-sandbox 200 in 147ms (next.js: 81ms, application-code: 66ms)
+ GET / 200 in 116ms (next.js: 7ms, application-code: 110ms)
+ GET /news/eu-autonomous-agent-sandbox 200 in 120ms (next.js: 67ms, application-code: 53ms)
+ GET / 200 in 109ms (next.js: 9ms, application-code: 100ms)
+ GET /news/eu-autonomous-agent-sandbox 200 in 121ms (next.js: 65ms, application-code: 55ms)
+ GET / 200 in 97ms (next.js: 4ms, application-code: 93ms)
+ GET /news/eu-autonomous-agent-sandbox 200 in 130ms (next.js: 73ms, application-code: 56ms)
+ GET / 200 in 112ms (next.js: 8ms, application-code: 103ms)
+ GET /software/autogpt 200 in 191ms (next.js: 94ms, application-code: 97ms)
+ GET / 200 in 97ms (next.js: 8ms, application-code: 89ms)
+ GET /software 200 in 116ms (next.js: 28ms, application-code: 89ms)
+ GET / 200 in 94ms (next.js: 9ms, application-code: 85ms)
+ GET /software/autogpt 200 in 132ms (next.js: 68ms, application-code: 64ms)
+ GET / 200 in 103ms (next.js: 7ms, application-code: 96ms)
+ GET /software/langchain 200 in 131ms (next.js: 68ms, application-code: 62ms)
+ GET / 200 in 101ms (next.js: 8ms, application-code: 93ms)
+ GET /software/langchain 200 in 123ms (next.js: 66ms, application-code: 57ms)
+ GET / 200 in 94ms (next.js: 8ms, application-code: 87ms)
+ GET /software/langchain 200 in 125ms (next.js: 66ms, application-code: 60ms)
+ GET / 200 in 124ms (next.js: 7ms, application-code: 116ms)
+ GET /software/langchain 200 in 143ms (next.js: 77ms, application-code: 67ms)
+ GET / 200 in 131ms (next.js: 8ms, application-code: 123ms)
+ GET /software/langchain 200 in 131ms (next.js: 76ms, application-code: 55ms)
+ GET / 200 in 110ms (next.js: 7ms, application-code: 102ms)
+ GET /software/langchain 200 in 122ms (next.js: 72ms, application-code: 51ms)
+ GET / 200 in 99ms (next.js: 7ms, application-code: 92ms)
+ GET /software/langchain 200 in 134ms (next.js: 70ms, application-code: 64ms)
+ GET / 200 in 106ms (next.js: 8ms, application-code: 99ms)
+ GET /software/autogpt 200 in 118ms (next.js: 68ms, application-code: 50ms)
+ GET / 200 in 110ms (next.js: 7ms, application-code: 103ms)
+ GET /software/autogpt 200 in 137ms (next.js: 71ms, application-code: 65ms)
+ GET / 200 in 104ms (next.js: 8ms, application-code: 96ms)
+ GET /software/autogpt 200 in 130ms (next.js: 69ms, application-code: 60ms)
+ GET / 200 in 112ms (next.js: 8ms, application-code: 104ms)
+ GET /software/autogpt 200 in 146ms (next.js: 77ms, application-code: 69ms)
+ GET / 200 in 158ms (next.js: 8ms, application-code: 150ms)
+ GET /software/autogpt 200 in 145ms (next.js: 74ms, application-code: 71ms)
+ GET / 200 in 102ms (next.js: 7ms, application-code: 95ms)
+ GET /software/autogpt 200 in 125ms (next.js: 65ms, application-code: 60ms)
+ GET / 200 in 101ms (next.js: 7ms, application-code: 94ms)
+ GET /software/autogpt 200 in 122ms (next.js: 71ms, application-code: 51ms)
+ GET / 200 in 115ms (next.js: 7ms, application-code: 108ms)
+ GET /software/crewai 200 in 135ms (next.js: 68ms, application-code: 68ms)
+ GET / 200 in 110ms (next.js: 8ms, application-code: 102ms)
+ GET /software/crewai 200 in 128ms (next.js: 73ms, application-code: 55ms)
+ GET / 200 in 102ms (next.js: 7ms, application-code: 95ms)
+ GET /software/crewai 200 in 132ms (next.js: 73ms, application-code: 59ms)
+ GET / 200 in 104ms (next.js: 8ms, application-code: 96ms)
+ GET /software/crewai 200 in 146ms (next.js: 70ms, application-code: 75ms)
+ GET / 200 in 98ms (next.js: 8ms, application-code: 90ms)
+ GET /software/crewai 200 in 144ms (next.js: 73ms, application-code: 71ms)
+ GET / 200 in 101ms (next.js: 7ms, application-code: 94ms)
+ GET /software/crewai 200 in 173ms (next.js: 77ms, application-code: 96ms)
+ GET / 200 in 103ms (next.js: 8ms, application-code: 96ms)
+ GET /software/crewai 200 in 129ms (next.js: 71ms, application-code: 58ms)
+ GET / 200 in 101ms (next.js: 7ms, application-code: 94ms)
+ GET /agents/task-seven-agent-two/updates/major-release-verified 200 in 203ms (next.js: 107ms, application-code: 96ms)
+ GET / 200 in 141ms (next.js: 12ms, application-code: 129ms)
+ GET /feed 200 in 84ms (next.js: 35ms, application-code: 49ms)
+ GET / 200 in 101ms (next.js: 8ms, application-code: 93ms)
+ GET /agents/task-seven-agent-two/updates/major-release-verified 200 in 131ms (next.js: 75ms, application-code: 57ms)
+ GET / 200 in 102ms (next.js: 8ms, application-code: 94ms)
+ GET /agents/task-seven-agent-two/updates/major-release-verified 200 in 122ms (next.js: 70ms, application-code: 52ms)
+ GET / 200 in 109ms (next.js: 7ms, application-code: 102ms)
+ GET /agents/task-seven-agent-two/updates/major-release-verified 200 in 122ms (next.js: 74ms, application-code: 49ms)
+ GET / 200 in 128ms (next.js: 10ms, application-code: 118ms)
+ GET /agents/task-seven-agent-two/updates/major-release-verified 200 in 115ms (next.js: 72ms, application-code: 42ms)
+ GET / 200 in 139ms (next.js: 8ms, application-code: 131ms)
+ GET /agents/task-seven-agent-two/updates/major-release-verified 200 in 115ms (next.js: 71ms, application-code: 45ms)
+ GET / 200 in 110ms (next.js: 7ms, application-code: 103ms)
+ GET /agents/task-seven-agent-two/updates/major-release-verified 200 in 129ms (next.js: 78ms, application-code: 51ms)
+ GET / 200 in 133ms (next.js: 11ms, application-code: 122ms)
+ GET /agents/task-seven-agent-two/updates/major-release-verified 200 in 129ms (next.js: 73ms, application-code: 56ms)
+ GET / 200 in 108ms (next.js: 9ms, application-code: 99ms)
+ GET /agents/task-seven-agent-two/updates/major-release-verified 200 in 133ms (next.js: 80ms, application-code: 53ms)
+ GET / 200 in 100ms (next.js: 7ms, application-code: 93ms)
+ GET /agents/task-seven-agent-two/updates/major-release-verified 200 in 139ms (next.js: 81ms, application-code: 58ms)
+ GET / 200 in 114ms (next.js: 9ms, application-code: 105ms)
+ GET /agents/task-seven-agent-two/updates/major-release-verified 200 in 125ms (next.js: 67ms, application-code: 58ms)
+ GET / 200 in 124ms (next.js: 6ms, application-code: 117ms)
+ GET /agents/task-seven-agent-two/updates/major-release-verified 200 in 141ms (next.js: 71ms, application-code: 70ms)
+ GET / 200 in 108ms (next.js: 8ms, application-code: 100ms)
+ GET /agents/task-seven-agent-two/updates/major-release-verified 200 in 134ms (next.js: 77ms, application-code: 56ms)
+ GET / 200 in 124ms (next.js: 10ms, application-code: 114ms)
+ GET /join 200 in 83ms (next.js: 37ms, application-code: 47ms)
+ GET / 200 in 104ms (next.js: 9ms, application-code: 96ms)
+ GET /join 200 in 46ms (next.js: 8ms, application-code: 38ms)
+ GET / 200 in 106ms (next.js: 7ms, application-code: 99ms)
+ GET /agent-instructions 200 in 153ms (next.js: 87ms, application-code: 66ms)
+ GET / 200 in 103ms (next.js: 6ms, application-code: 96ms)
+ GET /agent-instructions 200 in 69ms (next.js: 17ms, application-code: 52ms)
+ GET / 200 in 146ms (next.js: 11ms, application-code: 135ms)
+ GET /about 200 in 75ms (next.js: 33ms, application-code: 42ms)
+ GET / 200 in 123ms (next.js: 8ms, application-code: 115ms)
+ GET /software 200 in 88ms (next.js: 8ms, application-code: 80ms)
+ GET / 200 in 108ms (next.js: 7ms, application-code: 101ms)
+ GET /news 200 in 91ms (next.js: 9ms, application-code: 83ms)
+ GET / 200 in 123ms (next.js: 7ms, application-code: 116ms)
+ GET /software 200 in 79ms (next.js: 7ms, application-code: 72ms)
+ GET / 200 in 89ms (next.js: 7ms, application-code: 82ms)
+ GET /agents 404 in 44ms (next.js: 12ms, application-code: 33ms)
+ GET /agents 404 in 61ms (next.js: 11ms, application-code: 50ms)
+ GET / 200 in 98ms (next.js: 6ms, application-code: 92ms)
+ GET /feed 200 in 49ms (next.js: 8ms, application-code: 40ms)
+ GET / 200 in 101ms (next.js: 7ms, application-code: 93ms)
+ GET /about 200 in 54ms (next.js: 11ms, application-code: 43ms)
+ GET / 200 in 90ms (next.js: 8ms, application-code: 82ms)
+ GET /about 200 in 56ms (next.js: 15ms, application-code: 41ms)
+ GET / 200 in 93ms (next.js: 7ms, application-code: 86ms)
+ GET /join 200 in 73ms (next.js: 7ms, application-code: 65ms)
+ GET / 200 in 118ms (next.js: 7ms, application-code: 111ms)
+ GET /about 200 in 57ms (next.js: 9ms, application-code: 48ms)
+ GET / 200 in 126ms (next.js: 8ms, application-code: 118ms)
+ GET /agent-instructions 200 in 66ms (next.js: 14ms, application-code: 52ms)
+ GET / 200 in 174ms (next.js: 8ms, application-code: 166ms)
+ GET /docs/post-updates 200 in 144ms (next.js: 86ms, application-code: 58ms)
+ GET / 200 in 107ms (next.js: 8ms, application-code: 99ms)
+ GET /docs/post-updates 200 in 56ms (next.js: 9ms, application-code: 48ms)
+ GET / 200 in 113ms (next.js: 8ms, application-code: 105ms)
+ GET /docs/install 200 in 137ms (next.js: 77ms, application-code: 60ms)
+ GET / 200 in 104ms (next.js: 7ms, application-code: 97ms)
+ GET /docs/post-updates 200 in 54ms (next.js: 8ms, application-code: 46ms)
+ GET / 200 in 101ms (next.js: 7ms, application-code: 94ms)
+ GET /docs/claim-agent 200 in 136ms (next.js: 80ms, application-code: 56ms)
+ GET / 200 in 118ms (next.js: 8ms, application-code: 110ms)
+ GET /about 200 in 54ms (next.js: 9ms, application-code: 45ms)
+ GET / 200 in 107ms (next.js: 8ms, application-code: 98ms)
+ GET /about 200 in 49ms (next.js: 8ms, application-code: 41ms)
+ GET / 200 in 99ms (next.js: 8ms, application-code: 91ms)
+ GET /join 200 in 83ms (next.js: 16ms, application-code: 68ms)
+ GET / 200 in 110ms (next.js: 8ms, application-code: 101ms)
+ GET / 200 in 120ms (next.js: 8ms, application-code: 112ms)
+ GET / 200 in 103ms (next.js: 9ms, application-code: 95ms)
+ GET / 200 in 100ms (next.js: 8ms, application-code: 92ms)
+ GET / 200 in 121ms (next.js: 8ms, application-code: 113ms)
+ GET / 200 in 106ms (next.js: 9ms, application-code: 97ms)
+ GET / 200 in 118ms (next.js: 7ms, application-code: 111ms)
+ GET / 200 in 130ms (next.js: 9ms, application-code: 122ms)
+ GET / 200 in 244ms (next.js: 9ms, application-code: 235ms)
+ GET / 200 in 135ms (next.js: 11ms, application-code: 124ms)
+ GET / 200 in 118ms (next.js: 7ms, application-code: 111ms)
+ GET / 200 in 121ms (next.js: 7ms, application-code: 115ms)
+ GET / 200 in 103ms (next.js: 8ms, application-code: 95ms)
+ GET / 200 in 133ms (next.js: 12ms, application-code: 121ms)
+ GET / 200 in 99ms (next.js: 8ms, application-code: 91ms)
+ GET / 200 in 133ms (next.js: 12ms, application-code: 121ms)
+ GET / 200 in 92ms (next.js: 8ms, application-code: 84ms)
+ GET / 200 in 97ms (next.js: 9ms, application-code: 88ms)
+ GET / 200 in 137ms (next.js: 6ms, application-code: 131ms)
+ GET / 200 in 123ms (next.js: 8ms, application-code: 115ms)
+ GET / 200 in 121ms (next.js: 8ms, application-code: 113ms)
+ GET / 200 in 108ms (next.js: 8ms, application-code: 101ms)
+ GET / 200 in 102ms (next.js: 8ms, application-code: 94ms)
+ GET / 200 in 105ms (next.js: 7ms, application-code: 97ms)
+ GET / 200 in 110ms (next.js: 10ms, application-code: 100ms)
+ GET / 200 in 113ms (next.js: 7ms, application-code: 106ms)

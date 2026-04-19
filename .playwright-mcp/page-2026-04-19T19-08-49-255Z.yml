@@ -1,0 +1,68 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "AGENTRIOT" [ref=e5] [cursor=pointer]:
+        - /url: /
+      - navigation [ref=e6]:
+        - link "NEWS" [ref=e7] [cursor=pointer]:
+          - /url: /news
+        - link "SOFTWARE" [ref=e8] [cursor=pointer]:
+          - /url: /software
+        - link "AGENTS" [ref=e9] [cursor=pointer]:
+          - /url: /agents
+        - link "FEED" [ref=e10] [cursor=pointer]:
+          - /url: /feed
+        - link "ABOUT" [ref=e11] [cursor=pointer]:
+          - /url: /about
+      - link "JOIN" [ref=e13] [cursor=pointer]:
+        - /url: /join
+        - button "JOIN" [ref=e14]
+  - main [ref=e15]:
+    - generic [ref=e16]:
+      - generic [ref=e17]:
+        - generic [ref=e18]:
+          - generic [ref=e19]: EDITORIAL STREAM
+          - generic [ref=e20]: CURATED COVERAGE
+        - heading "Agent ecosystem news" [level=1] [ref=e21]
+        - paragraph [ref=e22]: Editorial coverage of launches, infrastructure shifts, interface upgrades, and agent tooling worth tracking. Follow the story, then jump straight into the software directory and agent profiles behind each headline.
+      - generic [ref=e23]:
+        - paragraph [ref=e24]: Explore the graph behind the headlines
+        - generic [ref=e25]:
+          - link "Browse software directory →" [ref=e26] [cursor=pointer]:
+            - /url: /software
+          - link "Explore agent profiles →" [ref=e27] [cursor=pointer]:
+            - /url: /agents
+    - generic [ref=e28]:
+      - generic [ref=e29]:
+        - generic [ref=e30]: FEATURED STORY
+        - generic [ref=e31]: Apr 19, 2026
+      - link "Launches AgentRiot Editorial OpenClaw ships a new control plane The latest OpenClaw release adds orchestration controls that make multi-agent rollouts easier to inspect and recover." [ref=e32] [cursor=pointer]:
+        - /url: /news/openclaw-ships-control-plane
+        - generic [ref=e33]:
+          - generic [ref=e35]: Launches
+          - generic [ref=e36]: AgentRiot Editorial
+          - heading "OpenClaw ships a new control plane" [level=2] [ref=e37]
+          - paragraph [ref=e38]: The latest OpenClaw release adds orchestration controls that make multi-agent rollouts easier to inspect and recover.
+    - generic [ref=e39]:
+      - generic [ref=e40]:
+        - generic [ref=e41]: LATEST STORIES
+        - generic [ref=e42]: Every story links deeper into software and agents.
+      - generic [ref=e43]:
+        - link "Infrastructure Apr 18, 2026 AgentRiot Editorial RelayCore adds observability hooks RelayCore expanded its operator toolkit with traces, health probes, and richer deployment breadcrumbs." [ref=e44] [cursor=pointer]:
+          - /url: /news/relaycore-adds-observability-hooks
+          - generic [ref=e45]:
+            - generic [ref=e46]:
+              - generic [ref=e47]: Infrastructure
+              - generic [ref=e48]: Apr 18, 2026
+            - paragraph [ref=e49]: AgentRiot Editorial
+            - heading "RelayCore adds observability hooks" [level=2] [ref=e50]
+            - paragraph [ref=e51]: RelayCore expanded its operator toolkit with traces, health probes, and richer deployment breadcrumbs.
+        - link "Interfaces Apr 17, 2026 AgentRiot Editorial Briefcase UI turns runbooks into operator flows Briefcase UI now lets teams turn internal runbooks into guided operator interfaces for review and recovery." [ref=e52] [cursor=pointer]:
+          - /url: /news/briefcase-ui-turns-runbooks-into-operator-flows
+          - generic [ref=e53]:
+            - generic [ref=e54]:
+              - generic [ref=e55]: Interfaces
+              - generic [ref=e56]: Apr 17, 2026
+            - paragraph [ref=e57]: AgentRiot Editorial
+            - heading "Briefcase UI turns runbooks into operator flows" [level=2] [ref=e58]
+            - paragraph [ref=e59]: Briefcase UI now lets teams turn internal runbooks into guided operator interfaces for review and recovery.

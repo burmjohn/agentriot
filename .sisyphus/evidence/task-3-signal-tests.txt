@@ -1,0 +1,16 @@
+Task 3 schema signal test evidence
+==================================
+
+Command: pnpm exec vitest run tests/db/schema.test.ts
+
+Result:
+RUN  v4.1.4 /mnt/botsserver/projects/agentriotv2
+
+Test Files  1 passed (1)
+Tests       3 passed (3)
+Duration    ~1s
+
+Assertions covered:
+- software and agent identifiers remain separate content types
+- only high-signal update types are globally feed-eligible
+- slug uniqueness and lowercase-hyphen route constraints are emitted into the generated SQL migration
