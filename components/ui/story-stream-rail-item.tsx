@@ -11,6 +11,7 @@ export interface StoryStreamRailItemProps
   tag?: string;
   tagVariant?: React.ComponentProps<typeof PillTag>["variant"];
   variant?: "dark" | "accent";
+  hideSpine?: boolean;
 }
 
 const StoryStreamRailItem = React.forwardRef<
@@ -27,6 +28,7 @@ const StoryStreamRailItem = React.forwardRef<
       tag,
       tagVariant = "mint",
       variant = "dark",
+      hideSpine: _hideSpine,
       ...props
     },
     ref
@@ -42,11 +44,11 @@ const StoryStreamRailItem = React.forwardRef<
         )}
         {...props}
       >
-        <div className="flex flex-col items-end gap-2 min-w-[72px]">
-          <span className="text-mono-timestamp text-[#949494]">
+        <div className="flex flex-col items-end gap-2 min-w-[72px] self-stretch">
+          <span className="text-mono-timestamp text-secondary-text">
             {timestamp}
           </span>
-          <div className="flex-1 w-px bg-[#3d00bf] self-end mr-1.5" />
+          <div className="flex-1" />
         </div>
 
         <div
@@ -54,7 +56,7 @@ const StoryStreamRailItem = React.forwardRef<
             "flex-1 rounded-[20px] border p-6 transition-colors duration-150 ease-out",
             isAccent
               ? "bg-[#5200ff] border-transparent"
-              : "bg-[#131313] border-white"
+              : "bg-canvas border-border"
           )}
         >
           {tag && (
@@ -66,7 +68,7 @@ const StoryStreamRailItem = React.forwardRef<
             <span
               className={cn(
                 "block text-label-sm mb-2",
-                isAccent ? "text-white/80" : "text-[#3cffd0]"
+                isAccent ? "text-white" : "text-mint"
               )}
             >
               {kicker}
@@ -74,8 +76,8 @@ const StoryStreamRailItem = React.forwardRef<
           )}
           <h3
             className={cn(
-              "text-headline-md transition-colors duration-150 ease-out hover:text-[#3860be] cursor-pointer",
-              isAccent ? "text-white" : "text-white"
+              "text-headline-md transition-colors duration-150 ease-out hover:text-deep-link cursor-pointer",
+              isAccent ? "text-white" : "text-foreground"
             )}
           >
             {headline}
@@ -84,7 +86,7 @@ const StoryStreamRailItem = React.forwardRef<
             <p
               className={cn(
                 "mt-2 text-body-compact",
-                isAccent ? "text-white/70" : "text-[#949494]"
+                isAccent ? "text-muted-foreground" : "text-muted-foreground"
               )}
             >
               {deck}

@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const pillTagVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-[20px] px-2.5 py-1 font-mono text-[11px] font-semibold uppercase tracking-[0.1125rem] select-none",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-[20px] px-2.5 py-1 font-mono text-[11px] font-semibold uppercase tracking-[1.8px] select-none",
   {
     variants: {
       variant: {
@@ -13,7 +13,7 @@ const pillTagVariants = cva(
         pink: "bg-[#ff6b9d] text-black",
         orange: "bg-[#ff8c42] text-black",
         white: "bg-white text-black",
-        slate: "bg-[#2d2d2d] text-[#e9e9e9]",
+        slate: "bg-surface text-muted-foreground",
       },
     },
     defaultVariants: {
