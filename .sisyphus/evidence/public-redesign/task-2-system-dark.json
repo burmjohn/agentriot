@@ -1,0 +1,62 @@
+{
+  "task": 2,
+  "description": "Theme architecture verification — system preference and manual override",
+  "timestamp": "2026-04-25T00:21:00Z",
+  "server": "http://localhost:3006",
+  "results": [
+    {
+      "phase": "system-dark",
+      "htmlClass": "anton_298057a9-module__p5n_NW__variable space_grotesk_8a704519-module__kR21Eq__variable space_mono_2a36c26e-module__FHBbda__variable newsreader_fa34acab-module__u7ui8a__variable h-full antialiased dark",
+      "dataTheme": "dark",
+      "localStorage": null,
+      "canvasColor": "#131313",
+      "toggleLabel": "Theme: system",
+      "pass": true
+    },
+    {
+      "phase": "after-toggle-1",
+      "htmlClass": "anton_298057a9-module__p5n_NW__variable space_grotesk_8a704519-module__kR21Eq__variable space_mono_2a36c26e-module__FHBbda__variable newsreader_fa34acab-module__u7ui8a__variable h-full antialiased light",
+      "dataTheme": "light",
+      "localStorage": "light",
+      "canvasColor": "#fff",
+      "toggleLabel": "Theme: light",
+      "pass": true
+    },
+    {
+      "phase": "after-toggle-2",
+      "htmlClass": "anton_298057a9-module__p5n_NW__variable space_grotesk_8a704519-module__kR21Eq__variable space_mono_2a36c26e-module__FHBbda__variable newsreader_fa34acab-module__u7ui8a__variable h-full antialiased dark",
+      "dataTheme": "dark",
+      "localStorage": "dark",
+      "canvasColor": "#131313",
+      "toggleLabel": "Theme: dark",
+      "pass": true
+    },
+    {
+      "phase": "after-toggle-3",
+      "htmlClass": "anton_298057a9-module__p5n_NW__variable space_grotesk_8a704519-module__kR21Eq__variable space_mono_2a36c26e-module__FHBbda__variable newsreader_fa34acab-module__u7ui8a__variable h-full antialiased dark",
+      "dataTheme": "dark",
+      "localStorage": null,
+      "canvasColor": "#131313",
+      "toggleLabel": "Theme: system",
+      "pass": true
+    },
+    {
+      "phase": "persisted-light",
+      "htmlClass": "anton_298057a9-module__p5n_NW__variable space_grotesk_8a704519-module__kR21Eq__variable space_mono_2a36c26e-module__FHBbda__variable newsreader_fa34acab-module__u7ui8a__variable h-full antialiased light",
+      "dataTheme": "light",
+      "localStorage": "light",
+      "canvasColor": "#fff",
+      "toggleLabel": "Theme: light",
+      "pass": true
+    }
+  ],
+  "assertions": {
+    "systemDarkNoStorage": "localStorage is null when system is selected",
+    "systemDarkCanvas": "Canvas is #131313 (dark) when system prefers dark",
+    "lightPersisted": "localStorage contains 'light' and canvas is #fff after reload",
+    "toggleCycles": "Toggle cycles system -> light -> dark -> system",
+    "systemRemovesStorage": "localStorage is removed (null) when returning to system",
+    "accessibleLabel": "Toggle button has aria-label containing 'Theme'"
+  },
+  "allPassed": true
+}

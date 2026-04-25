@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PillButton } from "./pill-button";
-import { ThemeToggle } from "@/components/public/theme-toggle";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export interface NavShellProps extends React.HTMLAttributes<HTMLElement> {
   wordmark?: string;
@@ -68,7 +68,7 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
             <div className="flex items-end justify-between py-3 sm:py-4 md:py-5">
               <Link
                 href="/"
-                className="font-display text-[48px] sm:text-[60px] md:text-[80px] lg:text-[107px] tracking-tight text-foreground hover:text-foreground shrink-0 leading-[0.92] whitespace-nowrap"
+                className="font-display max-w-full shrink-0 whitespace-nowrap text-[48px] leading-[0.92] tracking-tight text-foreground hover:text-foreground focus-visible:outline-focus-cyan sm:text-[60px] md:text-[80px] lg:text-[107px]"
                 style={{ fontWeight: 900 }}
               >
                 {wordmark}
@@ -84,7 +84,7 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
                     key={link.href}
                     href={link.href}
                     className={cn(
-                      "font-mono-label text-foreground transition-colors duration-150 ease-out hover:text-deep-link text-[11px] sm:text-[12px] tracking-[0.1125rem]",
+                       "font-mono-label text-foreground transition-colors duration-150 ease-out hover:text-deep-link focus-visible:outline-focus-cyan text-[11px] sm:text-[12px] tracking-[0.1125rem]",
                       link.active && "tab-active"
                     )}
                   >
@@ -95,17 +95,17 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
 
               <div className="flex items-center gap-3 md:gap-4 shrink-0 ml-auto">
                 <div className="hidden md:flex items-center gap-3">
+                  <ThemeToggle />
                   <Link href={ctaHref}>
                     <PillButton variant="primary">{ctaLabel}</PillButton>
                   </Link>
-                  <ThemeToggle />
                 </div>
 
                 <button
                   type="button"
                   aria-label="Open navigation menu"
                   data-testid="mobile-nav-toggle"
-                  className="md:hidden inline-flex items-center justify-center p-2 text-foreground hover:text-deep-link transition-colors"
+                  className="md:hidden inline-flex items-center justify-center p-2 text-foreground hover:text-deep-link transition-colors focus-visible:outline-focus-cyan"
                   onClick={() => setDrawerOpen(true)}
                 >
                   <Menu className="h-5 w-5" />
@@ -139,7 +139,7 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
                     type="button"
                     aria-label="Close navigation menu"
                     data-testid="mobile-nav-close"
-                    className="inline-flex items-center justify-center p-2 text-foreground hover:text-deep-link transition-colors"
+                    className="inline-flex items-center justify-center p-2 text-foreground hover:text-deep-link transition-colors focus-visible:outline-focus-cyan"
                     onClick={() => setDrawerOpen(false)}
                   >
                     <X className="h-6 w-6" />
@@ -153,7 +153,7 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
                     key={link.href}
                     href={link.href}
                     className={cn(
-                      "font-mono-label text-foreground transition-colors duration-150 ease-out hover:text-deep-link py-2 text-[12px] tracking-[0.1125rem]",
+                       "font-mono-label text-foreground transition-colors duration-150 ease-out hover:text-deep-link focus-visible:outline-focus-cyan py-2 text-[12px] tracking-[0.1125rem]",
                       link.active && "tab-active"
                     )}
                     onClick={() => setDrawerOpen(false)}

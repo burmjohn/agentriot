@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Anton, Space_Grotesk, Space_Mono, Newsreader } from "next/font/google";
 
 import { APP_DESCRIPTION, APP_NAME } from "@/lib/app-info";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 
 import "./globals.css";
 
@@ -39,6 +40,23 @@ export const metadata: Metadata = {
   description: APP_DESCRIPTION,
 };
 
+const themeScript = `(function() {
+  try {
+    const theme = localStorage.getItem('agentriot-theme');
+    if (theme === 'dark' || theme === 'light') {
+      document.documentElement.classList.add(theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    } else {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const resolved = prefersDark ? 'dark' : 'light';
+      document.documentElement.classList.add(resolved);
+      document.documentElement.setAttribute('data-theme', resolved);
+    }
+  } catch (e) {
+    // localStorage or matchMedia not available
+  }
+})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -47,9 +65,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${anton.variable} ${spaceGrotesk.variable} ${spaceMono.variable} ${newsreader.variable} dark h-full antialiased`}
+      suppressHydrationWarning
+      className={`${anton.variable} ${spaceGrotesk.variable} ${spaceMono.variable} ${newsreader.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#131313]">{children}</body>
+      <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      <body className="min-h-full flex flex-col">
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }
