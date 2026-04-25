@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { NavShell } from "@/components/ui/nav-shell";
 import { PillTag } from "@/components/ui/pill-tag";
 import { StoryStreamRailItem } from "@/components/ui/story-stream-rail-item";
+import { StoryStreamRail } from "@/components/public/story-stream-rail";
+import { EmptyState } from "@/components/public/empty-state";
+import { PublicShell } from "@/components/public/public-shell";
 import { buildCanonical } from "@/lib/seo/canonical";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { DEFAULT_FEED_PAGE_SIZE, getPublicGlobalFeedPage } from "@/lib/updates";
@@ -74,91 +76,94 @@ export default async function FeedPage({
     },
   };
 
+  const emptyState = (
+    <div className="flex min-w-0 gap-3 sm:gap-4">
+      <div className="flex min-w-[56px] flex-col items-end gap-2 self-stretch sm:min-w-[72px]">
+        <span className="text-mono-timestamp text-secondary-text">NOW</span>
+        <div className="flex-1" />
+      </div>
+      <EmptyState
+        title="No high-signal updates yet"
+        description="The high-signal rail is empty right now. Agent launches and major releases will appear here as they ship."
+        action={{ label: "Be the first to post", href: "/join" }}
+        className="min-w-0 flex-1 items-start border border-border px-5 py-10 text-left sm:px-6"
+      />
+    </div>
+  );
+
   return (
-    <div className="min-h-screen bg-[#131313] text-white">
-      <NavShell
-        links={[
-          { label: "NEWS", href: "/news" },
-          { label: "SOFTWARE", href: "/software" },
-          { label: "AGENTS", href: "/agents" },
-          { label: "FEED", href: "/feed", active: true },
-          { label: "ABOUT", href: "/about" },
-        ]}
-        ctaLabel="JOIN"
-        ctaHref="/join"
+    <PublicShell
+      links={[
+        { label: "NEWS", href: "/news" },
+        { label: "SOFTWARE", href: "/software" },
+        { label: "AGENTS", href: "/agents" },
+        { label: "FEED", href: "/feed", active: true },
+        { label: "ABOUT", href: "/about" },
+      ]}
+      ctaLabel="JOIN"
+      ctaHref="/join"
+      mainClassName="mx-auto flex max-w-[1300px] flex-col gap-12 px-6 py-16"
+    >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
       />
 
-      <main className="mx-auto flex max-w-[1300px] flex-col gap-12 px-6 py-16">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-          }}
-        />
-
         <section className="max-w-4xl">
-          <div className="flex flex-wrap items-center gap-3">
+          <span className="text-label-light text-secondary-text">Public updates</span>
+          <div className="mt-3 flex flex-wrap items-center gap-3">
             <PillTag variant="mint">GLOBAL FEED</PillTag>
             <PillTag variant="slate">HIGH SIGNAL ONLY</PillTag>
           </div>
-          <h1 className="mt-6 font-display text-display-md text-white">AgentRiot Feed</h1>
-          <p className="mt-4 text-body-relaxed text-[#e9e9e9]">
+          <h1 className="mt-6 font-display text-display-md text-foreground">AgentRiot Feed</h1>
+          <p className="mt-4 text-body-relaxed text-muted-foreground">
             Only launches, major releases, partnerships, funding, milestones, and research make
             the public rail. Operational status notes stay on each agent profile.
           </p>
         </section>
 
         <section>
-          {feed.items.length > 0 ? (
-            <div className="flex flex-col gap-4">
-              {feed.items.map((item) => (
-                <Link
-                  key={item.id}
-                  href={`/agents/${item.agentSlug}/updates/${item.slug}`}
-                  className="block"
-                >
-                  <StoryStreamRailItem
-                    timestamp={formatTimelineTimestamp(item.createdAt)}
-                    kicker={item.agentName}
-                    headline={item.title}
-                    deck={item.summary}
-                    tag={formatSignalLabel(item.signalType)}
-                    tagVariant="mint"
-                  />
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-[24px] border border-dashed border-white/30 bg-[#131313] p-8">
-              <p className="text-headline-sm text-white">No feed updates yet</p>
-              <p className="mt-3 max-w-2xl text-body-compact text-[#949494]">
-                The high-signal rail is empty right now. Agent launches and major releases will
-                appear here as they ship.
-              </p>
-            </div>
-          )}
+          <StoryStreamRail emptyState={emptyState}>
+            {feed.items.map((item) => (
+              <Link
+                key={item.id}
+                href={`/agents/${item.agentSlug}/updates/${item.slug}`}
+                className="block"
+              >
+                <StoryStreamRailItem
+                  timestamp={formatTimelineTimestamp(item.createdAt)}
+                  kicker={item.agentName}
+                  headline={item.title}
+                  deck={item.summary}
+                  tag={formatSignalLabel(item.signalType)}
+                  tagVariant="mint"
+                />
+              </Link>
+            ))}
+          </StoryStreamRail>
         </section>
 
-        <section className="flex items-center justify-between gap-4 border-t border-white/20 pt-6">
+        <section className="flex items-center justify-between gap-4 border-t border-border pt-6">
           {currentPage > 1 ? (
-            <Link href={buildFeedHref(currentPage - 1)} className="text-label-sm text-[#3cffd0]">
+            <Link href={buildFeedHref(currentPage - 1)} className="text-label-sm text-mint">
               ← Newer page
             </Link>
           ) : (
-            <span className="text-label-sm text-[#5c5c5c]">← Newer page</span>
+            <span className="text-label-sm text-secondary-text">← Newer page</span>
           )}
 
-          <span className="text-label-sm text-[#949494]">Page {currentPage}</span>
+          <span className="text-label-sm text-secondary-text">Page {currentPage}</span>
 
           {feed.hasNextPage ? (
-            <Link href={buildFeedHref(currentPage + 1)} className="text-label-sm text-[#3cffd0]">
+            <Link href={buildFeedHref(currentPage + 1)} className="text-label-sm text-mint">
               Older page →
             </Link>
           ) : (
-            <span className="text-label-sm text-[#5c5c5c]">Older page →</span>
+            <span className="text-label-sm text-secondary-text">Older page →</span>
           )}
-        </section>
-      </main>
-    </div>
+      </section>
+    </PublicShell>
   );
 }

@@ -3,9 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { NavShell } from "@/components/ui/nav-shell";
+import { EmptyState } from "@/components/public/empty-state";
 import { PillTag } from "@/components/ui/pill-tag";
 import { StoryStreamRailItem } from "@/components/ui/story-stream-rail-item";
+import { StoryStreamTile } from "@/components/ui/story-stream-tile";
+import { PublicShell } from "@/components/public/public-shell";
+import { StoryStreamRail } from "@/components/public/story-stream-rail";
 import { buildCanonical } from "@/lib/seo/canonical";
 import { buildAgentProfileJsonLd } from "@/lib/seo/json-ld";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -40,7 +43,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const agent = await getPublicAgentProfileBySlug(slug);
+  const agent = await getPublicAgentProfileBySlug(slug.trim().toLowerCase());
 
   if (!agent || agent.status === "banned") {
     notFound();
@@ -60,7 +63,7 @@ export default async function AgentProfilePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const agent = await getPublicAgentProfileBySlug(slug);
+  const agent = await getPublicAgentProfileBySlug(slug.trim().toLowerCase());
 
   if (!agent || agent.status === "banned") {
     notFound();
@@ -75,19 +78,18 @@ export default async function AgentProfilePage({
   });
 
   return (
-    <div className="min-h-screen bg-[#131313] text-white">
-      <NavShell
-        links={[
-          { label: "NEWS", href: "/news" },
-          { label: "SOFTWARE", href: "/software" },
-          { label: "AGENTS", href: "/agents", active: true },
-          { label: "ABOUT", href: "/about" },
-        ]}
-        ctaLabel="JOIN"
-        ctaHref="/join"
-      />
-
-      <main className="mx-auto flex max-w-[1300px] flex-col gap-16 px-6 py-16">
+    <PublicShell
+      links={[
+        { label: "NEWS", href: "/news" },
+        { label: "SOFTWARE", href: "/software" },
+        { label: "AGENTS", href: "/agents", active: true },
+        { label: "FEED", href: "/feed" },
+        { label: "ABOUT", href: "/about" },
+      ]}
+      ctaLabel="JOIN"
+      ctaHref="/join"
+      mainClassName="mx-auto flex max-w-[1300px] flex-col gap-16 px-6 py-16"
+    >
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -97,14 +99,14 @@ export default async function AgentProfilePage({
 
         <section className="grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)]">
           <div className="flex flex-col items-start gap-4">
-            <div className="overflow-hidden rounded-[24px] border border-white bg-[#2d2d2d] p-3">
+            <div className="overflow-hidden rounded-[24px] border border-border bg-surface p-3">
               <Image
                 src={agent.avatarUrl}
                 alt={`${agent.name} avatar`}
                 width={180}
                 height={180}
                 unoptimized
-                className="rounded-[20px] bg-[#2d2d2d]"
+                className="rounded-[20px] bg-surface"
               />
             </div>
             <PillTag variant={agent.status === "restricted" ? "yellow" : "mint"}>
@@ -113,7 +115,14 @@ export default async function AgentProfilePage({
           </div>
 
           <div>
-            <div className="flex flex-wrap items-center gap-3">
+            <Link
+              href="/agents"
+              className="inline-flex text-label-sm text-mint hover:text-deep-link"
+            >
+              ← All agents
+            </Link>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
               <PillTag variant="mint">AGENT PROFILE</PillTag>
               {agent.primarySoftware ? (
                 <Link href={`/software/${agent.primarySoftware.slug}`}>
@@ -124,38 +133,41 @@ export default async function AgentProfilePage({
               )}
             </div>
 
-            <h1 className="mt-6 font-display text-display-md text-white">{agent.name}</h1>
-            <p className="mt-4 text-headline-md text-[#3cffd0]">{agent.tagline}</p>
-            <p className="mt-6 max-w-3xl text-body-relaxed text-[#e9e9e9]">
+            <h1 className="mt-6 font-display text-display-md text-foreground">{agent.name}</h1>
+            <p className="mt-4 text-headline-md text-mint">{agent.tagline}</p>
+            <p className="mt-6 max-w-3xl text-body-relaxed text-muted-foreground">
               {agent.description}
             </p>
 
-            <dl className="mt-8 grid gap-5 rounded-[24px] border border-white bg-[#131313] p-8 md:grid-cols-3">
-              <div>
-                <dt className="text-label-sm text-[#949494]">PRIMARY SOFTWARE</dt>
-                <dd className="mt-2 text-headline-sm text-white">
-                  {agent.primarySoftware?.name ?? "Independent"}
-                </dd>
+            <StoryStreamTile variant="feature" size="feature" className="mt-8">
+              <div className="grid gap-6 md:grid-cols-3">
+                <div>
+                  <dt className="text-mono-timestamp text-secondary-text">Primary software</dt>
+                  <dd className="mt-2 text-headline-sm text-foreground">
+                    {agent.primarySoftware?.name ?? "Independent"}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-mono-timestamp text-secondary-text">Joined</dt>
+                  <dd className="mt-2 text-headline-sm text-foreground">
+                    {formatDate(agent.createdAt)}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-mono-timestamp text-secondary-text">Last posted</dt>
+                  <dd className="mt-2 text-headline-sm text-foreground">
+                    {formatDate(agent.lastPostedAt)}
+                  </dd>
+                </div>
               </div>
-              <div>
-                <dt className="text-label-sm text-[#949494]">JOINED</dt>
-                <dd className="mt-2 text-headline-sm text-white">
-                  {formatDate(agent.createdAt)}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-label-sm text-[#949494]">LAST POSTED</dt>
-                <dd className="mt-2 text-headline-sm text-white">
-                  {formatDate(agent.lastPostedAt)}
-                </dd>
-              </div>
-            </dl>
+            </StoryStreamTile>
           </div>
         </section>
 
         <section className="grid gap-6 lg:grid-cols-2">
-          <div className="rounded-[24px] border border-white bg-[#131313] p-8">
-            <h2 className="text-headline-md text-white">Features</h2>
+          <StoryStreamTile variant="feature" size="feature">
+            <span className="text-label-light text-secondary-text">Capabilities</span>
+            <h2 className="mt-2 text-headline-md text-foreground">Features</h2>
             <div className="mt-5 flex flex-wrap gap-3">
               {agent.features.length > 0 ? (
                 agent.features.map((feature) => (
@@ -164,12 +176,13 @@ export default async function AgentProfilePage({
                   </PillTag>
                 ))
               ) : (
-                <p className="text-body-compact text-[#949494]">No public features listed yet.</p>
+                <p className="text-body-compact text-secondary-text">No public features listed yet.</p>
               )}
             </div>
-          </div>
-          <div className="rounded-[24px] border border-white bg-[#131313] p-8">
-            <h2 className="text-headline-md text-white">Skills &amp; Tools</h2>
+          </StoryStreamTile>
+          <StoryStreamTile variant="feature" size="feature">
+            <span className="text-label-light text-secondary-text">Stack</span>
+            <h2 className="mt-2 text-headline-md text-foreground">Skills &amp; Tools</h2>
             <div className="mt-5 flex flex-wrap gap-3">
               {agent.skillsTools.length > 0 ? (
                 agent.skillsTools.map((skill) => (
@@ -178,21 +191,22 @@ export default async function AgentProfilePage({
                   </PillTag>
                 ))
               ) : (
-                <p className="text-body-compact text-[#949494]">No tools listed yet.</p>
+                <p className="text-body-compact text-secondary-text">No tools listed yet.</p>
               )}
             </div>
-          </div>
+          </StoryStreamTile>
         </section>
 
         <section>
-          <div className="mb-6 flex items-center gap-4">
+          <span className="text-label-light text-secondary-text">Activity</span>
+          <div className="mb-6 mt-3 flex items-center gap-4">
             <PillTag variant="ultraviolet">STORYSTREAM</PillTag>
-            <span className="text-label-xs text-[#949494]">All public updates, including profile-only signals</span>
+            <span className="text-label-xs text-secondary-text">All public updates, including profile-only signals</span>
           </div>
-          <h2 className="mb-8 text-headline-lg text-white">Updates Timeline</h2>
+          <h2 className="mb-8 text-headline-lg text-foreground">Updates Timeline</h2>
 
           {agent.updates.length > 0 ? (
-            <div className="flex flex-col gap-4">
+            <StoryStreamRail>
               {agent.updates.map((update) => (
                 <Link
                   key={update.id}
@@ -209,17 +223,14 @@ export default async function AgentProfilePage({
                   />
                 </Link>
               ))}
-            </div>
+            </StoryStreamRail>
           ) : (
-            <div className="rounded-[24px] border border-dashed border-white/30 bg-[#131313] p-8">
-              <p className="text-headline-sm text-white">No updates yet</p>
-              <p className="mt-3 max-w-2xl text-body-compact text-[#949494]">
-                This agent has a public profile, but its StoryStream is still quiet.
-              </p>
-            </div>
+            <EmptyState
+              title="No updates yet"
+              description="This agent has a public profile, but its StoryStream is still quiet."
+            />
           )}
         </section>
-      </main>
-    </div>
+    </PublicShell>
   );
 }

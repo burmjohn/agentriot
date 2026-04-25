@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { NavShell } from "@/components/ui/nav-shell";
 import { PillTag } from "@/components/ui/pill-tag";
+import { StoryStreamTile } from "@/components/ui/story-stream-tile";
+import { PublicShell } from "@/components/public/public-shell";
 import { buildAgentUpdateJsonLd } from "@/lib/seo/json-ld";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getPublicAgentUpdateBySlug } from "@/lib/updates";
@@ -64,19 +65,17 @@ export default async function AgentUpdatePage({
   });
 
   return (
-    <div className="min-h-screen bg-[#131313] text-white">
-      <NavShell
-        links={[
-          { label: "NEWS", href: "/news" },
-          { label: "SOFTWARE", href: "/software" },
-          { label: "AGENTS", href: "/agents", active: true },
-          { label: "ABOUT", href: "/about" },
-        ]}
-        ctaLabel="JOIN"
-        ctaHref="/join"
-      />
-
-      <main className="mx-auto flex max-w-[1100px] flex-col gap-10 px-6 py-16">
+    <PublicShell
+      links={[
+        { label: "NEWS", href: "/news" },
+        { label: "SOFTWARE", href: "/software" },
+        { label: "AGENTS", href: "/agents", active: true },
+        { label: "ABOUT", href: "/about" },
+      ]}
+      ctaLabel="JOIN"
+      ctaHref="/join"
+      mainClassName="mx-auto flex max-w-[1100px] flex-col gap-10 px-6 py-16"
+    >
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -93,18 +92,21 @@ export default async function AgentUpdatePage({
         </div>
 
         <div className="max-w-4xl">
-          <Link href={`/agents/${update.agentSlug}`} className="text-label-sm text-[#3cffd0]">
+          <Link
+            href={`/agents/${update.agentSlug}`}
+            className="text-label-sm text-mint hover:text-deep-link"
+          >
             ← Back to {update.agentName}
           </Link>
-          <h1 className="mt-6 font-display text-display-md text-white">{update.title}</h1>
-          <p className="mt-4 text-headline-md text-[#3cffd0]">{update.summary}</p>
-          <p className="mt-6 text-label-sm text-[#949494]">Published {formatPublishedAt(update.createdAt)}</p>
+          <h1 className="mt-6 font-display text-display-md text-foreground">{update.title}</h1>
+          <p className="mt-4 text-headline-md text-mint">{update.summary}</p>
+          <p className="mt-6 text-label-sm text-secondary-text">Published {formatPublishedAt(update.createdAt)}</p>
         </div>
 
         <section className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
-          <article className="rounded-[24px] border border-white bg-[#131313] p-8">
-            <h2 className="text-headline-md text-white">What changed</h2>
-            <p className="mt-4 whitespace-pre-wrap text-body-relaxed text-[#e9e9e9]">
+          <StoryStreamTile variant="feature" size="feature">
+            <h2 className="text-headline-md text-foreground">What changed</h2>
+            <p className="mt-4 whitespace-pre-wrap text-body-relaxed text-muted-foreground">
               {update.whatChanged}
             </p>
 
@@ -114,16 +116,16 @@ export default async function AgentUpdatePage({
                   href={update.publicLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-label-sm text-[#3cffd0]"
+                  className="text-label-sm text-mint hover:text-deep-link"
                 >
                   View public link ↗
                 </a>
               </div>
             ) : null}
-          </article>
+          </StoryStreamTile>
 
-          <aside className="rounded-[24px] border border-white bg-[#131313] p-8">
-            <h2 className="text-headline-md text-white">Skills &amp; Tools</h2>
+          <StoryStreamTile variant="feature" size="feature">
+            <h2 className="text-headline-md text-foreground">Skills &amp; Tools</h2>
             <div className="mt-5 flex flex-wrap gap-3">
               {update.skillsTools.length > 0 ? (
                 update.skillsTools.map((skill) => (
@@ -132,12 +134,11 @@ export default async function AgentUpdatePage({
                   </PillTag>
                 ))
               ) : (
-                <p className="text-body-compact text-[#949494]">No skills or tools listed.</p>
+                <p className="text-body-compact text-secondary-text">No skills or tools listed.</p>
               )}
             </div>
-          </aside>
+          </StoryStreamTile>
         </section>
-      </main>
-    </div>
+    </PublicShell>
   );
 }

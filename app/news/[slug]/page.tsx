@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { NavShell } from "@/components/ui/nav-shell";
 import { PillTag } from "@/components/ui/pill-tag";
 import { StoryStreamTile } from "@/components/ui/story-stream-tile";
+import { PublicShell } from "@/components/public/public-shell";
 import { getNewsArticleBySlug } from "@/lib/news";
 import { buildCanonical } from "@/lib/seo/canonical";
 import { buildArticleJsonLd } from "@/lib/seo/json-ld";
@@ -61,20 +61,18 @@ export default async function NewsArticlePage({
   const paragraphs = article.content.split(/\n\n+/).filter(Boolean);
 
   return (
-    <div className="min-h-screen bg-[#131313] text-white">
-      <NavShell
-        links={[
-          { label: "NEWS", href: "/news", active: true },
-          { label: "SOFTWARE", href: "/software" },
-          { label: "AGENTS", href: "/agents" },
-          { label: "FEED", href: "/feed" },
-          { label: "ABOUT", href: "/about" },
-        ]}
-        ctaLabel="JOIN"
-        ctaHref="/join"
-      />
-
-      <main className="mx-auto flex max-w-[1300px] flex-col gap-12 px-6 py-16">
+    <PublicShell
+      links={[
+        { label: "NEWS", href: "/news", active: true },
+        { label: "SOFTWARE", href: "/software" },
+        { label: "AGENTS", href: "/agents" },
+        { label: "FEED", href: "/feed" },
+        { label: "ABOUT", href: "/about" },
+      ]}
+      ctaLabel="JOIN"
+      ctaHref="/join"
+      mainClassName="mx-auto flex max-w-[1300px] flex-col gap-12 px-6 py-16"
+    >
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -84,13 +82,20 @@ export default async function NewsArticlePage({
 
         <section className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_340px]">
           <article className="max-w-4xl">
-            <div className="flex flex-wrap items-center gap-3">
+            <Link
+              href="/news"
+              className="inline-flex text-label-sm text-mint hover:text-deep-link"
+            >
+              ← All news
+            </Link>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
               <PillTag variant="mint">{article.category}</PillTag>
               <PillTag variant="slate">{formatDate(article.publishedAt)}</PillTag>
             </div>
-            <h1 className="mt-6 font-display text-display-md text-white">{article.title}</h1>
-            <p className="mt-4 text-headline-sm text-[#3cffd0]">By {article.author}</p>
-            <p className="mt-6 max-w-3xl text-body-relaxed text-[#e9e9e9]">{article.summary}</p>
+            <h1 className="mt-6 font-display text-display-md text-foreground">{article.title}</h1>
+            <p className="mt-4 text-headline-sm text-mint">By {article.author}</p>
+            <p className="mt-6 max-w-3xl text-body-relaxed text-muted-foreground">{article.summary}</p>
 
             <div className="mt-8 flex flex-wrap gap-3">
               {article.tags.map((tag) => (
@@ -100,21 +105,21 @@ export default async function NewsArticlePage({
               ))}
             </div>
 
-            <div className="mt-10 space-y-6 text-body-relaxed text-[#e9e9e9]">
+            <div className="mt-10 space-y-6 text-body-relaxed text-muted-foreground">
               {paragraphs.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
 
-            <div className="mt-10 rounded-[24px] border border-white bg-[#131313] p-6">
-              <p className="text-label-sm text-[#949494]">Canonical story URL</p>
+            <StoryStreamTile variant="feature" size="feature" className="mt-10">
+              <span className="text-label-light text-secondary-text">Canonical story URL</span>
               <a
                 href={canonicalUrl}
-                className="mt-2 inline-flex text-body-compact text-[#3cffd0] hover:text-white"
+                className="mt-3 inline-flex text-body-compact text-mint hover:text-deep-link"
               >
                 {canonicalUrl}
               </a>
-            </div>
+            </StoryStreamTile>
           </article>
 
           <aside className="flex flex-col gap-6">
@@ -124,8 +129,8 @@ export default async function NewsArticlePage({
                 <div className="mt-5 flex flex-col gap-4">
                   {article.relatedSoftware.map((entry) => (
                     <Link key={entry.id} href={`/software/${entry.slug}`} className="block">
-                      <p className="text-headline-sm text-white">{entry.name}</p>
-                      <p className="mt-2 text-body-compact text-[#949494]">{entry.description}</p>
+                      <p className="text-headline-sm text-foreground">{entry.name}</p>
+                      <p className="mt-2 text-body-compact text-secondary-text">{entry.description}</p>
                     </Link>
                   ))}
                 </div>
@@ -138,8 +143,8 @@ export default async function NewsArticlePage({
                 <div className="mt-5 flex flex-col gap-4">
                   {article.relatedAgents.map((agent) => (
                     <Link key={agent.id} href={`/agents/${agent.slug}`} className="block">
-                      <p className="text-headline-sm text-white">{agent.name}</p>
-                      <p className="mt-2 text-body-compact text-[#949494]">{agent.tagline}</p>
+                      <p className="text-headline-sm text-foreground">{agent.name}</p>
+                      <p className="mt-2 text-body-compact text-secondary-text">{agent.tagline}</p>
                     </Link>
                   ))}
                 </div>
@@ -147,7 +152,6 @@ export default async function NewsArticlePage({
             ) : null}
           </aside>
         </section>
-      </main>
-    </div>
+    </PublicShell>
   );
 }

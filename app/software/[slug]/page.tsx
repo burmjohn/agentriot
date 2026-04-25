@@ -2,20 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { NavShell } from "@/components/ui/nav-shell";
 import { PillTag } from "@/components/ui/pill-tag";
 import { StoryStreamTile } from "@/components/ui/story-stream-tile";
+import { PublicShell } from "@/components/public/public-shell";
 import { buildCanonical } from "@/lib/seo/canonical";
 import { buildSoftwareJsonLd } from "@/lib/seo/json-ld";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getSoftwareEntryBySlug } from "@/lib/software";
 
 const externalLinks = [
-  { key: "officialUrl", label: "Official site" },
-  { key: "githubUrl", label: "GitHub" },
-  { key: "docsUrl", label: "Docs" },
-  { key: "downloadUrl", label: "Download" },
-] as const;
+  { key: "officialUrl" as const, label: "Official site" },
+  { key: "githubUrl" as const, label: "GitHub" },
+  { key: "docsUrl" as const, label: "Docs" },
+  { key: "downloadUrl" as const, label: "Download" },
+];
 
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat("en", {
@@ -65,21 +65,21 @@ export default async function SoftwareDetailPage({
     url: entry.officialUrl,
   });
 
-  return (
-    <div className="min-h-screen bg-[#131313] text-white">
-      <NavShell
-        links={[
-          { label: "NEWS", href: "/news" },
-          { label: "SOFTWARE", href: "/software", active: true },
-          { label: "AGENTS", href: "/agents" },
-          { label: "FEED", href: "/feed" },
-          { label: "ABOUT", href: "/about" },
-        ]}
-        ctaLabel="JOIN"
-        ctaHref="/join"
-      />
+  const availableLinks = externalLinks.filter(({ key }) => entry[key]);
 
-      <main className="mx-auto flex max-w-[1300px] flex-col gap-12 px-6 py-16">
+  return (
+    <PublicShell
+      links={[
+        { label: "NEWS", href: "/news" },
+        { label: "SOFTWARE", href: "/software", active: true },
+        { label: "AGENTS", href: "/agents" },
+        { label: "FEED", href: "/feed" },
+        { label: "ABOUT", href: "/about" },
+      ]}
+      ctaLabel="JOIN"
+      ctaHref="/join"
+      mainClassName="mx-auto flex max-w-[1300px] flex-col gap-16 px-6 py-16"
+    >
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -89,12 +89,19 @@ export default async function SoftwareDetailPage({
 
         <section className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px]">
           <div>
-            <div className="flex flex-wrap items-center gap-3">
+            <Link
+              href="/software"
+              className="inline-flex text-label-sm text-mint hover:text-deep-link"
+            >
+              ← All software
+            </Link>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
               <PillTag variant="mint">{entry.category}</PillTag>
               <PillTag variant="slate">SOFTWARE PROFILE</PillTag>
             </div>
-            <h1 className="mt-6 font-display text-display-md text-white">{entry.name}</h1>
-            <p className="mt-6 max-w-3xl text-body-relaxed text-[#e9e9e9]">{entry.description}</p>
+            <h1 className="mt-6 font-display text-display-md text-foreground">{entry.name}</h1>
+            <p className="mt-6 max-w-3xl text-body-relaxed text-muted-foreground">{entry.description}</p>
 
             <div className="mt-8 flex flex-wrap gap-3">
               {entry.tags.map((tag) => (
@@ -104,36 +111,41 @@ export default async function SoftwareDetailPage({
               ))}
             </div>
 
-            <div className="mt-10 grid gap-4 md:grid-cols-2">
-              {externalLinks.map(({ key, label }) => {
-                const href = entry[key];
+            {availableLinks.length > 0 ? (
+              <div className="mt-10">
+                <span className="text-label-light text-secondary-text">External links</span>
+                <div className="mt-3 grid gap-4 md:grid-cols-2">
+                  {availableLinks.map(({ key, label }) => {
+                    const href = entry[key];
 
-                if (!href) {
-                  return null;
-                }
-
-                return (
-                  <a
-                    key={key}
-                    href={href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-[20px] border border-white bg-[#131313] px-5 py-4 text-body-compact text-[#3cffd0] hover:text-white"
-                  >
-                    {label} →
-                  </a>
-                );
-              })}
-            </div>
+                    return (
+                      <a
+                        key={key}
+                        href={href ?? undefined}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center justify-between rounded-[20px] border border-border bg-canvas px-5 py-4 text-body-compact text-mint hover:text-deep-link"
+                      >
+                        <span>{label}</span>
+                        <span>→</span>
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : null}
           </div>
 
-          <aside>
-            <div className="rounded-[24px] border border-white bg-[#131313] p-6">
-              <p className="text-label-sm text-[#949494]">Canonical entry</p>
-              <a href={canonicalUrl} className="mt-2 inline-flex text-body-compact text-[#3cffd0] hover:text-white">
+          <aside className="flex flex-col gap-6">
+            <StoryStreamTile variant="feature" size="feature">
+              <span className="text-label-light text-secondary-text">Canonical entry</span>
+              <a
+                href={canonicalUrl}
+                className="mt-3 inline-flex text-body-compact text-mint hover:text-deep-link"
+              >
                 {canonicalUrl}
               </a>
-            </div>
+            </StoryStreamTile>
           </aside>
         </section>
 
@@ -144,12 +156,12 @@ export default async function SoftwareDetailPage({
               {entry.relatedAgents.length > 0 ? (
                 entry.relatedAgents.map((agent) => (
                   <Link key={agent.id} href={`/agents/${agent.slug}`} className="block">
-                    <p className="text-headline-sm text-white">{agent.name}</p>
-                    <p className="mt-2 text-body-compact text-[#949494]">{agent.tagline}</p>
+                    <p className="text-headline-sm text-foreground">{agent.name}</p>
+                    <p className="mt-2 text-body-compact text-secondary-text">{agent.tagline}</p>
                   </Link>
                 ))
               ) : (
-                <p className="text-body-compact text-[#949494]">No linked agents yet.</p>
+                <p className="text-body-compact text-secondary-text">No linked agents yet.</p>
               )}
             </div>
           </StoryStreamTile>
@@ -160,20 +172,19 @@ export default async function SoftwareDetailPage({
               {entry.relatedNews.length > 0 ? (
                 entry.relatedNews.map((article) => (
                   <Link key={article.id} href={`/news/${article.slug}`} className="block">
-                    <p className="text-headline-sm text-white">{article.title}</p>
-                    <p className="mt-2 text-body-compact text-[#949494]">{article.summary}</p>
-                    <p className="mt-2 text-label-xs text-[#3cffd0]">
+                    <p className="text-headline-sm text-foreground">{article.title}</p>
+                    <p className="mt-2 text-body-compact text-secondary-text">{article.summary}</p>
+                    <p className="mt-2 text-label-xs text-mint">
                       {article.category} · {formatDate(article.publishedAt)}
                     </p>
                   </Link>
                 ))
               ) : (
-                <p className="text-body-compact text-[#949494]">No related news yet.</p>
+                <p className="text-body-compact text-secondary-text">No related news yet.</p>
               )}
             </div>
           </StoryStreamTile>
         </section>
-      </main>
-    </div>
+    </PublicShell>
   );
 }
