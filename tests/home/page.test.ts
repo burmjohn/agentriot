@@ -23,17 +23,42 @@ describe("homepage", () => {
     const pageModule = await import("@/app/page");
     const markup = renderToStaticMarkup(await pageModule.default());
 
-    expect(markup).toContain("AGENTRIOT");
-    expect(markup).toContain("THE PUBLIC DISCOVERY PLATFORM FOR INTELLIGENT SYSTEMS");
+    expect(markup).toContain("THE PUBLIC DISCOVERY PLATFORM");
+    expect(markup).toContain("THE PUBLIC DISCOVERY PLATFORM FOR");
+    expect(markup).toContain("INTELLIGENT SYSTEMS");
     expect(markup).toContain("Join the Riot");
+    expect(markup).toContain("Browse the Feed");
+    expect(markup).not.toContain("Trusted by builders at");
+    expect(markup).not.toContain("Anthropic");
+    expect(markup).toContain("/brand/agentriot-logo-exact.png");
+    expect(markup).toContain("/images/homepage/hero-art-reference.png");
+
+    expect(markup).toContain("THE PLATFORM PILLARS");
     expect(markup).toContain("AI &amp; Agent News");
     expect(markup).toContain("Software Directory");
     expect(markup).toContain("Agent Profiles");
-    expect(markup).toContain("LATEST COVERAGE");
-    expect(markup).toContain("SOFTWARE DIRECTORY");
-    expect(markup).toContain("AGENT ACTIVITY");
-    expect(markup).toContain("No high-signal updates yet");
-    expect(markup).toContain("Be the first to post");
+    expect(markup).toContain("Agent Prompts");
+    expect(markup).toContain("Live Feed");
+    expect(markup).toContain("Read the Latest");
+    expect(markup).toContain("Browse Software");
+    expect(markup).toContain("Discover Agents");
+    expect(markup).toContain("Explore Prompts");
+    expect(markup).toContain("View Live Feed");
+
+    expect(markup).toContain(
+      "OpenAI unveils o3 reasoning model with 25% benchmark jump"
+    );
+    expect(markup).toContain("Major Release");
+    expect(markup).toContain("APR 19, 2025");
+    expect(markup).toContain("/images/homepage/featured-story-network.svg");
+
+    // Empty feed falls back to fixture items; live feed section is present
+    expect(markup).toContain("View All");
+    expect(markup).toContain("Live Agent Activity");
+    expect(markup).toContain("View Full Feed");
+    // Default fixture feed items appear
+    expect(markup).toContain("AutoGPT");
+    expect(markup).not.toContain("Theme:");
   });
 
   it("renders feed items when available", async () => {
@@ -49,6 +74,36 @@ describe("homepage", () => {
           agentName: "Atlas Builder",
           agentSlug: "atlas-builder",
         },
+        {
+          id: "upd_2",
+          slug: "release",
+          title: "New tools",
+          summary: "Added search and code execution.",
+          signalType: "release",
+          createdAt: new Date("2026-04-19T09:00:00.000Z"),
+          agentName: "DevAgent",
+          agentSlug: "dev-agent",
+        },
+        {
+          id: "upd_3",
+          slug: "milestone",
+          title: "10k users",
+          summary: "Reached 10,000 active users.",
+          signalType: "milestone",
+          createdAt: new Date("2026-04-19T08:00:00.000Z"),
+          agentName: "GrowthBot",
+          agentSlug: "growth-bot",
+        },
+        {
+          id: "upd_4",
+          slug: "update",
+          title: "Bug fixes",
+          summary: "Fixed memory leak in v2.1.",
+          signalType: "update",
+          createdAt: new Date("2026-04-19T07:00:00.000Z"),
+          agentName: "FixBot",
+          agentSlug: "fix-bot",
+        },
       ],
       page: 1,
       pageSize: 4,
@@ -59,9 +114,10 @@ describe("homepage", () => {
     const pageModule = await import("@/app/page");
     const markup = renderToStaticMarkup(await pageModule.default());
 
-    expect(markup).toContain("Shipped v2 with multi-agent support");
+    // The summary (text) is rendered, not the title
+    expect(markup).toContain("Now supporting crew-based workflows.");
     expect(markup).toContain("Atlas Builder");
-    expect(markup).toContain("MAJOR RELEASE");
+    // New feed UI does not render signal type labels like "MAJOR RELEASE"
   });
 
   it("links to internal routes", async () => {
@@ -84,8 +140,15 @@ describe("homepage", () => {
     expect(markup).toContain('href="/about"');
     expect(markup).toContain('href="/agent-instructions"');
     expect(markup).toContain('href="/docs/install"');
-    expect(markup).toContain('href="/docs/post-updates"');
-    expect(markup).toContain('href="/docs/claim-agent"');
+    expect(markup).not.toContain('href="/prompts"');
+    expect(markup).not.toContain('href="/explore"');
+    expect(markup).not.toContain('href="/protocol"');
+    expect(markup).toContain('href="/agent-instructions/research-assistant"');
+    expect(markup).toContain('href="/software/langchain"');
+    expect(markup).toContain('href="/news/openai-o3-reasoning-model"');
+    expect(markup).toContain(
+      'href="/agents/atlas-research/updates/benchmark-results"'
+    );
   });
 
   it("has SEO metadata", async () => {

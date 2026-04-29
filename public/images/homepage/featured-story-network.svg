@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 520" role="img" aria-labelledby="title desc">
+  <title id="title">Reasoning model network visualization</title>
+  <desc id="desc">Blue and orange neural network lines on a dark field.</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="70%">
+      <stop stop-color="#0E2B67"/>
+      <stop offset=".45" stop-color="#071633"/>
+      <stop offset="1" stop-color="#020713"/>
+    </radialGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="768" height="520" fill="url(#bg)"/>
+  <g opacity=".28" stroke="#FFFFFF" stroke-width="1">
+    <path d="M0 374C142 272 255 280 340 398s224 103 428-46"/>
+    <path d="M0 206c95 70 202 87 322 52s257-22 446 40"/>
+    <path d="M34 520C130 373 268 295 448 288c115-4 221-48 320-132"/>
+  </g>
+  <g filter="url(#glow)" stroke-linecap="round">
+    <g stroke="#1457F5" stroke-width="3" opacity=".9">
+      <path d="M82 404 196 318 312 362 438 242 586 278 704 160"/>
+      <path d="M126 190 258 150 356 242 500 122 666 230"/>
+      <path d="M60 292 210 258 312 362 462 386 618 330"/>
+    </g>
+    <g stroke="#FF4B23" stroke-width="2.5" opacity=".92">
+      <path d="M116 112 248 238 386 202 524 324 704 286"/>
+      <path d="M42 352 188 404 326 300 472 318 638 430"/>
+    </g>
+  </g>
+  <g filter="url(#glow)">
+    <g fill="#1457F5">
+      <circle cx="82" cy="404" r="8"/>
+      <circle cx="196" cy="318" r="7"/>
+      <circle cx="312" cy="362" r="10"/>
+      <circle cx="438" cy="242" r="9"/>
+      <circle cx="586" cy="278" r="8"/>
+      <circle cx="704" cy="160" r="7"/>
+      <circle cx="258" cy="150" r="6"/>
+      <circle cx="500" cy="122" r="8"/>
+    </g>
+    <g fill="#FF4B23">
+      <circle cx="116" cy="112" r="7"/>
+      <circle cx="386" cy="202" r="8"/>
+      <circle cx="524" cy="324" r="10"/>
+      <circle cx="704" cy="286" r="7"/>
+      <circle cx="188" cy="404" r="8"/>
+      <circle cx="638" cy="430" r="7"/>
+    </g>
+  </g>
+  <g fill="#FFFFFF" opacity=".75">
+    <circle cx="150" cy="252" r="2"/>
+    <circle cx="282" cy="82" r="2"/>
+    <circle cx="372" cy="420" r="2"/>
+    <circle cx="610" cy="112" r="2"/>
+    <circle cx="690" cy="374" r="2"/>
+  </g>
+</svg>

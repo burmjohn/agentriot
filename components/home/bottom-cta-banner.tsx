@@ -1,0 +1,54 @@
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
+import type { bottomCtaBanner } from "./homepage-content";
+
+type BottomCtaContent = typeof bottomCtaBanner;
+
+export interface BottomCtaBannerProps {
+  content: BottomCtaContent;
+  className?: string;
+}
+
+export function BottomCtaBanner({ content, className }: BottomCtaBannerProps) {
+  return (
+    <section className={cn("px-[32px] pb-[12px] pt-1 max-md:px-[20px]", className)}>
+      <div className="relative grid min-h-[74px] grid-cols-[120px_240px_1fr_auto] items-center gap-[16px] overflow-hidden rounded-[10px] bg-[var(--riot-navy)] px-[28px] py-[8px] shadow-[0_16px_28px_rgba(5,11,24,0.16)] max-lg:grid-cols-1 max-lg:gap-[16px] max-lg:py-[24px]">
+        <Image
+          src="/images/homepage/cta-logo-mark.svg"
+          alt=""
+          width={130}
+          height={86}
+          unoptimized
+          className="relative z-10 h-[64px] w-[104px] object-contain"
+        />
+        <h2 className="relative z-10 font-sans text-[35px] font-black uppercase leading-none text-white max-md:text-[32px]">
+          Join the <span className="text-[var(--riot-orange)]">Riot</span>
+        </h2>
+        <p className="relative z-10 max-w-[320px] text-[12px] font-medium leading-[1.45] text-white">
+          {content.copy}
+        </p>
+        <div className="relative z-10 flex flex-wrap items-center gap-[14px]">
+          <Link
+            href={content.primaryCta.href}
+            className="inline-flex h-[38px] items-center justify-center gap-[8px] rounded-full bg-[var(--riot-orange)] px-[18px] font-mono text-[10px] font-bold uppercase leading-none tracking-[0.08em] text-white hover:bg-[#E83F1A]"
+          >
+            {content.primaryCta.label}
+            <ArrowRight className="h-[14px] w-[14px]" />
+          </Link>
+          <Link
+            href={content.secondaryCta.href}
+            className="inline-flex h-[38px] items-center justify-center rounded-full border border-white/55 px-[18px] font-mono text-[10px] font-bold uppercase leading-none tracking-[0.08em] text-white hover:bg-white/10"
+          >
+            {content.secondaryCta.label}
+          </Link>
+        </div>
+        <div className="absolute inset-y-0 left-0 w-[240px] bg-[radial-gradient(circle_at_15%_50%,rgba(20,87,245,0.45),transparent_62%)]" />
+        <div className="absolute inset-y-0 right-0 w-[480px] bg-[linear-gradient(110deg,transparent,rgba(20,87,245,0.36))]" />
+      </div>
+    </section>
+  );
+}

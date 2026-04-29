@@ -12,6 +12,13 @@ describe("Task 2: Nav Shell + Global Design Tokens", () => {
   describe("globals.css token system", () => {
     it("has full color palette as CSS custom properties", () => {
       const requiredColors = [
+        "--riot-navy",
+        "--riot-blue",
+        "--riot-orange",
+        "--riot-white",
+        "--riot-page",
+        "--riot-border",
+        "--riot-cyan",
         "--canvas",
         "--surface",
         "--mint",
@@ -52,15 +59,15 @@ describe("Task 2: Nav Shell + Global Design Tokens", () => {
         /box-shadow:\s*(?!inset)\s*[^;]*\d+px\s+\d+px\s+[1-9]/,
         /backdrop-blur/,
         /filter:\s*blur/,
-        /gradient/,
       ];
       for (const pattern of forbiddenPatterns) {
         expect(globalsCss).not.toMatch(pattern);
       }
     });
 
-    it("has body background set to canvas token #131313", () => {
-      expect(globalsCss).toContain("--canvas: #131313");
+    it("has light mode background tokens", () => {
+      expect(globalsCss).toContain("--background: #ffffff");
+      expect(globalsCss).toContain("--canvas: var(--riot-white)");
     });
 
     it("has transition tokens for color and background", () => {
@@ -70,39 +77,45 @@ describe("Task 2: Nav Shell + Global Design Tokens", () => {
   });
 
   describe("nav-shell.tsx redesign", () => {
-    it("has massive editorial wordmark scale (60px+ on desktop)", () => {
-      expect(navShellSrc).toMatch(/text-\[\d+px\]|text-display/);
-      expect(navShellSrc).toContain("font-display");
+    it("uses image logo instead of text wordmark", () => {
+      expect(navShellSrc).toContain('import Image from "next/image"');
+      expect(navShellSrc).toContain('/brand/agentriot-logo-exact.png');
     });
 
-    it("has uppercase mono category links", () => {
-      expect(navShellSrc).toContain("font-mono-label");
-      expect(navShellSrc).toMatch(/uppercase|tracking-\[/);
+    it("has clean category link styling", () => {
+      expect(navShellSrc).toContain("text-[13px]");
+      expect(navShellSrc).toContain("font-semibold");
+      expect(navShellSrc).toContain("text-[var(--riot-navy)]");
     });
 
-    it("has mint pill CTA button", () => {
-      expect(navShellSrc).toContain('variant="primary"');
-      expect(navShellSrc).toContain("PillButton");
+    it("has orange pill CTA button", () => {
+      expect(navShellSrc).toContain("bg-[var(--riot-orange)]");
+      expect(navShellSrc).toContain("rounded-full");
+      expect(navShellSrc).toContain("Join the Riot");
     });
 
     it("has color-only hover to deep-link token on links", () => {
-      expect(navShellSrc).toContain("hover:text-deep-link");
+      expect(navShellSrc).toContain("hover:text-[var(--riot-blue)]");
     });
 
     it("has active section underline treatment", () => {
-      expect(navShellSrc).toContain("tab-active");
+      expect(navShellSrc).toContain('link.active && "text-[var(--riot-blue)]"');
     });
 
     it("has thin nav bar (not compact h-14)", () => {
       expect(navShellSrc).not.toContain("h-14");
+      expect(navShellSrc).toContain("h-[82px]");
+      expect(navShellSrc).toContain("max-md:h-[64px]");
     });
 
     it("has mobile hamburger toggle", () => {
       expect(navShellSrc).toContain("mobile-nav-toggle");
     });
 
-    it("wordmark is never clipped (has overflow handling)", () => {
-      expect(navShellSrc).toMatch(/whitespace-nowrap|overflow-hidden|min-w-0/);
+    it("logo has explicit dimensions and no shrink", () => {
+      expect(navShellSrc).toContain("h-[42px]");
+      expect(navShellSrc).toContain("w-[178px]");
+      expect(navShellSrc).toContain("shrink-0");
     });
   });
 

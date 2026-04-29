@@ -68,7 +68,9 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${anton.variable} ${spaceGrotesk.variable} ${spaceMono.variable} ${newsreader.variable} h-full antialiased`}
     >
-      <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className="min-h-full flex flex-col">
         <ThemeProvider>{children}</ThemeProvider>
       </body>

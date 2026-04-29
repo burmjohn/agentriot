@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 110" role="img" aria-labelledby="title">
+  <title id="title">Policy network thumbnail</title>
+  <rect width="180" height="110" rx="14" fill="#071633"/>
+  <path d="M16 78 54 36l34 22 32-38 44 54" fill="none" stroke="#1457F5" stroke-width="5" stroke-linecap="round"/>
+  <path d="M24 28 72 70l40-14 42 32" fill="none" stroke="#FF4B23" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="54" cy="36" r="7" fill="#1457F5"/>
+  <circle cx="120" cy="20" r="7" fill="#1457F5"/>
+  <circle cx="72" cy="70" r="6" fill="#FF4B23"/>
+  <circle cx="154" cy="88" r="6" fill="#FF4B23"/>
+</svg>

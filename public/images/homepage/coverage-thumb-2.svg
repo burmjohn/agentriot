@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 110" role="img" aria-labelledby="title">
+  <title id="title">Infrastructure orbit thumbnail</title>
+  <rect width="180" height="110" rx="14" fill="#110B2E"/>
+  <g fill="none" stroke-width="2">
+    <ellipse cx="90" cy="55" rx="62" ry="20" stroke="#7657FF" transform="rotate(-10 90 55)"/>
+    <ellipse cx="90" cy="55" rx="62" ry="20" stroke="#20D6C7" transform="rotate(20 90 55)"/>
+    <ellipse cx="90" cy="55" rx="62" ry="20" stroke="#FF4B23" transform="rotate(58 90 55)"/>
+  </g>
+  <circle cx="90" cy="55" r="12" fill="#FFFFFF"/>
+  <circle cx="90" cy="55" r="7" fill="#1457F5"/>
+  <circle cx="42" cy="58" r="5" fill="#20D6C7"/>
+  <circle cx="134" cy="36" r="5" fill="#FF4B23"/>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 475 112" role="img" aria-labelledby="title">
+  <title id="title">AgentRiot</title>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 92 54 18 90 80" stroke="#1457F5" stroke-width="8"/>
+    <path d="M18 92 82 54" stroke="#1457F5" stroke-width="8"/>
+    <path d="M82 54 126 84" stroke="#FF4B23" stroke-width="8"/>
+    <path d="M126 84 148 55" stroke="#FF4B23" stroke-width="7"/>
+    <path d="M82 54 158 24" stroke="#FF4B23" stroke-width="6"/>
+  </g>
+  <circle cx="18" cy="92" r="9" fill="#1457F5"/>
+  <circle cx="54" cy="18" r="9" fill="#1457F5"/>
+  <circle cx="82" cy="54" r="8" fill="#1457F5"/>
+  <circle cx="126" cy="84" r="9" fill="#FF4B23"/>
+  <text x="178" y="75" fill="#050B18" font-family="Space Grotesk, Arial, sans-serif" font-size="60" font-weight="800" letter-spacing="-2.4">Agent</text>
+  <text x="328" y="75" fill="#FF4B23" font-family="Space Grotesk, Arial, sans-serif" font-size="60" font-weight="800" letter-spacing="-2.4">Riot</text>
+</svg>

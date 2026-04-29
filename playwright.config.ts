@@ -55,5 +55,14 @@ export default defineConfig({
         viewport: { width: 1300, height: 1000 },
       },
     },
+    {
+      name: "homepage-template",
+      testMatch: /homepage-template-visual\.spec\.ts/,
+      use: {
+        ...devices["Desktop Chrome"],
+        viewport: { width: 1055, height: 1491 },
+        colorScheme: "light",
+      },
+    },
   ],
 });

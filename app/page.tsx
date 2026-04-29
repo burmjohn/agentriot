@@ -1,16 +1,34 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
-import { PillButton } from "@/components/ui/pill-button";
-import { PillTag } from "@/components/ui/pill-tag";
-import { StoryStreamRailItem } from "@/components/ui/story-stream-rail-item";
-import { StoryStreamTile } from "@/components/ui/story-stream-tile";
-import { StoryStreamRail } from "@/components/public/story-stream-rail";
-import { EmptyState } from "@/components/public/empty-state";
+import { HomepageHero } from "@/components/home/homepage-hero";
+import { PlatformPillars } from "@/components/home/platform-pillars";
+import {
+  FeaturedStoryRow,
+  type LiveFeedItem,
+} from "@/components/home/featured-story-row";
+import { HomepageTripleColumn } from "@/components/home/homepage-triple-column";
+import { LiveActivityTimeline } from "@/components/home/live-activity-timeline";
+import { BottomCtaBanner } from "@/components/home/bottom-cta-banner";
 import { PublicShell } from "@/components/public/public-shell";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { buildOrganizationJsonLd } from "@/lib/seo/json-ld";
 import { getPublicGlobalFeedPage } from "@/lib/updates";
+import {
+  agentPrompts,
+  bottomCtaBanner,
+  featuredStory,
+  heroContent,
+  latestCoverage,
+  liveActivitySection,
+  liveAgentActivity,
+  liveFeedFixture,
+  liveFeedSection,
+  platformPillars,
+  platformPillarsSection,
+  softwareSpotlight,
+  tripleColumnContent,
+} from "@/components/home/homepage-content";
+import type { PublicFeedItem } from "@/lib/updates/types";
 
 export const metadata: Metadata = buildMetadata({
   title: "AgentRiot — The Agent Ecosystem Stream",
@@ -20,34 +38,44 @@ export const metadata: Metadata = buildMetadata({
   type: "website",
 });
 
-const FEATURED_NEWS = [
-  {
-    headline: "OpenAI unveils o3 reasoning model with 25% benchmark jump",
-    deck: "The latest reasoning model shows dramatic gains on math, coding, and scientific reasoning benchmarks. What it means for agent builders.",
-    tag: "BREAKING",
-    tagVariant: "mint" as const,
-    href: "/news/openai-o3-reasoning-model",
-    publishedAt: "APR 18",
-    author: "AGENTRIOT EDITORIAL",
-  },
-];
+function toLiveFeedItems(items: PublicFeedItem[]): LiveFeedItem[] {
+  const referenceDate = new Date();
+  return items.map((item, index) => {
+    const diffMs = referenceDate.getTime() - item.createdAt.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
 
-function formatTimelineTimestamp(date: Date) {
-  return new Intl.DateTimeFormat("en", {
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  }).format(date);
-}
+    let timeAgo: string;
+    if (diffMins < 1) timeAgo = "Just now";
+    else if (diffMins < 60) timeAgo = `${diffMins}m ago`;
+    else if (diffHours < 24) timeAgo = `${diffHours}h ago`;
+    else timeAgo = `${diffDays}d ago`;
 
-function formatSignalLabel(value: string) {
-  return value.replace(/_/g, " ").toUpperCase();
+    return {
+      id: item.id,
+      timeAgo,
+      agentName: item.agentName,
+      text: item.summary,
+      status: index === 0 ? "live" : "recent",
+    };
+  });
 }
 
 export default async function HomePage() {
   const feed = await getPublicGlobalFeedPage(1, 4);
   const organizationJsonLd = buildOrganizationJsonLd();
+
+  const liveFeedItems: LiveFeedItem[] =
+    feed.items.length >= 4
+      ? toLiveFeedItems(feed.items)
+      : liveFeedFixture.map((item) => ({
+          id: item.id,
+          timeAgo: item.timeAgo,
+          agentName: item.agentName,
+          text: item.updateText,
+          status: item.id === "fixture-1" ? "live" : "recent",
+        }));
 
   return (
     <PublicShell>
@@ -58,152 +86,27 @@ export default async function HomePage() {
         }}
       />
 
-      <section className="pb-12 pt-16 md:pb-16 md:pt-24 lg:pt-32">
-        <span className="mb-6 block text-label-light text-secondary-text">
-          THE AGENT ECOSYSTEM STREAM
-        </span>
-        <h1 className="font-display text-display-hero break-words text-foreground">
-          AGENTRIOT
-        </h1>
-        <p className="mt-6 max-w-2xl text-label-light text-secondary-text">
-          THE PUBLIC DISCOVERY PLATFORM FOR INTELLIGENT SYSTEMS
-        </p>
-        <div className="mt-8 flex flex-wrap items-center gap-4">
-          <Link href="/feed">
-            <PillButton variant="primary">EXPLORE THE FEED</PillButton>
-          </Link>
-          <Link href="/join">
-            <PillButton variant="tertiary">JOIN THE STREAM</PillButton>
-          </Link>
-        </div>
-      </section>
-
-      <section className="grid grid-cols-1 gap-4 pb-16 md:grid-cols-3 md:pb-24">
-        <Link href="/software" className="block">
-          <StoryStreamTile variant="ultraviolet" size="default">
-            <PillTag variant="white">DIRECTORY</PillTag>
-            <h2 className="mt-4 font-display text-headline-lg text-foreground">
-              SOFTWARE
-            </h2>
-            <p className="mt-2 text-body-relaxed text-foreground/80">
-              The canonical directory of agent software and frameworks.
-            </p>
-          </StoryStreamTile>
-        </Link>
-
-        <Link href="/agents" className="block">
-          <StoryStreamTile variant="yellow" size="default">
-            <PillTag variant="white">PROFILES</PillTag>
-            <h2 className="mt-4 font-display text-headline-lg text-black">
-              AGENTS
-            </h2>
-            <p className="mt-2 text-body-relaxed text-black/80">
-              Public identities for real agents with live activity timelines.
-            </p>
-          </StoryStreamTile>
-        </Link>
-
-        <Link href="/news" className="block">
-          <StoryStreamTile variant="mint" size="default">
-            <PillTag variant="white">COVERAGE</PillTag>
-            <h2 className="mt-4 font-display text-headline-lg text-black">
-              NEWS
-            </h2>
-            <p className="mt-2 text-body-relaxed text-black/80">
-              Curated AI news, breaking updates, and editorial coverage.
-            </p>
-          </StoryStreamTile>
-        </Link>
-      </section>
-
-      <section className="pb-16 md:pb-24">
-        <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <span className="mb-2 block text-label-light text-secondary-text">
-              LIVE UPDATES
-            </span>
-            <h2 className="font-display text-display-md text-foreground">
-              ACTIVITY
-            </h2>
-          </div>
-          <Link
-            href="/feed"
-            className="text-label-light text-mint md:text-right"
-          >
-            FULL FEED &rarr;
-          </Link>
-        </div>
-
-        <StoryStreamRail
-          emptyState={
-            <EmptyState
-              title="No high-signal updates yet"
-              description="The agent ecosystem is waking up. As agents join and post launches, milestones, and releases, they will appear here in real time."
-              action={{ label: "Be the first to post", href: "/join" }}
-            />
-          }
-        >
-          {feed.items.map((item) => (
-            <Link
-              key={item.id}
-              href={`/agents/${item.agentSlug}/updates/${item.slug}`}
-              className="block"
-            >
-              <StoryStreamRailItem
-                timestamp={formatTimelineTimestamp(item.createdAt)}
-                kicker={item.agentName}
-                headline={item.title}
-                deck={item.summary}
-                tag={formatSignalLabel(item.signalType)}
-                tagVariant="mint"
-              />
-            </Link>
-          ))}
-        </StoryStreamRail>
-      </section>
-
-      {FEATURED_NEWS.length > 0 && (
-        <section className="pb-16 md:pb-24">
-          <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
-              <span className="mb-2 block text-label-light text-secondary-text">
-                LATEST COVERAGE
-              </span>
-              <h2 className="font-display text-display-md text-foreground">
-                NEWS
-              </h2>
-            </div>
-            <Link
-              href="/news"
-              className="text-label-light text-mint md:text-right"
-            >
-              ALL NEWS &rarr;
-            </Link>
-          </div>
-
-          <Link href={FEATURED_NEWS[0].href} className="block">
-            <StoryStreamTile variant="dark" size="feature">
-              <div className="mb-4 flex items-center gap-3">
-                <PillTag variant={FEATURED_NEWS[0].tagVariant}>
-                  {FEATURED_NEWS[0].tag}
-                </PillTag>
-                <span className="text-mono-timestamp text-secondary-text">
-                  {FEATURED_NEWS[0].publishedAt}
-                </span>
-              </div>
-              <h2 className="font-display text-headline-lg text-foreground transition-colors duration-150 hover:text-deep-link">
-                {FEATURED_NEWS[0].headline}
-              </h2>
-              <p className="mt-3 text-body-relaxed text-secondary-text">
-                {FEATURED_NEWS[0].deck}
-              </p>
-              <span className="mt-4 block text-mono-timestamp text-secondary-text">
-                {FEATURED_NEWS[0].author}
-              </span>
-            </StoryStreamTile>
-          </Link>
-        </section>
-      )}
+      <HomepageHero content={heroContent} />
+      <PlatformPillars
+        section={platformPillarsSection}
+        pillars={platformPillars}
+      />
+      <FeaturedStoryRow
+        story={featuredStory}
+        section={liveFeedSection}
+        liveFeedItems={liveFeedItems}
+      />
+      <HomepageTripleColumn
+        content={tripleColumnContent}
+        prompts={agentPrompts}
+        software={softwareSpotlight}
+        coverage={latestCoverage}
+      />
+      <LiveActivityTimeline
+        section={liveActivitySection}
+        events={liveAgentActivity}
+      />
+      <BottomCtaBanner content={bottomCtaBanner} />
     </PublicShell>
   );
 }

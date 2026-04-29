@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const storyStreamTileVariants = cva(
-  "group relative overflow-hidden transition-colors duration-150 ease-out",
+  "group relative min-w-0 overflow-hidden break-words transition-colors duration-150 ease-out",
   {
     variants: {
       variant: {

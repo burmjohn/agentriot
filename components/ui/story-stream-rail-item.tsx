@@ -32,19 +32,20 @@ const StoryStreamRailItem = React.forwardRef<
       ...props
     },
     ref
-  ) => {
-    const isAccent = variant === "accent";
+    ) => {
+      const isAccent = variant === "accent";
+      void _hideSpine;
 
-    return (
+      return (
       <div
         ref={ref}
         className={cn(
-          "flex gap-4",
+          "flex min-w-0 gap-3 sm:gap-4",
           className
         )}
         {...props}
       >
-        <div className="flex flex-col items-end gap-2 min-w-[72px] self-stretch">
+        <div className="flex min-w-[56px] flex-col items-end gap-2 self-stretch sm:min-w-[72px]">
           <span className="text-mono-timestamp text-secondary-text">
             {timestamp}
           </span>
@@ -53,7 +54,7 @@ const StoryStreamRailItem = React.forwardRef<
 
         <div
           className={cn(
-            "flex-1 rounded-[20px] border p-6 transition-colors duration-150 ease-out",
+            "min-w-0 flex-1 rounded-[20px] border p-5 transition-colors duration-150 ease-out sm:p-6",
             isAccent
               ? "bg-[#5200ff] border-transparent"
               : "bg-canvas border-border"

@@ -2,6 +2,8 @@
 
 import type { NavShellProps } from "@/components/ui/nav-shell";
 import { NavShell } from "@/components/ui/nav-shell";
+import { cn } from "@/lib/utils";
+
 import { PublicFooter } from "./public-footer";
 
 interface PublicShellProps {
@@ -17,24 +19,27 @@ export function PublicShell({
   links,
   ctaLabel,
   ctaHref,
-  mainClassName = "mx-auto max-w-[1300px] px-6",
+  mainClassName,
 }: PublicShellProps) {
   return (
-    <div className="min-h-screen bg-canvas text-foreground">
+    <div className="agentriot-public min-h-screen bg-white text-[var(--riot-navy)]">
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:p-4 focus:bg-canvas focus:text-foreground"
+        className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:bg-white focus:p-4 focus:text-[var(--riot-navy)]"
       >
         Skip to main content
       </a>
 
       <NavShell links={links} ctaLabel={ctaLabel} ctaHref={ctaHref} />
 
-      <main id="main-content" className={mainClassName}>
+      <main
+        id="main-content"
+        className={cn("mx-auto max-w-[1055px]", mainClassName)}
+      >
         {children}
       </main>
 
-      <div className="mx-auto max-w-[1300px] px-6">
+      <div className="mx-auto max-w-[1055px] px-[38px] max-md:px-[20px]">
         <PublicFooter />
       </div>
     </div>

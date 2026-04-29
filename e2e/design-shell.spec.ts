@@ -24,38 +24,38 @@ async function getGradientOffenders(page: import("@playwright/test").Page) {
   );
 }
 
-async function getSoftShadowOffenders(page: import("@playwright/test").Page) {
-  return page.locator("*").evaluateAll((els) =>
-    els
-      .flatMap((el) => {
-        const boxShadow = window.getComputedStyle(el).boxShadow;
-        if (boxShadow === "none") {
-          return [];
-        }
+function isIntentionalHomepageGradient(
+  gradient: Awaited<ReturnType<typeof getGradientOffenders>>[number]
+) {
+  const className = String(gradient.className);
+  const backgroundImage = gradient.backgroundImage;
 
-        const layers = boxShadow.split(/,(?![^()]*\))/);
-        const hasSoftShadow = layers.some((layer) => {
-          const lengths = layer.match(/-?\d*\.?\d+px/g) ?? [];
-          if (lengths.length < 3) {
-            return false;
-          }
-
-          const blur = Number.parseFloat(lengths[2] ?? "0");
-          return blur > 2;
-        });
-
-        return hasSoftShadow
-          ? [
-              {
-                tag: el.tagName.toLowerCase(),
-                className: el.className,
-                boxShadow,
-              },
-            ]
-          : [];
-      })
-      .slice(0, 10)
+  return (
+    className.includes("bg-gradient-to-br") &&
+    ((className.includes("from-[var(--riot-page)]") &&
+      className.includes("to-white") &&
+      backgroundImage.includes("linear-gradient")) ||
+      (className.includes("from-[var(--riot-blue)]/10") &&
+        className.includes("to-[var(--riot-orange)]/10") &&
+        backgroundImage.includes("linear-gradient")))
   );
+}
+
+function isLegacyGradient(
+  gradient: Awaited<ReturnType<typeof getGradientOffenders>>[number]
+) {
+  const legacyNeedles = [
+    "rgb(19, 19, 19)",
+    "rgb(60, 255, 208)",
+    "rgb(82, 0, 255)",
+    "#131313",
+    "#3cffd0",
+    "#5200ff",
+    "mint",
+    "ultraviolet",
+  ];
+  const haystack = `${gradient.className} ${gradient.backgroundImage}`.toLowerCase();
+  return legacyNeedles.some((needle) => haystack.includes(needle.toLowerCase()));
 }
 
 async function getCanvasBackgrounds(page: import("@playwright/test").Page) {
@@ -75,48 +75,44 @@ test.describe("Design System Shell — Task 2", () => {
     await page.goto("/");
   });
 
-  test("dark canvas — no light mode", async ({ page }) => {
+  test("light canvas — redesigned homepage", async ({ page }) => {
     const backgrounds = await getCanvasBackgrounds(page);
-    expect(backgrounds).toContain("rgb(19, 19, 19)");
+    expect(backgrounds).toContain("rgb(255, 255, 255)");
   });
 
-  test("no gradients on page", async ({ page }) => {
+  test("allows intentional light homepage gradients and rejects legacy gradients", async ({ page }) => {
     const gradients = await getGradientOffenders(page);
-    expect(gradients).toEqual([]);
-  });
-
-  test("no soft shadows (box-shadow blur > 2px)", async ({ page }) => {
-    const softShadows = await getSoftShadowOffenders(page);
-    expect(softShadows).toEqual([]);
+    expect(gradients).toHaveLength(2);
+    expect(gradients.every(isIntentionalHomepageGradient)).toBe(true);
+    expect(gradients.filter(isLegacyGradient)).toEqual([]);
   });
 
   test("navigation shell renders with wordmark", async ({ page }) => {
     await expect(page.locator("header")).toBeVisible();
-    await expect(page.locator("header", { hasText: "AGENTRIOT" })).toBeVisible();
+    await expect(page.locator('header img[alt="AgentRiot"]')).toBeVisible();
   });
 
-  test("pill buttons render", async ({ page }) => {
-    await expect(page.getByRole("button", { name: "Get Started" })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Read the Protocol" })).toBeVisible();
+  test("CTA links render", async ({ page }) => {
+    await expect(page.getByRole("link", { name: "Get Started" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Read the Protocol" })).toBeVisible();
   });
 
-  test("pill tags render", async ({ page }) => {
-    await expect(page.getByText("THE AGENT ECOSYSTEM STREAM", { exact: true })).toBeVisible();
-    await expect(page.getByText("ONBOARDING", { exact: true })).toBeVisible();
+  test("category tags render", async ({ page }) => {
+    await expect(page.getByText("Major Release", { exact: true })).toBeVisible();
   });
 
-  test("homepage editorial masthead renders", async ({ page }) => {
+  test("homepage hero renders", async ({ page }) => {
     await expect(
-      page.getByRole("heading", { name: "AGENTRIOT", exact: true })
+      page.getByRole("heading", { name: "THE PUBLIC DISCOVERY PLATFORM FOR INTELLIGENT SYSTEMS" })
     ).toBeVisible();
     await expect(
-      page.getByText("THE AGENT ECOSYSTEM STREAM", { exact: true })
+      page.getByText("THE PUBLIC DISCOVERY PLATFORM", { exact: true })
     ).toBeVisible();
   });
 
-  test("homepage editorial tiles render", async ({ page }) => {
-    await expect(page.getByRole("heading", { name: "JOIN THE RIOT" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "SOFTWARE" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "AGENTS" })).toBeVisible();
+  test("homepage section headings render", async ({ page }) => {
+    await expect(page.getByRole("heading", { name: "THE PLATFORM PILLARS" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Live Agent Activity" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Join the Riot" })).toBeVisible();
   });
 });

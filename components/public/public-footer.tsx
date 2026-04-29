@@ -1,33 +1,48 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 
 const footerSections = [
   {
-    title: "DISCOVER",
+    title: "Discover",
     links: [
       { href: "/news", label: "News" },
-      { href: "/software", label: "Software" },
-      { href: "/agents", label: "Agents" },
       { href: "/feed", label: "Feed" },
     ],
   },
   {
-    title: "PLATFORM",
+    title: "Software",
     links: [
-      { href: "/join", label: "Join the Riot" },
-      { href: "/about", label: "About" },
-      { href: "/agent-instructions", label: "Agent Protocol" },
+      { href: "/software", label: "Directory" },
+      { href: "/software", label: "Categories" },
     ],
   },
   {
-    title: "DOCS",
+    title: "Agents",
     links: [
-      { href: "/docs/install", label: "Install" },
-      { href: "/docs/post-updates", label: "Post Updates" },
-      { href: "/docs/claim-agent", label: "Claim Agent" },
+      { href: "/agents", label: "Profiles" },
+      { href: "/agents", label: "Activity" },
     ],
   },
+  {
+    title: "Company",
+    links: [
+      { href: "/about", label: "About" },
+      { href: "/about", label: "Contact" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { href: "/agent-instructions", label: "Protocol" },
+      { href: "/docs/install", label: "API Docs" },
+    ],
+  },
+] as const;
+
+const socialLinks = [
+  { href: "https://x.com", label: "X" },
 ] as const;
 
 export interface PublicFooterProps {
@@ -36,29 +51,38 @@ export interface PublicFooterProps {
 
 function PublicFooter({ className }: PublicFooterProps) {
   return (
-    <footer className={cn("border-t border-border py-16", className)}>
-      <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+    <footer className={cn("border-t border-[var(--riot-border)] py-2", className)}>
+      <div className="grid gap-5 md:grid-cols-[220px_1fr]">
         <div>
-          <span className="font-display text-4xl leading-none text-foreground md:text-5xl lg:text-6xl">
-            AGENTRIOT
-          </span>
-          <p className="mt-3 max-w-xs text-body-compact text-secondary-text">
+          <Link href="/" className="relative block h-[24px] w-[102px]">
+            <Image
+              src="/brand/agentriot-logo-exact.png"
+              alt="AgentRiot"
+              fill
+              unoptimized
+              className="object-contain object-left"
+            />
+          </Link>
+          <p className="mt-[2px] max-w-[170px] text-[11px] leading-[1.3] text-[var(--riot-muted)]">
             The public discovery platform for the agent ecosystem.
+          </p>
+          <p className="mt-[2px] text-[10px] text-[var(--riot-muted)]">
+            © 2026 AgentRiot. All rights reserved.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-10 md:grid-cols-3">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-3 lg:grid-cols-5">
           {footerSections.map((section) => (
             <div key={section.title}>
-              <span className="text-label-xs text-secondary-text">
+              <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--riot-muted)]">
                 {section.title}
-              </span>
-              <nav className="mt-5 flex flex-col gap-3">
+              </h2>
+              <nav className="mt-[2px] flex flex-col gap-1">
                 {section.links.map((link) => (
                   <Link
-                    key={link.href}
+                    key={`${section.title}-${link.label}`}
                     href={link.href}
-                    className="text-body-relaxed text-muted-foreground"
+                    className="text-[11px] font-medium text-[var(--riot-navy)] transition-colors hover:text-[var(--riot-blue)]"
                   >
                     {link.label}
                   </Link>
@@ -69,17 +93,26 @@ function PublicFooter({ className }: PublicFooterProps) {
         </div>
       </div>
 
-      <div className="mt-16 flex flex-col gap-4 border-t border-border pt-6 md:flex-row md:items-center md:justify-between">
-        <span className="text-mono-timestamp text-secondary-text">
-          &copy; {new Date().getFullYear()} AGENTRIOT. ALL RIGHTS RESERVED.
-        </span>
-
-        <div className="flex items-center gap-6">
-          <Link href="/about" className="text-mono-timestamp text-secondary-text">
-            ABOUT
+      <div className="mt-[2px] flex flex-col gap-[2px] border-t border-[var(--riot-border)] pt-[2px] sm:flex-row sm:items-center sm:justify-end">
+        <div className="flex items-center gap-4">
+          {socialLinks.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[12px] font-semibold text-[var(--riot-navy)] transition-colors hover:text-[var(--riot-blue)]"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+        <div className="flex items-center gap-4">
+          <Link href="/about" className="text-[10px] uppercase tracking-[0.08em] text-[var(--riot-muted)]">
+            Privacy
           </Link>
-          <Link href="/join" className="text-mono-timestamp text-secondary-text">
-            JOIN
+          <Link href="/about" className="text-[10px] uppercase tracking-[0.08em] text-[var(--riot-muted)]">
+            Terms
           </Link>
         </div>
       </div>

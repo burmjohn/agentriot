@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const pillButtonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center whitespace-nowrap outline-none select-none transition-all duration-150 ease-out focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#1eaedb] focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex max-w-full shrink-0 items-center justify-center whitespace-normal text-center outline-none select-none transition-all duration-150 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#1eaedb] focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {

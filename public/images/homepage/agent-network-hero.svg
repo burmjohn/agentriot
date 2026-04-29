@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1110 940" role="img" aria-labelledby="title desc">
+  <title id="title">AgentRiot intelligent systems network</title>
+  <desc id="desc">Blue and orange connected agent nodes over a dark platform.</desc>
+  <defs>
+    <linearGradient id="platform" x1="470" x2="1110" y1="502" y2="640" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#071126"/>
+      <stop offset=".52" stop-color="#050B18"/>
+      <stop offset="1" stop-color="#071B42"/>
+    </linearGradient>
+    <linearGradient id="platformTop" x1="470" x2="1110" y1="500" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#111A2D"/>
+      <stop offset=".42" stop-color="#071126"/>
+      <stop offset="1" stop-color="#050B18"/>
+    </linearGradient>
+    <radialGradient id="blueGlow" cx="42%" cy="35%" r="62%">
+      <stop stop-color="#99BDFF"/>
+      <stop offset=".52" stop-color="#1457F5"/>
+      <stop offset="1" stop-color="#0A2D91"/>
+    </radialGradient>
+    <radialGradient id="orangeGlow" cx="42%" cy="35%" r="62%">
+      <stop stop-color="#FFC0AD"/>
+      <stop offset=".5" stop-color="#FF4B23"/>
+      <stop offset="1" stop-color="#BC260D"/>
+    </radialGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#050B18" flood-opacity=".18"/>
+    </filter>
+  </defs>
+
+  <rect width="1110" height="940" fill="#FFFFFF"/>
+
+  <g fill="none" stroke="#DCE3EE" stroke-dasharray="3 9" stroke-width="1.4" opacity=".95">
+    <ellipse cx="650" cy="278" rx="345" ry="92" transform="rotate(-13 650 278)"/>
+    <ellipse cx="685" cy="292" rx="395" ry="105" transform="rotate(-25 685 292)"/>
+    <ellipse cx="650" cy="310" rx="272" ry="78" transform="rotate(16 650 310)"/>
+  </g>
+
+  <g fill="#1457F5" opacity=".9">
+    <circle cx="366" cy="145" r="7"/>
+    <circle cx="515" cy="332" r="6"/>
+    <circle cx="624" cy="60" r="10"/>
+    <circle cx="956" cy="102" r="6"/>
+    <circle cx="1010" cy="258" r="5"/>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <path d="M462 525 790 455l320-62v334H462z" fill="url(#platform)"/>
+    <path d="M462 525c122-39 230-54 324-46 104 9 211 39 324 89" fill="url(#platformTop)"/>
+    <path d="M515 583c94-31 190-43 287-34 100 9 193 36 279 80" fill="none" stroke="#1457F5" stroke-width="2" opacity=".42"/>
+    <path d="M555 638c84-28 168-38 252-29 83 9 165 31 246 67" fill="none" stroke="#1457F5" stroke-width="2" opacity=".32"/>
+    <path d="M604 696c66-20 134-27 204-21 70 6 136 23 199 49" fill="none" stroke="#1457F5" stroke-width="2" opacity=".24"/>
+
+    <path d="M610 430 748 377l126 34-151 61z" fill="#F8FAFC"/>
+    <path d="M610 430v50l113 35v-43z" fill="#DDE4EE"/>
+    <path d="M723 472l151-61v48l-151 56z" fill="#B9C4D4"/>
+  </g>
+
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <path d="M330 420 472 205 602 412" fill="none" stroke="#1457F5" stroke-width="20"/>
+    <path d="M330 420 545 286" fill="none" stroke="#1457F5" stroke-width="20"/>
+    <path d="M545 286 725 372" fill="none" stroke="#FF4B23" stroke-width="20"/>
+    <path d="M725 372 835 304 982 430" fill="none" stroke="#FF4B23" stroke-width="18"/>
+    <path d="M725 372 968 250" fill="none" stroke="#FF4B23" stroke-width="16"/>
+  </g>
+
+  <g>
+    <circle cx="330" cy="420" r="34" fill="url(#blueGlow)"/>
+    <circle cx="472" cy="205" r="32" fill="url(#blueGlow)"/>
+    <circle cx="602" cy="412" r="30" fill="url(#blueGlow)"/>
+    <circle cx="545" cy="286" r="28" fill="url(#blueGlow)"/>
+    <circle cx="725" cy="372" r="31" fill="url(#orangeGlow)"/>
+    <circle cx="982" cy="430" r="32" fill="url(#orangeGlow)"/>
+  </g>
+
+  <g font-family="Space Mono, ui-monospace, monospace" font-size="20" font-weight="700" letter-spacing="1">
+    <g>
+      <rect x="118" y="160" width="268" height="56" rx="28" fill="#FFFFFF" stroke="#1457F5" stroke-width="2"/>
+      <text x="174" y="196" fill="#050B18">SOFTWARE DIRECTORY</text>
+      <circle cx="148" cy="188" r="11" fill="none" stroke="#050B18" stroke-width="3"/>
+    </g>
+    <g>
+      <rect x="526" y="62" width="236" height="56" rx="28" fill="#FFFFFF" stroke="#FF4B23" stroke-width="2"/>
+      <text x="584" y="98" fill="#050B18">AGENT PROFILES</text>
+      <circle cx="556" cy="90" r="9" fill="#050B18"/>
+    </g>
+    <g>
+      <rect x="86" y="282" width="238" height="56" rx="28" fill="#FFFFFF" stroke="#1457F5" stroke-width="2"/>
+      <text x="142" y="318" fill="#050B18">AGENT PROMPTS</text>
+      <path d="m116 302 14 8-14 8" fill="none" stroke="#050B18" stroke-width="3"/>
+    </g>
+    <g>
+      <rect x="782" y="166" width="186" height="56" rx="28" fill="#FFFFFF" stroke="#1457F5" stroke-width="2"/>
+      <text x="838" y="202" fill="#050B18">LIVE FEED</text>
+      <path d="m809 181-8 19h11l-7 16 20-24h-12l7-11z" fill="#050B18"/>
+    </g>
+    <g>
+      <rect x="710" y="356" width="244" height="56" rx="28" fill="#FFFFFF" stroke="#DCE3EE" stroke-width="2"/>
+      <text x="768" y="392" fill="#050B18">CURATED NEWS</text>
+      <rect x="740" y="374" width="16" height="16" rx="2" fill="none" stroke="#050B18" stroke-width="3"/>
+      <circle cx="932" cy="384" r="4" fill="#050B18"/>
+    </g>
+  </g>
+</svg>
