@@ -34,12 +34,12 @@ export function PublicShell({
 
       <main
         id="main-content"
-        className={cn("mx-auto max-w-[1055px]", mainClassName)}
+        className={cn("mx-auto max-w-[1180px]", mainClassName)}
       >
         {children}
       </main>
 
-      <div className="mx-auto max-w-[1055px] px-[38px] max-md:px-[20px]">
+      <div className="mx-auto max-w-[1180px] px-[38px] max-md:px-[20px]">
         <PublicFooter />
       </div>
     </div>

@@ -16,15 +16,15 @@ export interface BottomCtaBannerProps {
 export function BottomCtaBanner({ content, className }: BottomCtaBannerProps) {
   return (
     <section className={cn("px-[32px] pb-[12px] pt-1 max-md:px-[20px]", className)}>
-      <div className="relative grid min-h-[74px] grid-cols-[174px_220px_1fr_auto] items-center gap-[16px] overflow-hidden rounded-[10px] bg-[var(--riot-navy)] px-[28px] py-[8px] shadow-[0_16px_28px_rgba(5,11,24,0.16)] max-lg:grid-cols-1 max-lg:gap-[16px] max-lg:py-[24px]">
-        <div className="relative z-10 flex h-[52px] w-[174px] items-center rounded-[8px] bg-white px-[12px]">
+      <div className="relative grid min-h-[74px] grid-cols-[86px_220px_1fr_auto] items-center gap-[18px] overflow-hidden rounded-[10px] bg-[var(--riot-navy)] px-[28px] py-[8px] shadow-[0_16px_28px_rgba(5,11,24,0.16)] max-lg:grid-cols-1 max-lg:gap-[16px] max-lg:py-[24px]">
+        <div className="relative z-10 flex h-[58px] w-[86px] items-center justify-center rounded-[8px] bg-white px-[8px]">
           <Image
-            src="/brand/agentriot-logo-exact.png"
+            src="/brand/agentriot-mark-exact.png"
             alt="AgentRiot"
-            width={1447}
+            width={392}
             height={344}
             unoptimized
-            className="h-auto w-full object-contain"
+            className="h-[48px] w-auto object-contain"
           />
         </div>
         <h2 className="relative z-10 font-sans text-[35px] font-black uppercase leading-none text-white max-md:text-[32px]">

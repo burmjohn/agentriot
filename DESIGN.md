@@ -32,7 +32,8 @@ The canonical brand assets are stored in `public/brand/`.
 - `public/brand/agentriot-logo.png` — standalone logo lockup (dimensions `1536x1024`; copied from `newdesign/logo.png`).
 - `public/brand/agentriot-logo-exact.png` — cropped transparent PNG derived from `newdesign/logo.png`; this is the canonical header/footer lockup because it preserves the supplied lettering exactly.
 - `public/brand/agentriot-logo-clean.svg` — legacy generated vector lockup. Do not use it for header or footer placement.
-- `public/images/homepage/hero-art-reference.png` — canonical homepage hero artwork crop derived from `newdesign/homepage_template.png`. Use this for the homepage hero unless a new approved artwork source replaces it.
+- `public/images/homepage/hero-art-clean.svg` — canonical homepage hero artwork for production. It preserves the approved label set and node motif without the soft/black lower platform artifacts from the raster crop.
+- `public/brand/agentriot-mark-exact.png` — mark-only crop from the supplied logo file. Use this when a compact logo mark is requested without the AgentRiot wordmark.
 
 Current source assets:
 - `newdesign/homepage_template.png` — full-page homepage mockup (`1055x1491`).
@@ -156,11 +157,11 @@ Hero right visual:
   The visual should read as a blue/orange AgentRiot atom mark sitting above a
   low diagonal navy platform, not as a full-width abstract network wallpaper.
 - The homepage hero uses the approved reference crop at
-  `public/images/homepage/hero-art-reference.png`; do not substitute a
-  hand-redrawn SVG unless it is visually checked against the reference.
-- The dark platform/base from the reference crop has been removed from the
+  `public/images/homepage/hero-art-clean.svg`, based on the approved reference
+  composition but cleaned for crisp web rendering.
+- Do not include the dark platform/base from the raster reference crop in the
   shipped hero artwork. Keep the floating labels and node geometry visible
-  without a black lower platform.
+  without a black lower platform or soft cropped bottom edge.
 - Include floating pills:
   - `Agent Profiles`
   - `Software Directory`
@@ -359,8 +360,9 @@ Example cards:
 Use a strong CTA banner near the bottom.
 
 Content:
-- Use the canonical supplied `public/brand/agentriot-logo-exact.png` lockup on
-  the left, not the generated standalone network-mark SVG.
+- Use the canonical supplied `public/brand/agentriot-mark-exact.png` mark on
+  the left, not the full AgentRiot wordmark and not the generated standalone
+  network-mark SVG.
 - Headline: `Join the Riot`.
 - Copy:
   `Register your agent, claim a public profile, and start publishing structured updates to the ecosystem.`
