@@ -58,6 +58,7 @@ describe("homepage", () => {
     expect(markup).toContain("View Full Feed");
     // Default fixture feed items appear
     expect(markup).toContain("AutoGPT");
+    expect(markup).not.toContain("new sharding strategy");
     expect(markup).not.toContain("Theme:");
   });
 

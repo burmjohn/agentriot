@@ -130,7 +130,38 @@ Header styling:
 
 ## Hero Section
 
-The hero should be compact, not oversized. It should take roughly the top third of the first viewport, leaving room for the platform pillars to appear quickly.
+The hero should be substantial but not oversized. It should establish the
+product in one scan, then let the platform pillars appear without excessive
+scrolling.
+
+## Homepage Typography and Density Rules
+
+Use `newdesign/homepage_industry_standard_mockup.png` as a reference for
+spacing, density, and hierarchy only. Do not copy its logo treatment.
+
+Homepage typography:
+- Use `Anton` for the main hero headline only, plus rare display moments.
+- Use `Space Grotesk` for card titles, body copy, list content, and readable
+  UI text.
+- Use `Space Mono` for metadata, badges, section labels, and CTA labels only.
+- Body and card copy must be at least `13px`; prefer `14px` to `16px` for
+  primary content.
+- Metadata and badges must be at least `10px`, except decorative-only counters.
+- Card titles should be `14px` to `18px` with line height above `1.08`.
+- Avoid `7px`, `8px`, or `9px` text for meaningful content.
+
+Homepage density:
+- Keep all core modules visible: hero, platform pillars, featured story, live
+  feed, agent prompts, software spotlight, latest coverage, live activity,
+  bottom CTA, and footer.
+- It is acceptable to cap dense lists to improve readability:
+  - Live feed: 4 visible items.
+  - Agent Prompts: 3 visible items.
+  - Software Spotlight: 3 visible items.
+  - Latest Coverage: 3 visible items.
+  - Live Activity: 4 visible events.
+- Use roomier section padding and card spacing rather than shrinking text to
+  force more data above the fold.
 
 ### Hero Layout
 Two-column hero:
@@ -303,7 +334,6 @@ List items:
 - `LangChain` — Framework.
 - `AutoGPT` — Agent.
 - `CrewAI` — Framework.
-- `RelayCore` — Infrastructure.
 
 Each item should include:
 - Icon.

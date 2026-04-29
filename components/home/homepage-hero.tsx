@@ -59,7 +59,7 @@ export function HomepageHero({ content, className }: HomepageHeroProps) {
   return (
     <section
       className={cn(
-        "grid h-[309px] grid-cols-[520px_minmax(0,1fr)] items-start gap-[28px] overflow-hidden border-b border-[var(--riot-border)] px-[38px] pt-[30px] max-lg:h-auto max-lg:grid-cols-1 max-md:px-[20px] max-md:pt-[32px]",
+        "grid min-h-[392px] grid-cols-[520px_minmax(0,1fr)] items-center gap-[48px] overflow-hidden border-b border-[var(--riot-border)] px-[38px] py-[42px] max-lg:h-auto max-lg:grid-cols-1 max-lg:gap-[32px] max-md:px-[20px] max-md:py-[32px]",
         className
       )}
     >
@@ -67,7 +67,7 @@ export function HomepageHero({ content, className }: HomepageHeroProps) {
         <p className="sr-only">{content.label}</p>
         <h1
           aria-label={content.headline}
-          className="font-display text-[40px] font-black uppercase leading-[0.94] tracking-normal text-[var(--riot-navy)] max-md:text-[40px] max-sm:text-[34px]"
+          className="font-display text-[54px] font-black uppercase leading-[0.94] tracking-normal text-[var(--riot-navy)] max-lg:text-[48px] max-md:text-[40px] max-sm:text-[34px]"
         >
           <span className="block whitespace-nowrap max-md:whitespace-normal">
             The public discovery platform
@@ -77,21 +77,21 @@ export function HomepageHero({ content, className }: HomepageHeroProps) {
           </span>
         </h1>
 
-        <p className="mt-3 max-w-[455px] text-[13px] font-medium leading-[1.5] text-[var(--riot-body)]">
+        <p className="mt-5 max-w-[500px] text-[16px] font-medium leading-[1.55] text-[var(--riot-body)] max-md:text-[15px]">
           {content.supportingCopy}
         </p>
 
-        <div className="mt-4 flex flex-wrap items-center gap-[14px]">
+        <div className="mt-6 flex flex-wrap items-center gap-[14px]">
           <Link
             href={content.primaryCta.href}
-            className="inline-flex h-[36px] items-center justify-center gap-[10px] rounded-full bg-[var(--riot-orange)] px-[18px] font-mono text-[10px] font-bold uppercase leading-none tracking-[0.08em] text-white transition-colors hover:bg-[#E83F1A] focus-visible:outline-focus-cyan"
+            className="inline-flex h-[44px] items-center justify-center gap-[10px] rounded-full bg-[var(--riot-orange)] px-[22px] font-mono text-[12px] font-bold uppercase leading-none tracking-[0.08em] text-white transition-colors hover:bg-[#E83F1A] focus-visible:outline-focus-cyan"
           >
             {content.primaryCta.label}
             <ArrowRight className="h-[14px] w-[14px]" />
           </Link>
           <Link
             href={content.secondaryCta.href}
-            className="inline-flex h-[36px] items-center justify-center gap-[10px] rounded-full border border-[var(--riot-border)] bg-white px-[18px] font-mono text-[10px] font-bold uppercase leading-none tracking-[0.08em] text-[var(--riot-navy)] transition-colors hover:border-[var(--riot-blue)] hover:text-[var(--riot-blue)] focus-visible:outline-focus-cyan"
+            className="inline-flex h-[44px] items-center justify-center gap-[10px] rounded-full border border-[var(--riot-border)] bg-white px-[22px] font-mono text-[12px] font-bold uppercase leading-none tracking-[0.08em] text-[var(--riot-navy)] transition-colors hover:border-[var(--riot-blue)] hover:text-[var(--riot-blue)] focus-visible:outline-focus-cyan"
           >
             {content.secondaryCta.label}
             <ArrowRight className="h-[14px] w-[14px]" />
@@ -99,7 +99,7 @@ export function HomepageHero({ content, className }: HomepageHeroProps) {
         </div>
       </div>
 
-      <div className="relative h-[255px] overflow-visible max-lg:h-[260px]">
+      <div className="relative h-[295px] overflow-visible max-lg:h-[285px]">
         <Image
           src="/brand/agentriot-mark-exact.png"
           alt=""
@@ -107,40 +107,40 @@ export function HomepageHero({ content, className }: HomepageHeroProps) {
           height={344}
           priority
           unoptimized
-          className="absolute left-[196px] top-[64px] z-10 h-auto w-[224px] max-w-none max-lg:left-1/2 max-lg:top-[76px] max-lg:w-[210px] max-lg:-translate-x-1/2"
+          className="absolute left-[196px] top-[82px] z-10 h-auto w-[224px] max-w-none max-lg:left-1/2 max-lg:top-[88px] max-lg:w-[210px] max-lg:-translate-x-1/2"
         />
-        <div className="absolute left-[164px] top-[72px] h-[150px] w-[390px] rounded-[50%] border border-dashed border-[#DCE3EE] opacity-90 rotate-[-13deg] max-lg:left-1/2 max-lg:w-[340px] max-lg:-translate-x-1/2" />
-        <div className="absolute left-[125px] top-[98px] h-[124px] w-[410px] rounded-[50%] border border-dashed border-[#DCE3EE] opacity-75 rotate-[16deg] max-lg:left-1/2 max-lg:w-[360px] max-lg:-translate-x-1/2" />
-        <span className="absolute left-[278px] top-[46px] h-[8px] w-[8px] rounded-full bg-[var(--riot-blue)] max-lg:left-[68%]" />
-        <span className="absolute right-[32px] top-[84px] h-[6px] w-[6px] rounded-full bg-[var(--riot-blue)] max-lg:right-[18px]" />
+        <div className="absolute left-[164px] top-[90px] h-[150px] w-[390px] rounded-[50%] border border-dashed border-[#DCE3EE] opacity-90 rotate-[-13deg] max-lg:left-1/2 max-lg:w-[340px] max-lg:-translate-x-1/2" />
+        <div className="absolute left-[125px] top-[116px] h-[124px] w-[410px] rounded-[50%] border border-dashed border-[#DCE3EE] opacity-75 rotate-[16deg] max-lg:left-1/2 max-lg:w-[360px] max-lg:-translate-x-1/2" />
+        <span className="absolute left-[278px] top-[64px] h-[8px] w-[8px] rounded-full bg-[var(--riot-blue)] max-lg:left-[68%]" />
+        <span className="absolute right-[32px] top-[102px] h-[6px] w-[6px] rounded-full bg-[var(--riot-blue)] max-lg:right-[18px]" />
         <span className="absolute left-[198px] bottom-[35px] h-[5px] w-[5px] rounded-full bg-[var(--riot-blue)] max-lg:left-[24%]" />
 
         <HeroPill
           icon={User}
           label="Agent Profiles"
           tone="orange"
-          className="left-[322px] top-[20px] max-lg:left-[49%] max-lg:top-[20px]"
+          className="left-[322px] top-[26px] max-lg:left-[49%] max-lg:top-[20px]"
         />
         <HeroPill
           icon={Box}
           label="Software Directory"
-          className="left-[58px] top-[86px] max-lg:left-[10px] max-lg:top-[88px]"
+          className="left-[58px] top-[104px] max-lg:left-[10px] max-lg:top-[88px]"
         />
         <HeroPill
           icon={Terminal}
           label="Agent Prompts"
-          className="left-[36px] top-[146px] max-lg:left-[8px] max-lg:top-[147px]"
+          className="left-[36px] top-[164px] max-lg:left-[8px] max-lg:top-[147px]"
         />
         <HeroPill
           icon={Bolt}
           label="Live Feed"
-          className="right-[4px] top-[94px] max-lg:right-[2px] max-lg:top-[99px]"
+          className="right-[4px] top-[112px] max-lg:right-[2px] max-lg:top-[99px]"
         />
         <HeroPill
           icon={Newspaper}
           label="Curated News"
           tone="neutral"
-          className="right-[44px] top-[168px] max-lg:right-[10px] max-lg:top-[184px]"
+          className="right-[44px] top-[186px] max-lg:right-[10px] max-lg:top-[184px]"
         />
       </div>
     </section>
