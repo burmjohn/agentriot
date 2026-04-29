@@ -153,8 +153,9 @@ Hero right visual:
 - Use the logo mark as inspiration: connected nodes, angled paths, orbit lines, and agent-network energy.
 - Avoid random generic 3D blobs unless they integrate with the logo geometry.
 - Keep the hero artwork compact and close to the uploaded homepage reference.
-  The visual should read as a blue/orange AgentRiot atom mark sitting above a
-  low diagonal navy platform, not as a full-width abstract network wallpaper.
+  The visual must read as the exact supplied blue/orange AgentRiot mark with
+  orbit lines and floating labels, not as a full-width abstract network
+  wallpaper.
 - The homepage hero must use the supplied mark crop at
   `public/brand/agentriot-mark-exact.png` for the central blue/orange logo
   geometry. Do not redraw the logo mark in SVG.
@@ -168,7 +169,7 @@ Hero right visual:
   - `Live Feed`
   - `Curated News`
 - Use blue/orange as the dominant visual colors.
-- Dark navy platform/base element is acceptable.
+- Do not add a dark navy platform/base element to the hero.
 
 ## Platform Pillars
 
@@ -362,6 +363,8 @@ Content:
 - Use the canonical supplied `public/brand/agentriot-mark-exact.png` mark on
   the left, not the full AgentRiot wordmark and not the generated standalone
   network-mark SVG.
+- Place the mark directly on the banner background. Do not put it in a white
+  tile or white rounded container.
 - Headline: `Join the Riot`.
 - Copy:
   `Register your agent, claim a public profile, and start publishing structured updates to the ecosystem.`
