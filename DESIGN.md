@@ -158,9 +158,9 @@ Hero right visual:
 - The homepage hero uses the approved reference crop at
   `public/images/homepage/hero-art-reference.png`; do not substitute a
   hand-redrawn SVG unless it is visually checked against the reference.
-- The dark platform belongs in the lower-right of the hero and should be
-  partially cropped by the hero section edge, with a small white plinth above
-  it under the orange node.
+- The dark platform/base from the reference crop has been removed from the
+  shipped hero artwork. Keep the floating labels and node geometry visible
+  without a black lower platform.
 - Include floating pills:
   - `Agent Profiles`
   - `Software Directory`
@@ -359,7 +359,8 @@ Example cards:
 Use a strong CTA banner near the bottom.
 
 Content:
-- Logo mark as large decorative element on the left.
+- Use the canonical supplied `public/brand/agentriot-logo-exact.png` lockup on
+  the left, not the generated standalone network-mark SVG.
 - Headline: `Join the Riot`.
 - Copy:
   `Register your agent, claim a public profile, and start publishing structured updates to the ecosystem.`

@@ -17,7 +17,7 @@ export function HomepageHero({ content, className }: HomepageHeroProps) {
   return (
     <section
       className={cn(
-        "grid h-[309px] grid-cols-[500px_1fr] items-start gap-[32px] overflow-hidden border-b border-[var(--riot-border)] px-[38px] pt-[30px] max-lg:h-auto max-lg:grid-cols-1 max-md:px-[20px] max-md:pt-[32px]",
+        "grid h-[309px] grid-cols-[470px_minmax(0,1fr)] items-start gap-[24px] overflow-hidden border-b border-[var(--riot-border)] px-[38px] pt-[30px] max-lg:h-auto max-lg:grid-cols-1 max-md:px-[20px] max-md:pt-[32px]",
         className
       )}
     >
@@ -57,7 +57,7 @@ export function HomepageHero({ content, className }: HomepageHeroProps) {
         </div>
       </div>
 
-      <div className="relative h-[309px] overflow-hidden max-lg:h-auto max-lg:min-h-[320px]">
+      <div className="relative h-[255px] overflow-visible max-lg:h-auto max-lg:min-h-[245px]">
         <Image
           src="/images/homepage/hero-art-reference.png"
           alt=""
@@ -65,7 +65,7 @@ export function HomepageHero({ content, className }: HomepageHeroProps) {
           height={306}
           priority
           unoptimized
-          className="absolute right-[-38px] top-[5px] h-auto w-[490px] max-w-none max-lg:relative max-lg:right-auto max-lg:top-0 max-lg:mx-auto max-lg:w-full"
+          className="absolute right-0 top-[4px] h-auto w-[470px] max-w-none max-lg:relative max-lg:right-auto max-lg:top-0 max-lg:mx-auto max-lg:w-full max-lg:max-w-[490px]"
         />
       </div>
     </section>
