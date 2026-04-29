@@ -31,7 +31,7 @@ describe("homepage", () => {
     expect(markup).not.toContain("Trusted by builders at");
     expect(markup).not.toContain("Anthropic");
     expect(markup).toContain("/brand/agentriot-logo-exact.png");
-    expect(markup).toContain("/images/homepage/hero-art-clean.svg");
+    expect(markup).toContain("/brand/agentriot-mark-exact.png");
 
     expect(markup).toContain("THE PLATFORM PILLARS");
     expect(markup).toContain("AI &amp; Agent News");

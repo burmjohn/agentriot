@@ -1,12 +1,54 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import {
+  ArrowRight,
+  Bolt,
+  Box,
+  Newspaper,
+  Terminal,
+  User,
+} from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
 import type { heroContent } from "./homepage-content";
 
 type HeroContent = typeof heroContent;
+
+interface HeroPillProps {
+  icon: LucideIcon;
+  label: string;
+  className: string;
+  tone?: "blue" | "orange" | "neutral";
+}
+
+function HeroPill({
+  icon: Icon,
+  label,
+  className,
+  tone = "blue",
+}: HeroPillProps) {
+  const toneClass =
+    tone === "orange"
+      ? "border-[var(--riot-orange)]"
+      : tone === "neutral"
+        ? "border-[var(--riot-border)]"
+        : "border-[var(--riot-blue)]";
+
+  return (
+    <div
+      className={cn(
+        "absolute z-20 inline-flex h-[31px] items-center gap-[8px] rounded-full border bg-white px-[13px] font-mono text-[10px] font-bold uppercase leading-none tracking-normal text-[var(--riot-navy)] shadow-[0_8px_16px_rgba(5,11,24,0.06)]",
+        toneClass,
+        className
+      )}
+    >
+      <Icon className="h-[13px] w-[13px]" strokeWidth={2.7} />
+      {label}
+    </div>
+  );
+}
 
 export interface HomepageHeroProps {
   content: HeroContent;
@@ -57,15 +99,48 @@ export function HomepageHero({ content, className }: HomepageHeroProps) {
         </div>
       </div>
 
-      <div className="relative h-[255px] overflow-visible max-lg:h-auto max-lg:min-h-[245px]">
+      <div className="relative h-[255px] overflow-visible max-lg:h-[260px]">
         <Image
-          src="/images/homepage/hero-art-clean.svg"
+          src="/brand/agentriot-mark-exact.png"
           alt=""
-          width={1110}
-          height={520}
+          width={392}
+          height={344}
           priority
           unoptimized
-          className="absolute right-[-4px] top-[10px] h-auto w-[560px] max-w-none max-lg:relative max-lg:right-auto max-lg:top-0 max-lg:mx-auto max-lg:w-full max-lg:max-w-[620px]"
+          className="absolute left-[196px] top-[64px] z-10 h-auto w-[224px] max-w-none max-lg:left-1/2 max-lg:top-[76px] max-lg:w-[210px] max-lg:-translate-x-1/2"
+        />
+        <div className="absolute left-[164px] top-[72px] h-[150px] w-[390px] rounded-[50%] border border-dashed border-[#DCE3EE] opacity-90 rotate-[-13deg] max-lg:left-1/2 max-lg:w-[340px] max-lg:-translate-x-1/2" />
+        <div className="absolute left-[125px] top-[98px] h-[124px] w-[410px] rounded-[50%] border border-dashed border-[#DCE3EE] opacity-75 rotate-[16deg] max-lg:left-1/2 max-lg:w-[360px] max-lg:-translate-x-1/2" />
+        <span className="absolute left-[278px] top-[46px] h-[8px] w-[8px] rounded-full bg-[var(--riot-blue)] max-lg:left-[68%]" />
+        <span className="absolute right-[32px] top-[84px] h-[6px] w-[6px] rounded-full bg-[var(--riot-blue)] max-lg:right-[18px]" />
+        <span className="absolute left-[198px] bottom-[35px] h-[5px] w-[5px] rounded-full bg-[var(--riot-blue)] max-lg:left-[24%]" />
+
+        <HeroPill
+          icon={User}
+          label="Agent Profiles"
+          tone="orange"
+          className="left-[322px] top-[20px] max-lg:left-[49%] max-lg:top-[20px]"
+        />
+        <HeroPill
+          icon={Box}
+          label="Software Directory"
+          className="left-[58px] top-[86px] max-lg:left-[10px] max-lg:top-[88px]"
+        />
+        <HeroPill
+          icon={Terminal}
+          label="Agent Prompts"
+          className="left-[36px] top-[146px] max-lg:left-[8px] max-lg:top-[147px]"
+        />
+        <HeroPill
+          icon={Bolt}
+          label="Live Feed"
+          className="right-[4px] top-[94px] max-lg:right-[2px] max-lg:top-[99px]"
+        />
+        <HeroPill
+          icon={Newspaper}
+          label="Curated News"
+          tone="neutral"
+          className="right-[44px] top-[168px] max-lg:right-[10px] max-lg:top-[184px]"
         />
       </div>
     </section>
