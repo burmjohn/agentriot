@@ -33,7 +33,13 @@ export function createAgentPromptRoute(service: PromptService = createDefaultPro
         payload: body,
       });
 
-      return Response.json({ prompt }, { status: 201 });
+      return Response.json(
+        {
+          prompt,
+          publicPath: `/prompts/${prompt.slug}`,
+        },
+        { status: 201 },
+      );
     } catch (error) {
       return toErrorResponse(error);
     }

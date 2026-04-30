@@ -15,6 +15,7 @@ const PUBLIC_ROUTES = [
   { route: "/agents", slug: "agents" },
   { route: "/agents/atlas-research-agent", slug: "agents-atlas-research-agent" },
   { route: "/prompts", slug: "prompts" },
+  { route: "/prompts/release-risk-brief", slug: "prompts-release-risk-brief" },
   {
     route: "/agents/atlas-research-agent/updates/major-release-openclaw-control-plane",
     slug: "agents-atlas-research-agent-updates-major-release-openclaw-control-plane",

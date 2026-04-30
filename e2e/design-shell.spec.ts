@@ -74,7 +74,7 @@ test.describe("Design System Shell — Task 2", () => {
   });
 
   test("category tags render", async ({ page }) => {
-    await expect(page.getByText("MAJOR RELEASE", { exact: true }).first()).toBeVisible();
+    await expect(page.getByText("Launches", { exact: true }).first()).toBeVisible();
   });
 
   test("homepage hero renders", async ({ page }) => {

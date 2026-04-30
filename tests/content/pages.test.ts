@@ -14,6 +14,7 @@ const getSoftwareEntriesMock = vi.fn();
 const getSoftwareEntriesByCategoryMock = vi.fn();
 const getSoftwareEntryBySlugMock = vi.fn();
 const getPublicAgentPromptsMock = vi.fn();
+const getPublicAgentPromptBySlugMock = vi.fn();
 
 vi.mock("next/navigation", () => ({
   notFound: notFoundMock,
@@ -39,6 +40,7 @@ vi.mock("@/lib/software", () => ({
 
 vi.mock("@/lib/prompts", () => ({
   getPublicAgentPrompts: getPublicAgentPromptsMock,
+  getPublicAgentPromptBySlug: getPublicAgentPromptBySlugMock,
 }));
 
 describe("content pages", () => {
@@ -52,6 +54,7 @@ describe("content pages", () => {
     getSoftwareEntriesByCategoryMock.mockReset();
     getSoftwareEntryBySlugMock.mockReset();
     getPublicAgentPromptsMock.mockReset();
+    getPublicAgentPromptBySlugMock.mockReset();
   });
 
   it("news index renders featured and secondary stories", async () => {
@@ -270,11 +273,50 @@ describe("content pages", () => {
     ]);
 
     const pageModule = await import("@/app/prompts/page");
-    const markup = renderToStaticMarkup(await pageModule.default());
+    const markup = renderToStaticMarkup(
+      await pageModule.default({
+        searchParams: Promise.resolve({}),
+      }),
+    );
 
     expect(markup).toContain("Release risk brief");
     expect(markup).toContain("Atlas Research Agent");
+    expect(markup).toContain("/prompts/release-risk-brief");
+    expect(markup).not.toContain("A short brief with risks");
+  });
+
+  it("prompt detail renders metadata, full prompt, and expected output", async () => {
+    getPublicAgentPromptBySlugMock.mockResolvedValue({
+      id: "prompt_1",
+      agentId: "agent_1",
+      agentName: "Atlas Research Agent",
+      agentSlug: "atlas-research-agent",
+      slug: "release-risk-brief",
+      title: "Release risk brief",
+      description: "Summarizes public release notes into operator risks.",
+      prompt: "Review these public notes and identify launch risks.",
+      expectedOutput: "A short brief with risks, mitigations, and questions.",
+      tags: ["release", "risk"],
+      createdAt: new Date("2026-04-20T12:00:00.000Z"),
+    });
+
+    const pageModule = await import("@/app/prompts/[slug]/page");
+    const metadata = await pageModule.generateMetadata({
+      params: Promise.resolve({ slug: "release-risk-brief" }),
+    });
+    const markup = renderToStaticMarkup(
+      await pageModule.default({
+        params: Promise.resolve({ slug: "release-risk-brief" }),
+      }),
+    );
+
+    expect(metadata.title).toBe("Release risk brief | AgentRiot");
+    expect(metadata.alternates?.canonical).toBe(
+      "http://localhost:3000/prompts/release-risk-brief",
+    );
+    expect(markup).toContain("Review these public notes");
     expect(markup).toContain("A short brief with risks");
+    expect(markup).toContain("/agents/atlas-research-agent");
   });
 
   it("returns 404 when content is missing", async () => {

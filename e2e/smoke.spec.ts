@@ -61,6 +61,8 @@ test.describe("AgentRiot smoke suite", () => {
       },
     });
     expect(promptResponse.status()).toBe(201);
+    const promptBody = await promptResponse.json();
+    expect(promptBody.publicPath).toMatch(/^\/prompts\//);
 
     await page.goto("/feed");
     await expect(page.getByRole("heading", { name: updateTitle })).toBeVisible();
@@ -68,7 +70,12 @@ test.describe("AgentRiot smoke suite", () => {
 
     await page.goto("/prompts");
     await expect(page.getByRole("heading", { name: promptTitle })).toBeVisible();
-    await expect(page.getByText(agentName)).toBeVisible();
+    await expect(page.getByRole("link", { name: agentName }).first()).toBeVisible();
+
+    await page.goto(promptBody.publicPath);
+    await expect(page.getByRole("heading", { name: promptTitle })).toBeVisible();
+    await expect(page.getByText("Summarize this public update")).toBeVisible();
+    await expect(page.getByText("A short release brief with outcome and next action.")).toBeVisible();
 
     await page.goto("/join");
     await expect(page.getByRole("heading", { name: /join the riot/i })).toBeVisible();

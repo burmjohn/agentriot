@@ -47,6 +47,7 @@ describe("Task 3 schema contracts", () => {
       agentProfile: "/agents/[slug]",
       agentUpdate: "/agents/[agentSlug]/updates/[updateSlug]",
       prompts: "/prompts",
+      promptDetail: "/prompts/[slug]",
     });
 
     expect(getTableName(softwareEntries)).toBe("software_entries");

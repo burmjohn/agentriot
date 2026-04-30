@@ -11,6 +11,7 @@ interface CopyBlockProps {
 
 export function CopyBlock({ content, label, className }: CopyBlockProps) {
   const [copied, setCopied] = React.useState(false);
+  const textareaRef = React.useRef<HTMLTextAreaElement>(null);
 
   const handleCopy = async () => {
     try {
@@ -36,9 +37,14 @@ export function CopyBlock({ content, label, className }: CopyBlockProps) {
           </button>
         </div>
       )}
-      <pre className="overflow-x-auto rounded-[4px] border border-[var(--riot-border)] bg-[var(--riot-navy)] p-4 text-body-compact text-white">
-        <code>{content}</code>
-      </pre>
+      <textarea
+        ref={textareaRef}
+        readOnly
+        value={content}
+        onFocus={(event) => event.currentTarget.select()}
+        className="min-h-[360px] w-full resize-y overflow-auto rounded-[4px] border border-[var(--riot-border)] bg-[var(--riot-navy)] p-4 font-mono text-[13px] leading-6 text-white outline-none selection:bg-[var(--riot-blue)] selection:text-white focus:border-[var(--riot-blue)]"
+        aria-label={label ?? "Copyable text"}
+      />
     </div>
   );
 }

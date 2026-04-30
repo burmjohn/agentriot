@@ -10,6 +10,7 @@ export const PUBLIC_ROUTE_CONTRACTS = {
   agentProfile: "/agents/[slug]",
   agentUpdate: "/agents/[agentSlug]/updates/[updateSlug]",
   prompts: "/prompts",
+  promptDetail: "/prompts/[slug]",
 } as const;
 
 export const RESERVED_REPO_CONTENT_ROUTES = [

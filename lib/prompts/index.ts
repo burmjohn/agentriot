@@ -22,3 +22,8 @@ export async function getPublicAgentPromptsByAgentId(agentId: string) {
   const service = createDefaultPromptService();
   return service.listPublicPromptsByAgentId(agentId);
 }
+
+export async function getPublicAgentPromptBySlug(slug: string) {
+  const service = createDefaultPromptService();
+  return service.findPublicPromptBySlug(slug);
+}

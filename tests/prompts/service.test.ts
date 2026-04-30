@@ -12,6 +12,16 @@ function createMemoryPromptRepository(): PromptRepository & {
     async findPromptBySlug(slug) {
       return repository.prompts.find((prompt) => prompt.slug === slug) ?? null;
     },
+    async findPublicPromptBySlug(slug) {
+      const prompt = repository.prompts.find((entry) => entry.slug === slug);
+      return prompt
+        ? {
+            ...prompt,
+            agentName: "Atlas Research Agent",
+            agentSlug: "atlas-research-agent",
+          }
+        : null;
+    },
     async createAgentPrompt(input) {
       const record: StoredAgentPromptRecord = {
         id: `prompt_${repository.prompts.length + 1}`,

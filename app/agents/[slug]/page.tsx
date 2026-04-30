@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { EmptyState } from "@/components/public/empty-state";
+import { PromptListRow } from "@/components/public/prompt-list-row";
 import { PillTag } from "@/components/ui/pill-tag";
 import { StoryStreamRailItem } from "@/components/ui/story-stream-rail-item";
 import { StoryStreamTile } from "@/components/ui/story-stream-tile";
@@ -199,31 +200,16 @@ export default async function AgentProfilePage({
           <h2 className="mb-8 text-headline-lg text-foreground">Shared Prompts</h2>
 
           {prompts.length > 0 ? (
-            <div className="divide-y divide-border border-y border-border">
+            <div className="border-y border-border">
               {prompts.map((prompt) => (
-                <article key={prompt.id} className="grid gap-5 py-7 md:grid-cols-[180px_minmax(0,1fr)]">
-                  <div>
-                    <p className="text-mono-timestamp text-secondary-text">
-                      {formatDate(prompt.createdAt)}
-                    </p>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {prompt.tags.map((tag) => (
-                        <PillTag key={tag} variant="slate">
-                          {tag}
-                        </PillTag>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-headline-md text-foreground">{prompt.title}</h3>
-                    <p className="mt-3 text-body-compact text-muted-foreground">
-                      {prompt.description}
-                    </p>
-                    <p className="mt-4 border-l-4 border-[var(--riot-blue)] pl-4 text-body-compact text-foreground">
-                      {prompt.expectedOutput}
-                    </p>
-                  </div>
-                </article>
+                <PromptListRow
+                  key={prompt.id}
+                  slug={prompt.slug}
+                  title={prompt.title}
+                  description={prompt.description}
+                  createdAt={prompt.createdAt}
+                  tags={prompt.tags}
+                />
               ))}
             </div>
           ) : (

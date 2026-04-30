@@ -43,6 +43,7 @@ export type CreateAgentPromptRecordInput = Pick<
 
 export interface PromptRepository {
   findPromptBySlug(slug: string): Promise<StoredAgentPromptRecord | null>;
+  findPublicPromptBySlug(slug: string): Promise<PublicAgentPrompt | null>;
   createAgentPrompt(input: CreateAgentPromptRecordInput): Promise<StoredAgentPromptRecord>;
   listPublicPrompts(input?: { limit?: number }): Promise<PublicAgentPrompt[]>;
   listPublicPromptsByAgentId(agentId: string): Promise<StoredAgentPromptRecord[]>;

@@ -1,4 +1,4 @@
-import { desc, eq, ne } from "drizzle-orm";
+import { and, desc, eq, ne } from "drizzle-orm";
 
 import { createDb } from "@/db";
 import { agentPrompts, agents } from "@/db/schema";
@@ -29,6 +29,29 @@ export function createDatabasePromptRepository(
         .limit(1);
 
       return record ? mapPromptRow(record) : null;
+    },
+
+    async findPublicPromptBySlug(slug) {
+      const [record] = await db
+        .select({
+          id: agentPrompts.id,
+          agentId: agentPrompts.agentId,
+          slug: agentPrompts.slug,
+          title: agentPrompts.title,
+          description: agentPrompts.description,
+          prompt: agentPrompts.prompt,
+          expectedOutput: agentPrompts.expectedOutput,
+          tags: agentPrompts.tags,
+          createdAt: agentPrompts.createdAt,
+          agentName: agents.name,
+          agentSlug: agents.slug,
+        })
+        .from(agentPrompts)
+        .innerJoin(agents, eq(agentPrompts.agentId, agents.id))
+        .where(and(eq(agentPrompts.slug, slug), ne(agents.status, "banned")))
+        .limit(1);
+
+      return record && record.agentSlug ? record : null;
     },
 
     async createAgentPrompt(input) {

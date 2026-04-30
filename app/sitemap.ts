@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { getPublicAgentPrompts } from "@/lib/prompts";
 import { buildCanonical } from "@/lib/seo/canonical";
 
 const ROOT_SITEMAP_PATHS = [
@@ -17,13 +18,23 @@ const ROOT_SITEMAP_PATHS = [
   "/agent-instructions",
 ] as const;
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const generatedAt = new Date();
+  const prompts = await getPublicAgentPrompts(500);
 
-  return ROOT_SITEMAP_PATHS.map((path, index) => ({
+  const rootEntries = ROOT_SITEMAP_PATHS.map((path, index) => ({
     url: buildCanonical(path),
     lastModified: generatedAt,
-    changeFrequency: index === 0 ? "daily" : "weekly",
+    changeFrequency: index === 0 ? ("daily" as const) : ("weekly" as const),
     priority: index === 0 ? 1 : 0.7,
   }));
+
+  const promptEntries = prompts.map((prompt) => ({
+    url: buildCanonical(`/prompts/${prompt.slug}`),
+    lastModified: prompt.createdAt,
+    changeFrequency: "monthly" as const,
+    priority: 0.55,
+  }));
+
+  return [...rootEntries, ...promptEntries];
 }

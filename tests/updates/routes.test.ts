@@ -22,6 +22,16 @@ function createRoutes(now = () => new Date("2026-04-19T12:00:00.000Z")) {
     async findPromptBySlug(slug) {
       return promptRepository.prompts.find((prompt) => prompt.slug === slug) ?? null;
     },
+    async findPublicPromptBySlug(slug) {
+      const prompt = promptRepository.prompts.find((entry) => entry.slug === slug);
+      return prompt
+        ? {
+            ...prompt,
+            agentName: "Orbit Ops Agent",
+            agentSlug: "orbit-ops-agent",
+          }
+        : null;
+    },
     async createAgentPrompt(input) {
       const record: StoredAgentPromptRecord = {
         id: `prompt_${promptRepository.prompts.length + 1}`,
@@ -237,6 +247,7 @@ describe("agent prompt posting route", () => {
         slug: "release-risk-brief",
         tags: ["release", "risk"],
       },
+      publicPath: "/prompts/release-risk-brief",
     });
     expect(promptRepository.prompts).toHaveLength(1);
   });

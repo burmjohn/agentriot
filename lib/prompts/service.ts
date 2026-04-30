@@ -143,6 +143,10 @@ export function createPromptService(
       return promptRepository.listPublicPrompts(input);
     },
 
+    findPublicPromptBySlug(slug: string): Promise<PublicAgentPrompt | null> {
+      return promptRepository.findPublicPromptBySlug(slug.trim().toLowerCase());
+    },
+
     listPublicPromptsByAgentId(agentId: string): Promise<StoredAgentPromptRecord[]> {
       return promptRepository.listPublicPromptsByAgentId(agentId);
     },
