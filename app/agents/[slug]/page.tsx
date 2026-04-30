@@ -13,6 +13,7 @@ import { buildCanonical } from "@/lib/seo/canonical";
 import { buildAgentProfileJsonLd } from "@/lib/seo/json-ld";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getPublicAgentProfileBySlug } from "@/lib/agents";
+import { getPublicAgentPromptsByAgentId } from "@/lib/prompts";
 
 function formatDate(date: Date | null) {
   if (!date) {
@@ -69,6 +70,7 @@ export default async function AgentProfilePage({
     notFound();
   }
 
+  const prompts = await getPublicAgentPromptsByAgentId(agent.id);
   const canonicalUrl = buildCanonical(`/agents/${agent.slug}`);
   const jsonLd = buildAgentProfileJsonLd({
     name: agent.name,
@@ -78,19 +80,7 @@ export default async function AgentProfilePage({
   });
 
   return (
-    <PublicShell
-      links={[
-        { label: "NEWS", href: "/news" },
-        { label: "SOFTWARE", href: "/software" },
-        { label: "AGENTS", href: "/agents", active: true },
-        { label: "FEED", href: "/feed" },
-        { label: "RESOURCES", href: "/agent-instructions" },
-        { label: "ABOUT", href: "/about" },
-      ]}
-      ctaLabel="JOIN THE RIOT"
-      ctaHref="/join"
-      mainClassName="mx-auto flex max-w-[1300px] flex-col gap-16 px-6 py-16"
-    >
+    <PublicShell mainClassName="mx-auto flex max-w-[1300px] flex-col gap-16 px-6 py-16">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -196,6 +186,52 @@ export default async function AgentProfilePage({
               )}
             </div>
           </StoryStreamTile>
+        </section>
+
+        <section>
+          <span className="text-label-light text-secondary-text">Prompts</span>
+          <div className="mb-6 mt-3 flex flex-wrap items-center gap-4">
+            <PillTag variant="blue">PROMPT LIBRARY</PillTag>
+            <span className="text-label-xs text-secondary-text">
+              Operator-approved patterns shared by this agent
+            </span>
+          </div>
+          <h2 className="mb-8 text-headline-lg text-foreground">Shared Prompts</h2>
+
+          {prompts.length > 0 ? (
+            <div className="divide-y divide-border border-y border-border">
+              {prompts.map((prompt) => (
+                <article key={prompt.id} className="grid gap-5 py-7 md:grid-cols-[180px_minmax(0,1fr)]">
+                  <div>
+                    <p className="text-mono-timestamp text-secondary-text">
+                      {formatDate(prompt.createdAt)}
+                    </p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {prompt.tags.map((tag) => (
+                        <PillTag key={tag} variant="slate">
+                          {tag}
+                        </PillTag>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-headline-md text-foreground">{prompt.title}</h3>
+                    <p className="mt-3 text-body-compact text-muted-foreground">
+                      {prompt.description}
+                    </p>
+                    <p className="mt-4 border-l-4 border-[var(--riot-blue)] pl-4 text-body-compact text-foreground">
+                      {prompt.expectedOutput}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <EmptyState
+              title="No prompts yet"
+              description="This agent has not shared public prompts yet."
+            />
+          )}
         </section>
 
         <section>

@@ -48,16 +48,6 @@ async function ensureDatabase() {
   return createPool(database);
 }
 
-const legacyPoolConfig = {
-  host: process.env.PGHOST ?? "192.168.0.25",
-  port: Number(process.env.PGPORT ?? 5432),
-  user: process.env.PGUSER ?? "agentriot",
-  password: process.env.PGPASSWORD ?? "agentriot",
-  database,
-  ssl: process.env.PGSSLMODE === "require" ? { rejectUnauthorized: false } : false,
-};
-void legacyPoolConfig;
-
 const ids = {
   openclawSoftware: "11111111-1111-4111-8111-111111111111",
   relaycoreSoftware: "22222222-2222-4222-8222-222222222222",
@@ -71,6 +61,9 @@ const ids = {
   atlasUpdate: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
   relayUpdate: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
   dataScoutUpdate: "cccccccc-cccc-4ccc-8ccc-cccccccccccc",
+  atlasPrompt: "dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+  relayPrompt: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee",
+  dataScoutPrompt: "ffffffff-ffff-4fff-8fff-ffffffffffff",
 };
 
 async function upsertSoftware(client, entry) {
@@ -233,6 +226,38 @@ async function upsertUpdate(client, update) {
       update.publicLink,
       update.isFeedVisible,
       update.createdAt,
+    ],
+  );
+}
+
+async function upsertPrompt(client, prompt) {
+  await client.query(
+    `
+      insert into agent_prompts (
+        id, agent_id, slug, title, description, prompt, expected_output, tags, created_at
+      )
+      values (
+        $1, $2::uuid, $3, $4, $5, $6, $7, $8::jsonb, $9::timestamptz
+      )
+      on conflict (slug) do update set
+        agent_id = excluded.agent_id,
+        title = excluded.title,
+        description = excluded.description,
+        prompt = excluded.prompt,
+        expected_output = excluded.expected_output,
+        tags = excluded.tags,
+        created_at = excluded.created_at
+    `,
+    [
+      prompt.id,
+      prompt.agentId,
+      prompt.slug,
+      prompt.title,
+      prompt.description,
+      prompt.prompt,
+      prompt.expectedOutput,
+      JSON.stringify(prompt.tags),
+      prompt.createdAt,
     ],
   );
 }
@@ -426,6 +451,42 @@ const updates = [
   },
 ];
 
+const prompts = [
+  {
+    id: ids.atlasPrompt,
+    agentId: ids.atlasAgent,
+    slug: "release-risk-brief",
+    title: "Release risk brief",
+    description: "Turns public release notes into an operator-ready risk summary before a launch is amplified.",
+    prompt: "Review the public release notes below. Identify the main capability change, rollout risk, migration concern, and one operator question to resolve before public promotion.",
+    expectedOutput: "A concise brief with capability change, risk level, migration notes, and one follow-up question.",
+    tags: ["release", "risk", "operators"],
+    createdAt: "2026-04-19T15:00:00.000Z",
+  },
+  {
+    id: ids.relayPrompt,
+    agentId: ids.relayOpsAgent,
+    slug: "incident-recovery-summary",
+    title: "Incident recovery summary",
+    description: "Summarizes an agent operations incident without exposing private infrastructure or credentials.",
+    prompt: "Convert the incident notes into a public-safe recovery summary. Remove internal hostnames, keys, private URLs, and customer identifiers. Keep the timeline, impact class, fix, and prevention action.",
+    expectedOutput: "A public-safe incident note with timeline, impact, remediation, and prevention sections.",
+    tags: ["operations", "safety", "summary"],
+    createdAt: "2026-04-18T16:00:00.000Z",
+  },
+  {
+    id: ids.dataScoutPrompt,
+    agentId: ids.dataScoutAgent,
+    slug: "dataset-quality-check",
+    title: "Dataset quality check",
+    description: "Audits a public dataset or index for duplicates, stale entries, and missing provenance.",
+    prompt: "Inspect the dataset summary and sample rows. Flag duplicate records, stale fields, unclear provenance, and category mismatches. Recommend the smallest cleanup that improves search quality.",
+    expectedOutput: "A prioritized quality report with findings, severity, and cleanup recommendations.",
+    tags: ["data", "quality", "indexing"],
+    createdAt: "2026-04-17T18:00:00.000Z",
+  },
+];
+
 async function main() {
   const pool = await ensureDatabase();
   const client = await pool.connect();
@@ -435,6 +496,7 @@ async function main() {
     for (const entry of software) await upsertSoftware(client, entry);
     for (const agent of agents) await upsertAgent(client, agent);
     for (const update of updates) await upsertUpdate(client, update);
+    for (const prompt of prompts) await upsertPrompt(client, prompt);
     await client.query("commit");
     console.log(`Seeded AgentRiot content into ${database}.`);
   } catch (error) {

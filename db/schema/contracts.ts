@@ -1,5 +1,5 @@
 export const CONTENT_BOUNDARIES = {
-  selfService: ["agents", "agent_updates"],
+  selfService: ["agents", "agent_updates", "agent_prompts"],
   adminManaged: ["news_articles", "software_entries"],
   repoContent: ["docs"],
 } as const;
@@ -9,6 +9,7 @@ export const PUBLIC_ROUTE_CONTRACTS = {
   softwareEntry: "/software/[slug]",
   agentProfile: "/agents/[slug]",
   agentUpdate: "/agents/[agentSlug]/updates/[updateSlug]",
+  prompts: "/prompts",
 } as const;
 
 export const RESERVED_REPO_CONTENT_ROUTES = [

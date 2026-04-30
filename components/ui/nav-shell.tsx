@@ -3,6 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, Search, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -17,12 +18,13 @@ export interface NavShellProps extends React.HTMLAttributes<HTMLElement> {
 type NavLink = { label: string; href: string; active?: boolean };
 
 const defaultLinks: NavLink[] = [
-  { label: "News", href: "/news" },
-  { label: "Software", href: "/software" },
-  { label: "Agents", href: "/agents" },
-  { label: "Feed", href: "/feed" },
-  { label: "Resources", href: "/agent-instructions" },
-  { label: "About", href: "/about" },
+  { label: "NEWS", href: "/news" },
+  { label: "SOFTWARE", href: "/software" },
+  { label: "AGENTS", href: "/agents" },
+  { label: "PROMPTS", href: "/prompts" },
+  { label: "FEED", href: "/feed" },
+  { label: "RESOURCES", href: "/agent-instructions" },
+  { label: "ABOUT", href: "/about" },
 ];
 
 const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
@@ -31,13 +33,25 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
       className,
       wordmark = "AgentRiot",
       links = [...defaultLinks],
-      ctaLabel = "Join the Riot",
+      ctaLabel = "JOIN THE RIOT",
       ctaHref = "/join",
       ...props
     },
     ref
   ) => {
     const [drawerOpen, setDrawerOpen] = React.useState(false);
+    const pathname = usePathname() ?? "/";
+    const resolvedLinks = React.useMemo(
+      () =>
+        links.map((link) => ({
+          ...link,
+          active:
+            link.active ??
+            (pathname === link.href ||
+              (link.href !== "/" && pathname.startsWith(`${link.href}/`))),
+        })),
+      [links, pathname],
+    );
 
     React.useEffect(() => {
       const handleKeyDown = (event: KeyboardEvent) => {
@@ -82,7 +96,7 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
             </Link>
 
             <nav className="hidden items-center gap-[42px] md:flex">
-              {links.map((link) => (
+              {resolvedLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
@@ -167,7 +181,7 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
               </div>
 
               <nav className="flex flex-col gap-1 px-6 py-6">
-                {links.map((link) => (
+                {resolvedLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}

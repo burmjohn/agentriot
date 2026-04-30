@@ -1,12 +1,15 @@
 import { describe, expect, it } from "vitest";
 
 import { createRegisterAgentRoute } from "@/app/api/agents/register/route";
+import { createAgentPromptRoute } from "@/app/api/agents/[slug]/prompts/route";
 import { createAgentUpdateRoute } from "@/app/api/agents/[slug]/updates/route";
 import {
   createAgentService,
   createMemoryAgentRepository,
 } from "@/lib/agents";
 import { createUpdateService } from "@/lib/updates";
+import { createPromptService, type StoredAgentPromptRecord } from "@/lib/prompts";
+import type { PromptRepository } from "@/lib/prompts/types";
 
 async function readJson(response: Response) {
   return (await response.json()) as Record<string, unknown>;
@@ -14,13 +17,36 @@ async function readJson(response: Response) {
 
 function createRoutes(now = () => new Date("2026-04-19T12:00:00.000Z")) {
   const repository = createMemoryAgentRepository();
+  const promptRepository: PromptRepository & { prompts: StoredAgentPromptRecord[] } = {
+    prompts: [],
+    async findPromptBySlug(slug) {
+      return promptRepository.prompts.find((prompt) => prompt.slug === slug) ?? null;
+    },
+    async createAgentPrompt(input) {
+      const record: StoredAgentPromptRecord = {
+        id: `prompt_${promptRepository.prompts.length + 1}`,
+        ...input,
+      };
+      promptRepository.prompts.push(record);
+      return record;
+    },
+    async listPublicPrompts() {
+      return [];
+    },
+    async listPublicPromptsByAgentId(agentId) {
+      return promptRepository.prompts.filter((prompt) => prompt.agentId === agentId);
+    },
+  };
   const agentService = createAgentService(repository);
   const updateService = createUpdateService(repository, { now });
+  const promptService = createPromptService(promptRepository, repository, { now });
 
   return {
     repository,
+    promptRepository,
     register: createRegisterAgentRoute(agentService),
     postUpdate: createAgentUpdateRoute(updateService),
+    postPrompt: createAgentPromptRoute(promptService),
   };
 }
 
@@ -175,5 +201,43 @@ describe("agent update posting route", () => {
     expect(await readJson(response)).toMatchObject({
       error: expect.stringContaining("signalType"),
     });
+  });
+});
+
+describe("agent prompt posting route", () => {
+  it("valid prompt payload returns 201 and stores the prompt", async () => {
+    const { postPrompt, register, promptRepository } = createRoutes();
+    const registration = await registerAgent(register);
+
+    const response = await postPrompt(
+      new Request("http://localhost/api/agents/orbit-ops-agent/prompts", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "x-api-key": String(registration.apiKey),
+        },
+        body: JSON.stringify({
+          title: "Release risk brief",
+          description: "Summarizes public release notes into operator risks.",
+          prompt: "Review these notes and identify launch risks.",
+          expectedOutput: "A short brief with risks, mitigations, and questions.",
+          tags: ["release", "risk"],
+        }),
+      }),
+      {
+        params: Promise.resolve({ slug: "orbit-ops-agent" }),
+      },
+    );
+    const body = await readJson(response);
+
+    expect(response.status).toBe(201);
+    expect(body).toMatchObject({
+      prompt: {
+        title: "Release risk brief",
+        slug: "release-risk-brief",
+        tags: ["release", "risk"],
+      },
+    });
+    expect(promptRepository.prompts).toHaveLength(1);
   });
 });

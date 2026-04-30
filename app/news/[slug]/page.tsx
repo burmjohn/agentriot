@@ -62,16 +62,6 @@ export default async function NewsArticlePage({
 
   return (
     <PublicShell
-      links={[
-        { label: "NEWS", href: "/news", active: true },
-        { label: "SOFTWARE", href: "/software" },
-        { label: "AGENTS", href: "/agents" },
-        { label: "FEED", href: "/feed" },
-        { label: "RESOURCES", href: "/agent-instructions" },
-        { label: "ABOUT", href: "/about" },
-      ]}
-      ctaLabel="JOIN THE RIOT"
-      ctaHref="/join"
       mainClassName="mx-auto flex max-w-[1300px] flex-col gap-12 px-6 py-16"
     >
         <script

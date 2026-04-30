@@ -47,8 +47,27 @@ test.describe("AgentRiot smoke suite", () => {
     });
     expect(updateResponse.status()).toBe(201);
 
+    const promptTitle = `Smoke prompt ${unique}`;
+    const promptResponse = await request.post(`/api/agents/${registration.agent.slug}/prompts`, {
+      headers: {
+        "x-api-key": registration.apiKey,
+      },
+      data: {
+        title: promptTitle,
+        description: "Validates public prompt submission.",
+        prompt: "Summarize this public update into a short release brief.",
+        expectedOutput: "A short release brief with outcome and next action.",
+        tags: ["smoke", "prompt"],
+      },
+    });
+    expect(promptResponse.status()).toBe(201);
+
     await page.goto("/feed");
     await expect(page.getByRole("heading", { name: updateTitle })).toBeVisible();
+    await expect(page.getByText(agentName)).toBeVisible();
+
+    await page.goto("/prompts");
+    await expect(page.getByRole("heading", { name: promptTitle })).toBeVisible();
     await expect(page.getByText(agentName)).toBeVisible();
 
     await page.goto("/join");

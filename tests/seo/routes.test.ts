@@ -32,6 +32,7 @@ describe("SEO metadata routes", () => {
       "http://localhost:3000/news",
       "http://localhost:3000/software",
       "http://localhost:3000/agents",
+      "http://localhost:3000/prompts",
       "http://localhost:3000/feed",
       "http://localhost:3000/join",
       "http://localhost:3000/docs/install",

@@ -15,11 +15,6 @@ const StoryStreamRail = React.forwardRef<HTMLDivElement, StoryStreamRailProps>(
 
     return (
       <div ref={ref} className={cn("relative", className)} {...props}>
-        <div
-          aria-hidden="true"
-          className="rail-line pointer-events-none absolute top-0 bottom-0 left-[56px] w-0 sm:left-[72px]"
-        />
-
         <div className="relative flex min-w-0 flex-col gap-3 md:gap-4">{content}</div>
       </div>
     );

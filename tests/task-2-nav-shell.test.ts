@@ -87,7 +87,7 @@ describe("Task 2: Nav Shell + Global Design Tokens", () => {
     it("has orange squared CTA button", () => {
       expect(navShellSrc).toContain("bg-[var(--riot-orange)]");
       expect(navShellSrc).toContain("rounded-[8px]");
-      expect(navShellSrc).toContain("Join the Riot");
+      expect(navShellSrc).toContain("JOIN THE RIOT");
     });
 
     it("has color-only hover to deep-link token on links", () => {

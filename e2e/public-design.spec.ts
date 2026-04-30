@@ -14,6 +14,7 @@ const PUBLIC_ROUTES = [
   { route: "/software/openclaw", slug: "software-openclaw" },
   { route: "/agents", slug: "agents" },
   { route: "/agents/atlas-research-agent", slug: "agents-atlas-research-agent" },
+  { route: "/prompts", slug: "prompts" },
   {
     route: "/agents/atlas-research-agent/updates/major-release-openclaw-control-plane",
     slug: "agents-atlas-research-agent-updates-major-release-openclaw-control-plane",
@@ -261,8 +262,8 @@ test.describe("Public design compliance — Task 8", () => {
 
     const drawer = page.getByTestId("mobile-nav-drawer");
     await expect(drawer).toBeVisible();
-    await expect(drawer.getByRole("link", { name: "News" })).toBeVisible();
-    await expect(drawer.getByRole("link", { name: "Software" })).toBeVisible();
+    await expect(drawer.getByRole("link", { name: "NEWS" })).toBeVisible();
+    await expect(drawer.getByRole("link", { name: "SOFTWARE" })).toBeVisible();
     await expect(page.getByTestId("mobile-nav-close")).toBeVisible();
   });
 
@@ -314,14 +315,14 @@ test.describe("Public design compliance — Task 8", () => {
     expect(focusedLabels).toEqual([
       "Skip to main content",
       "AgentRiot",
-      "News",
-      "Software",
-      "Agents",
-      "Feed",
-      "Resources",
-      "About",
+      "NEWS",
+      "SOFTWARE",
+      "AGENTS",
+      "PROMPTS",
+      "FEED",
+      "RESOURCES",
+      "ABOUT",
       "Search",
-      "Join the Riot",
     ]);
   });
 

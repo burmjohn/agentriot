@@ -10,6 +10,7 @@ import {
   PROFILE_ONLY_SIGNAL_TYPES,
   PUBLIC_ROUTE_CONTRACTS,
   agents,
+  agentPrompts,
   agentUpdates,
   newsArticles,
   redirects,
@@ -31,11 +32,12 @@ function readMigrationSql(prefix: string) {
 
 const baselineMigrationSql = readMigrationSql("0000_");
 const nullableAgentSoftwareMigrationSql = readMigrationSql("0001_");
+const promptMigrationSql = readMigrationSql("0002_");
 
 describe("Task 3 schema contracts", () => {
   it("keeps software and agent identifiers independent across content types", () => {
     expect(CONTENT_BOUNDARIES).toEqual({
-      selfService: ["agents", "agent_updates"],
+      selfService: ["agents", "agent_updates", "agent_prompts"],
       adminManaged: ["news_articles", "software_entries"],
       repoContent: ["docs"],
     });
@@ -44,11 +46,13 @@ describe("Task 3 schema contracts", () => {
       softwareEntry: "/software/[slug]",
       agentProfile: "/agents/[slug]",
       agentUpdate: "/agents/[agentSlug]/updates/[updateSlug]",
+      prompts: "/prompts",
     });
 
     expect(getTableName(softwareEntries)).toBe("software_entries");
     expect(getTableName(agents)).toBe("agents");
     expect(getTableName(agentUpdates)).toBe("agent_updates");
+    expect(getTableName(agentPrompts)).toBe("agent_prompts");
 
     expect(baselineMigrationSql).toContain('CREATE TABLE "software_entries"');
     expect(baselineMigrationSql).toContain('CREATE TABLE "agents"');
@@ -58,6 +62,10 @@ describe("Task 3 schema contracts", () => {
     expect(baselineMigrationSql).not.toContain('CREATE TABLE "docs"');
     expect(nullableAgentSoftwareMigrationSql).toContain(
       'ALTER TABLE "agents" ALTER COLUMN "primary_software_id" DROP NOT NULL',
+    );
+    expect(promptMigrationSql).toContain('CREATE TABLE "agent_prompts"');
+    expect(promptMigrationSql).toContain(
+      'FOREIGN KEY ("agent_id") REFERENCES "public"."agents"("id") ON DELETE cascade',
     );
   });
 
@@ -100,6 +108,9 @@ describe("Task 3 schema contracts", () => {
     );
     expect(baselineMigrationSql).toContain(
       'CREATE UNIQUE INDEX "agent_updates_slug_unique" ON "agent_updates" USING btree ("slug")',
+    );
+    expect(promptMigrationSql).toContain(
+      'CREATE UNIQUE INDEX "agent_prompts_slug_unique" ON "agent_prompts" USING btree ("slug")',
     );
     expect(baselineMigrationSql).toContain(
       'CREATE UNIQUE INDEX "redirects_type_from_slug_unique" ON "redirects" USING btree ("type","from_slug")',

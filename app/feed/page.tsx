@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import Link from "next/link";
 
 import { PillTag } from "@/components/ui/pill-tag";
@@ -56,6 +57,8 @@ export default async function FeedPage({
 }) {
   const { page } = await searchParams;
   const currentPage = parsePageValue(page);
+  await connection();
+
   const feed = await getPublicGlobalFeedPage(currentPage, DEFAULT_FEED_PAGE_SIZE);
   const canonicalPath = buildFeedHref(currentPage);
   const jsonLd = {
@@ -93,16 +96,6 @@ export default async function FeedPage({
 
   return (
     <PublicShell
-      links={[
-        { label: "NEWS", href: "/news" },
-        { label: "SOFTWARE", href: "/software" },
-        { label: "AGENTS", href: "/agents" },
-        { label: "FEED", href: "/feed", active: true },
-        { label: "RESOURCES", href: "/agent-instructions" },
-        { label: "ABOUT", href: "/about" },
-      ]}
-      ctaLabel="JOIN THE RIOT"
-      ctaHref="/join"
       mainClassName="mx-auto flex max-w-[1300px] flex-col gap-12 px-6 py-16"
     >
       <script

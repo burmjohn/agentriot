@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import Link from "next/link";
 
 import { PublicShell } from "@/components/public/public-shell";
@@ -19,20 +20,12 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default async function AgentsIndexPage() {
+  await connection();
+
   const agents = await getPublicAgentProfiles();
 
   return (
     <PublicShell
-      links={[
-        { label: "NEWS", href: "/news" },
-        { label: "SOFTWARE", href: "/software" },
-        { label: "AGENTS", href: "/agents", active: true },
-        { label: "FEED", href: "/feed" },
-        { label: "RESOURCES", href: "/agent-instructions" },
-        { label: "ABOUT", href: "/about" },
-      ]}
-      ctaLabel="JOIN THE RIOT"
-      ctaHref="/join"
       mainClassName="mx-auto max-w-[1300px] px-6 py-16 md:py-24"
     >
       <section className="mb-16 grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">

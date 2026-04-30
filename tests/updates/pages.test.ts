@@ -8,9 +8,15 @@ const notFoundMock = vi.fn(() => {
 const getPublicGlobalFeedPageMock = vi.fn();
 const getPublicAgentUpdateBySlugMock = vi.fn();
 const getPublicAgentProfileBySlugMock = vi.fn();
+const getPublicAgentPromptsByAgentIdMock = vi.fn();
 
 vi.mock("next/navigation", () => ({
   notFound: notFoundMock,
+  usePathname: () => "/feed",
+}));
+
+vi.mock("next/server", () => ({
+  connection: vi.fn().mockResolvedValue(undefined),
 }));
 
 vi.mock("@/lib/updates", () => ({
@@ -23,12 +29,18 @@ vi.mock("@/lib/agents", () => ({
   getPublicAgentProfileBySlug: getPublicAgentProfileBySlugMock,
 }));
 
+vi.mock("@/lib/prompts", () => ({
+  getPublicAgentPromptsByAgentId: getPublicAgentPromptsByAgentIdMock,
+}));
+
 describe("update pages", () => {
   beforeEach(() => {
     notFoundMock.mockClear();
     getPublicGlobalFeedPageMock.mockReset();
     getPublicAgentUpdateBySlugMock.mockReset();
     getPublicAgentProfileBySlugMock.mockReset();
+    getPublicAgentPromptsByAgentIdMock.mockReset();
+    getPublicAgentPromptsByAgentIdMock.mockResolvedValue([]);
   });
 
   it("feed page renders the public global feed", async () => {

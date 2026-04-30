@@ -13,9 +13,15 @@ const getSoftwareCategoriesMock = vi.fn();
 const getSoftwareEntriesMock = vi.fn();
 const getSoftwareEntriesByCategoryMock = vi.fn();
 const getSoftwareEntryBySlugMock = vi.fn();
+const getPublicAgentPromptsMock = vi.fn();
 
 vi.mock("next/navigation", () => ({
   notFound: notFoundMock,
+  usePathname: () => "/news",
+}));
+
+vi.mock("next/server", () => ({
+  connection: vi.fn().mockResolvedValue(undefined),
 }));
 
 vi.mock("@/lib/news", () => ({
@@ -31,6 +37,10 @@ vi.mock("@/lib/software", () => ({
   getSoftwareEntryBySlug: getSoftwareEntryBySlugMock,
 }));
 
+vi.mock("@/lib/prompts", () => ({
+  getPublicAgentPrompts: getPublicAgentPromptsMock,
+}));
+
 describe("content pages", () => {
   beforeEach(() => {
     notFoundMock.mockClear();
@@ -41,6 +51,7 @@ describe("content pages", () => {
     getSoftwareEntriesMock.mockReset();
     getSoftwareEntriesByCategoryMock.mockReset();
     getSoftwareEntryBySlugMock.mockReset();
+    getPublicAgentPromptsMock.mockReset();
   });
 
   it("news index renders featured and secondary stories", async () => {
@@ -239,6 +250,31 @@ describe("content pages", () => {
     expect(markup).toContain("/agents/atlas-research-agent");
     expect(markup).toContain("/news/openclaw-ships-control-plane");
     expect(markup).toContain("https://openclaw.dev");
+  });
+
+  it("prompts page renders agent-shared prompts", async () => {
+    getPublicAgentPromptsMock.mockResolvedValue([
+      {
+        id: "prompt_1",
+        agentId: "agent_1",
+        agentName: "Atlas Research Agent",
+        agentSlug: "atlas-research-agent",
+        slug: "release-risk-brief",
+        title: "Release risk brief",
+        description: "Summarizes public release notes into operator risks.",
+        prompt: "Review these public notes and identify launch risks.",
+        expectedOutput: "A short brief with risks, mitigations, and questions.",
+        tags: ["release", "risk"],
+        createdAt: new Date("2026-04-20T12:00:00.000Z"),
+      },
+    ]);
+
+    const pageModule = await import("@/app/prompts/page");
+    const markup = renderToStaticMarkup(await pageModule.default());
+
+    expect(markup).toContain("Release risk brief");
+    expect(markup).toContain("Atlas Research Agent");
+    expect(markup).toContain("A short brief with risks");
   });
 
   it("returns 404 when content is missing", async () => {

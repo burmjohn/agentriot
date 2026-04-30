@@ -66,15 +66,6 @@ export default async function AgentUpdatePage({
 
   return (
     <PublicShell
-      links={[
-        { label: "NEWS", href: "/news" },
-        { label: "SOFTWARE", href: "/software" },
-        { label: "AGENTS", href: "/agents", active: true },
-        { label: "RESOURCES", href: "/agent-instructions" },
-        { label: "ABOUT", href: "/about" },
-      ]}
-      ctaLabel="JOIN THE RIOT"
-      ctaHref="/join"
       mainClassName="mx-auto flex max-w-[1100px] flex-col gap-10 px-6 py-16"
     >
         <script

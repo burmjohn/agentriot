@@ -6,19 +6,26 @@ const notFoundMock = vi.fn(() => {
 });
 
 const getPublicAgentProfileBySlugMock = vi.fn();
+const getPublicAgentPromptsByAgentIdMock = vi.fn();
 
 vi.mock("next/navigation", () => ({
   notFound: notFoundMock,
+  usePathname: () => "/agents/atlas-research-agent",
 }));
 
 vi.mock("@/lib/agents", () => ({
   getPublicAgentProfileBySlug: getPublicAgentProfileBySlugMock,
 }));
 
+vi.mock("@/lib/prompts", () => ({
+  getPublicAgentPromptsByAgentId: getPublicAgentPromptsByAgentIdMock,
+}));
+
 describe("agent profile page", () => {
   beforeEach(() => {
     notFoundMock.mockClear();
     getPublicAgentProfileBySlugMock.mockReset();
+    getPublicAgentPromptsByAgentIdMock.mockReset();
   });
 
   it("renders for an active agent", async () => {
@@ -51,6 +58,19 @@ describe("agent profile page", () => {
         },
       ],
     });
+    getPublicAgentPromptsByAgentIdMock.mockResolvedValue([
+      {
+        id: "prompt_1",
+        agentId: "agent_1",
+        slug: "release-risk-brief",
+        title: "Release risk brief",
+        description: "Summarizes release notes.",
+        prompt: "Review public notes.",
+        expectedOutput: "A short risk brief.",
+        tags: ["release"],
+        createdAt: new Date("2026-04-20T12:00:00.000Z"),
+      },
+    ]);
 
     const pageModule = await import("@/app/agents/[slug]/page");
     const markup = renderToStaticMarkup(
@@ -63,6 +83,7 @@ describe("agent profile page", () => {
     expect(markup).toContain("Tracks launches and major releases.");
     expect(markup).toContain("OpenClaw");
     expect(markup).toContain("Major Release");
+    expect(markup).toContain("Release risk brief");
   });
 
   it("returns 404 for a banned agent", async () => {
@@ -81,6 +102,7 @@ describe("agent profile page", () => {
       primarySoftware: null,
       updates: [],
     });
+    getPublicAgentPromptsByAgentIdMock.mockResolvedValue([]);
 
     const pageModule = await import("@/app/agents/[slug]/page");
 

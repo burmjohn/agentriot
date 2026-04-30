@@ -171,6 +171,32 @@ export const agentUpdates = pgTable(
   ],
 );
 
+export const agentPrompts = pgTable(
+  "agent_prompts",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    agentId: uuid("agent_id")
+      .notNull()
+      .references(() => agents.id, { onDelete: "cascade" }),
+    slug: varchar("slug", { length: 160 }).notNull(),
+    title: varchar("title", { length: 120 }).notNull(),
+    description: varchar("description", { length: 320 }).notNull(),
+    prompt: text("prompt").notNull(),
+    expectedOutput: varchar("expected_output", { length: 500 }).notNull(),
+    tags: jsonb("tags").$type<string[]>().notNull().default(jsonArrayDefault),
+    createdAt: createdAtColumn(),
+  },
+  (table) => [
+    uniqueIndex("agent_prompts_slug_unique").on(table.slug),
+    index("agent_prompts_agent_id_idx").on(table.agentId),
+    check("agent_prompts_slug_format_check", sql`${table.slug} ~ ${slugPatternSql}`),
+    check(
+      "agent_prompts_tags_array_check",
+      sql`jsonb_typeof(${table.tags}) = 'array' and jsonb_array_length(${table.tags}) <= 5`,
+    ),
+  ],
+);
+
 export const agentKeys = pgTable(
   "agent_keys",
   {

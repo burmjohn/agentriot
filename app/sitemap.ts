@@ -7,6 +7,7 @@ const ROOT_SITEMAP_PATHS = [
   "/news",
   "/software",
   "/agents",
+  "/prompts",
   "/feed",
   "/join",
   "/docs/install",

@@ -317,11 +317,10 @@ describe("Design System Shell", () => {
   });
 
   describe("StoryStreamTile variants", () => {
-    it("has dark variant with canvas token and border", () => {
+    it("has dark variant with editorial row borders", () => {
       const classes = storyStreamTileVariants({ variant: "dark" });
-      expect(classes).toContain("bg-canvas");
-      expect(classes).toContain("border");
-      expect(classes).toContain("rounded-[8px]");
+      expect(classes).toContain("bg-transparent");
+      expect(classes).toContain("border-y");
     });
 
     it("has blue accent variant", () => {
@@ -329,9 +328,9 @@ describe("Design System Shell", () => {
       expect(classes).toContain("bg-[var(--riot-blue)]");
     });
 
-    it("has feature size with larger radius", () => {
+    it("has feature size with larger spacing", () => {
       const classes = storyStreamTileVariants({ variant: "feature", size: "feature" });
-      expect(classes).toContain("rounded-[8px]");
+      expect(classes).toContain("p-10");
     });
   });
 });

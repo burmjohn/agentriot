@@ -69,16 +69,6 @@ export default async function SoftwareDetailPage({
 
   return (
     <PublicShell
-      links={[
-        { label: "NEWS", href: "/news" },
-        { label: "SOFTWARE", href: "/software", active: true },
-        { label: "AGENTS", href: "/agents" },
-        { label: "FEED", href: "/feed" },
-        { label: "RESOURCES", href: "/agent-instructions" },
-        { label: "ABOUT", href: "/about" },
-      ]}
-      ctaLabel="JOIN THE RIOT"
-      ctaHref="/join"
       mainClassName="mx-auto flex max-w-[1300px] flex-col gap-16 px-6 py-16"
     >
         <script

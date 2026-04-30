@@ -453,13 +453,6 @@
     box-shadow: inset 0px -1px 0px 0px var(--riot-blue);
   }
 
-  .rail-line {
-    border-left: 1px solid var(--riot-blue);
-  }
-  .rail-line-light {
-    border-left: 1px solid #ffffff;
-  }
-
   .text-on-light-accent {
     color: #000000;
   }

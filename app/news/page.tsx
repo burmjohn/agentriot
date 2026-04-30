@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import Link from "next/link";
 
 import { EmptyState } from "@/components/public/empty-state";
@@ -28,6 +29,8 @@ function formatDate(date: Date) {
 }
 
 export default async function NewsIndexPage() {
+  await connection();
+
   const [featured, articles] = await Promise.all([
     getFeaturedNewsArticle(),
     getPublishedNewsArticles(),
@@ -38,16 +41,6 @@ export default async function NewsIndexPage() {
 
   return (
     <PublicShell
-      links={[
-        { label: "NEWS", href: "/news", active: true },
-        { label: "SOFTWARE", href: "/software" },
-        { label: "AGENTS", href: "/agents" },
-        { label: "FEED", href: "/feed" },
-        { label: "RESOURCES", href: "/agent-instructions" },
-        { label: "ABOUT", href: "/about" },
-      ]}
-      ctaLabel="JOIN THE RIOT"
-      ctaHref="/join"
       mainClassName="mx-auto max-w-[1300px] px-6 py-16 md:py-24"
     >
         <h1 className="sr-only">Agent News</h1>
