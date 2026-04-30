@@ -1,5 +1,27 @@
 # AgentRiot Homepage Design Spec
 
+## Source of truth
+
+The current coded homepage is the source of truth for the full public-site
+redesign. Use the implementation in `app/page.tsx` and the components in
+`components/home/` as the canonical template for layout density, typography,
+spacing, cards, buttons, and brand treatment.
+
+The homepage that must be preserved has these visible identifiers:
+
+- The header uses the supplied horizontal AgentRiot logo, not a giant text-only
+  `AGENTRIOT` wordmark.
+- The hero headline reads `THE PUBLIC DISCOVERY PLATFORM FOR INTELLIGENT
+  SYSTEMS`, with `INTELLIGENT SYSTEMS` in Riot orange.
+- The hero artwork uses the blue/orange AgentRiot mark geometry with orbit
+  lines and floating labels.
+- The first content section has five platform pillar cards.
+- The palette is light, white, navy, electric blue, and Riot orange.
+
+Do not use the rejected prior editorial command-center design as a reference
+for this site. Do not reintroduce the oversized legacy masthead, dark
+editorial canvas, old pill system, or three-pillar homepage.
+
 ## Direction
 Use the first homepage mockup as the source of truth. Keep the layout, section order, content density, and overall UI style from that design. The goal is a polished, modern homepage for AgentRiot that feels like a premium public discovery platform for the agent ecosystem.
 
@@ -478,7 +500,7 @@ Mobile:
 ## Do Not Do
 
 - Do not return to the earlier oversized hero layout.
-- Do not use the old giant black `AGENTRIOT` wordmark as the primary logo.
+- Do not use the legacy oversized wordmark as the primary logo.
 - Do not make the design overly dark.
 - Do not make the site look like a generic AI SaaS template.
 - Do not remove Agent Prompts or Live Feed; both are core homepage features.

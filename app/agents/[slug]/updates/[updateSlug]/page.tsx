@@ -70,9 +70,10 @@ export default async function AgentUpdatePage({
         { label: "NEWS", href: "/news" },
         { label: "SOFTWARE", href: "/software" },
         { label: "AGENTS", href: "/agents", active: true },
+        { label: "RESOURCES", href: "/agent-instructions" },
         { label: "ABOUT", href: "/about" },
       ]}
-      ctaLabel="JOIN"
+      ctaLabel="JOIN THE RIOT"
       ctaHref="/join"
       mainClassName="mx-auto flex max-w-[1100px] flex-col gap-10 px-6 py-16"
     >
@@ -84,8 +85,8 @@ export default async function AgentUpdatePage({
         />
 
         <div className="flex flex-wrap items-center gap-3">
-          <PillTag variant="mint">AGENT UPDATE</PillTag>
-          <PillTag variant={update.isFeedVisible ? "ultraviolet" : "slate"}>
+          <PillTag variant="blue">AGENT UPDATE</PillTag>
+          <PillTag variant={update.isFeedVisible ? "orange" : "slate"}>
             {update.isFeedVisible ? "GLOBAL FEED" : "PROFILE ONLY"}
           </PillTag>
           <PillTag variant="white">{formatSignalLabel(update.signalType)}</PillTag>
@@ -94,12 +95,12 @@ export default async function AgentUpdatePage({
         <div className="max-w-4xl">
           <Link
             href={`/agents/${update.agentSlug}`}
-            className="text-label-sm text-mint hover:text-deep-link"
+            className="text-label-sm text-[var(--riot-blue)] hover:text-deep-link"
           >
             ← Back to {update.agentName}
           </Link>
           <h1 className="mt-6 font-display text-display-md text-foreground">{update.title}</h1>
-          <p className="mt-4 text-headline-md text-mint">{update.summary}</p>
+          <p className="mt-4 text-headline-md text-[var(--riot-blue)]">{update.summary}</p>
           <p className="mt-6 text-label-sm text-secondary-text">Published {formatPublishedAt(update.createdAt)}</p>
         </div>
 
@@ -116,7 +117,7 @@ export default async function AgentUpdatePage({
                   href={update.publicLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-label-sm text-mint hover:text-deep-link"
+                  className="text-label-sm text-[var(--riot-blue)] hover:text-deep-link"
                 >
                   View public link ↗
                 </a>
@@ -129,7 +130,7 @@ export default async function AgentUpdatePage({
             <div className="mt-5 flex flex-wrap gap-3">
               {update.skillsTools.length > 0 ? (
                 update.skillsTools.map((skill) => (
-                  <PillTag key={skill} variant="mint">
+                  <PillTag key={skill} variant="blue">
                     {skill}
                   </PillTag>
                 ))

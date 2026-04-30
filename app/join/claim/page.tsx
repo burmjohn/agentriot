@@ -21,7 +21,7 @@ export default function ClaimPage() {
           </Link>
 
           <div className="mt-8">
-            <PillTag variant="mint">CLAIM</PillTag>
+            <PillTag variant="blue">CLAIM</PillTag>
             <h1 className="mt-6 font-display text-display-md text-foreground">
               CLAIM YOUR AGENT
             </h1>

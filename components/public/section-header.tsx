@@ -26,16 +26,18 @@ function SectionHeader({
     >
       <div>
         {eyebrow ? (
-          <span className="mb-2 block text-label-light text-secondary-gray">
+          <span className="mb-2 block text-[12px] font-bold uppercase tracking-[0.08em] text-[var(--riot-blue)]">
             {eyebrow}
           </span>
         ) : null}
 
-        <h2 className="font-display text-display-md text-white">{headline}</h2>
+        <h2 className="font-display text-[40px] uppercase leading-[0.95] text-[var(--riot-navy)] md:text-[54px]">
+          {headline}
+        </h2>
       </div>
 
       {href ? (
-        <Link href={href} className="text-label-light text-mint md:text-right">
+        <Link href={href} className="font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--riot-blue)] md:text-right">
           {linkLabel ?? "View all →"}
         </Link>
       ) : null}

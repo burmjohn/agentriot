@@ -7,17 +7,16 @@ const pillTagVariants = cva(
   {
     variants: {
       variant: {
-        mint: "bg-[#3cffd0] text-black",
-        ultraviolet: "bg-[#5200ff] text-white",
-        yellow: "bg-[#f5c518] text-black",
-        pink: "bg-[#ff6b9d] text-black",
-        orange: "bg-[#ff8c42] text-black",
+        blue: "bg-[var(--riot-blue)] text-white",
+        yellow: "bg-[#EAF3FF] text-[var(--riot-blue)]",
+        pink: "bg-[#FFF0EC] text-[var(--riot-orange)]",
+        orange: "bg-[var(--riot-orange)] text-white",
         white: "bg-white text-black",
-        slate: "bg-surface text-muted-foreground",
+        slate: "border border-[var(--riot-border)] bg-white text-[var(--riot-muted)]",
       },
     },
     defaultVariants: {
-      variant: "mint",
+      variant: "blue",
     },
   }
 );

@@ -26,7 +26,7 @@ const StoryStreamRailItem = React.forwardRef<
       headline,
       deck,
       tag,
-      tagVariant = "mint",
+      tagVariant = "blue",
       variant = "dark",
       hideSpine: _hideSpine,
       ...props
@@ -56,7 +56,7 @@ const StoryStreamRailItem = React.forwardRef<
           className={cn(
             "min-w-0 flex-1 rounded-[20px] border p-5 transition-colors duration-150 ease-out sm:p-6",
             isAccent
-              ? "bg-[#5200ff] border-transparent"
+              ? "border-transparent bg-[var(--riot-blue)]"
               : "bg-canvas border-border"
           )}
         >
@@ -69,7 +69,7 @@ const StoryStreamRailItem = React.forwardRef<
             <span
               className={cn(
                 "block text-label-sm mb-2",
-                isAccent ? "text-white" : "text-mint"
+                isAccent ? "text-white" : "text-[var(--riot-blue)]"
               )}
             >
               {kicker}

@@ -51,8 +51,8 @@ export interface PublicFooterProps {
 
 function PublicFooter({ className }: PublicFooterProps) {
   return (
-    <footer className={cn("border-t border-[var(--riot-border)] py-2", className)}>
-      <div className="grid gap-5 md:grid-cols-[220px_1fr]">
+    <footer className={cn("border-t border-[var(--riot-border)] py-7", className)}>
+      <div className="grid gap-7 md:grid-cols-[220px_1fr]">
         <div>
           <Link href="/" className="relative block h-[24px] w-[102px]">
             <Image
@@ -63,10 +63,10 @@ function PublicFooter({ className }: PublicFooterProps) {
               className="object-contain object-left"
             />
           </Link>
-          <p className="mt-[2px] max-w-[170px] text-[11px] leading-[1.3] text-[var(--riot-muted)]">
+          <p className="mt-3 max-w-[170px] text-[13px] leading-[1.45] text-[var(--riot-muted)]">
             The public discovery platform for the agent ecosystem.
           </p>
-          <p className="mt-[2px] text-[10px] text-[var(--riot-muted)]">
+          <p className="mt-4 text-[11px] text-[var(--riot-muted)]">
             © 2026 AgentRiot. All rights reserved.
           </p>
         </div>
@@ -77,7 +77,7 @@ function PublicFooter({ className }: PublicFooterProps) {
               <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--riot-muted)]">
                 {section.title}
               </h2>
-              <nav className="mt-[2px] flex flex-col gap-1">
+              <nav className="mt-3 flex flex-col gap-2">
                 {section.links.map((link) => (
                   <Link
                     key={`${section.title}-${link.label}`}
@@ -93,7 +93,7 @@ function PublicFooter({ className }: PublicFooterProps) {
         </div>
       </div>
 
-      <div className="mt-[2px] flex flex-col gap-[2px] border-t border-[var(--riot-border)] pt-[2px] sm:flex-row sm:items-center sm:justify-end">
+      <div className="mt-6 flex flex-col gap-3 border-t border-[var(--riot-border)] pt-4 sm:flex-row sm:items-center sm:justify-end">
         <div className="flex items-center gap-4">
           {socialLinks.map((link) => (
             <Link

@@ -90,7 +90,7 @@ function buildAvatarDataUrl(name: string) {
     .join("")
     .slice(0, 2);
 
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160"><rect width="160" height="160" rx="24" fill="#2d2d2d"/><circle cx="80" cy="80" r="60" fill="#3cffd0"/><text x="50%" y="53%" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="48" font-weight="700" fill="#131313">${initials || "AR"}</text></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160"><rect width="160" height="160" rx="24" fill="#050B18"/><circle cx="80" cy="80" r="60" fill="#1457F5"/><text x="50%" y="53%" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="48" font-weight="700" fill="#FFFFFF">${initials || "AR"}</text></svg>`;
 
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }

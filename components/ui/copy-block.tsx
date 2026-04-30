@@ -26,17 +26,17 @@ export function CopyBlock({ content, label, className }: CopyBlockProps) {
     <div className={cn("relative", className)}>
       {label && (
         <div className="mb-2 flex items-center justify-between">
-          <span className="text-label-xs text-[#949494]">{label}</span>
+          <span className="text-label-xs text-[var(--riot-muted)]">{label}</span>
           <button
             onClick={handleCopy}
-            className="text-label-nano text-[#3cffd0] transition-colors hover:text-[#3860be]"
+            className="text-label-nano text-[var(--riot-blue)] transition-colors hover:text-[var(--riot-orange)]"
             aria-label={copied ? "Copied" : "Copy to clipboard"}
           >
             {copied ? "COPIED" : "COPY"}
           </button>
         </div>
       )}
-      <pre className="overflow-x-auto rounded-[4px] border border-white/10 bg-[#1a1a1a] p-4 text-body-compact text-[#e9e9e9]">
+      <pre className="overflow-x-auto rounded-[4px] border border-[var(--riot-border)] bg-[var(--riot-navy)] p-4 text-body-compact text-white">
         <code>{content}</code>
       </pre>
     </div>

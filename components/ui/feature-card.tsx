@@ -1,4 +1,6 @@
 import * as React from "react";
+import Image from "next/image";
+
 import { cn } from "@/lib/utils";
 import { PillTag } from "./pill-tag";
 
@@ -23,36 +25,40 @@ const FeatureCard = React.forwardRef<HTMLDivElement, FeatureCardProps>(
       headline,
       deck,
       tag,
-      tagVariant = "mint",
+      tagVariant = "blue",
       imageUrl,
       imageAlt = "",
       variant = "dark",
-      accentColor = "#5200ff",
+      accentColor = "#1457F5",
       ...props
     },
     ref
   ) => {
     const isAccent = variant === "accent";
+    const LIGHT_ACCENTS = new Set(["#eaf3ff", "#fff0ec", "#f5c518", "#ffffff"]);
+    const isLightAccent = isAccent && LIGHT_ACCENTS.has(accentColor.toLowerCase());
 
     return (
       <div
         ref={ref}
         className={cn(
-          "relative overflow-hidden rounded-[24px] border p-8 transition-colors duration-150 ease-out",
-          isAccent
-            ? "border-transparent"
-            : "border-white bg-[#131313]",
+          "group relative overflow-hidden transition-colors duration-150 ease-out rounded-[24px] p-8",
+          !isAccent && "border border-white bg-[#131313] text-white",
+          isAccent && (isLightAccent ? "text-black border border-black/10" : "text-white border border-white/10"),
           className
         )}
         style={isAccent ? { backgroundColor: accentColor } : undefined}
         {...props}
       >
         {imageUrl && (
-          <div className="mb-6 overflow-hidden rounded-[4px]">
-            <img
+          <div className="relative mb-6 aspect-[16/9] overflow-hidden rounded-[3px] border border-image-frame">
+            <Image
               src={imageUrl}
               alt={imageAlt}
-              className="w-full h-auto object-cover"
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              unoptimized
+              className="object-cover"
               loading="lazy"
             />
           </div>
@@ -68,7 +74,7 @@ const FeatureCard = React.forwardRef<HTMLDivElement, FeatureCardProps>(
           <span
             className={cn(
               "block text-label-light mb-3",
-              isAccent ? "text-white/80" : "text-[#949494]"
+              !isAccent && "text-[#949494]"
             )}
           >
             {kicker}
@@ -77,8 +83,8 @@ const FeatureCard = React.forwardRef<HTMLDivElement, FeatureCardProps>(
 
         <h2
           className={cn(
-            "text-headline-lg transition-colors duration-150 ease-out hover:text-[#3860be] cursor-pointer",
-            isAccent ? "text-white" : "text-white"
+              "text-headline-lg transition-colors duration-150 ease-out group-hover:text-[var(--riot-blue)] cursor-pointer",
+            !isAccent && "text-white"
           )}
         >
           {headline}
@@ -88,7 +94,7 @@ const FeatureCard = React.forwardRef<HTMLDivElement, FeatureCardProps>(
           <p
             className={cn(
               "mt-4 text-body-relaxed",
-              isAccent ? "text-white/80" : "text-[#e9e9e9]"
+              !isAccent && "text-[#e9e9e9]"
             )}
           >
             {deck}

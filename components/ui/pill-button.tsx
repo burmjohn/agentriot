@@ -8,18 +8,18 @@ const pillButtonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-[#3cffd0] text-black rounded-[24px] text-mono-button hover:bg-[rgba(255,255,255,0.2)] hover:text-black hover:shadow-[0_0_0_1px_#c2c2c2]",
+          "h-[46px] rounded-full bg-[var(--riot-orange)] px-[22px] text-mono-button text-white hover:bg-[#E83F1A]",
         secondary:
-          "bg-surface text-muted-foreground rounded-[24px] text-mono-button hover:bg-[rgba(255,255,255,0.2)] hover:text-black hover:shadow-[0_0_0_1px_#c2c2c2]",
+          "h-[46px] rounded-full border border-[var(--riot-border)] bg-white px-[22px] text-mono-button text-[var(--riot-navy)] hover:border-[var(--riot-blue)] hover:text-[var(--riot-blue)]",
         tertiary:
-          "bg-transparent text-[#3cffd0] border border-[#3cffd0] rounded-[40px] text-mono-button hover:bg-[#3cffd0] hover:text-black",
-        ultraviolet:
-          "bg-transparent text-[#5200ff] border border-[#5200ff] rounded-[30px] text-mono-button hover:bg-[#5200ff] hover:text-white",
+          "h-[46px] rounded-full border border-[var(--riot-blue)] bg-white px-[22px] text-mono-button text-[var(--riot-blue)] hover:bg-[#EAF3FF]",
+        orange:
+          "h-[46px] rounded-full border border-[var(--riot-orange)] bg-white px-[22px] text-mono-button text-[var(--riot-orange)] hover:bg-[#FFF0EC]",
       },
       size: {
-        default: "px-6 py-2.5",
-        sm: "px-4 py-1.5",
-        lg: "px-8 py-3",
+        default: "",
+        sm: "h-[38px] px-[18px]",
+        lg: "h-[52px] px-[28px]",
       },
     },
     defaultVariants: {

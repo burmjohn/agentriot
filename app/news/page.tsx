@@ -43,9 +43,10 @@ export default async function NewsIndexPage() {
         { label: "SOFTWARE", href: "/software" },
         { label: "AGENTS", href: "/agents" },
         { label: "FEED", href: "/feed" },
+        { label: "RESOURCES", href: "/agent-instructions" },
         { label: "ABOUT", href: "/about" },
       ]}
-      ctaLabel="JOIN"
+      ctaLabel="JOIN THE RIOT"
       ctaHref="/join"
       mainClassName="mx-auto max-w-[1300px] px-6 py-16 md:py-24"
     >
@@ -73,7 +74,7 @@ export default async function NewsIndexPage() {
                     {formatDate(featured.publishedAt)}
                   </span>
                 </div>
-                <p className="mt-5 text-label-sm text-mint">{featured.author}</p>
+                <p className="mt-5 text-label-sm text-[var(--riot-blue)]">{featured.author}</p>
                 <h2 className="mt-3 text-headline-lg text-foreground transition-colors duration-150 hover:text-deep-link">
                   {featured.title}
                 </h2>
@@ -104,7 +105,7 @@ export default async function NewsIndexPage() {
                     headline={article.title}
                     deck={article.summary}
                     tag={article.category}
-                    tagVariant="mint"
+                    tagVariant="blue"
                   />
                 </Link>
               ))}

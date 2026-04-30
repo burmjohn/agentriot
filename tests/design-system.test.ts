@@ -186,7 +186,6 @@ describe("Design System Shell", () => {
         "--accent: var(--riot-blue)",
         "--canvas: var(--riot-white)",
         "--surface: var(--riot-page)",
-        "--mint: var(--riot-cyan)",
         "--deep-link: var(--riot-blue)",
         "--focus-cyan: var(--riot-cyan)",
         "--hazard-white: #ffffff",
@@ -261,7 +260,7 @@ describe("Design System Shell", () => {
 
     it("body background uses light canvas token by default", () => {
       expect(globalsCss).toContain("--canvas: var(--riot-white)");
-      expect(globalsCss).toMatch(/@media\s*\(prefers-color-scheme:\s*dark\)/);
+      expect(globalsCss).toContain("color-scheme: light");
     });
   });
 
@@ -273,46 +272,46 @@ describe("Design System Shell", () => {
   });
 
   describe("PillButton variants", () => {
-    it("has primary variant with mint background", () => {
+    it("has primary variant with orange background", () => {
       const classes = pillButtonVariants({ variant: "primary" });
-      expect(classes).toContain("bg-[#3cffd0]");
-      expect(classes).toContain("text-black");
-      expect(classes).toContain("rounded-[24px]");
+      expect(classes).toContain("bg-[var(--riot-orange)]");
+      expect(classes).toContain("text-white");
+      expect(classes).toContain("rounded-full");
     });
 
     it("has secondary variant with surface token background", () => {
       const classes = pillButtonVariants({ variant: "secondary" });
-      expect(classes).toContain("bg-surface");
-      expect(classes).toContain("text-muted-foreground");
+      expect(classes).toContain("bg-white");
+      expect(classes).toContain("text-[var(--riot-navy)]");
     });
 
-    it("has tertiary variant with mint outline", () => {
+    it("has tertiary variant with blue outline", () => {
       const classes = pillButtonVariants({ variant: "tertiary" });
-      expect(classes).toContain("bg-transparent");
-      expect(classes).toContain("text-[#3cffd0]");
-      expect(classes).toContain("border-[#3cffd0]");
-      expect(classes).toContain("rounded-[40px]");
+      expect(classes).toContain("bg-white");
+      expect(classes).toContain("text-[var(--riot-blue)]");
+      expect(classes).toContain("border-[var(--riot-blue)]");
+      expect(classes).toContain("rounded-full");
     });
 
-    it("has ultraviolet variant with purple outline", () => {
-      const classes = pillButtonVariants({ variant: "ultraviolet" });
-      expect(classes).toContain("text-[#5200ff]");
-      expect(classes).toContain("border-[#5200ff]");
-      expect(classes).toContain("rounded-[30px]");
+    it("has orange outline variant", () => {
+      const classes = pillButtonVariants({ variant: "orange" });
+      expect(classes).toContain("text-[var(--riot-orange)]");
+      expect(classes).toContain("border-[var(--riot-orange)]");
+      expect(classes).toContain("rounded-full");
     });
   });
 
   describe("PillTag variants", () => {
-    it("has mint variant", () => {
-      const classes = pillTagVariants({ variant: "mint" });
-      expect(classes).toContain("bg-[#3cffd0]");
-      expect(classes).toContain("text-black");
+    it("has blue variant", () => {
+      const classes = pillTagVariants({ variant: "blue" });
+      expect(classes).toContain("bg-[var(--riot-blue)]");
+      expect(classes).toContain("text-white");
       expect(classes).toContain("rounded-[20px]");
     });
 
-    it("has ultraviolet variant", () => {
-      const classes = pillTagVariants({ variant: "ultraviolet" });
-      expect(classes).toContain("bg-[#5200ff]");
+    it("has orange variant", () => {
+      const classes = pillTagVariants({ variant: "orange" });
+      expect(classes).toContain("bg-[var(--riot-orange)]");
       expect(classes).toContain("text-white");
     });
   });
@@ -325,9 +324,9 @@ describe("Design System Shell", () => {
       expect(classes).toContain("rounded-[20px]");
     });
 
-    it("has mint accent variant", () => {
-      const classes = storyStreamTileVariants({ variant: "mint" });
-      expect(classes).toContain("bg-[#3cffd0]");
+    it("has blue accent variant", () => {
+      const classes = storyStreamTileVariants({ variant: "blue" });
+      expect(classes).toContain("bg-[var(--riot-blue)]");
     });
 
     it("has feature size with larger radius", () => {

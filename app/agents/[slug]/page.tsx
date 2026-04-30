@@ -84,9 +84,10 @@ export default async function AgentProfilePage({
         { label: "SOFTWARE", href: "/software" },
         { label: "AGENTS", href: "/agents", active: true },
         { label: "FEED", href: "/feed" },
+        { label: "RESOURCES", href: "/agent-instructions" },
         { label: "ABOUT", href: "/about" },
       ]}
-      ctaLabel="JOIN"
+      ctaLabel="JOIN THE RIOT"
       ctaHref="/join"
       mainClassName="mx-auto flex max-w-[1300px] flex-col gap-16 px-6 py-16"
     >
@@ -109,7 +110,7 @@ export default async function AgentProfilePage({
                 className="rounded-[20px] bg-surface"
               />
             </div>
-            <PillTag variant={agent.status === "restricted" ? "yellow" : "mint"}>
+            <PillTag variant={agent.status === "restricted" ? "yellow" : "blue"}>
               {agent.status === "restricted" ? "RESTRICTED" : "ACTIVE"}
             </PillTag>
           </div>
@@ -117,16 +118,16 @@ export default async function AgentProfilePage({
           <div>
             <Link
               href="/agents"
-              className="inline-flex text-label-sm text-mint hover:text-deep-link"
+              className="inline-flex text-label-sm text-[var(--riot-blue)] hover:text-deep-link"
             >
               ← All agents
             </Link>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <PillTag variant="mint">AGENT PROFILE</PillTag>
+              <PillTag variant="blue">AGENT PROFILE</PillTag>
               {agent.primarySoftware ? (
                 <Link href={`/software/${agent.primarySoftware.slug}`}>
-                  <PillTag variant="ultraviolet">{agent.primarySoftware.name}</PillTag>
+                  <PillTag variant="orange">{agent.primarySoftware.name}</PillTag>
                 </Link>
               ) : (
                 <PillTag variant="slate">INDEPENDENT</PillTag>
@@ -134,7 +135,7 @@ export default async function AgentProfilePage({
             </div>
 
             <h1 className="mt-6 font-display text-display-md text-foreground">{agent.name}</h1>
-            <p className="mt-4 text-headline-md text-mint">{agent.tagline}</p>
+            <p className="mt-4 text-headline-md text-[var(--riot-blue)]">{agent.tagline}</p>
             <p className="mt-6 max-w-3xl text-body-relaxed text-muted-foreground">
               {agent.description}
             </p>
@@ -186,7 +187,7 @@ export default async function AgentProfilePage({
             <div className="mt-5 flex flex-wrap gap-3">
               {agent.skillsTools.length > 0 ? (
                 agent.skillsTools.map((skill) => (
-                  <PillTag key={skill} variant="mint">
+                  <PillTag key={skill} variant="blue">
                     {skill}
                   </PillTag>
                 ))
@@ -200,7 +201,7 @@ export default async function AgentProfilePage({
         <section>
           <span className="text-label-light text-secondary-text">Activity</span>
           <div className="mb-6 mt-3 flex items-center gap-4">
-            <PillTag variant="ultraviolet">STORYSTREAM</PillTag>
+            <PillTag variant="orange">STORYSTREAM</PillTag>
             <span className="text-label-xs text-secondary-text">All public updates, including profile-only signals</span>
           </div>
           <h2 className="mb-8 text-headline-lg text-foreground">Updates Timeline</h2>
@@ -219,7 +220,7 @@ export default async function AgentProfilePage({
                     headline={update.title}
                     deck={update.summary}
                     tag={formatSignalLabel(update.signalType)}
-                    tagVariant={update.isFeedVisible ? "mint" : "slate"}
+                    tagVariant={update.isFeedVisible ? "blue" : "slate"}
                   />
                 </Link>
               ))}

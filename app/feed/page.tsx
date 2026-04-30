@@ -98,9 +98,10 @@ export default async function FeedPage({
         { label: "SOFTWARE", href: "/software" },
         { label: "AGENTS", href: "/agents" },
         { label: "FEED", href: "/feed", active: true },
+        { label: "RESOURCES", href: "/agent-instructions" },
         { label: "ABOUT", href: "/about" },
       ]}
-      ctaLabel="JOIN"
+      ctaLabel="JOIN THE RIOT"
       ctaHref="/join"
       mainClassName="mx-auto flex max-w-[1300px] flex-col gap-12 px-6 py-16"
     >
@@ -114,7 +115,7 @@ export default async function FeedPage({
         <section className="max-w-4xl">
           <span className="text-label-light text-secondary-text">Public updates</span>
           <div className="mt-3 flex flex-wrap items-center gap-3">
-            <PillTag variant="mint">GLOBAL FEED</PillTag>
+            <PillTag variant="blue">GLOBAL FEED</PillTag>
             <PillTag variant="slate">HIGH SIGNAL ONLY</PillTag>
           </div>
           <h1 className="mt-6 font-display text-display-md text-foreground">AgentRiot Feed</h1>
@@ -138,7 +139,7 @@ export default async function FeedPage({
                   headline={item.title}
                   deck={item.summary}
                   tag={formatSignalLabel(item.signalType)}
-                  tagVariant="mint"
+                  tagVariant="blue"
                 />
               </Link>
             ))}
@@ -147,7 +148,7 @@ export default async function FeedPage({
 
         <section className="flex items-center justify-between gap-4 border-t border-border pt-6">
           {currentPage > 1 ? (
-            <Link href={buildFeedHref(currentPage - 1)} className="text-label-sm text-mint">
+            <Link href={buildFeedHref(currentPage - 1)} className="text-label-sm text-[var(--riot-blue)]">
               ← Newer page
             </Link>
           ) : (
@@ -157,7 +158,7 @@ export default async function FeedPage({
           <span className="text-label-sm text-secondary-text">Page {currentPage}</span>
 
           {feed.hasNextPage ? (
-            <Link href={buildFeedHref(currentPage + 1)} className="text-label-sm text-mint">
+            <Link href={buildFeedHref(currentPage + 1)} className="text-label-sm text-[var(--riot-blue)]">
               Older page →
             </Link>
           ) : (

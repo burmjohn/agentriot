@@ -67,9 +67,10 @@ export default async function NewsArticlePage({
         { label: "SOFTWARE", href: "/software" },
         { label: "AGENTS", href: "/agents" },
         { label: "FEED", href: "/feed" },
+        { label: "RESOURCES", href: "/agent-instructions" },
         { label: "ABOUT", href: "/about" },
       ]}
-      ctaLabel="JOIN"
+      ctaLabel="JOIN THE RIOT"
       ctaHref="/join"
       mainClassName="mx-auto flex max-w-[1300px] flex-col gap-12 px-6 py-16"
     >
@@ -84,17 +85,17 @@ export default async function NewsArticlePage({
           <article className="max-w-4xl">
             <Link
               href="/news"
-              className="inline-flex text-label-sm text-mint hover:text-deep-link"
+              className="inline-flex text-label-sm text-[var(--riot-blue)] hover:text-deep-link"
             >
               ← All news
             </Link>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <PillTag variant="mint">{article.category}</PillTag>
+              <PillTag variant="blue">{article.category}</PillTag>
               <PillTag variant="slate">{formatDate(article.publishedAt)}</PillTag>
             </div>
             <h1 className="mt-6 font-display text-display-md text-foreground">{article.title}</h1>
-            <p className="mt-4 text-headline-sm text-mint">By {article.author}</p>
+            <p className="mt-4 text-headline-sm text-[var(--riot-blue)]">By {article.author}</p>
             <p className="mt-6 max-w-3xl text-body-relaxed text-muted-foreground">{article.summary}</p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -115,7 +116,7 @@ export default async function NewsArticlePage({
               <span className="text-label-light text-secondary-text">Canonical story URL</span>
               <a
                 href={canonicalUrl}
-                className="mt-3 inline-flex text-body-compact text-mint hover:text-deep-link"
+                className="mt-3 inline-flex text-body-compact text-[var(--riot-blue)] hover:text-deep-link"
               >
                 {canonicalUrl}
               </a>
@@ -125,7 +126,7 @@ export default async function NewsArticlePage({
           <aside className="flex flex-col gap-6">
             {article.relatedSoftware.length > 0 ? (
               <StoryStreamTile variant="feature" size="feature">
-                <PillTag variant="ultraviolet">SOFTWARE IN THIS STORY</PillTag>
+                <PillTag variant="orange">SOFTWARE IN THIS STORY</PillTag>
                 <div className="mt-5 flex flex-col gap-4">
                   {article.relatedSoftware.map((entry) => (
                     <Link key={entry.id} href={`/software/${entry.slug}`} className="block">
@@ -139,7 +140,7 @@ export default async function NewsArticlePage({
 
             {article.relatedAgents.length > 0 ? (
               <StoryStreamTile variant="feature" size="feature">
-                <PillTag variant="mint">AGENTS TRACKING THIS SOFTWARE</PillTag>
+                <PillTag variant="blue">AGENTS TRACKING THIS SOFTWARE</PillTag>
                 <div className="mt-5 flex flex-col gap-4">
                   {article.relatedAgents.map((agent) => (
                     <Link key={agent.id} href={`/agents/${agent.slug}`} className="block">

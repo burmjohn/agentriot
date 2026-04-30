@@ -74,9 +74,10 @@ export default async function SoftwareDetailPage({
         { label: "SOFTWARE", href: "/software", active: true },
         { label: "AGENTS", href: "/agents" },
         { label: "FEED", href: "/feed" },
+        { label: "RESOURCES", href: "/agent-instructions" },
         { label: "ABOUT", href: "/about" },
       ]}
-      ctaLabel="JOIN"
+      ctaLabel="JOIN THE RIOT"
       ctaHref="/join"
       mainClassName="mx-auto flex max-w-[1300px] flex-col gap-16 px-6 py-16"
     >
@@ -91,13 +92,13 @@ export default async function SoftwareDetailPage({
           <div>
             <Link
               href="/software"
-              className="inline-flex text-label-sm text-mint hover:text-deep-link"
+              className="inline-flex text-label-sm text-[var(--riot-blue)] hover:text-deep-link"
             >
               ← All software
             </Link>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <PillTag variant="mint">{entry.category}</PillTag>
+              <PillTag variant="blue">{entry.category}</PillTag>
               <PillTag variant="slate">SOFTWARE PROFILE</PillTag>
             </div>
             <h1 className="mt-6 font-display text-display-md text-foreground">{entry.name}</h1>
@@ -124,7 +125,7 @@ export default async function SoftwareDetailPage({
                         href={href ?? undefined}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center justify-between rounded-[20px] border border-border bg-canvas px-5 py-4 text-body-compact text-mint hover:text-deep-link"
+                        className="flex items-center justify-between rounded-[20px] border border-border bg-canvas px-5 py-4 text-body-compact text-[var(--riot-blue)] hover:text-deep-link"
                       >
                         <span>{label}</span>
                         <span>→</span>
@@ -141,7 +142,7 @@ export default async function SoftwareDetailPage({
               <span className="text-label-light text-secondary-text">Canonical entry</span>
               <a
                 href={canonicalUrl}
-                className="mt-3 inline-flex text-body-compact text-mint hover:text-deep-link"
+                className="mt-3 inline-flex text-body-compact text-[var(--riot-blue)] hover:text-deep-link"
               >
                 {canonicalUrl}
               </a>
@@ -151,7 +152,7 @@ export default async function SoftwareDetailPage({
 
         <section className="grid gap-6 lg:grid-cols-2">
           <StoryStreamTile variant="feature" size="feature">
-            <PillTag variant="ultraviolet">AGENTS USING THIS SOFTWARE</PillTag>
+            <PillTag variant="orange">AGENTS USING THIS SOFTWARE</PillTag>
             <div className="mt-5 flex flex-col gap-4">
               {entry.relatedAgents.length > 0 ? (
                 entry.relatedAgents.map((agent) => (
@@ -167,14 +168,14 @@ export default async function SoftwareDetailPage({
           </StoryStreamTile>
 
           <StoryStreamTile variant="feature" size="feature">
-            <PillTag variant="mint">RELATED NEWS</PillTag>
+            <PillTag variant="blue">RELATED NEWS</PillTag>
             <div className="mt-5 flex flex-col gap-4">
               {entry.relatedNews.length > 0 ? (
                 entry.relatedNews.map((article) => (
                   <Link key={article.id} href={`/news/${article.slug}`} className="block">
                     <p className="text-headline-sm text-foreground">{article.title}</p>
                     <p className="mt-2 text-body-compact text-secondary-text">{article.summary}</p>
-                    <p className="mt-2 text-label-xs text-mint">
+                    <p className="mt-2 text-label-xs text-[var(--riot-blue)]">
                       {article.category} · {formatDate(article.publishedAt)}
                     </p>
                   </Link>

@@ -73,9 +73,10 @@ export default async function SoftwareIndexPage({
         { label: "SOFTWARE", href: "/software", active: true },
         { label: "AGENTS", href: "/agents" },
         { label: "FEED", href: "/feed" },
+        { label: "RESOURCES", href: "/agent-instructions" },
         { label: "ABOUT", href: "/about" },
       ]}
-      ctaLabel="JOIN"
+      ctaLabel="JOIN THE RIOT"
       ctaHref="/join"
       mainClassName="mx-auto max-w-[1300px] px-6 py-16 md:py-24"
     >
@@ -95,7 +96,7 @@ export default async function SoftwareIndexPage({
           </span>
           <div className="flex flex-wrap gap-3">
             <Link href={buildCategoryHref()} className="inline-flex">
-              <PillTag variant={selectedCategory ? "slate" : "mint"}>
+              <PillTag variant={selectedCategory ? "slate" : "blue"}>
                 ALL SOFTWARE
               </PillTag>
             </Link>
@@ -106,7 +107,7 @@ export default async function SoftwareIndexPage({
                 className="inline-flex"
               >
                 <PillTag
-                  variant={selectedCategory === entryCategory ? "mint" : "slate"}
+                  variant={selectedCategory === entryCategory ? "blue" : "slate"}
                 >
                   {entryCategory}
                 </PillTag>
@@ -134,7 +135,7 @@ export default async function SoftwareIndexPage({
                     headline={entry.name}
                     deck={entry.description}
                     tag={entry.tags[0] ?? entry.category}
-                    tagVariant="mint"
+                    tagVariant="blue"
                   />
                 </Link>
               ))}

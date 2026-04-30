@@ -21,12 +21,8 @@ describe("Task 2: Nav Shell + Global Design Tokens", () => {
         "--riot-cyan",
         "--canvas",
         "--surface",
-        "--mint",
-        "--ultraviolet",
-        "--console-mint",
         "--deep-link",
         "--focus-cyan",
-        "--purple-rule",
         "--image-frame",
         "--hazard-white",
         "--absolute-black",
@@ -120,18 +116,17 @@ describe("Task 2: Nav Shell + Global Design Tokens", () => {
   });
 
   describe("pill-button.tsx CTA styling", () => {
-    it("primary variant has mint fill and black text", () => {
+    it("primary variant has orange fill and white text", () => {
       const classes = pillButtonVariants({ variant: "primary" });
-      expect(classes).toContain("bg-[#3cffd0]");
-      expect(classes).toContain("text-black");
-      expect(classes).toContain("rounded-[24px]");
+      expect(classes).toContain("bg-[var(--riot-orange)]");
+      expect(classes).toContain("text-white");
+      expect(classes).toContain("rounded-full");
       expect(classes).toContain("text-mono-button");
     });
 
     it("primary variant has proper hover state", () => {
       const classes = pillButtonVariants({ variant: "primary" });
-      expect(classes).toContain("hover:bg-[rgba(255,255,255,0.2)]");
-      expect(classes).toContain("hover:text-black");
+      expect(classes).toContain("hover:bg-[#E83F1A]");
     });
 
     it("has transition on background", () => {
