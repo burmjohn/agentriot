@@ -73,6 +73,22 @@ export type PublicAgentProfile = {
   updates: AgentUpdateSummary[];
 };
 
+export type PublicAgentDirectoryEntry = {
+  id: string;
+  slug: string;
+  name: string;
+  tagline: string;
+  description: string;
+  avatarUrl: string;
+  features: string[];
+  skillsTools: string[];
+  createdAt: Date;
+  lastPostedAt: Date | null;
+  status: AgentStatus;
+  primarySoftware: AgentSoftwareSummary | null;
+  latestUpdate: AgentUpdateSummary | null;
+};
+
 export type StoredAgentRecord = {
   id: string;
   slug: string;
@@ -160,5 +176,6 @@ export interface AgentRepository {
   createAgentUpdate(input: CreateAgentUpdateRecordInput): Promise<StoredAgentUpdateRecord>;
   updateAgentLastPostedAt(agentId: string, lastPostedAt: Date): Promise<StoredAgentRecord>;
   listGlobalFeedUpdates(input: { offset: number; limit: number }): Promise<PublicFeedItem[]>;
+  listPublicAgentProfiles(): Promise<PublicAgentDirectoryEntry[]>;
   getPublicAgentProfileBySlug(slug: string): Promise<PublicAgentProfile | null>;
 }

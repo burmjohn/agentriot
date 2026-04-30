@@ -8,6 +8,7 @@ import { agentClaims, agentKeys, agents, agentUpdates, softwareEntries } from "@
 import type {
   AgentKeyLookup,
   AgentRepository,
+  PublicAgentDirectoryEntry,
   PublicAgentProfile,
   StoredAgentKeyRecord,
   StoredAgentRecord,
@@ -201,6 +202,58 @@ export function createDatabaseAgentRepository(db: DatabaseClient = createDb()): 
       })) satisfies PublicFeedItem[];
     },
 
+    async listPublicAgentProfiles() {
+      const records = await db
+        .select({
+          agent: agents,
+          software: {
+            id: softwareEntries.id,
+            slug: softwareEntries.slug,
+            name: softwareEntries.name,
+          },
+        })
+        .from(agents)
+        .leftJoin(softwareEntries, eq(agents.primarySoftwareId, softwareEntries.id))
+        .where(ne(agents.status, "banned"))
+        .orderBy(desc(agents.lastPostedAt), desc(agents.createdAt));
+
+      const entries = await Promise.all(
+        records.map(async (record) => {
+          const [latestUpdate] = await db
+            .select({
+              id: agentUpdates.id,
+              agentId: agentUpdates.agentId,
+              slug: agentUpdates.slug,
+              title: agentUpdates.title,
+              summary: agentUpdates.summary,
+              whatChanged: agentUpdates.whatChanged,
+              signalType: agentUpdates.signalType,
+              skillsTools: agentUpdates.skillsTools,
+              publicLink: agentUpdates.publicLink,
+              isFeedVisible: agentUpdates.isFeedVisible,
+              createdAt: agentUpdates.createdAt,
+            })
+            .from(agentUpdates)
+            .where(eq(agentUpdates.agentId, record.agent.id))
+            .orderBy(desc(agentUpdates.createdAt))
+            .limit(1);
+
+          const sw = record.software;
+
+          return {
+            ...mapAgentRow(record.agent),
+            primarySoftware:
+              sw && sw.id && sw.slug && sw.name
+                ? sw
+                : null,
+            latestUpdate: latestUpdate ? mapUpdateRow(latestUpdate) : null,
+          } satisfies PublicAgentDirectoryEntry;
+        }),
+      );
+
+      return entries;
+    },
+
     async getPublicAgentProfileBySlug(slug) {
       const [record] = await db
         .select({
@@ -255,7 +308,7 @@ export type MemoryAgentRepository = AgentRepository & {
   keys: StoredAgentKeyRecord[];
   claims: StoredClaimRecord[];
   software: StoredSoftwareRecord[];
-  updates: StoredAgentUpdateRecord[];
+    updates: StoredAgentUpdateRecord[];
 };
 
 export function createMemoryAgentRepository(
@@ -390,6 +443,30 @@ export function createMemoryAgentRepository(
         .filter((item): item is PublicFeedItem => item !== null)
         .sort((left, right) => right.createdAt.getTime() - left.createdAt.getTime())
         .slice(offset, offset + limit);
+    },
+
+    async listPublicAgentProfiles() {
+      return repository.agents
+        .filter((agent) => agent.status !== "banned")
+        .map((agent) => {
+          const primarySoftware = agent.primarySoftwareId
+            ? repository.software.find((software) => software.id === agent.primarySoftwareId) ?? null
+            : null;
+          const latestUpdate = repository.updates
+            .filter((update) => update.agentId === agent.id)
+            .sort((left, right) => right.createdAt.getTime() - left.createdAt.getTime())[0] ?? null;
+
+          return {
+            ...agent,
+            primarySoftware,
+            latestUpdate,
+          } satisfies PublicAgentDirectoryEntry;
+        })
+        .sort((left, right) => {
+          const leftDate = left.lastPostedAt ?? left.createdAt;
+          const rightDate = right.lastPostedAt ?? right.createdAt;
+          return rightDate.getTime() - leftDate.getTime();
+        });
     },
 
     async getPublicAgentProfileBySlug(slug) {

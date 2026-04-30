@@ -16,7 +16,7 @@ export interface BottomCtaBannerProps {
 export function BottomCtaBanner({ content, className }: BottomCtaBannerProps) {
   return (
     <section className={cn("px-[32px] pb-[20px] pt-1 max-md:px-[20px]", className)}>
-      <div className="relative grid min-h-[108px] grid-cols-[96px_240px_1fr_auto] items-center gap-[24px] overflow-hidden rounded-[10px] bg-[var(--riot-navy)] px-[32px] py-[18px] shadow-[0_16px_28px_rgba(5,11,24,0.16)] max-lg:grid-cols-1 max-lg:gap-[18px] max-lg:py-[28px]">
+      <div className="relative grid min-h-[108px] grid-cols-[96px_240px_1fr_auto] items-center gap-[24px] overflow-hidden rounded-[10px] bg-[var(--riot-navy)] px-[32px] py-[18px] max-lg:grid-cols-1 max-lg:gap-[18px] max-lg:py-[28px]">
         <div className="relative z-10 flex h-[58px] w-[86px] items-center justify-center px-[4px]">
           <Image
             src="/brand/agentriot-mark-exact.png"
@@ -36,14 +36,14 @@ export function BottomCtaBanner({ content, className }: BottomCtaBannerProps) {
         <div className="relative z-10 flex flex-wrap items-center gap-[14px]">
           <Link
             href={content.primaryCta.href}
-            className="inline-flex h-[44px] items-center justify-center gap-[8px] rounded-full bg-[var(--riot-orange)] px-[22px] font-mono text-[12px] font-bold uppercase leading-none tracking-[0.08em] text-white hover:bg-[#E83F1A]"
+            className="inline-flex h-[44px] items-center justify-center gap-[8px] rounded-[8px] bg-[var(--riot-orange)] px-[22px] font-mono text-[12px] font-bold uppercase leading-none tracking-[0.08em] text-white hover:bg-[#E83F1A]"
           >
             {content.primaryCta.label}
             <ArrowRight className="h-[14px] w-[14px]" />
           </Link>
           <Link
             href={content.secondaryCta.href}
-            className="inline-flex h-[44px] items-center justify-center rounded-full border border-white/55 px-[22px] font-mono text-[12px] font-bold uppercase leading-none tracking-[0.08em] text-white hover:bg-white/10"
+            className="inline-flex h-[44px] items-center justify-center rounded-[8px] border border-white/55 px-[22px] font-mono text-[12px] font-bold uppercase leading-none tracking-[0.08em] text-white hover:bg-white/10"
           >
             {content.secondaryCta.label}
           </Link>

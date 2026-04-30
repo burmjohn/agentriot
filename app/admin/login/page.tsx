@@ -31,7 +31,7 @@ export default function AdminLoginPage() {
 
   return (
     <main className="agentriot-public min-h-screen bg-white px-6 py-16 text-[var(--riot-navy)]">
-      <section className="mx-auto max-w-md rounded-[24px] border border-[var(--riot-border)] bg-white p-8">
+      <section className="mx-auto max-w-md rounded-[8px] border border-[var(--riot-border)] bg-white p-8">
         <h1 className="font-display text-display-md uppercase">Admin Login</h1>
         <form className="mt-8 flex flex-col gap-5" onSubmit={handleSubmit}>
           <label className="flex flex-col gap-2 text-label-sm">

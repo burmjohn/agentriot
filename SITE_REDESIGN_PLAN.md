@@ -11,10 +11,11 @@ Every public route must look like it belongs to the current homepage:
 - Use the supplied horizontal AgentRiot logo in the header and footer.
 - Use the light white/soft-gray canvas with navy text, electric blue accents,
   and Riot orange CTAs.
-- Use compact editorial density, rounded cards, thin borders, and explicit
+- Use compact editorial density, squared 8px cards, thin borders, and explicit
   pixel spacing where layout precision matters.
 - Use the condensed display headline treatment for page heroes only.
-- Use blue/orange graph or mark-inspired visuals when a page needs imagery.
+- Use blue/orange graph or mark-inspired visuals when a page needs imagery,
+  without decorative bubbles, dashed orbits, or soft-shadow card stacks.
 - Preserve the homepage navigation model: News, Software, Agents, Feed,
   Resources, About, search, and Join the Riot.
 
@@ -61,6 +62,20 @@ First, stabilize shared public UI so every page inherits the homepage language:
   type scale, and blue/orange accent rules.
 - `app/globals.css`: remove tokens that only support the rejected prior
   editorial design. Keep the homepage font and color system.
+
+## Data sourcing
+
+Public entity data must come from Postgres through the existing Drizzle
+repositories:
+
+- News/articles: `news_articles`
+- Software directory: `software_entries`
+- Agent directory/profile pages: `agents` plus linked `software_entries`
+- Feed and update pages: `agent_updates` joined to `agents`
+
+Do not use runtime seed arrays or file fixtures for public pages. Use
+`pnpm db:seed` to insert deterministic local/test records when the database is
+empty.
 
 ## Page redesign plan
 
@@ -148,6 +163,8 @@ Make `/about` a concise editorial company page, not a generic marketing page.
   `public/brand/` assets.
 - Do not add new dependencies.
 - Do not change admin or API behavior while redesigning public pages.
+- Delete runtime seed fallback modules once the explicit DB seed command covers
+  local/test content.
 
 ## Verification plan
 
@@ -156,6 +173,7 @@ Run this verification before claiming the redesign is complete:
 - `pnpm lint`
 - `pnpm typecheck`
 - `pnpm test`
+- `pnpm db:seed`
 - `pnpm build`
 - Playwright route screenshots for desktop and mobile:
   `/`, `/news`, `/news/openclaw-ships-control-plane`, `/software`,

@@ -13,19 +13,16 @@ import { PublicShell } from "@/components/public/public-shell";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { buildOrganizationJsonLd } from "@/lib/seo/json-ld";
 import { getPublicGlobalFeedPage } from "@/lib/updates";
+import { getFeaturedNewsArticle, getPublishedNewsArticles } from "@/lib/news";
+import { getSoftwareEntries } from "@/lib/software";
 import {
   agentPrompts,
   bottomCtaBanner,
-  featuredStory,
   heroContent,
-  latestCoverage,
   liveActivitySection,
-  liveAgentActivity,
-  liveFeedFixture,
   liveFeedSection,
   platformPillars,
   platformPillarsSection,
-  softwareSpotlight,
   tripleColumnContent,
 } from "@/components/home/homepage-content";
 import type { PublicFeedItem } from "@/lib/updates/types";
@@ -62,20 +59,71 @@ function toLiveFeedItems(items: PublicFeedItem[]): LiveFeedItem[] {
   });
 }
 
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat("en", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(date);
+}
+
+function formatTimelineTimestamp(date: Date) {
+  return new Intl.DateTimeFormat("en", {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(date);
+}
+
+function formatSignalLabel(value: string) {
+  return value.replace(/_/g, " ").toUpperCase();
+}
+
 export default async function HomePage() {
-  const feed = await getPublicGlobalFeedPage(1, 4);
+  const [feed, featuredArticle, articles, softwareEntries] = await Promise.all([
+    getPublicGlobalFeedPage(1, 4),
+    getFeaturedNewsArticle(),
+    getPublishedNewsArticles(),
+    getSoftwareEntries(),
+  ]);
   const organizationJsonLd = buildOrganizationJsonLd();
 
-  const liveFeedItems: LiveFeedItem[] =
-    feed.items.length >= 4
-      ? toLiveFeedItems(feed.items)
-      : liveFeedFixture.map((item) => ({
-          id: item.id,
-          timeAgo: item.timeAgo,
-          agentName: item.agentName,
-          text: item.updateText,
-          status: item.id === "fixture-1" ? "live" : "recent",
-        }));
+  const liveFeedItems = toLiveFeedItems(feed.items);
+  const latestCoverage = articles
+    .filter((article) => article.slug !== featuredArticle?.slug)
+    .slice(0, 3)
+    .map((article) => ({
+      headline: article.title,
+      tag: article.category,
+      publishedAt: formatDate(article.publishedAt).toUpperCase(),
+      href: `/news/${article.slug}`,
+    }));
+  const softwareSpotlight = softwareEntries.slice(0, 3).map((entry) => ({
+    name: entry.name,
+    category: entry.category,
+    description: entry.description,
+    href: `/software/${entry.slug}`,
+  }));
+  const liveAgentActivity = feed.items.slice(0, 4).map((item) => ({
+    agentName: item.agentName,
+    agentSlug: item.agentSlug,
+    timestamp: formatTimelineTimestamp(item.createdAt).toUpperCase(),
+    category: formatSignalLabel(item.signalType),
+    description: item.summary,
+    href: `/agents/${item.agentSlug}/updates/${item.slug}`,
+  }));
+  const featuredStory = featuredArticle
+    ? {
+        label: "Featured Story",
+        tag: featuredArticle.category,
+        publishedAt: formatDate(featuredArticle.publishedAt).toUpperCase(),
+        headline: featuredArticle.title,
+        deck: featuredArticle.summary,
+        cta: { label: "Read Story", href: `/news/${featuredArticle.slug}` },
+        author: featuredArticle.author,
+      }
+    : null;
 
   return (
     <PublicShell>
@@ -91,11 +139,13 @@ export default async function HomePage() {
         section={platformPillarsSection}
         pillars={platformPillars}
       />
-      <FeaturedStoryRow
-        story={featuredStory}
-        section={liveFeedSection}
-        liveFeedItems={liveFeedItems}
-      />
+      {featuredStory ? (
+        <FeaturedStoryRow
+          story={featuredStory}
+          section={liveFeedSection}
+          liveFeedItems={liveFeedItems}
+        />
+      ) : null}
       <HomepageTripleColumn
         content={tripleColumnContent}
         prompts={agentPrompts}

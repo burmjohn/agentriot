@@ -21,21 +21,15 @@ describe("update index helpers", () => {
     getPublicAgentUpdateMock.mockReset();
   });
 
-  it("falls back to seed feed data when the database is unavailable", async () => {
-    listGlobalFeedMock.mockRejectedValue(
-      Object.assign(new Error("database agentriot_dev does not exist"), {
-        code: "3D000",
-      }),
-    );
+  it("propagates database errors instead of falling back to hardcoded seed data", async () => {
+    const dbError = Object.assign(new Error("database agentriot_dev does not exist"), {
+      code: "3D000",
+    });
+    listGlobalFeedMock.mockRejectedValue(dbError);
     getPublicAgentUpdateMock.mockResolvedValue(null);
 
     const { getPublicGlobalFeedPage } = await import("@/lib/updates");
-    const page = await getPublicGlobalFeedPage(1, 4);
 
-    expect(page.items.length).toBeGreaterThan(0);
-    expect(page.items[0]).toMatchObject({
-      agentSlug: "atlas-research-agent",
-      signalType: "major_release",
-    });
+    await expect(getPublicGlobalFeedPage(1, 4)).rejects.toBe(dbError);
   });
 });

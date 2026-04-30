@@ -4,10 +4,20 @@ import { ArrowRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-import type { featuredStory, liveFeedSection } from "./homepage-content";
+export interface FeaturedStoryContent {
+  label: string;
+  tag: string;
+  publishedAt: string;
+  headline: string;
+  deck: string;
+  cta: { label: string; href: string };
+  author: string;
+}
 
-type FeaturedStoryContent = typeof featuredStory;
-type LiveFeedSection = typeof liveFeedSection;
+export interface LiveFeedSection {
+  title: string;
+  cta: { label: string; href: string };
+}
 
 export interface LiveFeedItem {
   id: string;
@@ -44,7 +54,7 @@ export function FeaturedStoryRow({
         <div className="grid grid-cols-[310px_1fr] gap-8 max-md:grid-cols-1">
           <Link
             href={story.cta.href}
-            className="relative block h-[240px] overflow-hidden rounded-[8px] shadow-[0_12px_26px_rgba(5,11,24,0.12)]"
+            className="relative block h-[240px] overflow-hidden rounded-[8px]"
           >
             <Image
               src="/images/homepage/featured-story-network.svg"
@@ -77,13 +87,6 @@ export function FeaturedStoryRow({
               {story.cta.label}
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
-            <div className="mt-3 flex gap-4" aria-hidden="true">
-              <span className="h-2 w-2 rounded-full bg-[var(--riot-blue)]" />
-              <span className="h-2 w-2 rounded-full bg-[var(--riot-blue)]" />
-              <span className="h-2 w-2 rounded-full bg-[var(--riot-border)]" />
-              <span className="h-2 w-2 rounded-full bg-[var(--riot-border)]" />
-              <span className="h-2 w-2 rounded-full bg-[var(--riot-border)]" />
-            </div>
           </div>
         </div>
       </article>
@@ -106,7 +109,7 @@ export function FeaturedStoryRow({
           {liveFeedItems.slice(0, 4).map((item) => (
             <div
               key={item.id}
-              className="grid grid-cols-[52px_34px_1fr_8px] items-center gap-3 rounded-[8px] border border-[var(--riot-border)] bg-white px-3 py-2 shadow-[0_8px_18px_rgba(5,11,24,0.035)]"
+              className="grid grid-cols-[52px_34px_1fr_8px] items-center gap-3 rounded-[8px] border border-[var(--riot-border)] bg-white px-3 py-2"
             >
               <span className="font-mono text-[10px] font-bold uppercase tracking-[0.02em] text-[var(--riot-muted)]">
                 {item.timeAgo}
@@ -124,7 +127,7 @@ export function FeaturedStoryRow({
               </span>
               <span
                 className={cn(
-                  "h-2 w-2 rounded-full",
+                  "h-2 w-2 rounded-[8px]",
                   item.status === "live" ? "bg-[var(--riot-blue)]" : "bg-[#9BB1D8]"
                 )}
               />

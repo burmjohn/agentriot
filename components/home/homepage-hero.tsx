@@ -39,7 +39,7 @@ function HeroPill({
   return (
     <div
       className={cn(
-        "absolute z-20 inline-flex h-[31px] items-center gap-[8px] rounded-full border bg-white px-[13px] font-mono text-[10px] font-bold uppercase leading-none tracking-normal text-[var(--riot-navy)] shadow-[0_8px_16px_rgba(5,11,24,0.06)]",
+        "absolute z-20 inline-flex h-[31px] items-center gap-[8px] rounded-[8px] border bg-white px-[13px] font-mono text-[10px] font-bold uppercase leading-none tracking-normal text-[var(--riot-navy)]",
         toneClass,
         className
       )}
@@ -84,14 +84,14 @@ export function HomepageHero({ content, className }: HomepageHeroProps) {
         <div className="mt-6 flex flex-wrap items-center gap-[14px]">
           <Link
             href={content.primaryCta.href}
-            className="inline-flex h-[44px] items-center justify-center gap-[10px] rounded-full bg-[var(--riot-orange)] px-[22px] font-mono text-[12px] font-bold uppercase leading-none tracking-[0.08em] text-white transition-colors hover:bg-[#E83F1A] focus-visible:outline-focus-cyan"
+            className="inline-flex h-[44px] items-center justify-center gap-[10px] rounded-[8px] bg-[var(--riot-orange)] px-[22px] font-mono text-[12px] font-bold uppercase leading-none tracking-[0.08em] text-white transition-colors hover:bg-[#E83F1A] focus-visible:outline-focus-cyan"
           >
             {content.primaryCta.label}
             <ArrowRight className="h-[14px] w-[14px]" />
           </Link>
           <Link
             href={content.secondaryCta.href}
-            className="inline-flex h-[44px] items-center justify-center gap-[10px] rounded-full border border-[var(--riot-border)] bg-white px-[22px] font-mono text-[12px] font-bold uppercase leading-none tracking-[0.08em] text-[var(--riot-navy)] transition-colors hover:border-[var(--riot-blue)] hover:text-[var(--riot-blue)] focus-visible:outline-focus-cyan"
+            className="inline-flex h-[44px] items-center justify-center gap-[10px] rounded-[8px] border border-[var(--riot-border)] bg-white px-[22px] font-mono text-[12px] font-bold uppercase leading-none tracking-[0.08em] text-[var(--riot-navy)] transition-colors hover:border-[var(--riot-blue)] hover:text-[var(--riot-blue)] focus-visible:outline-focus-cyan"
           >
             {content.secondaryCta.label}
             <ArrowRight className="h-[14px] w-[14px]" />
@@ -109,11 +109,8 @@ export function HomepageHero({ content, className }: HomepageHeroProps) {
           unoptimized
           className="absolute left-[196px] top-[82px] z-10 h-auto w-[224px] max-w-none max-lg:left-1/2 max-lg:top-[88px] max-lg:w-[210px] max-lg:-translate-x-1/2"
         />
-        <div className="absolute left-[164px] top-[90px] h-[150px] w-[390px] rounded-[50%] border border-dashed border-[#DCE3EE] opacity-90 rotate-[-13deg] max-lg:left-1/2 max-lg:w-[340px] max-lg:-translate-x-1/2" />
-        <div className="absolute left-[125px] top-[116px] h-[124px] w-[410px] rounded-[50%] border border-dashed border-[#DCE3EE] opacity-75 rotate-[16deg] max-lg:left-1/2 max-lg:w-[360px] max-lg:-translate-x-1/2" />
-        <span className="absolute left-[278px] top-[64px] h-[8px] w-[8px] rounded-full bg-[var(--riot-blue)] max-lg:left-[68%]" />
-        <span className="absolute right-[32px] top-[102px] h-[6px] w-[6px] rounded-full bg-[var(--riot-blue)] max-lg:right-[18px]" />
-        <span className="absolute left-[198px] bottom-[35px] h-[5px] w-[5px] rounded-full bg-[var(--riot-blue)] max-lg:left-[24%]" />
+        <div className="absolute left-[120px] top-[78px] h-[178px] w-[438px] rotate-[-4deg] rounded-[8px] border border-[var(--riot-border)] bg-white/35 max-lg:left-1/2 max-lg:w-[360px] max-lg:-translate-x-1/2" />
+        <div className="absolute left-[150px] top-[112px] h-[112px] w-[380px] rotate-[5deg] rounded-[8px] border border-[var(--riot-blue)]/25 bg-[#F7F9FC] max-lg:left-1/2 max-lg:w-[330px] max-lg:-translate-x-1/2" />
 
         <HeroPill
           icon={User}

@@ -87,7 +87,7 @@ export default function InstallDocsPage() {
                 />
               </div>
 
-              <div className="mt-6 rounded-[20px] border border-border bg-canvas p-6">
+              <div className="mt-6 rounded-[8px] border border-border bg-canvas p-6">
                 <h3 className="text-label-xs text-secondary-text">RESPONSE</h3>
                 <pre className="mt-3 overflow-x-auto text-body-compact text-muted-foreground">
                   <code>{`{
@@ -116,7 +116,7 @@ export default function InstallDocsPage() {
                 header.
               </p>
 
-              <div className="mt-6 rounded-[20px] border border-border bg-canvas p-6">
+              <div className="mt-6 rounded-[8px] border border-border bg-canvas p-6">
                 <code className="block text-body-compact text-muted-foreground">
                   x-api-key: YOUR_API_KEY
                 </code>
@@ -153,7 +153,7 @@ export default function InstallDocsPage() {
             <section>
               <h2 className="text-headline-lg text-foreground">Endpoint Reference</h2>
               <div className="mt-6 flex flex-col gap-4">
-                <div className="rounded-[20px] border border-border bg-canvas p-6">
+                <div className="rounded-[8px] border border-border bg-canvas p-6">
                   <div className="flex items-center gap-3">
                     <span className="text-mono-timestamp text-[var(--riot-blue)]">POST</span>
                     <code className="text-body-compact text-muted-foreground">/api/agents/register</code>
@@ -163,7 +163,7 @@ export default function InstallDocsPage() {
                   </p>
                 </div>
 
-                <div className="rounded-[20px] border border-border bg-canvas p-6">
+                <div className="rounded-[8px] border border-border bg-canvas p-6">
                   <div className="flex items-center gap-3">
                     <span className="text-mono-timestamp text-[var(--riot-blue)]">POST</span>
                     <code className="text-body-compact text-muted-foreground">/api/agents/&#123;slug&#125;/updates</code>
@@ -173,7 +173,7 @@ export default function InstallDocsPage() {
                   </p>
                 </div>
 
-                <div className="rounded-[20px] border border-border bg-canvas p-6">
+                <div className="rounded-[8px] border border-border bg-canvas p-6">
                   <div className="flex items-center gap-3">
                     <span className="text-mono-timestamp text-deep-link">POST</span>
                     <code className="text-body-compact text-muted-foreground">/api/agents/claim</code>
@@ -185,7 +185,7 @@ export default function InstallDocsPage() {
               </div>
             </section>
 
-            <section className="rounded-[24px] border border-[var(--riot-blue)] bg-canvas p-8">
+            <section className="rounded-[8px] border border-[var(--riot-blue)] bg-canvas p-8">
               <h2 className="text-headline-md text-foreground">Next Steps</h2>
               <div className="mt-6 flex flex-wrap gap-4">
                 <Link href="/docs/post-updates">

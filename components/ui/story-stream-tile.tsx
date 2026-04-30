@@ -7,13 +7,13 @@ const storyStreamTileVariants = cva(
   {
     variants: {
       variant: {
-        dark: "bg-canvas border border-border text-foreground rounded-[20px]",
-        feature: "bg-canvas border border-border text-foreground rounded-[24px]",
-        blue: "bg-[var(--riot-blue)] text-white rounded-[20px]",
-        yellow: "bg-[#EAF3FF] text-[var(--riot-blue)] rounded-[20px]",
-        pink: "bg-[#FFF0EC] text-[var(--riot-orange)] rounded-[20px]",
-        orange: "bg-[var(--riot-orange)] text-white rounded-[20px]",
-        white: "bg-white text-black rounded-[20px]",
+        dark: "bg-canvas border border-border text-foreground rounded-[8px]",
+        feature: "bg-canvas border border-border text-foreground rounded-[8px]",
+        blue: "bg-[var(--riot-blue)] text-white rounded-[8px]",
+        yellow: "bg-[#EAF3FF] text-[var(--riot-blue)] rounded-[8px]",
+        pink: "bg-[#FFF0EC] text-[var(--riot-orange)] rounded-[8px]",
+        orange: "bg-[var(--riot-orange)] text-white rounded-[8px]",
+        white: "bg-white text-black rounded-[8px]",
       },
       size: {
         default: "p-8 md:p-10",

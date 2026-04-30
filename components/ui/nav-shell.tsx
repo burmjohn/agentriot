@@ -100,13 +100,13 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
               <button
                 type="button"
                 aria-label="Search"
-                className="inline-flex h-[46px] w-[46px] items-center justify-center rounded-full bg-[#F2F5FA] text-[var(--riot-navy)] transition-colors hover:bg-[#E8EEF7] focus-visible:outline-focus-cyan"
+                className="inline-flex h-[46px] w-[46px] items-center justify-center rounded-[8px] bg-[#F2F5FA] text-[var(--riot-navy)] transition-colors hover:bg-[#E8EEF7] focus-visible:outline-focus-cyan"
               >
                 <Search className="h-[18px] w-[18px]" />
               </button>
               <Link
                 href={ctaHref}
-                className="inline-flex h-[46px] items-center justify-center rounded-full bg-[var(--riot-orange)] px-[22px] font-mono text-[12px] font-bold uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#E83F1A] focus-visible:outline-focus-cyan"
+                className="inline-flex h-[46px] items-center justify-center rounded-[8px] bg-[var(--riot-orange)] px-[22px] font-mono text-[12px] font-bold uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#E83F1A] focus-visible:outline-focus-cyan"
               >
                 {ctaLabel}
               </Link>
@@ -116,7 +116,7 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
               type="button"
               aria-label="Open navigation menu"
               data-testid="mobile-nav-toggle"
-              className="inline-flex h-[44px] w-[44px] items-center justify-center rounded-full bg-[#F2F5FA] text-[var(--riot-navy)] md:hidden"
+              className="inline-flex h-[44px] w-[44px] items-center justify-center rounded-[8px] bg-[#F2F5FA] text-[var(--riot-navy)] md:hidden"
               onClick={() => setDrawerOpen(true)}
             >
               <Menu className="h-[20px] w-[20px]" />
@@ -159,7 +159,7 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
                   type="button"
                   aria-label="Close navigation menu"
                   data-testid="mobile-nav-close"
-                  className="inline-flex h-[40px] w-[40px] items-center justify-center rounded-full bg-[#F2F5FA] text-[var(--riot-navy)]"
+                  className="inline-flex h-[40px] w-[40px] items-center justify-center rounded-[8px] bg-[#F2F5FA] text-[var(--riot-navy)]"
                   onClick={() => setDrawerOpen(false)}
                 >
                   <X className="h-[20px] w-[20px]" />
@@ -171,7 +171,7 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="rounded-xl px-3 py-3 text-[15px] font-semibold text-[var(--riot-navy)] hover:bg-[#F2F5FA]"
+                    className="rounded-[8px] px-3 py-3 text-[15px] font-semibold text-[var(--riot-navy)] hover:bg-[#F2F5FA]"
                     onClick={() => setDrawerOpen(false)}
                   >
                     {link.label}
@@ -183,7 +183,7 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
                 <Link
                   href={ctaHref}
                   onClick={() => setDrawerOpen(false)}
-                  className="inline-flex h-[48px] w-full items-center justify-center rounded-full bg-[var(--riot-orange)] font-mono text-[12px] font-bold uppercase tracking-[0.08em] text-white"
+                  className="inline-flex h-[48px] w-full items-center justify-center rounded-[8px] bg-[var(--riot-orange)] font-mono text-[12px] font-bold uppercase tracking-[0.08em] text-white"
                 >
                   {ctaLabel}
                 </Link>

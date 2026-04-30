@@ -230,11 +230,11 @@ describe("Design System Shell", () => {
     it("defines the full radius scale from DESIGN.md", () => {
       expect(globalsCss).toContain("--radius-sm: 2px");
       expect(globalsCss).toContain("--radius-md: 4px");
-      expect(globalsCss).toContain("--radius-lg: 20px");
-      expect(globalsCss).toContain("--radius-xl: 24px");
-      expect(globalsCss).toContain("--radius-2xl: 30px");
-      expect(globalsCss).toContain("--radius-3xl: 40px");
-      expect(globalsCss).toContain("--radius-4xl: 50%");
+      expect(globalsCss).toContain("--radius-lg: 8px");
+      expect(globalsCss).toContain("--radius-xl: 8px");
+      expect(globalsCss).toContain("--radius-2xl: 10px");
+      expect(globalsCss).toContain("--radius-3xl: 12px");
+      expect(globalsCss).toContain("--radius-4xl: 16px");
     });
 
     it("includes 3px radius for inline images", () => {
@@ -276,7 +276,7 @@ describe("Design System Shell", () => {
       const classes = pillButtonVariants({ variant: "primary" });
       expect(classes).toContain("bg-[var(--riot-orange)]");
       expect(classes).toContain("text-white");
-      expect(classes).toContain("rounded-full");
+      expect(classes).toContain("rounded-[8px]");
     });
 
     it("has secondary variant with surface token background", () => {
@@ -290,14 +290,14 @@ describe("Design System Shell", () => {
       expect(classes).toContain("bg-white");
       expect(classes).toContain("text-[var(--riot-blue)]");
       expect(classes).toContain("border-[var(--riot-blue)]");
-      expect(classes).toContain("rounded-full");
+      expect(classes).toContain("rounded-[8px]");
     });
 
     it("has orange outline variant", () => {
       const classes = pillButtonVariants({ variant: "orange" });
       expect(classes).toContain("text-[var(--riot-orange)]");
       expect(classes).toContain("border-[var(--riot-orange)]");
-      expect(classes).toContain("rounded-full");
+      expect(classes).toContain("rounded-[8px]");
     });
   });
 
@@ -306,7 +306,7 @@ describe("Design System Shell", () => {
       const classes = pillTagVariants({ variant: "blue" });
       expect(classes).toContain("bg-[var(--riot-blue)]");
       expect(classes).toContain("text-white");
-      expect(classes).toContain("rounded-[20px]");
+      expect(classes).toContain("rounded-[8px]");
     });
 
     it("has orange variant", () => {
@@ -321,7 +321,7 @@ describe("Design System Shell", () => {
       const classes = storyStreamTileVariants({ variant: "dark" });
       expect(classes).toContain("bg-canvas");
       expect(classes).toContain("border");
-      expect(classes).toContain("rounded-[20px]");
+      expect(classes).toContain("rounded-[8px]");
     });
 
     it("has blue accent variant", () => {
@@ -331,7 +331,7 @@ describe("Design System Shell", () => {
 
     it("has feature size with larger radius", () => {
       const classes = storyStreamTileVariants({ variant: "feature", size: "feature" });
-      expect(classes).toContain("rounded-[24px]");
+      expect(classes).toContain("rounded-[8px]");
     });
   });
 });

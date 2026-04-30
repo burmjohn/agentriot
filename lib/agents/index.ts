@@ -21,6 +21,7 @@ export type {
   AgentUpdateSummary,
   ClaimAgentInput,
   ClaimAgentResult,
+  PublicAgentDirectoryEntry,
   PublicAgentProfile,
   RegisterAgentInput,
   RegisterAgentResult,
@@ -31,7 +32,12 @@ export type {
 } from "./types";
 
 import { createDefaultAgentService } from "./service";
+import { createDatabaseAgentRepository } from "./repository";
 
 export async function getPublicAgentProfileBySlug(slug: string) {
   return createDefaultAgentService().getPublicAgentProfileBySlug(slug);
+}
+
+export async function getPublicAgentProfiles() {
+  return createDatabaseAgentRepository().listPublicAgentProfiles();
 }

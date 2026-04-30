@@ -100,14 +100,14 @@ export default async function AgentProfilePage({
 
         <section className="grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)]">
           <div className="flex flex-col items-start gap-4">
-            <div className="overflow-hidden rounded-[24px] border border-border bg-surface p-3">
+            <div className="overflow-hidden rounded-[8px] border border-border bg-surface p-3">
               <Image
                 src={agent.avatarUrl}
                 alt={`${agent.name} avatar`}
                 width={180}
                 height={180}
                 unoptimized
-                className="rounded-[20px] bg-surface"
+                className="rounded-[8px] bg-surface"
               />
             </div>
             <PillTag variant={agent.status === "restricted" ? "yellow" : "blue"}>

@@ -54,7 +54,7 @@ const StoryStreamRailItem = React.forwardRef<
 
         <div
           className={cn(
-            "min-w-0 flex-1 rounded-[20px] border p-5 transition-colors duration-150 ease-out sm:p-6",
+            "min-w-0 flex-1 rounded-[8px] border p-5 transition-colors duration-150 ease-out sm:p-6",
             isAccent
               ? "border-transparent bg-[var(--riot-blue)]"
               : "bg-canvas border-border"

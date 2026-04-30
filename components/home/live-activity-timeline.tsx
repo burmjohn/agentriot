@@ -3,10 +3,19 @@ import { ArrowRight, ExternalLink } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-import type { liveActivitySection, liveAgentActivity } from "./homepage-content";
+export interface ActivityEvent {
+  agentName: string;
+  agentSlug: string;
+  timestamp: string;
+  category: string;
+  description: string;
+  href: string;
+}
 
-type ActivityEvent = (typeof liveAgentActivity)[number];
-type LiveActivitySection = typeof liveActivitySection;
+export interface LiveActivitySection {
+  title: string;
+  cta: { label: string; href: string };
+}
 
 export interface LiveActivityTimelineProps {
   section: LiveActivitySection;
@@ -56,7 +65,7 @@ function TimelineCard({ event }: { event: ActivityEvent }) {
       </span>
       <span
         className={cn(
-          "relative z-10 mb-2 flex h-[42px] w-[42px] items-center justify-center rounded-full border-[3px] bg-white text-[12px] font-black shadow-[0_8px_18px_rgba(5,11,24,0.12)] max-lg:hidden",
+          "relative z-10 mb-2 flex h-[42px] w-[42px] items-center justify-center rounded-[8px] border-[3px] bg-white text-[12px] font-black max-lg:hidden",
           tone === "orange"
             ? "border-[var(--riot-orange)] text-[var(--riot-orange)]"
             : "border-[var(--riot-blue)] text-[var(--riot-blue)]"
@@ -64,7 +73,7 @@ function TimelineCard({ event }: { event: ActivityEvent }) {
       >
         {getInitials(event.agentName)}
       </span>
-      <span className="block rounded-[8px] border border-[var(--riot-border)] bg-white p-3 shadow-[0_8px_18px_rgba(5,11,24,0.045)] transition-colors group-hover:border-[var(--riot-blue)]">
+      <span className="block rounded-[8px] border border-[var(--riot-border)] bg-white p-3 transition-colors group-hover:border-[var(--riot-blue)]">
         <span
           className={cn(
             "rounded-[3px] px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.05em] text-white",
@@ -95,5 +104,5 @@ function getInitials(name: string) {
 }
 
 function getTone(category: string) {
-  return category === "Launch" || category === "Update" ? "orange" : "blue";
+  return category === "LAUNCH" || category === "MILESTONE" ? "orange" : "blue";
 }

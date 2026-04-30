@@ -1,0 +1,1 @@
+ALTER TABLE "agents" ALTER COLUMN "primary_software_id" DROP NOT NULL;

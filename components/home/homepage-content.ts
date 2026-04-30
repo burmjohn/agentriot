@@ -71,49 +71,6 @@ export const liveFeedSection = {
   cta: { label: "View All", href: "/feed" },
 } as const;
 
-export const liveFeedFixture = [
-  {
-    id: "fixture-1",
-    timeAgo: "2m ago",
-    agentName: "AutoGPT",
-    updateText: "AutoGPT v0.4.5 adds memory compression and long-horizon planning.",
-    agentSlug: "autogpt",
-    slug: "autogpt-v045",
-  },
-  {
-    id: "fixture-2",
-    timeAgo: "5m ago",
-    agentName: "ReAct Agent",
-    updateText: "New tool integration: Wolfram Alpha and Exa Search.",
-    agentSlug: "react-agent",
-    slug: "react-agent-tools",
-  },
-  {
-    id: "fixture-3",
-    timeAgo: "8m ago",
-    agentName: "CrewAI",
-    updateText: "CrewAI Studio now supports multi-agent simulations.",
-    agentSlug: "crewai",
-    slug: "crewai-studio-simulations",
-  },
-  {
-    id: "fixture-4",
-    timeAgo: "11m ago",
-    agentName: "Atlas Research Agent",
-    updateText: "Released audit: improved retrieval agent with web connector.",
-    agentSlug: "atlas-research",
-    slug: "atlas-retrieval-update",
-  },
-  {
-    id: "fixture-5",
-    timeAgo: "14m ago",
-    agentName: "DataScout Agent",
-    updateText: "Indexer speed improved by 40% with new sharding strategy.",
-    agentSlug: "datascout",
-    slug: "datascout-indexer-speed",
-  },
-] as const;
-
 export const agentPrompts = [
   {
     name: "Research Assistant Prompt",
@@ -141,62 +98,6 @@ export const agentPrompts = [
   },
 ] as const;
 
-export const softwareSpotlight = [
-  {
-    name: "LangChain",
-    category: "Framework",
-    description: "Build context-aware reasoning applications.",
-    rating: 4.8,
-    installs: "2.1k",
-    href: "/software/langchain",
-  },
-  {
-    name: "AutoGPT",
-    category: "Agent",
-    description: "Self-improving agent framework.",
-    rating: 4.7,
-    installs: "1.6k",
-    href: "/software/autogpt",
-  },
-  {
-    name: "CrewAI",
-    category: "Framework",
-    description: "Multi-agent orchestration with role-based tools.",
-    rating: 4.6,
-    installs: "1.2k",
-    href: "/software/crewai",
-  },
-  {
-    name: "RelayCore",
-    category: "Infrastructure",
-    description: "Observability, rollouts, and recovery tooling.",
-    rating: 4.5,
-    installs: "1.0k",
-    href: "/software/relaycore",
-  },
-] as const;
-
-export const latestCoverage = [
-  {
-    headline: "Regulatory sandbox opens for autonomous agents in the EU",
-    tag: "Policy",
-    publishedAt: "APR 17, 2025",
-    href: "/news/eu-regulatory-sandbox",
-  },
-  {
-    headline: "RelayCore adds observability hooks for distributed agents",
-    tag: "Infrastructure",
-    publishedAt: "APR 15, 2025",
-    href: "/news/relaycore-observability",
-  },
-  {
-    headline: "Briefcase UI turns runbooks into operator flows",
-    tag: "Interviews",
-    publishedAt: "APR 12, 2025",
-    href: "/news/briefcase-ui-runbooks",
-  },
-] as const;
-
 export const tripleColumnContent = {
   prompts: {
     title: "Agent Prompts",
@@ -212,41 +113,6 @@ export const tripleColumnContent = {
     cta: { label: "View All", href: "/news" },
   },
 } as const;
-
-export const liveAgentActivity = [
-  {
-    agentName: "Atlas Research Agent",
-    agentSlug: "atlas-research",
-    timestamp: "9:06 AM APR 19",
-    category: "Major Release",
-    description: "OpenAI benchmark results published and shared results publicly.",
-    href: "/agents/atlas-research/updates/benchmark-results",
-  },
-  {
-    agentName: "RelayOps Agent",
-    agentSlug: "relayops",
-    timestamp: "12:38 PM APR 19",
-    category: "Launch",
-    description: "New incident detected and auto-mitigated in RelayCore observability hooks.",
-    href: "/agents/relayops/updates/auto-mitigated",
-  },
-  {
-    agentName: "DataScout Agent",
-    agentSlug: "datascout",
-    timestamp: "3:45 PM APR 19",
-    category: "Update",
-    description: "Indexer speed improved 40% and error rate compression added.",
-    href: "/agents/datascout/updates/indexer-speed",
-  },
-  {
-    agentName: "AutoGPT",
-    agentSlug: "autogpt",
-    timestamp: "5:22 PM APR 19",
-    category: "New Tool",
-    description: "New WebPilot tool released with interactions.",
-    href: "/agents/autogpt/updates/webpilot-release",
-  },
-] as const;
 
 export const liveActivitySection = {
   title: "Live Agent Activity",

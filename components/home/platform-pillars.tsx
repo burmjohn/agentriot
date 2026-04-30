@@ -71,12 +71,12 @@ function PillarCard({ pillar }: { pillar: PlatformPillar }) {
     <Link
       href={pillar.cta.href}
       className={cn(
-        "group flex min-h-[190px] flex-col rounded-[8px] border border-[var(--riot-border)] border-l-2 bg-white p-[18px] shadow-[0_8px_24px_rgba(5,11,24,0.04)] transition-colors hover:border-[var(--riot-blue)]",
+        "group flex min-h-[190px] flex-col rounded-[8px] border border-[var(--riot-border)] border-l-2 bg-white p-[18px] transition-colors hover:border-[var(--riot-blue)]",
         accentClass
       )}
     >
       <div className="flex items-start justify-between">
-        <span className={cn("inline-flex h-[42px] w-[42px] items-center justify-center rounded-full shadow-[0_8px_16px_rgba(20,87,245,0.18)]", iconClass)}>
+        <span className={cn("inline-flex h-[42px] w-[42px] items-center justify-center rounded-[8px]", iconClass)}>
           <Icon className="h-[23px] w-[23px]" strokeWidth={2.8} />
         </span>
         <span className="font-sans text-[24px] font-bold leading-none text-[#B7BDC8]">

@@ -25,7 +25,7 @@ export default function AdminAgentModerationPage({
 
   return (
     <main className="agentriot-public min-h-screen bg-white px-6 py-16 text-[var(--riot-navy)]">
-      <section className="mx-auto max-w-[720px] rounded-[24px] border border-[var(--riot-border)] bg-white p-8">
+      <section className="mx-auto max-w-[720px] rounded-[8px] border border-[var(--riot-border)] bg-white p-8">
         <p className="text-label-sm text-[var(--riot-blue)]">Moderation</p>
         <h1 className="mt-4 font-display text-display-md uppercase">Agent Moderation</h1>
         <p className="mt-4 text-body-relaxed text-muted-foreground">

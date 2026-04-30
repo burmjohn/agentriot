@@ -2,17 +2,46 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Star, TerminalSquare } from "lucide-react";
 
-import type {
-  agentPrompts,
-  latestCoverage,
-  softwareSpotlight,
-  tripleColumnContent,
-} from "./homepage-content";
+export interface PromptItem {
+  name: string;
+  tag: string;
+  description: string;
+  uses: number;
+  rating: number;
+  href: string;
+}
 
-type PromptItem = (typeof agentPrompts)[number];
-type SoftwareItem = (typeof softwareSpotlight)[number];
-type CoverageItem = (typeof latestCoverage)[number];
-type TripleColumnContent = typeof tripleColumnContent;
+export interface SoftwareItem {
+  name: string;
+  category: string;
+  description: string;
+  rating?: number;
+  installs?: string;
+  href: string;
+}
+
+export interface CoverageItem {
+  headline: string;
+  tag: string;
+  publishedAt: string;
+  href: string;
+}
+
+export interface TripleColumnContent {
+  prompts: {
+    title: string;
+    primaryCta: { label: string; href: string };
+    secondaryCta: { label: string; href: string };
+  };
+  software: {
+    title: string;
+    cta: { label: string; href: string };
+  };
+  coverage: {
+    title: string;
+    cta: { label: string; href: string };
+  };
+}
 
 export interface HomepageTripleColumnProps {
   content: TripleColumnContent;
@@ -104,9 +133,9 @@ export function HomepageTripleColumn({
                 <span className="font-mono text-[11px] text-[var(--riot-muted)]">
                   <span className="flex items-center gap-1 text-[var(--riot-navy)]">
                     <Star className="h-3 w-3 fill-[var(--riot-navy)]" />
-                    {item.rating}
+                    {item.rating?.toFixed(1) ?? "DB"}
                   </span>
-                  <span>{item.installs}</span>
+                  <span>{item.installs ?? "live"}</span>
                 </span>
               </Link>
             ))}

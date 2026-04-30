@@ -1,14 +1,97 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
 
 const getPublicGlobalFeedPageMock = vi.fn();
+const getFeaturedNewsArticleMock = vi.fn();
+const getPublishedNewsArticlesMock = vi.fn();
+const getSoftwareEntriesMock = vi.fn();
 
 vi.mock("@/lib/updates", () => ({
   getPublicGlobalFeedPage: getPublicGlobalFeedPageMock,
 }));
 
+vi.mock("@/lib/news", () => ({
+  getFeaturedNewsArticle: getFeaturedNewsArticleMock,
+  getPublishedNewsArticles: getPublishedNewsArticlesMock,
+}));
+
+vi.mock("@/lib/software", () => ({
+  getSoftwareEntries: getSoftwareEntriesMock,
+}));
+
+function mockContent() {
+  getFeaturedNewsArticleMock.mockResolvedValue({
+    id: "news_featured",
+    slug: "openclaw-ships-control-plane",
+    title: "OpenClaw ships a new control plane",
+    summary: "The latest release improves multi-agent coordination.",
+    content: "Full article body.",
+    category: "Launches",
+    tags: ["OpenClaw", "coordination"],
+    featured: true,
+    publishedAt: new Date("2026-04-19T12:00:00.000Z"),
+    author: "AgentRiot Editorial",
+    metaTitle: null,
+    metaDescription: null,
+    canonicalUrl: null,
+  });
+  getPublishedNewsArticlesMock.mockResolvedValue([
+    {
+      id: "news_featured",
+      slug: "openclaw-ships-control-plane",
+      title: "OpenClaw ships a new control plane",
+      summary: "The latest release improves multi-agent coordination.",
+      content: "Full article body.",
+      category: "Launches",
+      tags: ["OpenClaw", "coordination"],
+      featured: true,
+      publishedAt: new Date("2026-04-19T12:00:00.000Z"),
+      author: "AgentRiot Editorial",
+      metaTitle: null,
+      metaDescription: null,
+      canonicalUrl: null,
+    },
+    {
+      id: "news_secondary",
+      slug: "relaycore-adds-observability-hooks",
+      title: "RelayCore adds observability hooks",
+      summary: "Operators now get better trace visibility.",
+      content: "Another story.",
+      category: "Infrastructure",
+      tags: ["RelayCore", "ops"],
+      featured: false,
+      publishedAt: new Date("2026-04-18T12:00:00.000Z"),
+      author: "AgentRiot Editorial",
+      metaTitle: null,
+      metaDescription: null,
+      canonicalUrl: null,
+    },
+  ]);
+  getSoftwareEntriesMock.mockResolvedValue([
+    {
+      id: "software_1",
+      slug: "openclaw",
+      name: "OpenClaw",
+      description: "Agent framework for multi-agent runtimes.",
+      category: "Frameworks",
+      tags: ["orchestration"],
+      officialUrl: "https://openclaw.dev",
+      githubUrl: null,
+      docsUrl: null,
+      downloadUrl: null,
+      relatedNewsIds: [],
+      metaTitle: null,
+      metaDescription: null,
+    },
+  ]);
+}
+
 describe("homepage", () => {
   beforeEach(() => {
     getPublicGlobalFeedPageMock.mockReset();
+    getFeaturedNewsArticleMock.mockReset();
+    getPublishedNewsArticlesMock.mockReset();
+    getSoftwareEntriesMock.mockReset();
+    mockContent();
   });
 
   it("renders all major modules with empty feed", async () => {
@@ -45,19 +128,15 @@ describe("homepage", () => {
     expect(markup).toContain("Explore Prompts");
     expect(markup).toContain("View Live Feed");
 
-    expect(markup).toContain(
-      "OpenAI unveils o3 reasoning model with 25% benchmark jump"
-    );
-    expect(markup).toContain("Major Release");
-    expect(markup).toContain("APR 19, 2025");
+    expect(markup).toContain("OpenClaw ships a new control plane");
+    expect(markup).toContain("Launches");
+    expect(markup).toContain("APR 19, 2026");
     expect(markup).toContain("/images/homepage/featured-story-network.svg");
 
-    // Empty feed falls back to fixture items; live feed section is present
     expect(markup).toContain("View All");
     expect(markup).toContain("Live Agent Activity");
     expect(markup).toContain("View Full Feed");
-    // Default fixture feed items appear
-    expect(markup).toContain("AutoGPT");
+    expect(markup).not.toContain("AutoGPT");
     expect(markup).not.toContain("new sharding strategy");
     expect(markup).not.toContain("Theme:");
   });
@@ -80,7 +159,7 @@ describe("homepage", () => {
           slug: "release",
           title: "New tools",
           summary: "Added search and code execution.",
-          signalType: "release",
+          signalType: "launch",
           createdAt: new Date("2026-04-19T09:00:00.000Z"),
           agentName: "DevAgent",
           agentSlug: "dev-agent",
@@ -100,7 +179,7 @@ describe("homepage", () => {
           slug: "update",
           title: "Bug fixes",
           summary: "Fixed memory leak in v2.1.",
-          signalType: "update",
+          signalType: "minor_release",
           createdAt: new Date("2026-04-19T07:00:00.000Z"),
           agentName: "FixBot",
           agentSlug: "fix-bot",
@@ -118,7 +197,7 @@ describe("homepage", () => {
     // The summary (text) is rendered, not the title
     expect(markup).toContain("Now supporting crew-based workflows.");
     expect(markup).toContain("Atlas Builder");
-    // New feed UI does not render signal type labels like "MAJOR RELEASE"
+    expect(markup).toContain("MAJOR RELEASE");
   });
 
   it("links to internal routes", async () => {
@@ -145,10 +224,10 @@ describe("homepage", () => {
     expect(markup).not.toContain('href="/explore"');
     expect(markup).not.toContain('href="/protocol"');
     expect(markup).toContain('href="/agent-instructions/research-assistant"');
-    expect(markup).toContain('href="/software/langchain"');
-    expect(markup).toContain('href="/news/openai-o3-reasoning-model"');
+    expect(markup).toContain('href="/software/openclaw"');
+    expect(markup).toContain('href="/news/openclaw-ships-control-plane"');
     expect(markup).toContain(
-      'href="/agents/atlas-research/updates/benchmark-results"'
+      'href="/agent-instructions/research-assistant"'
     );
   });
 

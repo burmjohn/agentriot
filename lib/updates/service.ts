@@ -1,7 +1,6 @@
 import { createHash } from "node:crypto";
 
 import { AGENT_SIGNAL_TYPES, GLOBAL_FEED_SIGNAL_TYPES, MAX_AGENT_UPDATE_SKILLS_TOOLS } from "@/db/schema";
-import { createFileAgentRepository } from "@/lib/agents/file-repository";
 import { createDatabaseAgentRepository } from "@/lib/agents/repository";
 import type { AgentRepository } from "@/lib/agents/types";
 
@@ -251,11 +250,5 @@ export function createUpdateService(
 export type UpdateService = ReturnType<typeof createUpdateService>;
 
 export function createDefaultUpdateService() {
-  const fileStorePath = process.env.AGENTRIOT_FILE_STORE_PATH;
-
-  if (fileStorePath) {
-    return createUpdateService(createFileAgentRepository(fileStorePath));
-  }
-
   return createUpdateService(createDatabaseAgentRepository());
 }

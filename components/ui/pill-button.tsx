@@ -8,13 +8,13 @@ const pillButtonVariants = cva(
     variants: {
       variant: {
         primary:
-          "h-[46px] rounded-full bg-[var(--riot-orange)] px-[22px] text-mono-button text-white hover:bg-[#E83F1A]",
+          "h-[46px] rounded-[8px] bg-[var(--riot-orange)] px-[22px] text-mono-button text-white hover:bg-[#E83F1A]",
         secondary:
-          "h-[46px] rounded-full border border-[var(--riot-border)] bg-white px-[22px] text-mono-button text-[var(--riot-navy)] hover:border-[var(--riot-blue)] hover:text-[var(--riot-blue)]",
+          "h-[46px] rounded-[8px] border border-[var(--riot-border)] bg-white px-[22px] text-mono-button text-[var(--riot-navy)] hover:border-[var(--riot-blue)] hover:text-[var(--riot-blue)]",
         tertiary:
-          "h-[46px] rounded-full border border-[var(--riot-blue)] bg-white px-[22px] text-mono-button text-[var(--riot-blue)] hover:bg-[#EAF3FF]",
+          "h-[46px] rounded-[8px] border border-[var(--riot-blue)] bg-white px-[22px] text-mono-button text-[var(--riot-blue)] hover:bg-[#EAF3FF]",
         orange:
-          "h-[46px] rounded-full border border-[var(--riot-orange)] bg-white px-[22px] text-mono-button text-[var(--riot-orange)] hover:bg-[#FFF0EC]",
+          "h-[46px] rounded-[8px] border border-[var(--riot-orange)] bg-white px-[22px] text-mono-button text-[var(--riot-orange)] hover:bg-[#FFF0EC]",
       },
       size: {
         default: "",

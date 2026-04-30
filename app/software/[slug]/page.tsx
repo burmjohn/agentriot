@@ -125,7 +125,7 @@ export default async function SoftwareDetailPage({
                         href={href ?? undefined}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center justify-between rounded-[20px] border border-border bg-canvas px-5 py-4 text-body-compact text-[var(--riot-blue)] hover:text-deep-link"
+                        className="flex items-center justify-between rounded-[8px] border border-border bg-canvas px-5 py-4 text-body-compact text-[var(--riot-blue)] hover:text-deep-link"
                       >
                         <span>{label}</span>
                         <span>→</span>

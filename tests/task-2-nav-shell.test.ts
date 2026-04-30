@@ -44,7 +44,7 @@ describe("Task 2: Nav Shell + Global Design Tokens", () => {
     });
 
     it("has full border radius scale", () => {
-      const radiusValues = ["2px", "3px", "4px", "20px", "24px", "30px", "40px", "50%"];
+      const radiusValues = ["2px", "3px", "4px", "8px", "10px", "12px", "16px"];
       for (const val of radiusValues) {
         expect(globalsCss).toContain(val);
       }
@@ -84,9 +84,9 @@ describe("Task 2: Nav Shell + Global Design Tokens", () => {
       expect(navShellSrc).toContain("text-[var(--riot-navy)]");
     });
 
-    it("has orange pill CTA button", () => {
+    it("has orange squared CTA button", () => {
       expect(navShellSrc).toContain("bg-[var(--riot-orange)]");
-      expect(navShellSrc).toContain("rounded-full");
+      expect(navShellSrc).toContain("rounded-[8px]");
       expect(navShellSrc).toContain("Join the Riot");
     });
 
@@ -120,7 +120,7 @@ describe("Task 2: Nav Shell + Global Design Tokens", () => {
       const classes = pillButtonVariants({ variant: "primary" });
       expect(classes).toContain("bg-[var(--riot-orange)]");
       expect(classes).toContain("text-white");
-      expect(classes).toContain("rounded-full");
+      expect(classes).toContain("rounded-[8px]");
       expect(classes).toContain("text-mono-button");
     });
 

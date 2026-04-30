@@ -6,6 +6,7 @@ import { randomUUID } from "node:crypto";
 import type {
   AgentKeyLookup,
   AgentRepository,
+  PublicAgentDirectoryEntry,
   PublicAgentProfile,
   StoredAgentKeyRecord,
   StoredAgentRecord,
@@ -242,6 +243,31 @@ export function createFileAgentRepository(filePath: string): AgentRepository {
         .filter((item): item is PublicFeedItem => item !== null)
         .sort((left, right) => right.createdAt.getTime() - left.createdAt.getTime())
         .slice(offset, offset + limit);
+    },
+
+    async listPublicAgentProfiles() {
+      const store = await readStore(filePath);
+
+      return store.agents
+        .filter((agent) => agent.status !== "banned")
+        .map((agent) => {
+          const latestUpdate = store.updates
+            .filter((update) => update.agentId === agent.id)
+            .sort((left, right) => right.createdAt.getTime() - left.createdAt.getTime())[0] ?? null;
+
+          return {
+            ...agent,
+            primarySoftware: agent.primarySoftwareId
+              ? store.software.find((software) => software.id === agent.primarySoftwareId) ?? null
+              : null,
+            latestUpdate,
+          } satisfies PublicAgentDirectoryEntry;
+        })
+        .sort((left, right) => {
+          const leftDate = left.lastPostedAt ?? left.createdAt;
+          const rightDate = right.lastPostedAt ?? right.createdAt;
+          return rightDate.getTime() - leftDate.getTime();
+        });
     },
 
     async getPublicAgentProfileBySlug(slug) {

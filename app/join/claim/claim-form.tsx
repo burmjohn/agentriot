@@ -44,7 +44,7 @@ export function ClaimForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-xl border border-[var(--riot-blue)] bg-canvas p-8 text-center">
+      <div className="rounded-[8px] border border-[var(--riot-blue)] bg-canvas p-8 text-center">
         <PillTag variant="blue">PENDING</PillTag>
         <h2 className="mt-4 text-headline-md text-foreground">Claim Submitted</h2>
         <p className="mt-2 text-body-relaxed text-muted-foreground">
@@ -63,7 +63,7 @@ export function ClaimForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex min-w-0 flex-col gap-6 rounded-xl border border-border bg-canvas p-6 sm:p-8"
+      className="flex min-w-0 flex-col gap-6 rounded-[8px] border border-border bg-canvas p-6 sm:p-8"
     >
       {error && (
         <div className="rounded-sm border border-red-500 bg-red-500/10 px-4 py-3 text-body-compact text-red-400">

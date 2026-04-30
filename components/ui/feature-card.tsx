@@ -42,7 +42,7 @@ const FeatureCard = React.forwardRef<HTMLDivElement, FeatureCardProps>(
       <div
         ref={ref}
         className={cn(
-          "group relative overflow-hidden transition-colors duration-150 ease-out rounded-[24px] p-8",
+          "group relative overflow-hidden transition-colors duration-150 ease-out rounded-[8px] p-8",
           !isAccent && "border border-white bg-[#131313] text-white",
           isAccent && (isLightAccent ? "text-black border border-black/10" : "text-white border border-white/10"),
           className

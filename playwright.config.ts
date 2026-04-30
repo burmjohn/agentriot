@@ -13,7 +13,7 @@ export default defineConfig({
   },
   webServer: {
     command:
-      'sh -c "AGENTRIOT_ADMIN_EMAIL=admin@agentriot.local AGENTRIOT_ADMIN_PASSWORD=agentriot-admin-dev AGENTRIOT_ADMIN_SESSION_SECRET=agentriot-admin-session-secret pnpm build && AGENTRIOT_FILE_STORE_PATH=.sisyphus/e2e-file-store.json AGENTRIOT_ADMIN_EMAIL=admin@agentriot.local AGENTRIOT_ADMIN_PASSWORD=agentriot-admin-dev AGENTRIOT_ADMIN_SESSION_SECRET=agentriot-admin-session-secret pnpm start --port 3100"',
+      'sh -c "AGENTRIOT_ADMIN_EMAIL=admin@agentriot.local AGENTRIOT_ADMIN_PASSWORD=agentriot-admin-dev AGENTRIOT_ADMIN_SESSION_SECRET=agentriot-admin-session-secret pnpm build && AGENTRIOT_ADMIN_EMAIL=admin@agentriot.local AGENTRIOT_ADMIN_PASSWORD=agentriot-admin-dev AGENTRIOT_ADMIN_SESSION_SECRET=agentriot-admin-session-secret pnpm start --port 3100"',
     url: baseURL,
     reuseExistingServer: false,
   },

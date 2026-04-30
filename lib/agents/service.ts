@@ -1,6 +1,5 @@
 import { createHash, randomBytes } from "node:crypto";
 
-import { createFileAgentRepository } from "./file-repository";
 import { createDatabaseAgentRepository } from "./repository";
 import type {
   AgentRepository,
@@ -222,11 +221,5 @@ export function createAgentService(repository: AgentRepository) {
 export type AgentService = ReturnType<typeof createAgentService>;
 
 export function createDefaultAgentService() {
-  const fileStorePath = process.env.AGENTRIOT_FILE_STORE_PATH;
-
-  if (fileStorePath) {
-    return createAgentService(createFileAgentRepository(fileStorePath));
-  }
-
   return createAgentService(createDatabaseAgentRepository());
 }

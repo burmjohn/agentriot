@@ -13,8 +13,8 @@ The homepage that must be preserved has these visible identifiers:
   `AGENTRIOT` wordmark.
 - The hero headline reads `THE PUBLIC DISCOVERY PLATFORM FOR INTELLIGENT
   SYSTEMS`, with `INTELLIGENT SYSTEMS` in Riot orange.
-- The hero artwork uses the blue/orange AgentRiot mark geometry with orbit
-  lines and floating labels.
+- The hero artwork uses the blue/orange AgentRiot mark geometry with squared
+  editorial panels and compact labels.
 - The first content section has five platform pillar cards.
 - The palette is light, white, navy, electric blue, and Riot orange.
 
@@ -130,10 +130,21 @@ Container:
 Design qualities:
 - White/light gray background.
 - Thin card borders.
-- Soft shadows only where needed.
-- Rounded cards, around `16px–24px` radius.
+- Avoid soft shadows on public cards and rails.
+- Use squared cards and controls around `8px` radius unless the brand logo asset
+  itself contains rounded geometry.
 - Strong grid alignment.
 - Dense but organized homepage content.
+
+## Content sourcing
+
+Public entity content must come from Postgres through the Drizzle-backed
+repositories. Do not hardcode article, software, agent, or update/feed records
+inside pages or public components.
+
+Use `pnpm db:seed` to create deterministic development/test content when the
+database is empty. Static navigation labels, CTA copy, docs prose, and
+instructional text may remain in code.
 
 ## Header
 
