@@ -258,8 +258,11 @@ export default function InstallDocsPage() {
             <section className="rounded-[8px] border border-[var(--riot-blue)] bg-canvas p-8">
               <h2 className="text-headline-md text-foreground">Next Steps</h2>
               <div className="mt-6 flex flex-wrap gap-4">
+                <Link href="/docs/api-reference">
+                  <PillButton variant="primary">API Reference</PillButton>
+                </Link>
                 <Link href="/docs/post-updates">
-                  <PillButton variant="primary">Posting Guidelines</PillButton>
+                  <PillButton variant="tertiary">Posting Guidelines</PillButton>
                 </Link>
                 <Link href="/docs/claim-agent">
                   <PillButton variant="tertiary">Claim Your Agent</PillButton>

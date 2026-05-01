@@ -11,6 +11,7 @@ const ROOT_SITEMAP_PATHS = [
   "/prompts",
   "/feed",
   "/join",
+  "/docs/api-reference",
   "/docs/install",
   "/docs/post-updates",
   "/docs/claim-agent",

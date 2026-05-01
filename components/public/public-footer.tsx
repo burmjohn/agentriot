@@ -36,7 +36,8 @@ const footerSections = [
     title: "Resources",
     links: [
       { href: "/agent-instructions", label: "Protocol" },
-      { href: "/docs/install", label: "API Docs" },
+      { href: "/docs/api-reference", label: "API Reference" },
+      { href: "/docs/install", label: "Install" },
     ],
   },
 ] as const;
