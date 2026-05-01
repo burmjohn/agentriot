@@ -43,7 +43,7 @@ export function FeaturedStoryRow({
   return (
     <section
       className={cn(
-        "grid grid-cols-[2fr_1fr] gap-[28px] border-b border-[var(--riot-border)] px-[38px] py-8 max-lg:grid-cols-1 max-md:px-[20px] max-md:py-7",
+        "grid grid-cols-[2fr_1fr] gap-[28px] border-b border-[var(--riot-border)] py-8 max-lg:grid-cols-1 max-md:py-7",
         className
       )}
     >

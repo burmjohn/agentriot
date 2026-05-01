@@ -32,7 +32,7 @@ export function PlatformPillars({
   className,
 }: PlatformPillarsProps) {
   return (
-    <section className={cn("border-b border-[var(--riot-border)] px-[38px] py-8 max-md:px-[20px] max-md:py-7", className)}>
+    <section className={cn("border-b border-[var(--riot-border)] py-8 max-md:py-7", className)}>
       <div className="mb-5 flex items-center justify-between">
         <h2 className="flex items-center gap-2 font-mono text-[12px] font-bold uppercase tracking-[0.08em] text-[var(--riot-navy)]">
           <span className="text-[var(--riot-blue)]">✣</span>

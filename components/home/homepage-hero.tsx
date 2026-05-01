@@ -59,7 +59,7 @@ export function HomepageHero({ content, className }: HomepageHeroProps) {
   return (
     <section
       className={cn(
-        "grid min-h-[392px] grid-cols-[520px_minmax(0,1fr)] items-center gap-[48px] overflow-hidden border-b border-[var(--riot-border)] px-[38px] py-[42px] max-lg:h-auto max-lg:grid-cols-1 max-lg:gap-[32px] max-md:px-[20px] max-md:py-[32px]",
+        "grid min-h-[392px] grid-cols-[520px_minmax(0,1fr)] items-center gap-[48px] overflow-hidden border-b border-[var(--riot-border)] py-[42px] max-lg:h-auto max-lg:grid-cols-1 max-lg:gap-[32px] max-md:py-[32px]",
         className
       )}
     >

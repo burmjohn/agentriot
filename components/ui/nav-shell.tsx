@@ -79,7 +79,7 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
           )}
           {...props}
         >
-          <div className="mx-auto flex h-[82px] max-w-[1180px] items-center justify-between px-[38px] max-md:h-[64px] max-md:px-[20px]">
+          <div className="mx-auto flex h-[82px] max-w-[1300px] items-center justify-between px-6 max-md:h-[64px]">
             <Link
               href="/"
               aria-label={wordmark}

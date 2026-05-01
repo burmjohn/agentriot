@@ -15,7 +15,7 @@ export interface BottomCtaBannerProps {
 
 export function BottomCtaBanner({ content, className }: BottomCtaBannerProps) {
   return (
-    <section className={cn("px-[32px] pb-[20px] pt-1 max-md:px-[20px]", className)}>
+    <section className={cn("pb-[20px] pt-1", className)}>
       <div className="relative grid min-h-[108px] grid-cols-[96px_240px_1fr_auto] items-center gap-[24px] overflow-hidden rounded-[10px] bg-[var(--riot-navy)] px-[32px] py-[18px] max-lg:grid-cols-1 max-lg:gap-[18px] max-lg:py-[28px]">
         <div className="relative z-10 flex h-[58px] w-[86px] items-center justify-center px-[4px]">
           <Image

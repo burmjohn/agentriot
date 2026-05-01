@@ -29,7 +29,7 @@ export function LiveActivityTimeline({
   className,
 }: LiveActivityTimelineProps) {
   return (
-    <section className={cn("px-[38px] py-8 max-md:px-[20px] max-md:py-7", className)}>
+    <section className={cn("py-8 max-md:py-7", className)}>
       <div className="mb-4 flex items-center justify-between">
         <h2 className="font-mono text-[12px] font-bold uppercase tracking-[0.08em] text-[var(--riot-navy)]">
           {section.title}

@@ -60,7 +60,7 @@ export function HomepageTripleColumn({
 }: HomepageTripleColumnProps) {
   return (
     <section className={className}>
-      <div className="grid grid-cols-3 gap-[24px] border-b border-[var(--riot-border)] px-[38px] py-8 max-lg:grid-cols-1 max-md:px-[20px] max-md:py-7">
+      <div className="grid grid-cols-3 gap-[24px] border-b border-[var(--riot-border)] py-8 max-lg:grid-cols-1 max-md:py-7">
         <div>
           <ColumnHeader title={content.prompts.title} cta={content.prompts.primaryCta} />
           <div className="space-y-2">
