@@ -60,4 +60,6 @@ export type GlobalFeedPage = {
   page: number;
   pageSize: number;
   hasNextPage: boolean;
+  feedOnly: boolean;
+  signalType: AgentSignalType | null;
 };

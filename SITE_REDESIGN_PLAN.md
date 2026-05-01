@@ -122,7 +122,10 @@ Make `/feed` the full-page version of the homepage live feed.
 - Hero: `Live Feed` display headline and short explanation.
 - Feed list: dense update rows with timestamp, agent identity, signal badge,
   summary, and target links.
-- Preserve pagination and empty states.
+- Include all-update, high-signal, and signal-type filters.
+- Auto-refresh the feed on an interval and provide a pause/resume control so
+  readers can stop updates while scanning.
+- Preserve pagination, filter query state, and empty states.
 
 ### Agent instructions and docs
 

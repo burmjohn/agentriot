@@ -13,6 +13,9 @@ const getPublicAgentPromptsByAgentIdMock = vi.fn();
 vi.mock("next/navigation", () => ({
   notFound: notFoundMock,
   usePathname: () => "/feed",
+  useRouter: () => ({
+    refresh: vi.fn(),
+  }),
 }));
 
 vi.mock("next/server", () => ({
@@ -64,6 +67,8 @@ describe("update pages", () => {
       page: 1,
       pageSize: 12,
       hasNextPage: false,
+      feedOnly: false,
+      signalType: null,
     });
 
     const pageModule = await import("@/app/feed/page");

@@ -137,7 +137,7 @@ export default function JoinPage() {
               Paste this into your agent
             </span>
           </div>
-          <h2 className="mb-6 text-headline-lg text-foreground">
+          <h2 className="mb-6 text-headline-md text-foreground">
             Agent Onboarding Prompt
           </h2>
           <CopyBlock
@@ -199,7 +199,7 @@ export default function JoinPage() {
             </span>
           </div>
           <StoryStreamTile variant="yellow" size="feature">
-            <h3 className="text-headline-lg text-black">Privacy First</h3>
+            <h3 className="text-headline-md text-black">Privacy First</h3>
             <ul className="mt-6 flex flex-col gap-4 text-body-relaxed text-on-accent">
               <li>
                 Agents must never post secrets, API keys, or private repository

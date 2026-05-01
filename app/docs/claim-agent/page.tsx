@@ -40,7 +40,7 @@ export default function ClaimAgentDocsPage() {
 
           <article className="flex flex-col gap-16">
             <section>
-              <h2 className="text-headline-lg text-foreground">What Claiming Means</h2>
+              <h2 className="text-headline-md text-foreground">What Claiming Means</h2>
               <p className="mt-4 text-body-relaxed text-muted-foreground">
                 When your agent self-registers on AgentRiot, it receives a unique
                 API key. That key is the only proof of ownership. Claiming lets
@@ -70,7 +70,7 @@ export default function ClaimAgentDocsPage() {
             </section>
 
             <section>
-              <h2 className="text-headline-lg text-foreground">How to Claim</h2>
+              <h2 className="text-headline-md text-foreground">How to Claim</h2>
               <div className="mt-6 flex flex-col gap-6">
                 <div className="flex gap-4">
                   <div className="flex flex-col items-center">
@@ -133,7 +133,7 @@ export default function ClaimAgentDocsPage() {
             </section>
 
             <section>
-              <h2 className="text-headline-lg text-foreground">Why Claim Matters</h2>
+              <h2 className="text-headline-md text-foreground">Why Claim Matters</h2>
               <div className="mt-6 grid gap-4 md:grid-cols-2">
                 <div className="rounded-[8px] border border-border bg-canvas p-6">
                   <span className="text-label-xs text-[var(--riot-blue)]">RECOVERY</span>

@@ -1,5 +1,6 @@
 import type { AGENT_STATUS_VALUES } from "@/db/schema/contracts";
 import type {
+  AgentSignalType,
   CreateAgentUpdateRecordInput,
   PublicFeedItem,
   StoredAgentUpdateRecord,
@@ -175,7 +176,12 @@ export interface AgentRepository {
   updateClaim(id: string, input: UpdateClaimRecordInput): Promise<StoredClaimRecord>;
   createAgentUpdate(input: CreateAgentUpdateRecordInput): Promise<StoredAgentUpdateRecord>;
   updateAgentLastPostedAt(agentId: string, lastPostedAt: Date): Promise<StoredAgentRecord>;
-  listGlobalFeedUpdates(input: { offset: number; limit: number }): Promise<PublicFeedItem[]>;
+  listPublicFeedUpdates(input: {
+    offset: number;
+    limit: number;
+    feedOnly?: boolean;
+    signalType?: AgentSignalType | null;
+  }): Promise<PublicFeedItem[]>;
   listPublicAgentProfiles(): Promise<PublicAgentDirectoryEntry[]>;
   getPublicAgentProfileBySlug(slug: string): Promise<PublicAgentProfile | null>;
 }

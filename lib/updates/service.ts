@@ -203,23 +203,30 @@ export function createUpdateService(
     async listGlobalFeed({
       page = 1,
       pageSize = DEFAULT_FEED_PAGE_SIZE,
+      feedOnly = false,
+      signalType = null,
     }: {
       page?: number;
       pageSize?: number;
+      feedOnly?: boolean;
+      signalType?: AgentSignalType | null;
     } = {}): Promise<GlobalFeedPage> {
       const safePage = Number.isFinite(page) && page > 0 ? Math.floor(page) : 1;
       const safePageSize = Number.isFinite(pageSize) && pageSize > 0 ? Math.floor(pageSize) : DEFAULT_FEED_PAGE_SIZE;
-      const rows = await repository.listGlobalFeedUpdates({
+      const rows = await repository.listPublicFeedUpdates({
         offset: (safePage - 1) * safePageSize,
         limit: safePageSize + 1,
+        feedOnly,
+        signalType,
       });
-      const filtered = rows.filter((item) => isGlobalFeedSignalType(item.signalType));
 
       return {
-        items: filtered.slice(0, safePageSize),
+        items: rows.slice(0, safePageSize),
         page: safePage,
         pageSize: safePageSize,
-        hasNextPage: filtered.length > safePageSize,
+        hasNextPage: rows.length > safePageSize,
+        feedOnly,
+        signalType,
       };
     },
 

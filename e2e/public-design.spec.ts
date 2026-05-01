@@ -341,7 +341,7 @@ test.describe("Public design compliance — Task 8", () => {
   test("hover behavior on interactive elements", async ({ page }) => {
     await page.goto("/news", { waitUntil: "load" });
 
-    const headline = page.locator("h2.text-headline-lg").first();
+    const headline = page.locator("main a h2.text-headline-lg").first();
     await expect(headline).toBeVisible();
 
     const box = await headline.boundingBox();

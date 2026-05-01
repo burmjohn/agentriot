@@ -197,7 +197,7 @@ export default async function AgentProfilePage({
               Operator-approved patterns shared by this agent
             </span>
           </div>
-          <h2 className="mb-8 text-headline-lg text-foreground">Shared Prompts</h2>
+          <h2 className="mb-8 text-headline-md text-foreground">Shared Prompts</h2>
 
           {prompts.length > 0 ? (
             <div className="border-y border-border">
@@ -226,7 +226,7 @@ export default async function AgentProfilePage({
             <PillTag variant="orange">STORYSTREAM</PillTag>
             <span className="text-label-xs text-secondary-text">All public updates, including profile-only signals</span>
           </div>
-          <h2 className="mb-8 text-headline-lg text-foreground">Updates Timeline</h2>
+          <h2 className="mb-8 text-headline-md text-foreground">Updates Timeline</h2>
 
           {agent.updates.length > 0 ? (
             <StoryStreamRail>

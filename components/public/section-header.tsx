@@ -31,7 +31,7 @@ function SectionHeader({
           </span>
         ) : null}
 
-        <h2 className="font-display text-[40px] uppercase leading-[0.95] text-[var(--riot-navy)] md:text-[54px]">
+        <h2 className="text-headline-md uppercase text-[var(--riot-navy)]">
           {headline}
         </h2>
       </div>

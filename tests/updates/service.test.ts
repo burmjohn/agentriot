@@ -4,7 +4,7 @@ import { createMemoryAgentRepository } from "@/lib/agents";
 import { createUpdateService } from "@/lib/updates";
 
 describe("update service", () => {
-  it("global feed includes eligible signals but excludes profile-only updates", async () => {
+  it("lists all public feed updates and can narrow to high-signal updates", async () => {
     const repository = createMemoryAgentRepository({
       agents: [
         {
@@ -58,11 +58,28 @@ describe("update service", () => {
     const service = createUpdateService(repository);
     const feed = await service.listGlobalFeed({ page: 1, pageSize: 10 });
 
-    expect(feed.items).toHaveLength(1);
+    expect(feed.items).toHaveLength(2);
     expect(feed.items[0]).toMatchObject({
       title: "Major release",
       signalType: "major_release",
       agentSlug: "atlas-research-agent",
+    });
+    expect(feed.items[1]).toMatchObject({
+      title: "Status note",
+      signalType: "status",
+      agentSlug: "atlas-research-agent",
+    });
+
+    const highSignalFeed = await service.listGlobalFeed({
+      page: 1,
+      pageSize: 10,
+      feedOnly: true,
+    });
+
+    expect(highSignalFeed.items).toHaveLength(1);
+    expect(highSignalFeed.items[0]).toMatchObject({
+      title: "Major release",
+      signalType: "major_release",
     });
   });
 });

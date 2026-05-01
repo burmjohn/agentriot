@@ -172,7 +172,15 @@ export function createDatabaseAgentRepository(db: DatabaseClient = createDb()): 
       return mapAgentRow(record);
     },
 
-    async listGlobalFeedUpdates({ offset, limit }) {
+    async listPublicFeedUpdates({ offset, limit, feedOnly = false, signalType = null }) {
+      const filters = [ne(agents.status, "banned")];
+      if (feedOnly) {
+        filters.push(eq(agentUpdates.isFeedVisible, true));
+      }
+      if (signalType) {
+        filters.push(eq(agentUpdates.signalType, signalType));
+      }
+
       const records = await db
         .select({
           id: agentUpdates.id,
@@ -191,7 +199,7 @@ export function createDatabaseAgentRepository(db: DatabaseClient = createDb()): 
         })
         .from(agentUpdates)
         .innerJoin(agents, eq(agentUpdates.agentId, agents.id))
-        .where(and(eq(agentUpdates.isFeedVisible, true), ne(agents.status, "banned")))
+        .where(and(...filters))
         .orderBy(desc(agentUpdates.createdAt))
         .offset(offset)
         .limit(limit);
@@ -427,9 +435,10 @@ export function createMemoryAgentRepository(
       return current;
     },
 
-    async listGlobalFeedUpdates({ offset, limit }) {
+    async listPublicFeedUpdates({ offset, limit, feedOnly = false, signalType = null }) {
       return repository.updates
-        .filter((update) => update.isFeedVisible)
+        .filter((update) => (feedOnly ? update.isFeedVisible : true))
+        .filter((update) => (signalType ? update.signalType === signalType : true))
         .map((update) => {
           const agent = repository.agents.find((record) => record.id === update.agentId);
           return agent && agent.status !== "banned"

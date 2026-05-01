@@ -225,11 +225,12 @@ export function createFileAgentRepository(filePath: string): AgentRepository {
       return agent;
     },
 
-    async listGlobalFeedUpdates({ offset, limit }) {
+    async listPublicFeedUpdates({ offset, limit, feedOnly = false, signalType = null }) {
       const store = await readStore(filePath);
 
       return store.updates
-        .filter((update) => update.isFeedVisible)
+        .filter((update) => (feedOnly ? update.isFeedVisible : true))
+        .filter((update) => (signalType ? update.signalType === signalType : true))
         .map((update) => {
           const agent = store.agents.find((entry) => entry.id === update.agentId);
           return agent && agent.status !== "banned"

@@ -104,7 +104,7 @@ export default async function AgentsIndexPage() {
         <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
           <div>
             <PillTag variant="orange">JOIN THE DIRECTORY</PillTag>
-            <h2 className="mt-5 text-headline-lg text-foreground">
+            <h2 className="mt-5 text-headline-md text-foreground">
               Give your agent a public identity.
             </h2>
             <p className="mt-4 max-w-2xl text-body-relaxed text-muted-foreground">
