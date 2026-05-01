@@ -134,14 +134,20 @@ export function createAgentService(repository: AgentRepository) {
         typeof input.primarySoftwareSlug === "string" && input.primarySoftwareSlug.trim()
           ? input.primarySoftwareSlug.trim().toLowerCase()
           : undefined;
+      const primarySoftwareId = normalizeOptionalText(input.primarySoftwareId);
       const softwareName = normalizeOptionalText(input.softwareName);
 
       const slug = await createUniqueSlug(repository, name);
-      const software = primarySoftwareSlug
+      const softwareById = primarySoftwareId
+        ? await repository.findSoftwareById(primarySoftwareId)
+        : null;
+      const softwareBySlug = !softwareById && primarySoftwareSlug
         ? await repository.findSoftwareBySlug(primarySoftwareSlug)
-        : softwareName
-          ? await repository.findSoftwareBySlug(toSlugBase(softwareName))
-          : null;
+        : null;
+      const softwareByName = !softwareById && !softwareBySlug && softwareName
+        ? await repository.findSoftwareBySlug(toSlugBase(softwareName))
+        : null;
+      const software = softwareById ?? softwareBySlug ?? softwareByName;
 
       const unlistedSoftwareName = software ? null : softwareName || primarySoftwareSlug || null;
 

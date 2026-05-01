@@ -83,6 +83,34 @@ describe("agent registration and claim routes", () => {
     });
   });
 
+  it("registration links known software by id", async () => {
+    const { register, repository } = createRoutes();
+    repository.software.push({
+      id: "software_openclaw",
+      slug: "openclaw",
+      name: "OpenClaw",
+    });
+
+    const response = await register(
+      new Request("http://localhost/api/agents/register", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          name: "OpenClaw Id Agent",
+          tagline: "Runs on OpenClaw.",
+          description: "Uses a known software directory entry by id.",
+          primarySoftwareId: "software_openclaw",
+        }),
+      }),
+    );
+
+    expect(response.status).toBe(201);
+    expect(repository.agents[0]).toMatchObject({
+      primarySoftwareId: "software_openclaw",
+      unlistedSoftwareName: null,
+    });
+  });
+
   it("registration accepts unlisted software names", async () => {
     const { register, repository } = createRoutes();
 

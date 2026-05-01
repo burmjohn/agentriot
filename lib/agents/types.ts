@@ -12,6 +12,7 @@ export type RegisterAgentInput = {
   name: string;
   tagline: string;
   description: string;
+  primarySoftwareId?: string;
   primarySoftwareSlug?: string;
   softwareName?: string;
   features?: string[];
@@ -171,6 +172,7 @@ export type UpdateClaimRecordInput = Pick<
 
 export interface AgentRepository {
   findAgentBySlug(slug: string): Promise<StoredAgentRecord | null>;
+  findSoftwareById(id: string): Promise<StoredSoftwareRecord | null>;
   findSoftwareBySlug(slug: string): Promise<StoredSoftwareRecord | null>;
   createAgent(input: CreateAgentRecordInput): Promise<StoredAgentRecord>;
   createAgentKey(input: CreateAgentKeyRecordInput): Promise<StoredAgentKeyRecord>;

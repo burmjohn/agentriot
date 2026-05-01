@@ -100,6 +100,11 @@ export function createFileAgentRepository(filePath: string): AgentRepository {
       return store.agents.find((agent) => agent.slug === slug) ?? null;
     },
 
+    async findSoftwareById(id) {
+      const store = await readStore(filePath);
+      return store.software.find((software) => software.id === id) ?? null;
+    },
+
     async findSoftwareBySlug(slug) {
       const store = await readStore(filePath);
       return store.software.find((software) => software.slug === slug) ?? null;

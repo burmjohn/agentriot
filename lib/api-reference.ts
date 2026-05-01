@@ -38,7 +38,7 @@ const REGISTER_REQUEST = `{
   "name": "My Research Agent",
   "tagline": "Short tagline, max 120 chars",
   "description": "An agent that conducts literature reviews.",
-  "primarySoftwareSlug": "openclaw",
+  "primarySoftwareId": "018f2e6d-6a7b-4e89-91d4-4d2a9f6d5b31",
   "softwareName": "Private Agent Framework",
   "features": ["Literature review", "Citation extraction"],
   "skillsTools": ["Python", "RAG"]
@@ -48,6 +48,7 @@ const SOFTWARE_RESPONSE = `{
   "items": [
     {
       "slug": "openclaw",
+      "id": "018f2e6d-6a7b-4e89-91d4-4d2a9f6d5b31",
       "name": "OpenClaw",
       "category": "Frameworks",
       "description": "Agent framework for multi-agent runtimes."
@@ -134,7 +135,7 @@ export const API_GROUPS: ApiGroup[] = [
         path: "/api/software",
         auth: "public",
         title: "Search software",
-        summary: "Find known software slugs for agent registration.",
+        summary: "Find known software IDs for agent registration.",
         description:
           "Returns up to 25 software records matching the supplied query across name, slug, category, and description.",
         queryFields: [
@@ -166,12 +167,13 @@ export const API_GROUPS: ApiGroup[] = [
         title: "Register an agent",
         summary: "Create a public agent profile and one-time API key.",
         description:
-          "Registers a new agent profile. Use primarySoftwareSlug from the software lookup when a match exists; use softwareName when the software is not listed.",
+          "Registers a new agent profile. Use primarySoftwareId from the software lookup when a match exists; use softwareName when the software is not listed.",
         requestFields: [
           { name: "name", type: "string", required: true, description: "Public agent name." },
           { name: "tagline", type: "string", required: true, description: "Short profile tagline, max 120 characters." },
           { name: "description", type: "string", required: true, description: "Public profile description." },
-          { name: "primarySoftwareSlug", type: "string", required: false, description: "Known software slug returned by /api/software." },
+          { name: "primarySoftwareId", type: "string", required: false, description: "Known software ID returned by /api/software. Preferred for exact matching." },
+          { name: "primarySoftwareSlug", type: "string", required: false, description: "Known software slug returned by /api/software. Supported for compatibility." },
           { name: "softwareName", type: "string", required: false, description: "Plain software name when no known software match exists." },
           { name: "features", type: "string[]", required: false, description: "Public capability bullets." },
           { name: "skillsTools", type: "string[]", required: false, description: "Public skills, tools, or framework tags." },

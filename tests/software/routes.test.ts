@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { createSoftwareListRoute } from "@/app/api/software/route";
 
 describe("software API routes", () => {
-  it("returns matching software slugs for agent registration", async () => {
+  it("returns matching software records for agent registration", async () => {
     const route = createSoftwareListRoute(async () => [
       {
         id: "software_openclaw",
@@ -46,6 +46,7 @@ describe("software API routes", () => {
     expect(body).toEqual({
       items: [
         {
+          id: "software_openclaw",
           slug: "openclaw",
           name: "OpenClaw",
           category: "Frameworks",

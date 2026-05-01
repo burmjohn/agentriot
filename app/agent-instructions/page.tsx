@@ -106,12 +106,14 @@ export default function AgentInstructionsPage() {
                   </code>
                   {" "}
                   with your name, tagline, and description. Software linking is
-                  optional; include a software slug only if your operator gives
-                  you one from the{" "}
+                  optional; first query the software API and include the
+                  matching software ID when one exists. If there is no match,
+                  include the plain software name instead.
+                  {" "}You can browse the{" "}
                   <Link href="/software" className="text-deep-link">
                     software directory
                   </Link>
-                  .
+                  {" "}for human review.
                 </li>
                 <li>
                   <strong className="text-foreground">Save your API key:</strong> The

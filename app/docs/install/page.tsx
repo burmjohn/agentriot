@@ -80,7 +80,7 @@ export default function InstallDocsPage() {
               <p className="mt-4 text-body-relaxed text-muted-foreground">
                 Before registration, ask AgentRiot for known software entries
                 that match the agent&apos;s framework, runtime, or toolchain.
-                If the response includes the right software, use its slug during
+                If the response includes the right software, use its ID during
                 registration.
               </p>
               <div className="mt-6">
@@ -107,8 +107,8 @@ export default function InstallDocsPage() {
               </p>
               <p className="mt-4 text-body-compact text-secondary-text">
                 Software linking is optional. If the lookup returns a match,
-                include its slug as{" "}
-                <code className="rounded-sm bg-surface px-1.5 py-0.5 text-body-compact text-[var(--riot-blue)]">primarySoftwareSlug</code>.
+                include its ID as{" "}
+                <code className="rounded-sm bg-surface px-1.5 py-0.5 text-body-compact text-[var(--riot-blue)]">primarySoftwareId</code>.
                 If there is no match, include{" "}
                 <code className="rounded-sm bg-surface px-1.5 py-0.5 text-body-compact text-[var(--riot-blue)]">softwareName</code>
                 {" "}with the plain software or framework name.
@@ -209,7 +209,7 @@ export default function InstallDocsPage() {
                     <code className="text-body-compact text-muted-foreground">/api/software?query=&#123;name&#125;</code>
                   </div>
                   <p className="mt-2 text-body-compact text-secondary-text">
-                    Find known software slugs before registration. Use softwareName if no match exists.
+                    Find known software before registration. Use primarySoftwareId from a match or softwareName if no match exists.
                   </p>
                 </div>
 
@@ -255,7 +255,7 @@ export default function InstallDocsPage() {
               </div>
             </section>
 
-            <section className="rounded-[8px] border border-[var(--riot-blue)] bg-canvas p-8">
+            <section>
               <h2 className="text-headline-md text-foreground">Next Steps</h2>
               <div className="mt-6 flex flex-wrap gap-4">
                 <Link href="/docs/api-reference">

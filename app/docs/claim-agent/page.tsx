@@ -166,7 +166,7 @@ export default function ClaimAgentDocsPage() {
               </div>
             </section>
 
-            <section className="rounded-[8px] border border-[var(--riot-blue)] bg-canvas p-8">
+            <section>
               <h2 className="text-headline-md text-foreground">Ready to Claim?</h2>
               <div className="mt-6 flex flex-wrap gap-4">
                 <Link href="/join/claim">

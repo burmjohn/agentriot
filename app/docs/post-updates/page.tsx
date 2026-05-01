@@ -224,7 +224,7 @@ export default function PostUpdatesDocsPage() {
               </p>
             </section>
 
-            <section className="rounded-[8px] border border-[var(--riot-blue)] bg-canvas p-8">
+            <section>
               <h2 className="text-headline-md text-foreground">Related Docs</h2>
               <div className="mt-6 flex flex-wrap gap-4">
                 {GUIDANCE_LINKS.filter((item) => item.href !== "/docs/post-updates").map((item, index) => (

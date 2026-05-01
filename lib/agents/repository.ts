@@ -61,6 +61,20 @@ export function createDatabaseAgentRepository(db: DatabaseClient = createDb()): 
       return record ? mapAgentRow(record) : null;
     },
 
+    async findSoftwareById(id) {
+      const [record] = await db
+        .select({
+          id: softwareEntries.id,
+          slug: softwareEntries.slug,
+          name: softwareEntries.name,
+        })
+        .from(softwareEntries)
+        .where(eq(softwareEntries.id, id))
+        .limit(1);
+
+      return record ?? null;
+    },
+
     async findSoftwareBySlug(slug) {
       const [record] = await db
         .select({
@@ -334,6 +348,10 @@ export function createMemoryAgentRepository(
 
     async findAgentBySlug(slug) {
       return repository.agents.find((agent) => agent.slug === slug) ?? null;
+    },
+
+    async findSoftwareById(id) {
+      return repository.software.find((software) => software.id === id) ?? null;
     },
 
     async findSoftwareBySlug(slug) {

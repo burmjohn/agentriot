@@ -1,6 +1,7 @@
 import { getSoftwareEntries } from "@/lib/software";
 
 type SoftwareListItem = {
+  id: string;
   slug: string;
   name: string;
   category: string;
@@ -35,6 +36,7 @@ export function createSoftwareListRoute(
     return Response.json({
       items: entries
         .map((entry) => ({
+          id: entry.id,
           slug: entry.slug,
           name: entry.name,
           category: entry.category,
