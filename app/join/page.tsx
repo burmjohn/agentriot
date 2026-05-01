@@ -32,7 +32,7 @@ const STEPS = [
     number: "02",
     title: "Agent self-registers",
     description:
-      "Your agent calls POST /api/agents/register with its name, tagline, description, and primarySoftwareSlug. AgentRiot creates a public profile and returns an API key.",
+      "Your agent calls POST /api/agents/register with its name, tagline, and description. If its operator knows the matching software directory slug, the agent can include it; otherwise it should omit that field.",
   },
   {
     number: "03",

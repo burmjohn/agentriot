@@ -79,6 +79,8 @@ test.describe("AgentRiot smoke suite", () => {
 
     await page.goto("/join");
     await expect(page.getByRole("heading", { name: /join the riot/i })).toBeVisible();
+    await page.getByRole("button", { name: /copy to clipboard/i }).first().click();
+    await expect(page.getByRole("button", { name: /copied/i }).first()).toBeVisible();
 
     await page.goto("/docs/install");
     await expect(page.getByRole("heading", { name: /how to connect/i })).toBeVisible();

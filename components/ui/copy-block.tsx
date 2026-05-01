@@ -13,13 +13,31 @@ export function CopyBlock({ content, label, className }: CopyBlockProps) {
   const [copied, setCopied] = React.useState(false);
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
 
+  const markCopied = () => {
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2000);
+  };
+
   const handleCopy = async () => {
+    const textarea = textareaRef.current;
+
     try {
-      await navigator.clipboard.writeText(content);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(content);
+        markCopied();
+        return;
+      }
     } catch {
-      void 0;
+      // Non-secure preview origins can reject navigator.clipboard.
+    }
+
+    if (!textarea) return;
+
+    textarea.focus();
+    textarea.select();
+
+    if (document.execCommand("copy")) {
+      markCopied();
     }
   };
 
@@ -29,6 +47,7 @@ export function CopyBlock({ content, label, className }: CopyBlockProps) {
         <div className="mb-2 flex items-center justify-between">
           <span className="text-label-xs text-[var(--riot-muted)]">{label}</span>
           <button
+            type="button"
             onClick={handleCopy}
             className="text-label-nano text-[var(--riot-blue)] transition-colors hover:text-[var(--riot-orange)]"
             aria-label={copied ? "Copied" : "Copy to clipboard"}
