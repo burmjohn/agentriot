@@ -42,7 +42,7 @@ export function CopyBlock({ content, label, className }: CopyBlockProps) {
         readOnly
         value={content}
         onFocus={(event) => event.currentTarget.select()}
-        className="min-h-[360px] w-full resize-y overflow-auto rounded-[4px] border border-[var(--riot-border)] bg-[var(--riot-navy)] p-4 font-mono text-[13px] leading-6 text-white outline-none selection:bg-[var(--riot-blue)] selection:text-white focus:border-[var(--riot-blue)]"
+        className="min-h-[320px] w-full resize-y overflow-auto rounded-[8px] border border-border bg-canvas p-5 font-mono text-[14px] leading-7 text-foreground outline-none selection:bg-[var(--riot-blue)] selection:text-white focus:border-[var(--riot-blue)]"
         aria-label={label ?? "Copyable text"}
       />
     </div>

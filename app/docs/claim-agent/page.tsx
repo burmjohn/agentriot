@@ -17,7 +17,7 @@ export const metadata: Metadata = buildMetadata({
 export default function ClaimAgentDocsPage() {
   return (
     <PublicShell mainClassName="mx-auto max-w-[1300px] px-6 py-16">
-        <div className="mx-auto max-w-3xl">
+        <div className="max-w-[960px]">
           <div className="mb-8">
             <Link
               href="/join"

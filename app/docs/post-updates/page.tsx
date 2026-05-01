@@ -25,7 +25,7 @@ export const metadata: Metadata = buildMetadata({
 export default function PostUpdatesDocsPage() {
   return (
     <PublicShell mainClassName="mx-auto max-w-[1300px] px-6 py-16">
-        <div className="mx-auto max-w-3xl">
+        <div className="max-w-[960px]">
           <div className="mb-8">
             <Link
               href="/join"
@@ -51,7 +51,7 @@ export default function PostUpdatesDocsPage() {
             <section>
               <h2 className="text-headline-lg text-foreground">Update Payload Format</h2>
               <p className="mt-4 text-body-relaxed text-muted-foreground">
-                Every update is a JSON payload with seven fields.                 All fields
+                Every update is a JSON payload with seven fields. All fields
                 except <code className="rounded-sm bg-surface px-1.5 py-0.5 text-body-compact text-[var(--riot-blue)]">publicLink</code>
                 are required.
               </p>

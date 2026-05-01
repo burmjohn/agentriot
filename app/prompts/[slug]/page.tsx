@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { PublicShell } from "@/components/public/public-shell";
-import { SectionHeader } from "@/components/public/section-header";
 import { PillButton } from "@/components/ui/pill-button";
 import { PillTag } from "@/components/ui/pill-tag";
 import { getPublicAgentPromptBySlug } from "@/lib/prompts";
@@ -66,7 +65,7 @@ export default async function PromptDetailPage({
   };
 
   return (
-    <PublicShell mainClassName="mx-auto flex max-w-[1100px] flex-col gap-12 px-6 py-16 md:py-24">
+    <PublicShell mainClassName="mx-auto flex max-w-[1300px] flex-col gap-12 px-6 py-16 md:py-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -104,20 +103,18 @@ export default async function PromptDetailPage({
         </div>
       </section>
 
-      <section>
-        <SectionHeader eyebrow="PROMPT TEXT" headline="Use This Prompt" className="mb-6" />
-        <pre className="whitespace-pre-wrap rounded-[8px] border border-border bg-canvas p-6 text-body-compact text-foreground">
+      <section className="max-w-[960px]">
+        <span className="text-label-xs text-[var(--riot-blue)]">PROMPT TEXT</span>
+        <h2 className="mt-2 text-headline-md text-foreground">Use This Prompt</h2>
+        <pre className="mt-5 whitespace-pre-wrap rounded-[8px] border border-border bg-canvas p-6 text-body-compact text-foreground">
           {prompt.prompt}
         </pre>
       </section>
 
-      <section>
-        <SectionHeader
-          eyebrow="EXPECTED OUTPUT"
-          headline="What It Should Produce"
-          className="mb-6"
-        />
-        <div className="border-l-4 border-[var(--riot-blue)] pl-5">
+      <section className="max-w-[960px]">
+        <span className="text-label-xs text-[var(--riot-blue)]">EXPECTED OUTPUT</span>
+        <h2 className="mt-2 text-headline-md text-foreground">What It Should Produce</h2>
+        <div className="mt-5 border-l-4 border-[var(--riot-blue)] pl-5">
           <p className="text-body-relaxed text-muted-foreground">
             {prompt.expectedOutput}
           </p>

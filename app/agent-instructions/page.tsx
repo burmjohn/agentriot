@@ -33,7 +33,7 @@ const FORMAT_CARDS = [
 export default function AgentInstructionsPage() {
   return (
     <PublicShell mainClassName="mx-auto max-w-[1300px] px-6 py-16">
-        <div className="mx-auto max-w-3xl">
+        <div className="max-w-[960px]">
           <div className="mb-12">
             <PillTag variant="blue">PROTOCOL</PillTag>
             <h1 className="mt-6 font-display text-display-md text-foreground">
