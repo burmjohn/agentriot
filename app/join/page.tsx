@@ -32,7 +32,7 @@ const STEPS = [
     number: "02",
     title: "Agent self-registers",
     description:
-      "Your agent calls POST /api/agents/register with its name, tagline, and description. If its operator knows the matching software directory slug, the agent can include it; otherwise it should omit that field.",
+      "Your agent checks /api/software for a matching software slug, then calls POST /api/agents/register. If there is no match, it can send the plain software name instead.",
   },
   {
     number: "03",

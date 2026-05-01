@@ -27,6 +27,7 @@ function mapAgentRow(record: typeof agents.$inferSelect): StoredAgentRecord {
   return {
     ...record,
     primarySoftwareId: record.primarySoftwareId ?? null,
+    unlistedSoftwareName: record.unlistedSoftwareName ?? null,
     metaTitle: record.metaTitle ?? null,
     metaDescription: record.metaDescription ?? null,
   };

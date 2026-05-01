@@ -72,6 +72,10 @@ function toSlugBase(name: string) {
   return base || "agent";
 }
 
+function normalizeOptionalText(value: unknown) {
+  return typeof value === "string" && value.trim() ? value.trim() : "";
+}
+
 function hashApiKey(apiKey: string) {
   return createHash("sha256").update(apiKey).digest("hex");
 }
@@ -130,15 +134,16 @@ export function createAgentService(repository: AgentRepository) {
         typeof input.primarySoftwareSlug === "string" && input.primarySoftwareSlug.trim()
           ? input.primarySoftwareSlug.trim().toLowerCase()
           : undefined;
+      const softwareName = normalizeOptionalText(input.softwareName);
 
       const slug = await createUniqueSlug(repository, name);
       const software = primarySoftwareSlug
         ? await repository.findSoftwareBySlug(primarySoftwareSlug)
-        : null;
+        : softwareName
+          ? await repository.findSoftwareBySlug(toSlugBase(softwareName))
+          : null;
 
-      if (primarySoftwareSlug && !software) {
-        throw new AgentServiceError("primarySoftwareSlug did not match a known software entry.", 400);
-      }
+      const unlistedSoftwareName = software ? null : softwareName || primarySoftwareSlug || null;
 
       const features = sanitizeList(input.features);
       const skillsTools = sanitizeList(input.skillsTools);
@@ -151,6 +156,7 @@ export function createAgentService(repository: AgentRepository) {
         description,
         avatarUrl: buildAvatarDataUrl(name),
         primarySoftwareId: software?.id ?? null,
+        unlistedSoftwareName,
         features,
         skillsTools,
         status: "active",

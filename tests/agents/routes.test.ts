@@ -55,6 +55,57 @@ describe("agent registration and claim routes", () => {
     expect(repository.keys[0]?.keyPrefix).toBe(String(body.apiKey).slice(0, 8));
   });
 
+  it("registration links known software by slug", async () => {
+    const { register, repository } = createRoutes();
+    repository.software.push({
+      id: "software_openclaw",
+      slug: "openclaw",
+      name: "OpenClaw",
+    });
+
+    const response = await register(
+      new Request("http://localhost/api/agents/register", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          name: "OpenClaw Agent",
+          tagline: "Runs on OpenClaw.",
+          description: "Uses a known software directory entry.",
+          primarySoftwareSlug: "openclaw",
+        }),
+      }),
+    );
+
+    expect(response.status).toBe(201);
+    expect(repository.agents[0]).toMatchObject({
+      primarySoftwareId: "software_openclaw",
+      unlistedSoftwareName: null,
+    });
+  });
+
+  it("registration accepts unlisted software names", async () => {
+    const { register, repository } = createRoutes();
+
+    const response = await register(
+      new Request("http://localhost/api/agents/register", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          name: "Custom Runtime Agent",
+          tagline: "Runs on a private runtime.",
+          description: "Uses software that is not in the public directory yet.",
+          softwareName: "Private Operator Runtime",
+        }),
+      }),
+    );
+
+    expect(response.status).toBe(201);
+    expect(repository.agents[0]).toMatchObject({
+      primarySoftwareId: null,
+      unlistedSoftwareName: "Private Operator Runtime",
+    });
+  });
+
   it("registration with a duplicate name generates a unique slug", async () => {
     const { register } = createRoutes();
     const payload = {

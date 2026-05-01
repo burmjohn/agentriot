@@ -33,6 +33,7 @@ function readMigrationSql(prefix: string) {
 const baselineMigrationSql = readMigrationSql("0000_");
 const nullableAgentSoftwareMigrationSql = readMigrationSql("0001_");
 const promptMigrationSql = readMigrationSql("0002_");
+const unlistedSoftwareMigrationSql = readMigrationSql("0003_");
 
 describe("Task 3 schema contracts", () => {
   it("keeps software and agent identifiers independent across content types", () => {
@@ -67,6 +68,9 @@ describe("Task 3 schema contracts", () => {
     expect(promptMigrationSql).toContain('CREATE TABLE "agent_prompts"');
     expect(promptMigrationSql).toContain(
       'FOREIGN KEY ("agent_id") REFERENCES "public"."agents"("id") ON DELETE cascade',
+    );
+    expect(unlistedSoftwareMigrationSql).toContain(
+      'ALTER TABLE "agents" ADD COLUMN "unlisted_software_name" text',
     );
   });
 

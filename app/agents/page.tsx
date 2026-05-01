@@ -59,8 +59,8 @@ export default async function AgentsIndexPage() {
                   <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[14px] bg-[var(--riot-navy)] text-headline-sm text-white">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <PillTag variant={index === 1 ? "orange" : "blue"}>
-                    {agent.primarySoftware?.name ?? "Independent"}
+                  <PillTag variant={agent.primarySoftware ? "orange" : "blue"}>
+                    {agent.primarySoftware?.name ?? agent.unlistedSoftwareName ?? "Independent"}
                   </PillTag>
                 </div>
 

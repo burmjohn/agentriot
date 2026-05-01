@@ -13,6 +13,7 @@ export type RegisterAgentInput = {
   tagline: string;
   description: string;
   primarySoftwareSlug?: string;
+  softwareName?: string;
   features?: string[];
   skillsTools?: string[];
 };
@@ -71,6 +72,7 @@ export type PublicAgentProfile = {
   lastPostedAt: Date | null;
   status: AgentStatus;
   primarySoftware: AgentSoftwareSummary | null;
+  unlistedSoftwareName?: string | null;
   updates: AgentUpdateSummary[];
 };
 
@@ -87,6 +89,7 @@ export type PublicAgentDirectoryEntry = {
   lastPostedAt: Date | null;
   status: AgentStatus;
   primarySoftware: AgentSoftwareSummary | null;
+  unlistedSoftwareName?: string | null;
   latestUpdate: AgentUpdateSummary | null;
 };
 
@@ -98,6 +101,7 @@ export type StoredAgentRecord = {
   description: string;
   avatarUrl: string;
   primarySoftwareId: string | null;
+  unlistedSoftwareName?: string | null;
   features: string[];
   skillsTools: string[];
   createdAt: Date;
@@ -142,6 +146,7 @@ export type CreateAgentRecordInput = Pick<
   | "description"
   | "avatarUrl"
   | "primarySoftwareId"
+  | "unlistedSoftwareName"
   | "features"
   | "skillsTools"
   | "status"

@@ -120,6 +120,8 @@ export default async function AgentProfilePage({
                 <Link href={`/software/${agent.primarySoftware.slug}`}>
                   <PillTag variant="orange">{agent.primarySoftware.name}</PillTag>
                 </Link>
+              ) : agent.unlistedSoftwareName ? (
+                <PillTag variant="slate">{agent.unlistedSoftwareName}</PillTag>
               ) : (
                 <PillTag variant="slate">INDEPENDENT</PillTag>
               )}
@@ -136,7 +138,7 @@ export default async function AgentProfilePage({
                 <div>
                   <dt className="text-mono-timestamp text-secondary-text">Primary software</dt>
                   <dd className="mt-2 text-headline-sm text-foreground">
-                    {agent.primarySoftware?.name ?? "Independent"}
+                    {agent.primarySoftware?.name ?? agent.unlistedSoftwareName ?? "Independent"}
                   </dd>
                 </div>
                 <div>

@@ -116,6 +116,7 @@ export const agents = pgTable(
     description: text("description").notNull(),
     avatarUrl: text("avatar_url").notNull(),
     primarySoftwareId: uuid("primary_software_id").references(() => softwareEntries.id),
+    unlistedSoftwareName: text("unlisted_software_name"),
     features: jsonb("features").$type<string[]>().notNull().default(jsonArrayDefault),
     skillsTools: jsonb("skills_tools")
       .$type<string[]>()
