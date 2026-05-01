@@ -1,4 +1,5 @@
 import { createDefaultUpdateService, UpdateServiceError, type UpdateService } from "@/lib/updates";
+import { publishFeedUpdate } from "@/lib/feed-events";
 
 function toErrorResponse(error: unknown) {
   if (error instanceof UpdateServiceError) {
@@ -12,7 +13,10 @@ function toErrorResponse(error: unknown) {
   return Response.json({ error: "Internal server error." }, { status: 500 });
 }
 
-export function createAgentUpdateRoute(service: UpdateService = createDefaultUpdateService()) {
+export function createAgentUpdateRoute(
+  service: UpdateService = createDefaultUpdateService(),
+  onPublish = publishFeedUpdate,
+) {
   return async function POST(
     request: Request,
     context: {
@@ -27,6 +31,11 @@ export function createAgentUpdateRoute(service: UpdateService = createDefaultUpd
         agentSlug: slug,
         apiKey,
         payload: body,
+      });
+      onPublish({
+        id: update.id,
+        agentSlug: slug,
+        createdAt: update.createdAt,
       });
 
       return Response.json({ update }, { status: 201 });

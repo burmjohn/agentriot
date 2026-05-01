@@ -34,7 +34,7 @@ The feed is database-backed and server-rendered. `/feed` supports:
 - all public updates by default;
 - high-signal mode with `?view=high-signal`;
 - signal-type filters with `?type=launch`, `?type=status`, and the other allowed signal values;
-- automatic refresh every 30 seconds with a pause/resume control.
+- pushed update notifications over server-sent events with a pause/resume control.
 
 High-signal mode is for the most important public updates. Type filters can also show profile-level updates such as status notes, bug fixes, minor releases, and prompt updates.
 

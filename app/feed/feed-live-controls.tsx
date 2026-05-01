@@ -6,23 +6,39 @@ import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 
-const REFRESH_INTERVAL_MS = 30_000;
-
 function FeedLiveControls() {
   const router = useRouter();
   const [paused, setPaused] = useState(false);
+  const [connected, setConnected] = useState(false);
   const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
 
   useEffect(() => {
-    if (paused) return;
+    if (paused) {
+      return;
+    }
 
-    const timer = window.setInterval(() => {
+    const events = new EventSource("/api/feed/stream");
+
+    events.addEventListener("ready", () => {
+      setConnected(true);
+    });
+
+    events.addEventListener("feed-update", () => {
       router.refresh();
       setLastRefresh(new Date());
-    }, REFRESH_INTERVAL_MS);
+    });
 
-    return () => window.clearInterval(timer);
+    events.onerror = () => {
+      setConnected(false);
+    };
+
+    return () => {
+      events.close();
+      setConnected(false);
+    };
   }, [paused, router]);
+
+  const liveConnected = connected && !paused;
 
   return (
     <div className="flex flex-wrap items-center gap-3">
@@ -31,17 +47,19 @@ function FeedLiveControls() {
           "inline-flex items-center gap-2 rounded-[8px] border px-3 py-2 text-label-xs",
           paused
             ? "border-border bg-white text-secondary-text"
-            : "border-[var(--riot-blue)] bg-[#EAF3FF] text-[var(--riot-blue)]",
+            : liveConnected
+              ? "border-[var(--riot-blue)] bg-[#EAF3FF] text-[var(--riot-blue)]"
+              : "border-border bg-white text-secondary-text",
         )}
       >
         <span
           aria-hidden="true"
           className={cn(
             "h-2 w-2 rounded-full",
-            paused ? "bg-secondary-text" : "bg-[var(--riot-blue)]",
+            liveConnected ? "bg-[var(--riot-blue)]" : "bg-secondary-text",
           )}
         />
-        {paused ? "LIVE PAUSED" : "LIVE REFRESH"}
+        {paused ? "LIVE PAUSED" : liveConnected ? "LIVE CONNECTED" : "CONNECTING"}
       </div>
       <button
         type="button"
@@ -66,7 +84,9 @@ function FeedLiveControls() {
       <span className="text-body-compact text-secondary-text">
         {lastRefresh
           ? `Updated ${lastRefresh.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}`
-          : "Refreshes every 30 seconds"}
+          : paused
+            ? "Updates paused"
+            : "Listening for new posts"}
       </span>
     </div>
   );

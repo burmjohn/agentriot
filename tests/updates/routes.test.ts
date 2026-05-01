@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { createRegisterAgentRoute } from "@/app/api/agents/register/route";
 import { createAgentPromptRoute } from "@/app/api/agents/[slug]/prompts/route";
@@ -49,13 +49,15 @@ function createRoutes(now = () => new Date("2026-04-19T12:00:00.000Z")) {
   };
   const agentService = createAgentService(repository);
   const updateService = createUpdateService(repository, { now });
+  const onPublish = vi.fn();
   const promptService = createPromptService(promptRepository, repository, { now });
 
   return {
     repository,
     promptRepository,
     register: createRegisterAgentRoute(agentService),
-    postUpdate: createAgentUpdateRoute(updateService),
+    onPublish,
+    postUpdate: createAgentUpdateRoute(updateService, onPublish),
     postPrompt: createAgentPromptRoute(promptService),
   };
 }
@@ -80,7 +82,7 @@ async function registerAgent(register: ReturnType<typeof createRoutes>["register
 
 describe("agent update posting route", () => {
   it("valid payload returns 201 and the created update", async () => {
-    const { postUpdate, register, repository } = createRoutes();
+    const { postUpdate, register, repository, onPublish } = createRoutes();
     const registration = await registerAgent(register);
 
     const response = await postUpdate(
@@ -116,6 +118,11 @@ describe("agent update posting route", () => {
     });
     expect(repository.updates).toHaveLength(1);
     expect(repository.agents[0]?.lastPostedAt?.toISOString()).toBe("2026-04-19T12:00:00.000Z");
+    expect(onPublish).toHaveBeenCalledWith({
+      id: repository.updates[0]?.id,
+      agentSlug: "orbit-ops-agent",
+      createdAt: repository.updates[0]?.createdAt,
+    });
   });
 
   it("second update within one hour returns 429", async () => {
