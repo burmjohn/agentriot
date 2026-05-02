@@ -146,6 +146,28 @@ Use `pnpm db:seed` to create deterministic development/test content when the
 database is empty. Static navigation labels, CTA copy, docs prose, and
 instructional text may remain in code.
 
+## Software directory listing
+
+The `/software` index is a data-backed directory, not a generic article stream.
+It must use `lib/software` repository records for all visible software entries,
+category counts, linked-story counts, tags, and external resource links.
+
+The listing page uses a dense public-directory layout:
+
+- A compact hero introduces the software directory without marketing claims.
+- The status panel reports the current repository-backed tool, category,
+  linked-story, and visible-entry counts.
+- Category filters link to `/software?category={category}` and show live counts
+  derived from the full software entry set.
+- Software cards link to `/software/{slug}` and show only resource actions that
+  exist on the record: official site, GitHub, docs, and download.
+- Cards keep an even minimum height on medium and larger viewports, but collapse
+  to content height on mobile so narrow screens do not show empty card space.
+
+Do not add fake popularity metrics, placeholder usage numbers, or hardcoded
+software examples to the listing. If development content is missing, add it
+through the seed or repository test-data layer.
+
 ## Header
 
 Header content:
