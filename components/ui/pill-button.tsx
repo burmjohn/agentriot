@@ -31,16 +31,28 @@ const pillButtonVariants = cva(
 
 export interface PillButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof pillButtonVariants> {}
+    VariantProps<typeof pillButtonVariants> {
+  asChild?: boolean;
+}
 
 const PillButton = React.forwardRef<HTMLButtonElement, PillButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
+  ({ asChild = false, children, className, variant, size, ...props }, ref) => {
+    const classes = cn(pillButtonVariants({ variant, size, className }));
+
+    if (asChild && React.isValidElement<{ className?: string }>(children)) {
+      return React.cloneElement(children, {
+        className: cn(classes, children.props.className),
+      });
+    }
+
     return (
       <button
         ref={ref}
-        className={cn(pillButtonVariants({ variant, size, className }))}
+        className={classes}
         {...props}
-      />
+      >
+        {children}
+      </button>
     );
   }
 );

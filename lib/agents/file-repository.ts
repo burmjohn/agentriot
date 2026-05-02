@@ -6,6 +6,7 @@ import { randomUUID } from "node:crypto";
 import type {
   AgentKeyLookup,
   AgentRepository,
+  ClaimLookup,
   PublicAgentDirectoryEntry,
   PublicAgentProfile,
   StoredAgentKeyRecord,
@@ -144,6 +145,20 @@ export function createFileAgentRepository(filePath: string): AgentRepository {
       return record;
     },
 
+    async updateAgentProfile(agentId, input) {
+      const store = await readStore(filePath);
+      const agent = store.agents.find((entry) => entry.id === agentId);
+
+      if (!agent) {
+        throw new Error(`Missing agent record for ${agentId}`);
+      }
+
+      Object.assign(agent, input);
+      await writeStore(filePath, store);
+
+      return agent;
+    },
+
     async findAgentKeyByHash(keyHash) {
       const store = await readStore(filePath);
       const key = store.keys.find((entry) => entry.keyHash === keyHash);
@@ -164,9 +179,110 @@ export function createFileAgentRepository(filePath: string): AgentRepository {
       } satisfies AgentKeyLookup;
     },
 
+    async rotateAgentKey(input) {
+      const store = await readStore(filePath);
+      let claim: StoredClaimRecord | null = null;
+
+      const revokeActiveKeys = () => {
+        let revokedCount = 0;
+
+        for (const key of store.keys) {
+          if (
+            key.agentId === input.agentId &&
+            key.isActive &&
+            (!input.expectedActiveKeyHash || key.keyHash === input.expectedActiveKeyHash)
+          ) {
+            key.isActive = false;
+            key.revokedAt = input.rotatedAt;
+            key.rotatedAt = input.rotatedAt;
+            revokedCount += 1;
+          }
+        }
+
+        return revokedCount;
+      };
+
+      if (input.expectedActiveKeyHash) {
+        const revokedCount = revokeActiveKeys();
+        if (revokedCount !== 1) {
+          return null;
+        }
+      }
+
+      if (input.claimId && input.nextClaimTokenHash && input.expectedClaimTokenHash) {
+        const current = store.claims.find((entry) => entry.id === input.claimId);
+
+        if (!current) {
+          throw new Error(`Missing claim record for ${input.claimId}`);
+        }
+
+        if (current.claimToken !== input.expectedClaimTokenHash) {
+          return null;
+        }
+
+        current.email = input.claimEmail ?? "";
+        current.claimedAt = input.rotatedAt;
+        current.claimToken = input.nextClaimTokenHash;
+        claim = current;
+      }
+
+      if (!input.expectedActiveKeyHash) {
+        revokeActiveKeys();
+      }
+
+      const key: StoredAgentKeyRecord = {
+        id: randomUUID(),
+        createdAt: new Date(),
+        revokedAt: null,
+        rotatedAt: null,
+        isActive: true,
+        agentId: input.agentId,
+        keyHash: input.keyHash,
+        keyPrefix: input.keyPrefix,
+      } satisfies StoredAgentKeyRecord;
+
+      store.keys.push(key);
+
+      if (input.claimId && input.nextClaimTokenHash && !input.expectedClaimTokenHash) {
+        const current = store.claims.find((entry) => entry.id === input.claimId);
+
+        if (!current) {
+          throw new Error(`Missing claim record for ${input.claimId}`);
+        }
+
+        current.email = input.claimEmail ?? "";
+        current.claimedAt = input.rotatedAt;
+        current.claimToken = input.nextClaimTokenHash;
+        claim = current;
+      }
+
+      await writeStore(filePath, store);
+      return { key, claim };
+    },
+
     async findClaimByAgentId(agentId) {
       const store = await readStore(filePath);
       return store.claims.find((claim) => claim.agentId === agentId) ?? null;
+    },
+
+    async findClaimByTokenHash(claimTokenHash) {
+      const store = await readStore(filePath);
+      const claim = store.claims.find((entry) => entry.claimToken === claimTokenHash);
+
+      if (!claim) {
+        return null;
+      }
+
+      const agent = store.agents.find((entry) => entry.id === claim.agentId);
+
+      if (!agent) {
+        return null;
+      }
+
+      return {
+        ...claim,
+        agentSlug: agent.slug,
+      } satisfies ClaimLookup;
     },
 
     async findUpdateBySlug(slug) {
@@ -278,7 +394,9 @@ export function createFileAgentRepository(filePath: string): AgentRepository {
 
     async getPublicAgentProfileBySlug(slug) {
       const store = await readStore(filePath);
-      const agent = store.agents.find((entry) => entry.slug === slug);
+      const agent = store.agents.find(
+        (entry) => entry.slug === slug && entry.status !== "banned",
+      );
 
       if (!agent) {
         return null;

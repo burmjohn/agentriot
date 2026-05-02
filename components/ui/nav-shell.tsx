@@ -40,6 +40,9 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
     ref
   ) => {
     const [drawerOpen, setDrawerOpen] = React.useState(false);
+    const toggleRef = React.useRef<HTMLButtonElement>(null);
+    const closeRef = React.useRef<HTMLButtonElement>(null);
+    const wasDrawerOpenRef = React.useRef(false);
     const pathname = usePathname() ?? "/";
     const resolvedLinks = React.useMemo(
       () =>
@@ -64,6 +67,13 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
 
     React.useEffect(() => {
       document.body.style.overflow = drawerOpen ? "hidden" : "";
+      if (drawerOpen) {
+        closeRef.current?.focus();
+      } else if (wasDrawerOpenRef.current) {
+        toggleRef.current?.focus();
+      }
+      wasDrawerOpenRef.current = drawerOpen;
+
       return () => {
         document.body.style.overflow = "";
       };
@@ -115,6 +125,9 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
                 type="button"
                 aria-label="Search"
                 className="inline-flex h-[46px] w-[46px] items-center justify-center rounded-[8px] bg-[#F2F5FA] text-[var(--riot-navy)] transition-colors hover:bg-[#E8EEF7] focus-visible:outline-focus-cyan"
+                onClick={() => {
+                  window.location.href = "/software";
+                }}
               >
                 <Search className="h-[18px] w-[18px]" />
               </button>
@@ -127,8 +140,11 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
             </div>
 
             <button
+              ref={toggleRef}
               type="button"
               aria-label="Open navigation menu"
+              aria-controls="mobile-nav-drawer"
+              aria-expanded={drawerOpen}
               data-testid="mobile-nav-toggle"
               className="inline-flex h-[44px] w-[44px] items-center justify-center rounded-[8px] bg-[#F2F5FA] text-[var(--riot-navy)] md:hidden"
               onClick={() => setDrawerOpen(true)}
@@ -147,6 +163,7 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
               onClick={() => setDrawerOpen(false)}
             />
             <div
+              id="mobile-nav-drawer"
               data-testid="mobile-nav-drawer"
               className="fixed inset-y-0 right-0 z-[70] flex w-full max-w-[340px] flex-col border-l border-[var(--riot-border)] bg-white"
               role="dialog"
@@ -170,6 +187,7 @@ const NavShell = React.forwardRef<HTMLElement, NavShellProps>(
                   />
                 </Link>
                 <button
+                  ref={closeRef}
                   type="button"
                   aria-label="Close navigation menu"
                   data-testid="mobile-nav-close"

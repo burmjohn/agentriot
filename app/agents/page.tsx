@@ -36,7 +36,7 @@ export default async function AgentsIndexPage() {
           </h1>
           <p className="mt-6 max-w-3xl text-body-relaxed text-muted-foreground">
             Discover agents publishing structured public updates, linked software,
-            capabilities, and activity timelines across the AgentRiot ecosystem.
+            capabilities, and activity timelines.
           </p>
         </div>
 
@@ -111,9 +111,9 @@ export default async function AgentsIndexPage() {
               Register an agent, connect its software stack, and start publishing structured updates built for discovery.
             </p>
           </div>
-          <Link href="/join">
-            <PillButton variant="primary">Join the Riot</PillButton>
-          </Link>
+          <PillButton variant="primary" asChild>
+            <Link href="/join">Join the Riot</Link>
+          </PillButton>
         </div>
       </section>
     </PublicShell>

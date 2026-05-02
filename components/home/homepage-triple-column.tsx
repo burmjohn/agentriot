@@ -6,8 +6,7 @@ export interface PromptItem {
   name: string;
   tag: string;
   description: string;
-  uses: number;
-  rating: number;
+  agentName?: string;
   href: string;
 }
 
@@ -58,43 +57,49 @@ export function HomepageTripleColumn({
   coverage,
   className,
 }: HomepageTripleColumnProps) {
+  const visiblePrompts = prompts.slice(0, 3);
+
   return (
     <section className={className}>
       <div className="grid grid-cols-3 gap-[24px] border-b border-[var(--riot-border)] py-8 max-lg:grid-cols-1 max-md:py-7">
         <div>
           <ColumnHeader title={content.prompts.title} cta={content.prompts.primaryCta} />
           <div className="space-y-2">
-            {prompts.slice(0, 3).map((prompt) => (
-              <Link
-                key={prompt.href}
-                href={prompt.href}
-                className="grid grid-cols-[40px_1fr] gap-3 rounded-[8px] border border-[var(--riot-border)] bg-white p-3 transition-colors hover:border-[var(--riot-blue)]"
-              >
-                <span className="flex h-[40px] w-[40px] items-center justify-center rounded-[8px] bg-[var(--riot-blue)] text-white">
-                  <TerminalSquare className="h-5 w-5" />
-                </span>
-                <span className="min-w-0">
-                  <span className="flex items-center gap-2">
-                    <strong className="truncate text-[14px] font-black text-[var(--riot-navy)]">
-                      {prompt.name}
-                    </strong>
-                    <span className="rounded-[3px] bg-[#EAF3FF] px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.05em] text-[var(--riot-blue)]">
-                      {prompt.tag}
+            {visiblePrompts.length > 0 ? (
+              visiblePrompts.map((prompt) => (
+                <Link
+                  key={prompt.href}
+                  href={prompt.href}
+                  className="grid grid-cols-[40px_1fr] gap-3 rounded-[8px] border border-[var(--riot-border)] bg-white p-3 transition-colors hover:border-[var(--riot-blue)]"
+                >
+                  <span className="flex h-[40px] w-[40px] items-center justify-center rounded-[8px] bg-[var(--riot-blue)] text-white">
+                    <TerminalSquare className="h-5 w-5" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="flex items-center gap-2">
+                      <strong className="truncate text-[14px] font-black text-[var(--riot-navy)]">
+                        {prompt.name}
+                      </strong>
+                      <span className="rounded-[3px] bg-[#EAF3FF] px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.05em] text-[var(--riot-blue)]">
+                        {prompt.tag}
+                      </span>
                     </span>
-                  </span>
-                  <span className="mt-1 block text-[12px] font-medium leading-[1.4] text-[var(--riot-body)]">
-                    {prompt.description}
-                  </span>
-                  <span className="mt-2 flex items-center justify-end gap-4 font-mono text-[10px] text-[var(--riot-muted)]">
-                    <span>{formatUses(prompt.uses)} uses</span>
-                    <span className="flex items-center gap-1">
-                      <Star className="h-3 w-3 fill-[var(--riot-navy)] text-[var(--riot-navy)]" />
-                      {prompt.rating}
+                    <span className="mt-1 block text-[12px] font-medium leading-[1.4] text-[var(--riot-body)]">
+                      {prompt.description}
                     </span>
+                    {prompt.agentName ? (
+                      <span className="mt-2 block truncate text-right font-mono text-[10px] font-bold uppercase tracking-[0.05em] text-[var(--riot-muted)]">
+                        {prompt.agentName}
+                      </span>
+                    ) : null}
                   </span>
-                </span>
-              </Link>
-            ))}
+                </Link>
+              ))
+            ) : (
+              <div className="rounded-[8px] border border-[var(--riot-border)] bg-white p-3 text-[12px] font-medium leading-[1.4] text-[var(--riot-body)]">
+                No public prompts are published yet.
+              </div>
+            )}
             <Link
               href={content.prompts.secondaryCta.href}
               className="inline-flex items-center gap-2 pt-2 font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--riot-navy)] hover:text-[var(--riot-blue)]"
@@ -203,8 +208,4 @@ function ColumnHeader({
       </Link>
     </div>
   );
-}
-
-function formatUses(uses: number) {
-  return `${(uses / 1000).toFixed(1)}K`;
 }

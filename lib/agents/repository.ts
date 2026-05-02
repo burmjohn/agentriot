@@ -8,12 +8,14 @@ import { agentClaims, agentKeys, agents, agentUpdates, softwareEntries } from "@
 import type {
   AgentKeyLookup,
   AgentRepository,
+  ClaimLookup,
   PublicAgentDirectoryEntry,
   PublicAgentProfile,
   StoredAgentKeyRecord,
   StoredAgentRecord,
   StoredClaimRecord,
   StoredSoftwareRecord,
+  UpdateAgentProfileRecordInput,
 } from "./types";
 import type {
   CreateAgentUpdateRecordInput,
@@ -99,6 +101,20 @@ export function createDatabaseAgentRepository(db: DatabaseClient = createDb()): 
       return mapKeyRow(record);
     },
 
+    async updateAgentProfile(agentId, input: UpdateAgentProfileRecordInput) {
+      const [record] = await db
+        .update(agents)
+        .set(input)
+        .where(eq(agents.id, agentId))
+        .returning();
+
+      if (!record) {
+        throw new Error(`Missing agent record for ${agentId}`);
+      }
+
+      return mapAgentRow(record);
+    },
+
     async findAgentKeyByHash(keyHash) {
       const [record] = await db
         .select({
@@ -126,6 +142,99 @@ export function createDatabaseAgentRepository(db: DatabaseClient = createDb()): 
         : null;
     },
 
+    async rotateAgentKey(input) {
+      return db.transaction(async (tx) => {
+        let claim: StoredClaimRecord | null = null;
+
+        const revokeActiveKeys = async () => {
+          const keyFilters = [
+            eq(agentKeys.agentId, input.agentId),
+            eq(agentKeys.isActive, true),
+          ];
+
+          if (input.expectedActiveKeyHash) {
+            keyFilters.push(eq(agentKeys.keyHash, input.expectedActiveKeyHash));
+          }
+
+          const revokedKeys = await tx
+            .update(agentKeys)
+            .set({
+              isActive: false,
+              revokedAt: input.rotatedAt,
+              rotatedAt: input.rotatedAt,
+            })
+            .where(and(...keyFilters))
+            .returning();
+
+          return revokedKeys.length;
+        };
+
+        if (input.expectedActiveKeyHash) {
+          const revokedCount = await revokeActiveKeys();
+          if (revokedCount !== 1) {
+            return null;
+          }
+        }
+
+        if (input.claimId && input.nextClaimTokenHash && input.expectedClaimTokenHash) {
+          const claimFilters = [eq(agentClaims.id, input.claimId)];
+          claimFilters.push(eq(agentClaims.claimToken, input.expectedClaimTokenHash));
+
+          const [updatedClaim] = await tx
+            .update(agentClaims)
+            .set({
+              email: input.claimEmail ?? "",
+              claimedAt: input.rotatedAt,
+              claimToken: input.nextClaimTokenHash,
+            })
+            .where(and(...claimFilters))
+            .returning();
+
+          if (!updatedClaim) {
+            return null;
+          }
+
+          claim = mapClaimRow(updatedClaim);
+        }
+
+        if (!input.expectedActiveKeyHash) {
+          await revokeActiveKeys();
+        }
+
+        const [key] = await tx
+          .insert(agentKeys)
+          .values({
+            agentId: input.agentId,
+            keyHash: input.keyHash,
+            keyPrefix: input.keyPrefix,
+          })
+          .returning();
+
+        if (input.claimId && input.nextClaimTokenHash && !input.expectedClaimTokenHash) {
+          const [updatedClaim] = await tx
+            .update(agentClaims)
+            .set({
+              email: input.claimEmail ?? "",
+              claimedAt: input.rotatedAt,
+              claimToken: input.nextClaimTokenHash,
+            })
+            .where(eq(agentClaims.id, input.claimId))
+            .returning();
+
+          if (!updatedClaim) {
+            throw new Error(`Missing claim record for ${input.claimId}`);
+          }
+
+          claim = mapClaimRow(updatedClaim);
+        }
+
+        return {
+          key: mapKeyRow(key),
+          claim,
+        };
+      });
+    },
+
     async findClaimByAgentId(agentId) {
       const [record] = await db
         .select()
@@ -135,6 +244,25 @@ export function createDatabaseAgentRepository(db: DatabaseClient = createDb()): 
         .limit(1);
 
       return record ? mapClaimRow(record) : null;
+    },
+
+    async findClaimByTokenHash(claimTokenHash) {
+      const [record] = await db
+        .select({
+          id: agentClaims.id,
+          agentId: agentClaims.agentId,
+          email: agentClaims.email,
+          claimedAt: agentClaims.claimedAt,
+          claimToken: agentClaims.claimToken,
+          isVerified: agentClaims.isVerified,
+          agentSlug: agents.slug,
+        })
+        .from(agentClaims)
+        .innerJoin(agents, eq(agentClaims.agentId, agents.id))
+        .where(eq(agentClaims.claimToken, claimTokenHash))
+        .limit(1);
+
+      return record ?? null;
     },
 
     async findUpdateBySlug(slug) {
@@ -289,7 +417,7 @@ export function createDatabaseAgentRepository(db: DatabaseClient = createDb()): 
         })
         .from(agents)
         .leftJoin(softwareEntries, eq(agents.primarySoftwareId, softwareEntries.id))
-        .where(eq(agents.slug, slug))
+        .where(and(eq(agents.slug, slug), ne(agents.status, "banned")))
         .limit(1);
 
       if (!record) {
@@ -331,7 +459,7 @@ export type MemoryAgentRepository = AgentRepository & {
   keys: StoredAgentKeyRecord[];
   claims: StoredClaimRecord[];
   software: StoredSoftwareRecord[];
-    updates: StoredAgentUpdateRecord[];
+  updates: StoredAgentUpdateRecord[];
 };
 
 export function createMemoryAgentRepository(
@@ -384,6 +512,17 @@ export function createMemoryAgentRepository(
       return record;
     },
 
+    async updateAgentProfile(agentId, input) {
+      const agent = repository.agents.find((record) => record.id === agentId);
+
+      if (!agent) {
+        throw new Error(`Missing agent record for ${agentId}`);
+      }
+
+      Object.assign(agent, input);
+      return agent;
+    },
+
     async findAgentKeyByHash(keyHash) {
       const key = repository.keys.find((record) => record.keyHash === keyHash);
 
@@ -403,8 +542,99 @@ export function createMemoryAgentRepository(
       } satisfies AgentKeyLookup;
     },
 
+    async rotateAgentKey(input) {
+      let claim: StoredClaimRecord | null = null;
+
+      const revokeActiveKeys = () => {
+        let revokedCount = 0;
+
+        for (const key of repository.keys) {
+          if (
+            key.agentId === input.agentId &&
+            key.isActive &&
+            (!input.expectedActiveKeyHash || key.keyHash === input.expectedActiveKeyHash)
+          ) {
+            key.isActive = false;
+            key.revokedAt = input.rotatedAt;
+            key.rotatedAt = input.rotatedAt;
+            revokedCount += 1;
+          }
+        }
+
+        return revokedCount;
+      };
+
+      if (input.expectedActiveKeyHash) {
+        const revokedCount = revokeActiveKeys();
+        if (revokedCount !== 1) {
+          return null;
+        }
+      }
+
+      if (input.claimId && input.nextClaimTokenHash && input.expectedClaimTokenHash) {
+        const current = repository.claims.find((record) => record.id === input.claimId);
+
+        if (!current) {
+          throw new Error(`Missing claim record for ${input.claimId}`);
+        }
+
+        if (current.claimToken !== input.expectedClaimTokenHash) {
+          return null;
+        }
+
+        current.email = input.claimEmail ?? "";
+        current.claimedAt = input.rotatedAt;
+        current.claimToken = input.nextClaimTokenHash;
+        claim = current;
+      }
+
+      if (!input.expectedActiveKeyHash) {
+        revokeActiveKeys();
+      }
+
+      const key = await repository.createAgentKey({
+        agentId: input.agentId,
+        keyHash: input.keyHash,
+        keyPrefix: input.keyPrefix,
+      });
+
+      if (input.claimId && input.nextClaimTokenHash && !input.expectedClaimTokenHash) {
+        const current = repository.claims.find((record) => record.id === input.claimId);
+
+        if (!current) {
+          throw new Error(`Missing claim record for ${input.claimId}`);
+        }
+
+        current.email = input.claimEmail ?? "";
+        current.claimedAt = input.rotatedAt;
+        current.claimToken = input.nextClaimTokenHash;
+        claim = current;
+      }
+
+      return { key, claim };
+    },
+
     async findClaimByAgentId(agentId) {
       return repository.claims.find((claim) => claim.agentId === agentId) ?? null;
+    },
+
+    async findClaimByTokenHash(claimTokenHash) {
+      const claim = repository.claims.find((record) => record.claimToken === claimTokenHash);
+
+      if (!claim) {
+        return null;
+      }
+
+      const agent = repository.agents.find((record) => record.id === claim.agentId);
+
+      if (!agent) {
+        return null;
+      }
+
+      return {
+        ...claim,
+        agentSlug: agent.slug,
+      } satisfies ClaimLookup;
     },
 
     async findUpdateBySlug(slug) {
@@ -498,7 +728,9 @@ export function createMemoryAgentRepository(
     },
 
     async getPublicAgentProfileBySlug(slug) {
-      const agent = repository.agents.find((record) => record.slug === slug);
+      const agent = repository.agents.find(
+        (record) => record.slug === slug && record.status !== "banned",
+      );
 
       if (!agent) {
         return null;

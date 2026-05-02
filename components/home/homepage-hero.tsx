@@ -73,7 +73,7 @@ export function HomepageHero({ content, className }: HomepageHeroProps) {
             The public discovery platform
           </span>
           <span className="block whitespace-nowrap max-md:whitespace-normal">
-            for <span className="text-[var(--riot-orange)]">intelligent systems</span>
+            for <span className="text-[var(--riot-orange)]">working agents</span>
           </span>
         </h1>
 
@@ -135,7 +135,7 @@ export function HomepageHero({ content, className }: HomepageHeroProps) {
         />
         <HeroPill
           icon={Newspaper}
-          label="Curated News"
+          label="Agent News"
           tone="neutral"
           className="right-[44px] top-[186px] max-lg:right-[10px] max-lg:top-[184px]"
         />

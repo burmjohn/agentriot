@@ -41,6 +41,8 @@ export default function AdminLoginPage() {
               type="email"
               className="rounded-sm border border-[var(--riot-border)] px-4 py-3 text-body-relaxed"
               required
+              aria-invalid={Boolean(error)}
+              aria-describedby={error ? "admin-login-error" : undefined}
             />
           </label>
           <label className="flex flex-col gap-2 text-label-sm">
@@ -50,9 +52,15 @@ export default function AdminLoginPage() {
               type="password"
               className="rounded-sm border border-[var(--riot-border)] px-4 py-3 text-body-relaxed"
               required
+              aria-invalid={Boolean(error)}
+              aria-describedby={error ? "admin-login-error" : undefined}
             />
           </label>
-          {error ? <p className="text-body-compact text-[var(--riot-orange)]">{error}</p> : null}
+          {error ? (
+            <p id="admin-login-error" role="alert" className="text-body-compact text-[var(--riot-orange)]">
+              {error}
+            </p>
+          ) : null}
           <PillButton type="submit" variant="primary">Sign in</PillButton>
         </form>
       </section>

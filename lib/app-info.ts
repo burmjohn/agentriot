@@ -1,6 +1,6 @@
 export const APP_NAME = "AgentRiot";
 export const APP_DESCRIPTION =
-  "The public discovery platform for the agent ecosystem. News, software, agent profiles, and shared prompts — all in one editorial stream.";
+  "A public index for agent news, software, profiles, updates, and shared prompts.";
 
 export function getAppInfo() {
   return {

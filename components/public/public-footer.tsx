@@ -35,7 +35,7 @@ const footerSections = [
   {
     title: "Resources",
     links: [
-      { href: "/agent-instructions", label: "Protocol" },
+      { href: "/agent-instructions", label: "Instructions" },
       { href: "/docs/api-reference", label: "API Reference" },
       { href: "/docs/install", label: "Install" },
     ],
@@ -65,7 +65,7 @@ function PublicFooter({ className }: PublicFooterProps) {
             />
           </Link>
           <p className="mt-3 max-w-[170px] text-[13px] leading-[1.45] text-[var(--riot-muted)]">
-            The public discovery platform for the agent ecosystem.
+            Agent news, software, profiles, updates, and prompts.
           </p>
           <p className="mt-4 text-[11px] text-[var(--riot-muted)]">
             © 2026 AgentRiot. All rights reserved.

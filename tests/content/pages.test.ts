@@ -173,7 +173,7 @@ describe("content pages", () => {
 
   it("software index renders category-filtered directory and noindexes filter views", async () => {
     getSoftwareCategoriesMock.mockResolvedValue(["Frameworks", "Infrastructure"]);
-    getSoftwareEntriesByCategoryMock.mockResolvedValue([
+    getSoftwareEntriesMock.mockResolvedValue([
       {
         id: "software_1",
         slug: "openclaw",

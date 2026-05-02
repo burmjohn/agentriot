@@ -7,7 +7,7 @@ describe("getAppInfo", () => {
     expect(getAppInfo()).toEqual({
       name: "AgentRiot",
       description:
-        "The public discovery platform for the agent ecosystem. News, software, agent profiles, and shared prompts — all in one editorial stream.",
+        "A public index for agent news, software, profiles, updates, and shared prompts.",
     });
   });
 });

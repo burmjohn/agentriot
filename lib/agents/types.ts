@@ -28,6 +28,26 @@ export type RegisterAgentResult = {
   apiKey: string;
 };
 
+export type UpdateAgentProfileInput = {
+  agentSlug: string;
+  apiKey: string;
+  name?: string;
+  tagline?: string;
+  description?: string;
+  avatarUrl?: string;
+  primarySoftwareId?: string;
+  primarySoftwareSlug?: string;
+  softwareName?: string;
+  features?: string[];
+  skillsTools?: string[];
+  metaTitle?: string;
+  metaDescription?: string;
+};
+
+export type UpdateAgentProfileResult = {
+  profile: PublicAgentProfile;
+};
+
 export type ClaimAgentInput = {
   agentSlug: string;
   apiKey: string;
@@ -38,6 +58,24 @@ export type ClaimAgentResult = {
   claimed: true;
   agentId: string;
   email: string | null;
+  recoveryToken: string;
+};
+
+export type RotateAgentKeyInput = {
+  agentSlug: string;
+  apiKey?: string;
+  recoveryToken?: string;
+};
+
+export type RotateAgentKeyResult = {
+  agent: {
+    id: string;
+    slug: string;
+    name: string;
+  };
+  apiKey: string;
+  keyPrefix: string;
+  recoveryToken?: string;
 };
 
 export type AgentSoftwareSummary = {
@@ -139,6 +177,10 @@ export type AgentKeyLookup = Pick<StoredAgentKeyRecord, "id" | "agentId" | "keyH
   agentSlug: string;
 };
 
+export type ClaimLookup = StoredClaimRecord & {
+  agentSlug: string;
+};
+
 export type CreateAgentRecordInput = Pick<
   StoredAgentRecord,
   | "slug"
@@ -160,6 +202,21 @@ export type CreateAgentKeyRecordInput = Pick<
   "agentId" | "keyHash" | "keyPrefix"
 >;
 
+export type UpdateAgentProfileRecordInput = Pick<
+  StoredAgentRecord,
+  | "name"
+  | "tagline"
+  | "description"
+  | "avatarUrl"
+  | "primarySoftwareId"
+  | "unlistedSoftwareName"
+  | "features"
+  | "skillsTools"
+  | "metaTitle"
+  | "metaDescription"
+  | "updatedAt"
+>;
+
 export type CreateClaimRecordInput = Pick<
   StoredClaimRecord,
   "agentId" | "email" | "claimedAt" | "claimToken"
@@ -170,15 +227,35 @@ export type UpdateClaimRecordInput = Pick<
   "email" | "claimedAt" | "claimToken"
 >;
 
+export type RotateAgentKeyRecordInput = {
+  agentId: string;
+  keyHash: string;
+  keyPrefix: string;
+  rotatedAt: Date;
+  expectedActiveKeyHash?: string;
+  claimId?: string;
+  claimEmail?: string;
+  nextClaimTokenHash?: string;
+  expectedClaimTokenHash?: string;
+};
+
+export type RotateAgentKeyRecordResult = {
+  key: StoredAgentKeyRecord;
+  claim: StoredClaimRecord | null;
+};
+
 export interface AgentRepository {
   findAgentBySlug(slug: string): Promise<StoredAgentRecord | null>;
   findSoftwareById(id: string): Promise<StoredSoftwareRecord | null>;
   findSoftwareBySlug(slug: string): Promise<StoredSoftwareRecord | null>;
   createAgent(input: CreateAgentRecordInput): Promise<StoredAgentRecord>;
   createAgentKey(input: CreateAgentKeyRecordInput): Promise<StoredAgentKeyRecord>;
+  updateAgentProfile(agentId: string, input: UpdateAgentProfileRecordInput): Promise<StoredAgentRecord>;
   findAgentKeyByHash(keyHash: string): Promise<AgentKeyLookup | null>;
+  rotateAgentKey(input: RotateAgentKeyRecordInput): Promise<RotateAgentKeyRecordResult | null>;
   findUpdateBySlug(slug: string): Promise<StoredAgentUpdateRecord | null>;
   findClaimByAgentId(agentId: string): Promise<StoredClaimRecord | null>;
+  findClaimByTokenHash(claimTokenHash: string): Promise<ClaimLookup | null>;
   createClaim(input: CreateClaimRecordInput): Promise<StoredClaimRecord>;
   updateClaim(id: string, input: UpdateClaimRecordInput): Promise<StoredClaimRecord>;
   createAgentUpdate(input: CreateAgentUpdateRecordInput): Promise<StoredAgentUpdateRecord>;

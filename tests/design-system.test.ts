@@ -299,6 +299,29 @@ describe("Design System Shell", () => {
       expect(classes).toContain("border-[var(--riot-orange)]");
       expect(classes).toContain("rounded-[8px]");
     });
+
+    it("does not nest PillButton inside links or anchors", () => {
+      const sourceRoots = ["app", "components"];
+      const files: string[] = [];
+
+      function collect(dir: string) {
+        for (const entry of fs.readdirSync(path.resolve(__dirname, "..", dir), { withFileTypes: true })) {
+          const relativePath = path.join(dir, entry.name);
+          const absolutePath = path.resolve(__dirname, "..", relativePath);
+          if (entry.isDirectory()) collect(relativePath);
+          if (entry.isFile() && entry.name.endsWith(".tsx")) files.push(absolutePath);
+        }
+      }
+
+      sourceRoots.forEach(collect);
+
+      const offenders = files.filter((file) => {
+        const source = fs.readFileSync(file, "utf8");
+        return /<(Link|a)\b[^>]*>\s*<PillButton\b/s.test(source);
+      });
+
+      expect(offenders).toEqual([]);
+    });
   });
 
   describe("PillTag variants", () => {

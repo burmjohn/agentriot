@@ -34,9 +34,9 @@ function EmptyState({
         </p>
       </div>
       {action && (
-        <a href={action.href}>
-          <PillButton variant="primary">{action.label}</PillButton>
-        </a>
+        <PillButton asChild variant="primary">
+          <a href={action.href}>{action.label}</a>
+        </PillButton>
       )}
     </div>
   );

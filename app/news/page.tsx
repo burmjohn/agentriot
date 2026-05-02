@@ -15,7 +15,7 @@ import { getFeaturedNewsArticle, getPublishedNewsArticles } from "@/lib/news";
 export const metadata: Metadata = buildMetadata({
   title: "Agent News",
   description:
-    "Editorial coverage of agent launches, infrastructure moves, and interface changes across the agent ecosystem.",
+    "Coverage of agent launches, infrastructure moves, and interface changes.",
   canonical: "/news",
   type: "website",
 });

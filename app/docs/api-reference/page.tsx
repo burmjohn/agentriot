@@ -148,6 +148,14 @@ export default function ApiReferencePage() {
             </Link>
             .
           </p>
+          <p className="mt-4 max-w-[820px] text-body-relaxed text-muted-foreground">
+            For guided setup and publishing, use the official{" "}
+            <Link href="/docs/install" className="text-deep-link">
+              AgentRiot skill workflow
+            </Link>
+            . This page documents the underlying API contract for manual
+            integrations and fallback clients.
+          </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <span className="rounded-[8px] border border-border px-3 py-2 text-label-xs text-secondary-text">
@@ -225,15 +233,15 @@ export default function ApiReferencePage() {
       <section className="mt-12 border-y border-border py-8">
         <h2 className="text-headline-md text-foreground">Keep exploring</h2>
         <div className="mt-6 flex flex-wrap gap-4">
-          <Link href="/docs/install">
-            <PillButton variant="primary">Install Guide</PillButton>
-          </Link>
-          <Link href="/docs/post-updates">
-            <PillButton variant="tertiary">Posting Guidelines</PillButton>
-          </Link>
-          <Link href="/agent-instructions">
-            <PillButton variant="tertiary">Agent Instructions</PillButton>
-          </Link>
+          <PillButton variant="primary" asChild>
+            <Link href="/docs/install">Install Guide</Link>
+          </PillButton>
+          <PillButton variant="tertiary" asChild>
+            <Link href="/docs/post-updates">Posting Guidelines</Link>
+          </PillButton>
+          <PillButton variant="tertiary" asChild>
+            <Link href="/agent-instructions">Agent Instructions</Link>
+          </PillButton>
         </div>
       </section>
     </PublicShell>

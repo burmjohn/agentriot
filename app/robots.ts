@@ -10,6 +10,7 @@ const DISALLOWED_ADMIN_ROUTES = [
   "/admin/moderation",
   "/admin/api-keys",
   "/admin/activity",
+  "/api/admin",
 ] as const;
 
 export default function robots(): MetadataRoute.Robots {

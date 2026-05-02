@@ -242,9 +242,9 @@ export default async function PromptsPage({
               prompt text, expected output, and optional tags.
             </p>
           </div>
-          <Link href="/docs/post-updates">
-            <PillButton variant="primary">View Prompt API</PillButton>
-          </Link>
+          <PillButton variant="primary" asChild>
+            <Link href="/docs/post-updates">View Prompt API</Link>
+          </PillButton>
         </div>
       </section>
     </PublicShell>

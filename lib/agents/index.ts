@@ -21,14 +21,20 @@ export type {
   AgentUpdateSummary,
   ClaimAgentInput,
   ClaimAgentResult,
+  ClaimLookup,
   PublicAgentDirectoryEntry,
   PublicAgentProfile,
   RegisterAgentInput,
   RegisterAgentResult,
+  RotateAgentKeyInput,
+  RotateAgentKeyResult,
   StoredAgentKeyRecord,
   StoredAgentRecord,
   StoredClaimRecord,
   StoredSoftwareRecord,
+  UpdateAgentProfileInput,
+  UpdateAgentProfileRecordInput,
+  UpdateAgentProfileResult,
 } from "./types";
 
 import { createDefaultAgentService } from "./service";

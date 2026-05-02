@@ -4,6 +4,7 @@ const getPublicGlobalFeedPageMock = vi.fn();
 const getFeaturedNewsArticleMock = vi.fn();
 const getPublishedNewsArticlesMock = vi.fn();
 const getSoftwareEntriesMock = vi.fn();
+const getPublicAgentPromptsMock = vi.fn();
 
 vi.mock("@/lib/updates", () => ({
   getPublicGlobalFeedPage: getPublicGlobalFeedPageMock,
@@ -16,6 +17,10 @@ vi.mock("@/lib/news", () => ({
 
 vi.mock("@/lib/software", () => ({
   getSoftwareEntries: getSoftwareEntriesMock,
+}));
+
+vi.mock("@/lib/prompts", () => ({
+  getPublicAgentPrompts: getPublicAgentPromptsMock,
 }));
 
 function mockContent() {
@@ -83,6 +88,34 @@ function mockContent() {
       metaDescription: null,
     },
   ]);
+  getPublicAgentPromptsMock.mockResolvedValue([
+    {
+      id: "prompt_1",
+      agentId: "agent_1",
+      agentName: "Atlas Research Agent",
+      agentSlug: "atlas-research-agent",
+      slug: "release-risk-brief",
+      title: "Release risk brief",
+      description: "Turns public release notes into an operator-ready risk summary.",
+      prompt: "Review the public release notes.",
+      expectedOutput: "A concise brief.",
+      tags: ["release", "risk"],
+      createdAt: new Date("2026-04-19T15:00:00.000Z"),
+    },
+    {
+      id: "prompt_2",
+      agentId: "agent_2",
+      agentName: "RelayOps Agent",
+      agentSlug: "relayops-agent",
+      slug: "incident-recovery-summary",
+      title: "Incident recovery summary",
+      description: "Summarizes an agent operations incident safely.",
+      prompt: "Convert incident notes into a public-safe summary.",
+      expectedOutput: "A public-safe incident note.",
+      tags: ["operations"],
+      createdAt: new Date("2026-04-18T16:00:00.000Z"),
+    },
+  ]);
 }
 
 describe("homepage", () => {
@@ -91,6 +124,7 @@ describe("homepage", () => {
     getFeaturedNewsArticleMock.mockReset();
     getPublishedNewsArticlesMock.mockReset();
     getSoftwareEntriesMock.mockReset();
+    getPublicAgentPromptsMock.mockReset();
     mockContent();
   });
 
@@ -108,7 +142,7 @@ describe("homepage", () => {
 
     expect(markup).toContain("THE PUBLIC DISCOVERY PLATFORM");
     expect(markup).toContain("THE PUBLIC DISCOVERY PLATFORM FOR");
-    expect(markup).toContain("INTELLIGENT SYSTEMS");
+    expect(markup).toContain("WORKING AGENTS");
     expect(markup).toContain("Join the Riot");
     expect(markup).toContain("Browse the Feed");
     expect(markup).not.toContain("Trusted by builders at");
@@ -134,6 +168,9 @@ describe("homepage", () => {
     expect(markup).toContain("/images/homepage/featured-story-network.svg");
 
     expect(markup).toContain("View All");
+    expect(markup).toContain("Release risk brief");
+    expect(markup).toContain("Atlas Research Agent");
+    expect(markup).toContain('href="/prompts/release-risk-brief"');
     expect(markup).toContain("Live Agent Activity");
     expect(markup).toContain("View Full Feed");
     expect(markup).not.toContain("AutoGPT");
@@ -223,18 +260,19 @@ describe("homepage", () => {
     expect(markup).toContain('href="/prompts"');
     expect(markup).not.toContain('href="/explore"');
     expect(markup).not.toContain('href="/protocol"');
-    expect(markup).toContain('href="/agent-instructions/research-assistant"');
+    expect(markup).not.toContain('href="/agent-instructions/research-assistant"');
+    expect(markup).not.toContain('href="/agent-instructions/code-reviewer"');
+    expect(markup).not.toContain('href="/agent-instructions/market-analyst"');
+    expect(markup).toContain('href="/prompts/release-risk-brief"');
+    expect(markup).toContain('href="/prompts/incident-recovery-summary"');
     expect(markup).toContain('href="/software/openclaw"');
     expect(markup).toContain('href="/news/openclaw-ships-control-plane"');
-    expect(markup).toContain(
-      'href="/agent-instructions/research-assistant"'
-    );
   });
 
   it("has SEO metadata", async () => {
     const pageModule = await import("@/app/page");
     expect(pageModule.metadata).toBeDefined();
     expect(pageModule.metadata.title).toContain("AgentRiot");
-    expect(pageModule.metadata.description).toContain("agent ecosystem");
+    expect(pageModule.metadata.description).toContain("agent software");
   });
 });

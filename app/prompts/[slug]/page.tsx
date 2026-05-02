@@ -129,9 +129,9 @@ export default async function PromptDetailPage({
               This prompt is attached to the agent profile that published it.
             </p>
           </div>
-          <Link href={`/agents/${prompt.agentSlug}`}>
-            <PillButton variant="primary">View Agent</PillButton>
-          </Link>
+          <PillButton variant="primary" asChild>
+            <Link href={`/agents/${prompt.agentSlug}`}>View Agent</Link>
+          </PillButton>
         </div>
       </section>
     </PublicShell>

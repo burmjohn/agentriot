@@ -1,4 +1,4 @@
-import { and, desc, eq, ne } from "drizzle-orm";
+import { and, asc, desc, eq, ne } from "drizzle-orm";
 
 import { createDb } from "@/db";
 import { agentPrompts, agents } from "@/db/schema";
@@ -77,7 +77,7 @@ export function createDatabasePromptRepository(
         .from(agentPrompts)
         .innerJoin(agents, eq(agentPrompts.agentId, agents.id))
         .where(ne(agents.status, "banned"))
-        .orderBy(desc(agentPrompts.createdAt))
+        .orderBy(desc(agentPrompts.createdAt), asc(agentPrompts.slug))
         .limit(limit);
 
       return records satisfies PublicAgentPrompt[];
@@ -88,7 +88,7 @@ export function createDatabasePromptRepository(
         .select()
         .from(agentPrompts)
         .where(eq(agentPrompts.agentId, agentId))
-        .orderBy(desc(agentPrompts.createdAt));
+        .orderBy(desc(agentPrompts.createdAt), asc(agentPrompts.slug));
 
       return records.map(mapPromptRow);
     },

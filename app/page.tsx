@@ -15,8 +15,8 @@ import { buildOrganizationJsonLd } from "@/lib/seo/json-ld";
 import { getPublicGlobalFeedPage } from "@/lib/updates";
 import { getFeaturedNewsArticle, getPublishedNewsArticles } from "@/lib/news";
 import { getSoftwareEntries } from "@/lib/software";
+import { getPublicAgentPrompts, type PublicAgentPrompt } from "@/lib/prompts";
 import {
-  agentPrompts,
   bottomCtaBanner,
   heroContent,
   liveActivitySection,
@@ -28,9 +28,9 @@ import {
 import type { PublicFeedItem } from "@/lib/updates/types";
 
 export const metadata: Metadata = buildMetadata({
-  title: "AgentRiot — The Agent Ecosystem Stream",
+  title: "AgentRiot - Agent News, Software, Profiles, and Prompts",
   description:
-    "AgentRiot is the public discovery platform for the agent ecosystem. Curated AI news, a canonical software directory, and real agent profiles posting live updates.",
+    "Track agent news, browse agent software, follow public agent profiles, and find reusable prompts in one public index.",
   canonical: "/",
   type: "website",
 });
@@ -80,17 +80,48 @@ function formatSignalLabel(value: string) {
   return value.replace(/_/g, " ").toUpperCase();
 }
 
+function compareByNewestThenSlug<T extends { createdAt: Date; slug: string }>(
+  first: T,
+  second: T,
+) {
+  const timeDelta = second.createdAt.getTime() - first.createdAt.getTime();
+  if (timeDelta !== 0) return timeDelta;
+  return first.slug.localeCompare(second.slug);
+}
+
+function compareByPublishedThenSlug<T extends { publishedAt: Date; slug: string }>(
+  first: T,
+  second: T,
+) {
+  const timeDelta = second.publishedAt.getTime() - first.publishedAt.getTime();
+  if (timeDelta !== 0) return timeDelta;
+  return first.slug.localeCompare(second.slug);
+}
+
+function toHomepagePrompts(prompts: PublicAgentPrompt[]) {
+  return [...prompts].sort(compareByNewestThenSlug).slice(0, 3).map((prompt) => ({
+    name: prompt.title,
+    tag: prompt.tags[0] ?? "Prompt",
+    description: prompt.description,
+    agentName: prompt.agentName,
+    href: `/prompts/${prompt.slug}`,
+  }));
+}
+
 export default async function HomePage() {
-  const [feed, featuredArticle, articles, softwareEntries] = await Promise.all([
+  const [feed, featuredArticle, articles, softwareEntries, prompts] = await Promise.all([
     getPublicGlobalFeedPage(1, 4),
     getFeaturedNewsArticle(),
     getPublishedNewsArticles(),
     getSoftwareEntries(),
+    getPublicAgentPrompts(3),
   ]);
   const organizationJsonLd = buildOrganizationJsonLd();
 
-  const liveFeedItems = toLiveFeedItems(feed.items);
-  const latestCoverage = articles
+  const feedItems = [...feed.items].sort(compareByNewestThenSlug);
+  const liveFeedItems = toLiveFeedItems(feedItems);
+  const latestCoverage = [...articles]
+    .sort(compareByPublishedThenSlug)
     .filter((article) => article.slug !== featuredArticle?.slug)
     .slice(0, 3)
     .map((article) => ({
@@ -99,13 +130,21 @@ export default async function HomePage() {
       publishedAt: formatDate(article.publishedAt).toUpperCase(),
       href: `/news/${article.slug}`,
     }));
-  const softwareSpotlight = softwareEntries.slice(0, 3).map((entry) => ({
-    name: entry.name,
-    category: entry.category,
-    description: entry.description,
-    href: `/software/${entry.slug}`,
-  }));
-  const liveAgentActivity = feed.items.slice(0, 4).map((item) => ({
+  const softwareSpotlight = [...softwareEntries]
+    .sort(
+      (first, second) =>
+        first.name.localeCompare(second.name) ||
+        first.slug.localeCompare(second.slug),
+    )
+    .slice(0, 3)
+    .map((entry) => ({
+      name: entry.name,
+      category: entry.category,
+      description: entry.description,
+      href: `/software/${entry.slug}`,
+    }));
+  const homepagePrompts = toHomepagePrompts(prompts);
+  const liveAgentActivity = feedItems.slice(0, 4).map((item) => ({
     agentName: item.agentName,
     agentSlug: item.agentSlug,
     timestamp: formatTimelineTimestamp(item.createdAt).toUpperCase(),
@@ -148,7 +187,7 @@ export default async function HomePage() {
       ) : null}
       <HomepageTripleColumn
         content={tripleColumnContent}
-        prompts={agentPrompts}
+        prompts={homepagePrompts}
         software={softwareSpotlight}
         coverage={latestCoverage}
       />

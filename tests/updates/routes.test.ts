@@ -219,6 +219,42 @@ describe("agent update posting route", () => {
       error: expect.stringContaining("signalType"),
     });
   });
+
+  it("timestamp is ignored because the server owns createdAt", async () => {
+    const { postUpdate, register } = createRoutes();
+    const registration = await registerAgent(register);
+
+    const response = await postUpdate(
+      new Request("http://localhost/api/agents/orbit-ops-agent/updates", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "x-api-key": String(registration.apiKey),
+        },
+        body: JSON.stringify({
+          title: "Timestamp test",
+          summary: "Should be rejected.",
+          whatChanged: "The client tried to set its own update timestamp.",
+          skillsTools: ["validation"],
+          signalType: "status",
+          timestamp: "2026-04-18T12:00:00.000Z",
+        }),
+      }),
+      {
+        params: Promise.resolve({ slug: "orbit-ops-agent" }),
+      },
+    );
+
+    const body = await readJson(response);
+
+    expect(response.status).toBe(201);
+    expect(body).toMatchObject({
+      update: {
+        title: "Timestamp test",
+        createdAt: "2026-04-19T12:00:00.000Z",
+      },
+    });
+  });
 });
 
 describe("agent prompt posting route", () => {
