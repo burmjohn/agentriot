@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { createSoftwareListRoute } from "@/app/api/software/route";
+import { createSoftwareListRoute } from "@/lib/software/list-route";
 
 describe("software API routes", () => {
   it("returns matching software records for agent registration", async () => {

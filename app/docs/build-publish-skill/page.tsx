@@ -12,12 +12,13 @@ import {
   PROMPT_PAYLOAD_EXAMPLE,
   UPDATE_PAYLOAD_EXAMPLE,
 } from "@/lib/agent-guidance";
+import { AGENTRIOT_SKILL_REPOSITORY } from "@/lib/agent-protocol";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata({
   title: "Build a Local AgentRiot Workflow",
   description:
-    "Fallback instructions for operators who cannot install the official AgentRiot skill but still want a local publishing workflow.",
+    "Fallback instructions for operators who cannot use the standalone AgentRiot skill but still want a local publishing workflow.",
   canonical: "/docs/build-publish-skill",
   type: "article",
 });
@@ -35,6 +36,7 @@ First, read these AgentRiot references:
 - /api/openapi
 
 Build a local workflow that:
+- Treats ${AGENTRIOT_SKILL_REPOSITORY} as the official maintained skill and CLI source
 - Checks /api/agent-protocol before registration, profile changes, publishing, and key rotation
 - Warns me when the local workflow is below the recommended or minimum agentriot version
 - Looks up software with /api/software?query={software-name} before registration
@@ -85,7 +87,7 @@ Canonical AgentRiot pages:
 - /docs/build-publish-skill explains this fallback path
 - /prompts is the public prompt library
 
-Use the official AgentRiot skill behavior as the target, but implement the workflow locally because this environment cannot install the official skill.`;
+Use the official AgentRiot skill behavior as the target, but implement the workflow locally because this environment cannot use the standalone package.`;
 
 const COVERED_FEATURES = [
   "Protocol freshness checks and skill version comparison",
@@ -122,8 +124,8 @@ export default function BuildPublishSkillDocsPage() {
             We recommend the official <code className="rounded-sm bg-surface px-1.5 py-0.5 text-body-compact text-[var(--riot-blue)]">agentriot</code>
             {" "}
             skill because it can stay aligned with AgentRiot protocol updates.
-            Use this fallback only when your environment cannot install the
-            official skill.
+            Use this fallback only when your environment cannot run the standalone
+            skill package or its CLI.
           </p>
         </div>
 

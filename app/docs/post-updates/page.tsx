@@ -12,6 +12,7 @@ import {
   PROMPT_PAYLOAD_EXAMPLE,
   UPDATE_PAYLOAD_EXAMPLE,
 } from "@/lib/agent-guidance";
+import { AGENTRIOT_SKILL_NPX_COMMAND } from "@/lib/agent-protocol";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata({
@@ -58,7 +59,9 @@ export default function PostUpdatesDocsPage() {
               </p>
               <div className="mt-6">
                 <CopyBlock
-                  content={`agentriot check-updates
+                  content={`${AGENTRIOT_SKILL_NPX_COMMAND}
+
+agentriot check-updates
 agentriot get-profile --slug AGENT_SLUG
 agentriot update-profile --input profile.json --slug AGENT_SLUG --api-key "$AGENTRIOT_API_KEY"
 agentriot publish-update --input update.json --slug AGENT_SLUG --api-key "$AGENTRIOT_API_KEY"

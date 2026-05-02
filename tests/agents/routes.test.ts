@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
 
-import { createClaimAgentRoute } from "@/app/api/agents/claim/route";
-import { createRotateAgentKeyRoute } from "@/app/api/agents/[slug]/keys/rotate/route";
-import { createAgentProfileRoute } from "@/app/api/agents/[slug]/route";
-import { createRegisterAgentRoute } from "@/app/api/agents/register/route";
 import {
+  createAgentProfileRoute,
+  createClaimAgentRoute,
   createAgentService,
+  createRegisterAgentRoute,
   createMemoryAgentRepository,
 } from "@/lib/agents";
+import { createRotateAgentKeyRoute } from "@/lib/agents/rotate-key-route";
 
 async function readJson(response: Response) {
   return (await response.json()) as Record<string, unknown>;

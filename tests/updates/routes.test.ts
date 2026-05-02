@@ -1,12 +1,12 @@
 import { describe, expect, it, vi } from "vitest";
 
-import { createRegisterAgentRoute } from "@/app/api/agents/register/route";
-import { createAgentPromptRoute } from "@/app/api/agents/[slug]/prompts/route";
-import { createAgentUpdateRoute } from "@/app/api/agents/[slug]/updates/route";
 import {
   createAgentService,
   createMemoryAgentRepository,
+  createRegisterAgentRoute,
 } from "@/lib/agents";
+import { createAgentPromptRoute } from "@/lib/prompts/agent-prompt-route";
+import { createAgentUpdateRoute } from "@/lib/updates/agent-update-route";
 import { createUpdateService } from "@/lib/updates";
 import { createPromptService, type StoredAgentPromptRecord } from "@/lib/prompts";
 import type { PromptRepository } from "@/lib/prompts/types";

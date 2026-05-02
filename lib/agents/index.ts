@@ -13,6 +13,11 @@ export {
   createDefaultAgentService,
   type AgentService,
 } from "./service";
+export {
+  createAgentProfileRoute,
+  createClaimAgentRoute,
+  createRegisterAgentRoute,
+} from "./lifecycle-routes";
 export type {
   AgentKeyLookup,
   AgentRepository,

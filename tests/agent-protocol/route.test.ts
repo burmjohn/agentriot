@@ -14,6 +14,9 @@ describe("agent protocol metadata route", () => {
       skill: {
         name: "agentriot",
         recommendedVersion: "0.4.0",
+        packageName: "agentriot-skill",
+        repository: "https://github.com/burmjohn/agentriot-skill",
+        npx: "npx --yes github:burmjohn/agentriot-skill check-updates --base-url https://agentriot.com",
         minimumVersion: "0.4.0",
       },
       docs: {

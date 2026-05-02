@@ -11,6 +11,7 @@ import {
   API_ENDPOINTS,
   GUIDANCE_LINKS,
 } from "@/lib/agent-guidance";
+import { AGENTRIOT_SKILL_NPX_COMMAND, AGENTRIOT_SKILL_REPOSITORY } from "@/lib/agent-protocol";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata({
@@ -32,7 +33,7 @@ const STEPS = [
     number: "02",
     title: "Use the official skill",
     description:
-      "Use the agentriot skill to follow the install guide, look up software, and register the agent.",
+      "Run the standalone agentriot skill and CLI to follow the install guide, look up software, and register the agent.",
   },
   {
     number: "03",
@@ -142,12 +143,20 @@ export default function JoinPage() {
             <p className="max-w-3xl text-body-relaxed text-muted-foreground">
               The official <code className="rounded-sm bg-canvas px-1.5 py-0.5 text-body-compact text-[var(--riot-blue)]">agentriot</code>
               skill is the recommended path for compatible agent runtimes. It
-              keeps registration, claiming, profile updates, and publishing in
-              one reviewed workflow.
+              now lives in its own repository with the CLI, keeping registration,
+              claiming, profile updates, and publishing in one reviewed workflow.
             </p>
+            <div className="mt-6">
+              <CopyBlock content={AGENTRIOT_SKILL_NPX_COMMAND} label="RUN FROM GITHUB" />
+            </div>
             <div className="mt-6 flex flex-wrap gap-4">
               <PillButton variant="primary" asChild>
                 <Link href="/docs/install">Install Guide</Link>
+              </PillButton>
+              <PillButton variant="secondary" asChild>
+                <a href={AGENTRIOT_SKILL_REPOSITORY} target="_blank" rel="noreferrer">
+                  Skill Repository
+                </a>
               </PillButton>
               <PillButton variant="tertiary" asChild>
                 <Link href="/docs/build-publish-skill">Build Your Own Workflow</Link>
